@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端开发,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="网页布局 静态布局意思就是只是针对某个屏幕下设计的网页，当屏幕大小改变时，页面布局不会发生变化，就像经常所看到的滚动条。 自适应布局特点是分别为不同的屏幕设置布局格式，当屏幕大小改变时，会出现不同的布局，意思就是在这个屏幕下这个元素块在这个地方，但是在那个屏幕下，这个元素块又会出现在那个地方。只是布局改变，元素不变。可以看成是不同屏幕下由多个静态布局组成的。 使用了媒体查询1&amp;lt;meta na">
+<meta name="keywords" content="前端开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="各种方式进行网页布局">
+<meta property="og:url" content="http://yoursite.com/2018/05/03/layouts/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="网页布局 静态布局意思就是只是针对某个屏幕下设计的网页，当屏幕大小改变时，页面布局不会发生变化，就像经常所看到的滚动条。 自适应布局特点是分别为不同的屏幕设置布局格式，当屏幕大小改变时，会出现不同的布局，意思就是在这个屏幕下这个元素块在这个地方，但是在那个屏幕下，这个元素块又会出现在那个地方。只是布局改变，元素不变。可以看成是不同屏幕下由多个静态布局组成的。 使用了媒体查询1&amp;lt;meta na">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://static.zybuluo.com/CatcherInSky/sd1k8clps2hayppx8bo7gf98/v2-e281d015d4ea562473a2c34c0bc32374_hd.jpg">
+<meta property="og:updated_time" content="2019-03-04T09:37:22.250Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="各种方式进行网页布局">
+<meta name="twitter:description" content="网页布局 静态布局意思就是只是针对某个屏幕下设计的网页，当屏幕大小改变时，页面布局不会发生变化，就像经常所看到的滚动条。 自适应布局特点是分别为不同的屏幕设置布局格式，当屏幕大小改变时，会出现不同的布局，意思就是在这个屏幕下这个元素块在这个地方，但是在那个屏幕下，这个元素块又会出现在那个地方。只是布局改变，元素不变。可以看成是不同屏幕下由多个静态布局组成的。 使用了媒体查询1&amp;lt;meta na">
+<meta name="twitter:image" content="http://static.zybuluo.com/CatcherInSky/sd1k8clps2hayppx8bo7gf98/v2-e281d015d4ea562473a2c34c0bc32374_hd.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/03/layouts/">
+
+
+
+
+
+  <title>各种方式进行网页布局 | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Knowlegde Bases of CatcherInSky</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">CatcherInSky的前端知识客栈</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/03/layouts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">各种方式进行网页布局</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-03T10:40:26+08:00">
+                2018-05-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
+                    <span itemprop="name">FrontEnd</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="网页布局"><a href="#网页布局" class="headerlink" title="网页布局"></a>网页布局</h1><hr>
+<h2 id="静态布局"><a href="#静态布局" class="headerlink" title="静态布局"></a>静态布局</h2><p>意思就是只是针对某个屏幕下设计的网页，当屏幕大小改变时，页面布局不会发生变化，就像经常所看到的滚动条。</p>
+<h2 id="自适应布局"><a href="#自适应布局" class="headerlink" title="自适应布局"></a>自适应布局</h2><p>特点是分别为不同的屏幕设置布局格式，当屏幕大小改变时，会出现不同的布局，意思就是在这个屏幕下这个元素块在这个地方，但是在那个屏幕下，这个元素块又会出现在那个地方。只是布局改变，元素不变。可以看成是不同屏幕下由多个静态布局组成的。</p>
+<p>使用了媒体查询<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="流式布局"><a href="#流式布局" class="headerlink" title="流式布局"></a>流式布局</h2><p>特点是随着屏幕的改变，页面的布局没有发生大的变化，可以进行适配调整，这个正好与自适应布局相补。</p>
+<p>PC端常见布局<br><img src="http://static.zybuluo.com/CatcherInSky/sd1k8clps2hayppx8bo7gf98/v2-e281d015d4ea562473a2c34c0bc32374_hd.jpg" alt="v2-e281d015d4ea562473a2c34c0bc32374_hd.jpg-22.3kB"></p>
+<h3 id="浮动布局float"><a href="#浮动布局float" class="headerlink" title="浮动布局float"></a>浮动布局float</h3><p>BFC 即 Block Formatting Contexts (块级格式化上下文)<br>Formatting context(格式化上下文) 是 W3C CSS2.1 规范中的一个概念。它是页面中的一块渲染区域，并且有一套渲染规则，它决定了其子元素将如何定位，以及和其他元素的关系和相互作用。<br>具有 BFC 特性的元素可以看作是隔离了的独立容器，容器里面的元素不会在布局上影响到外面的元素，并且 BFC 具有普通容器所没有的一些特性。</p>
+<p>只要元素满足下面任一条件即可触发 BFC 特性：</p>
+<ol>
+<li>body 根元素</li>
+<li>浮动元素：float 除 none 以外的值</li>
+<li>绝对定位元素：position (absolute、fixed)</li>
+<li>display 为 inline-block、table-cells、flex</li>
+<li>overflow 除了 visible 以外的值 (hidden、auto、scroll)</li>
+</ol>
+<p>特性</p>
+<ol>
+<li>同一个 BFC 下外边距会发生折叠</li>
+<li>BFC 可以包含浮动的元素（清除浮动，使浮动在BFC盒子内）</li>
+<li>BFC 可以阻止元素被浮动元素覆盖（清除浮动，BFC盒子内不受外部浮动影响）</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt;float&lt;/title&gt;</span><br><span class="line">  &lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">    body&#123;</span><br><span class="line">      background-color: black;</span><br><span class="line">    &#125;</span><br><span class="line">    .left&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:red;</span><br><span class="line">    &#125;</span><br><span class="line">    .right&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:yellow;</span><br><span class="line">    &#125;</span><br><span class="line">    .mid&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:blue;</span><br><span class="line">    &#125;</span><br><span class="line">    .top&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:green;</span><br><span class="line">    &#125;</span><br><span class="line">    .bottom&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:purple;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .float .left&#123;</span><br><span class="line">      width:300px;</span><br><span class="line">      float:left;</span><br><span class="line">    &#125;</span><br><span class="line">    .float .right&#123;</span><br><span class="line">      width:25%;</span><br><span class="line">      float:right;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/style&gt;   </span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div class=&quot;float&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;top&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;left&quot;&gt;FL&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;right&quot;&gt;FR&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;mid&quot;&gt;FM&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;bottom&quot;&gt;&lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="定位布局position"><a href="#定位布局position" class="headerlink" title="定位布局position"></a>定位布局position</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt;position&lt;/title&gt;</span><br><span class="line">  &lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">    body&#123;</span><br><span class="line">      background-color: black;</span><br><span class="line">    &#125;</span><br><span class="line">    .left&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:red;</span><br><span class="line">    &#125;</span><br><span class="line">    .right&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:yellow;</span><br><span class="line">    &#125;</span><br><span class="line">    .mid&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:blue;</span><br><span class="line">    &#125;</span><br><span class="line">    .top&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:green;</span><br><span class="line">    &#125;</span><br><span class="line">    .bottom&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:purple;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .position .left&#123;</span><br><span class="line">      width:300px;</span><br><span class="line">      position: absolute;</span><br><span class="line">      left:8px;</span><br><span class="line">    &#125;</span><br><span class="line">    .position .right&#123;</span><br><span class="line">      width:25%;</span><br><span class="line">      position: absolute;</span><br><span class="line">      right:8px;</span><br><span class="line">    &#125;</span><br><span class="line">    .position .mid&#123;</span><br><span class="line">      margin:0 25% 0 300px;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/style&gt;   </span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div class=&quot;position&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;top&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;left&quot;&gt;PL&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;right&quot;&gt;PR&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;mid&quot;&gt;PM&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;bottom&quot;&gt;&lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="表格布局table"><a href="#表格布局table" class="headerlink" title="表格布局table"></a>表格布局table</h3><p>缺点：</p>
+<ol>
+<li>table比其它html标记占更多的字节。(造成下载时间延迟,占用服务器更多流量资源)</li>
+<li>table会阻挡浏览器渲染引擎的渲染顺序。(会延迟页面的生成速度,让用户等待更久的时间)</li>
+<li>table里显示图片时需要你把单个、有逻辑性的的图片切成多个图。(增加设计的复杂度,增加页面加载时间,增加http会话数)</li>
+<li>在某些浏览器中,table里的文字的拷贝会出现问题。(会让用户不悦)</li>
+<li>table会影响其内部的某些布局属性的生效(比如<td>里的元素的height:100%) (限制页面设计的自由性)</td></li>
+<li>一旦学了CSS的知识,你会发现使用table做页面布局会变得更麻烦。(先花时间学一些CSS知识,会省去你以后大量的时间)</li>
+<li>‘table对’对于页面布局来说,从语义上看是不正确的。(它描述的是表现,而不是内容)</li>
+<li>table代码会让阅读者抓狂。(不但无法利用CSS,而且会不知所云,尤其在进行页面改版或内容抽取的时候)</li>
+<li>table一旦设计完成就变成死的,很难通过CSS让它展现新的面貌。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt;table&lt;/title&gt;</span><br><span class="line">  &lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">    body&#123;</span><br><span class="line">      background-color: black;</span><br><span class="line">    &#125;</span><br><span class="line">    .left&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:red;</span><br><span class="line">    &#125;</span><br><span class="line">    .right&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:yellow;</span><br><span class="line">    &#125;</span><br><span class="line">    .mid&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:blue;</span><br><span class="line">    &#125;</span><br><span class="line">    .top&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:green;</span><br><span class="line">    &#125;</span><br><span class="line">    .bottom&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:purple;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    table&#123;</span><br><span class="line">      width:100%;</span><br><span class="line">    &#125;</span><br><span class="line">    table .left&#123;</span><br><span class="line">      width:300px;</span><br><span class="line">    &#125;</span><br><span class="line">    table .mid&#123;</span><br><span class="line">      margin:0 25%;</span><br><span class="line">    &#125;</span><br><span class="line">    table .right&#123;</span><br><span class="line">      width:25%;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/style&gt;   </span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;table&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">      &lt;td class=&quot;top&quot;  colspan=&quot;3&quot;&gt;&lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">      &lt;td class=&quot;left&quot;&gt;TL&lt;/td&gt;</span><br><span class="line">      &lt;td class=&quot;mid&quot;&gt;TM&lt;/td&gt;</span><br><span class="line">      &lt;td class=&quot;right&quot;&gt;TR&lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">      &lt;td class=&quot;bottom&quot;  colspan=&quot;3&quot;&gt;&lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">  &lt;/table&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="弹性布局flex"><a href="#弹性布局flex" class="headerlink" title="弹性布局flex"></a>弹性布局flex</h3><p>弹性布局重点在单一横排和单一竖排的样式应用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt;flex&lt;/title&gt;</span><br><span class="line">  &lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">    body&#123;</span><br><span class="line">      background-color: black;</span><br><span class="line">    &#125;</span><br><span class="line">    .left&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:red;</span><br><span class="line">    &#125;</span><br><span class="line">    .right&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:yellow;</span><br><span class="line">    &#125;</span><br><span class="line">    .mid&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:blue;</span><br><span class="line">    &#125;</span><br><span class="line">    .top&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:green;</span><br><span class="line">    &#125;</span><br><span class="line">    .bottom&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:purple;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .flex&#123;</span><br><span class="line">      display:flex;</span><br><span class="line">       flex-direction: column;</span><br><span class="line">    &#125;</span><br><span class="line">    .flex .top,.flex .bottom&#123;</span><br><span class="line">      flex:1;</span><br><span class="line">    &#125;</span><br><span class="line">    .flex .main&#123;</span><br><span class="line">      display: flex;</span><br><span class="line">    &#125;</span><br><span class="line">    .flex .mid&#123;</span><br><span class="line">      flex:1;</span><br><span class="line">    &#125;</span><br><span class="line">    .flex .left&#123;</span><br><span class="line">      width:300px;</span><br><span class="line">      min-width: 100px;</span><br><span class="line">    &#125;</span><br><span class="line">    .flex .right&#123;</span><br><span class="line">      width:25%;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/style&gt;   </span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div class=&quot;flex&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;top&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;main&quot;&gt;</span><br><span class="line">      &lt;div class=&quot;left&quot;&gt;FL&lt;/div&gt;</span><br><span class="line">      &lt;div class=&quot;mid&quot;&gt;FM&lt;/div&gt;</span><br><span class="line">      &lt;div class=&quot;right&quot;&gt;FR&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;bottom&quot;&gt;&lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="网格布局grid"><a href="#网格布局grid" class="headerlink" title="网格布局grid"></a>网格布局grid</h3><p>grid-area是应用的重点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt;grid&lt;/title&gt;</span><br><span class="line">  &lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">    body&#123;</span><br><span class="line">      background-color: black;</span><br><span class="line">    &#125;</span><br><span class="line">    .left&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:red;</span><br><span class="line">    &#125;</span><br><span class="line">    .right&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:yellow;</span><br><span class="line">    &#125;</span><br><span class="line">    .mid&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:blue;</span><br><span class="line">    &#125;</span><br><span class="line">    .top&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:green;</span><br><span class="line">    &#125;</span><br><span class="line">    .bottom&#123;</span><br><span class="line">      height:300px;</span><br><span class="line">      background-color:purple;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .top&#123;</span><br><span class="line">    	grid-area: top;</span><br><span class="line">    &#125;</span><br><span class="line">    .left&#123;</span><br><span class="line">    	grid-area: left;</span><br><span class="line">    &#125;</span><br><span class="line">    .mid&#123;</span><br><span class="line">    	grid-area: mid;</span><br><span class="line">    &#125;</span><br><span class="line">    .right&#123;</span><br><span class="line">    	grid-area: right;</span><br><span class="line">    &#125;</span><br><span class="line">    .bottom&#123;</span><br><span class="line">    	grid-area: bottom;</span><br><span class="line">    &#125;</span><br><span class="line">    .grid&#123;</span><br><span class="line">      display: grid;</span><br><span class="line">      grid-template-columns:  300px  3fr 1fr;</span><br><span class="line">      grid-template-rows:auto;</span><br><span class="line">      grid-template-areas:  &quot;top top top&quot;</span><br><span class="line">      						&quot;left mid right&quot;</span><br><span class="line">      						&quot;bottom bottom bottom&quot;</span><br><span class="line">      						;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/style&gt;   </span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div class=&quot;grid&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;top&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;left&quot;&gt;GL&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;mid&quot;&gt;GM&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;right&quot;&gt;GR&lt;/div&gt;</span><br><span class="line">  &lt;div class=&quot;bottom&quot;&gt;&lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h2><p>就是分别为不同的屏幕设计的布局方式，可以理解成自适应布局和流程布局的结合。</p>
+<p>媒体查询+各类流式布局</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@media (max-width: 1200px) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在响应式编程中，比较难处理的就是图片。需要针对不同设备的分辨率进行适配，同时要保持较好的兼容性。在处理图片时，有以下的小技巧：</p>
+<ol>
+<li>为图像使用相对尺寸，防止它们意外溢出容器。</li>
+<li>如果您要根据设备特性（亦称艺术指导）指定不同图像，则使用 picture 元素。</li>
+<li>在 img 元素中使用 srcset 及 x 描述符，引导浏览器从不同密度图像中选择、使用最佳的一张。</li>
+<li>如果您的页面仅有一两个图像，且这些图像没有在您的网站上的其他地方使用，可考虑使用内联图像以减少文件请求。</li>
+<li>我们一个一个来说这些技巧。首先是为图像使用相对尺寸，跟前面的为元素使用相对尺寸一样，防止在小屏幕设备上溢出容器，可以使用 max-width: 100% 来保证图像及其他内容不会从父容器上溢出。同时，为了提高可访问性，需要为img元素添加有意义的alt描述。</li>
+</ol>
+<p>其次是img元素的srcset属性，这个属性非常有用，可以针对不同设备特性提供多种图片文件。如果浏览器支持srcset属性，则会在进行任何请求之前对逗号分隔的图像/条件列表进行解析，并且只会下载和显示最合适的图像。在使用时，为了能够兼容不支持srcset属性的浏览器，还需要为img元素指定src。就像下面这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;lighthouse.jpg&quot;srcset=&quot;lighthouse.jpg , lighthouse-2x.jpg 2x&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>另一个很有用的元素是picture，其能根据设备特性更改图像，picture元素定义了一个声明性解决办法，可根据设备大小、设备分辨率、屏幕方向等不同特性来提供一个图像的多个版本，就像video元素一样，可以指定多个源。为了保持兼容以及默认的情况，还可以在picture元素里面嵌套img，非常好用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;picture&gt;</span><br><span class="line">  &lt;source media=&quot;(min-width: 800px)&quot; srcset=&quot;head.jpg, head-2x.jpg 2x&quot;&gt;</span><br><span class="line">  &lt;source media=&quot;(min-width: 450px)&quot; srcset=&quot;head-small.jpg, head-small-2x.jpg 2x&quot;&gt;</span><br><span class="line">  &lt;img src=&quot;head-fb.jpg&quot; srcset=&quot;head-fb-2x.jpg 2x&quot; alt=&quot;a head carved out of wood&quot;&gt;</span><br><span class="line">&lt;/picture&gt;</span><br></pre></td></tr></table></figure></p>
+<p>同时，在处理图片时，为了减少请求，我们还可以内联图片资源。常见的方案是base64及内联SVG，内联SVG除了能够减少请求外，还能够保持页面缩放时，图片不失真。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端开发/" rel="tag"># 前端开发</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/16/git/" rel="next" title="Git入门">
+                <i class="fa fa-chevron-left"></i> Git入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/13/regexp/" rel="prev" title="RegExp正则表达式">
+                RegExp正则表达式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">CatcherInSky</p>
+              <p class="site-description motion-element" itemprop="description">CatcherInSky的前端知识客栈</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网页布局"><span class="nav-number">1.</span> <span class="nav-text">网页布局</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#静态布局"><span class="nav-number">1.1.</span> <span class="nav-text">静态布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自适应布局"><span class="nav-number">1.2.</span> <span class="nav-text">自适应布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流式布局"><span class="nav-number">1.3.</span> <span class="nav-text">流式布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#浮动布局float"><span class="nav-number">1.3.1.</span> <span class="nav-text">浮动布局float</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定位布局position"><span class="nav-number">1.3.2.</span> <span class="nav-text">定位布局position</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表格布局table"><span class="nav-number">1.3.3.</span> <span class="nav-text">表格布局table</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弹性布局flex"><span class="nav-number">1.3.4.</span> <span class="nav-text">弹性布局flex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网格布局grid"><span class="nav-number">1.3.5.</span> <span class="nav-text">网格布局grid</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#响应式布局"><span class="nav-number">1.4.</span> <span class="nav-text">响应式布局</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

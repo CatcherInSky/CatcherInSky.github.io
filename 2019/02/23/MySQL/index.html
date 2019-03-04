@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SQL,DataBase,MySQL,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MySQL操作一览标签（空格分隔）： SQL  BY wid一、概念  SQL即为Structured Query Language(结构化查询语言)  MySQL 为关系型数据库(Relational Database Management System), 这种所谓的”关系型”可以理解为”表格”的概念, 一个关系型数据库由一个或数个表格组成, 如图所示的一个表格:  表头(header): 每">
+<meta name="keywords" content="SQL,DataBase,MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL操作一览">
+<meta property="og:url" content="http://yoursite.com/2019/02/23/MySQL/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="MySQL操作一览标签（空格分隔）： SQL  BY wid一、概念  SQL即为Structured Query Language(结构化查询语言)  MySQL 为关系型数据库(Relational Database Management System), 这种所谓的”关系型”可以理解为”表格”的概念, 一个关系型数据库由一个或数个表格组成, 如图所示的一个表格:  表头(header): 每">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://images.cnitblog.com/blog/453818/201305/09030127-13657abaf11945d1916297e6d23f2ec9.png">
+<meta property="og:updated_time" content="2019-03-04T09:44:28.353Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL操作一览">
+<meta name="twitter:description" content="MySQL操作一览标签（空格分隔）： SQL  BY wid一、概念  SQL即为Structured Query Language(结构化查询语言)  MySQL 为关系型数据库(Relational Database Management System), 这种所谓的”关系型”可以理解为”表格”的概念, 一个关系型数据库由一个或数个表格组成, 如图所示的一个表格:  表头(header): 每">
+<meta name="twitter:image" content="http://images.cnitblog.com/blog/453818/201305/09030127-13657abaf11945d1916297e6d23f2ec9.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/23/MySQL/">
+
+
+
+
+
+  <title>MySQL操作一览 | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Knowlegde Bases of CatcherInSky</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">CatcherInSky的前端知识客栈</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/MySQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL操作一览</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-23T20:50:45+08:00">
+                2019-02-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="MySQL操作一览"><a href="#MySQL操作一览" class="headerlink" title="MySQL操作一览"></a>MySQL操作一览</h1><p>标签（空格分隔）： SQL</p>
+<hr>
+<h2 id="BY-wid"><a href="#BY-wid" class="headerlink" title="BY wid"></a>BY <a href="http://www.cnblogs.com/mr-wid/archive/2013/05/09/3068229.html" target="_blank" rel="noopener">wid</a></h2><h2 id="一、概念"><a href="#一、概念" class="headerlink" title="一、概念"></a>一、概念</h2><p>  SQL即为Structured Query Language(结构化查询语言)<br>  MySQL 为关系型数据库(Relational Database Management System), 这种所谓的”关系型”可以理解为”表格”的概念, 一个关系型数据库由一个或数个表格组成, 如图所示的一个表格:<br><img src="http://images.cnitblog.com/blog/453818/201305/09030127-13657abaf11945d1916297e6d23f2ec9.png" alt="此处输入图片的描述"></p>
+<ul>
+<li>表头(header): 每一列的名称;</li>
+<li>列(column): 具有相同数据类型的数据的集合;</li>
+<li>行(row): 每一行用来描述某个人/物的具体信息;</li>
+<li>值(value): 行的具体信息,每个值必须与该列的数据类型相同;</li>
+<li>键(key): 表中用来识别某个特定的人\物的方法,键的值在当前列中具有唯一性。<h2 id="一、安装信息"><a href="#一、安装信息" class="headerlink" title="一、安装信息"></a>一、安装信息</h2>配置的端口：3306</li>
+</ul>
+<p>用户：Root:539450;CatcherInSky:zxc123</p>
+<p>Windows Service Name: MySQL57</p>
+<p>服务：控制面板-&gt;系统与安全-&gt;管理工具-&gt;服务 可停用、重启与卸载MySQL服务</p>
+<p>路径：C:\Program Files\MySQL\MySQL Server 5.7\bin</p>
+<h2 id="二、基础操作"><a href="#二、基础操作" class="headerlink" title="二、基础操作"></a>二、基础操作</h2><h3 id="1-用户行为"><a href="#1-用户行为" class="headerlink" title="1.用户行为"></a>1.用户行为</h3><ul>
+<li><h4 id="2-1-1-登录"><a href="#2-1-1-登录" class="headerlink" title="2.1.1.登录"></a>2.1.1.登录</h4>cmd进入安装路径，输入<blockquote>
+<p>mysql -D 数据库名 -h 主机名 -u 用户名 -p；</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="2-库的操作"><a href="#2-库的操作" class="headerlink" title="2.库的操作"></a>2.库的操作</h3><ul>
+<li><h4 id="2-2-1创建数据库"><a href="#2-2-1创建数据库" class="headerlink" title="2.2.1创建数据库"></a>2.2.1创建数据库</h4><blockquote>
+<p>create database 数据库名 其它选项；</p>
+</blockquote>
+</li>
+<li><h4 id="2-2-2查看数据库"><a href="#2-2-2查看数据库" class="headerlink" title="2.2.2查看数据库"></a>2.2.2查看数据库</h4><blockquote>
+<p>show databases；</p>
+</blockquote>
+</li>
+<li><h4 id="2-2-3登录数据库"><a href="#2-2-3登录数据库" class="headerlink" title="2.2.3登录数据库"></a>2.2.3登录数据库</h4><blockquote>
+<p>use 数据库名（库声明）;</p>
+</blockquote>
+<p>  声明如： character set gbk 可将数据库字符编码指定为 gbk</p>
+</li>
+<li><h4 id="2-2-4删除数据库"><a href="#2-2-4删除数据库" class="headerlink" title="2.2.4删除数据库"></a>2.2.4删除数据库</h4><blockquote>
+<p>drop database 数据库名;</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="表的操作"><a href="#表的操作" class="headerlink" title=".表的操作"></a>.表的操作</h3><ul>
+<li><h4 id="2-3-1创建数据库表"><a href="#2-3-1创建数据库表" class="headerlink" title="2.3.1创建数据库表"></a>2.3.1创建数据库表</h4><blockquote>
+<p>create table 表名称(列声明);</p>
+</blockquote>
+<p>  对于一些较长的语句在命令提示符下可能容易输错,因此我们可以通过任何文本编辑器将语句输入好后保存为 createtable.sql 的文件中, 通过命令提示符下的文件重定向执行执行该脚本。</p>
+<blockquote>
+<p>mysql -D samp_db -u root -p &lt; createtable.sql；</p>
+</blockquote>
+<p>  (提示: 1.如果连接远程主机请加上 -h 指令; 2. 该文件若不在当前工作目录下需指定文件的完整路径。)</p>
+<p>  列声明首项为列的名称后面为数据类型描述。</p>
+</li>
+<li><h4 id="2-3-2查看数据库表"><a href="#2-3-2查看数据库表" class="headerlink" title="2.3.2查看数据库表"></a>2.3.2查看数据库表</h4><p>  查看所有表名称</p>
+<blockquote>
+<p>show tables;</p>
+</blockquote>
+<p>  查看某个表的详细信息</p>
+<blockquote>
+<p>describe 表名;</p>
+</blockquote>
+</li>
+<li><h4 id="2-3-4删除数据库表"><a href="#2-3-4删除数据库表" class="headerlink" title="2.3.4删除数据库表"></a>2.3.4删除数据库表</h4><blockquote>
+<p>drop table 表名;</p>
+</blockquote>
+</li>
+<li><h4 id="2-3-5重命名数据库表"><a href="#2-3-5重命名数据库表" class="headerlink" title="2.3.5重命名数据库表"></a>2.3.5重命名数据库表</h4><blockquote>
+<p>alter table 表名 rename 新表名;</p>
+</blockquote>
+</li>
+<li><h4 id="2-3-6修改数据库表"><a href="#2-3-6修改数据库表" class="headerlink" title="2.3.6修改数据库表"></a>2.3.6修改数据库表</h4><p>alter table 语句用于创建后对表的修改, 基础用法如下:</p>
+<ul>
+<li><p>2.3.6.1添加列</p>
+<blockquote>
+<p>alter table 表名 add 列名 列数据类型 [after 插入位置];</p>
+</blockquote>
+<p>示例:在表的最后追加列 address: </p>
+<blockquote>
+<p>alter table students add address char(60);</p>
+</blockquote>
+<p>示例：在名为 age 的列后插入列 </p>
+<blockquote>
+<p>birthday: alter table students add birthday date after age;</p>
+</blockquote>
+</li>
+<li><p>2.3.6.2修改列</p>
+<blockquote>
+<p>alter table 表名 change 列名称 列新名称 新数据类型;</p>
+</blockquote>
+<p>示例：将表 tel 列改名为 telphone</p>
+<blockquote>
+<p>alter table students change tel telphone char(13) default “-“;</p>
+</blockquote>
+<p>示例：将 name 列的数据类型改为 char(16)</p>
+<blockquote>
+<p>alter table students change name name char(16) not null;</p>
+</blockquote>
+</li>
+<li><p>2.3.6.3删除列</p>
+<blockquote>
+<p>alter table 表名 drop 列名称;</p>
+</blockquote>
+<p>示例:删除 birthday 列: </p>
+<blockquote>
+<p>alter table students drop birthday;</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-值的操作"><a href="#4-值的操作" class="headerlink" title="4.值的操作"></a>4.值的操作</h3><ul>
+<li><h4 id="2-4-1插入数据"><a href="#2-4-1插入数据" class="headerlink" title="2.4.1插入数据"></a>2.4.1插入数据</h4><blockquote>
+<p>insert [into] 表名 [(列名1, 列名2, …)] values (值1, 值2,  …);</p>
+</blockquote>
+<p>从第一列数据开始写全部数据</p>
+<blockquote>
+<p>insert into students values(NULL, “王刚”, “男”, 20,”13811371377”);</p>
+</blockquote>
+<p>从某列开始写部分数据</p>
+<blockquote>
+<p>insert into students (name, sex, age) values(“孙丽华”, “女”, 21);</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><h4 id="2-4-2查询表中的数据"><a href="#2-4-2查询表中的数据" class="headerlink" title="2.4.2查询表中的数据"></a>2.4.2查询表中的数据</h4><blockquote>
+<p>select 列名称 from 表名称 where 特定条件;</p>
+</blockquote>
+<p>  也可以使用通配符 * 查询表中所有的内容。where 子句不仅仅支持 “where 列名 = 值” 这种名等于值的查询形式,对一般的比较运算的运算符都是支持的, 例如 =、&gt;、&lt;、&gt;=、&lt;、!=以及一些扩展运算符 is [not] null、in、like 等等。 还可以对查询条件使用 or 和 and 进行组合查询</p>
+<p>  示例:查询年龄在21岁以上的所有人信息: </p>
+<blockquote>
+<p>select * from students where age &gt; 21;</p>
+</blockquote>
+<p>  示例:查询名字中带有 “王” 字的所有人信息: </p>
+<blockquote>
+<p>select * from students where name like “%王%”;</p>
+</blockquote>
+<p>  示例:查询id小于5且年龄大于20的所有人信息: </p>
+<blockquote>
+<p>select * from students where id<5 and age>20;</5></p>
+</blockquote>
+</li>
+<li><h4 id="2-4-3更新表中的数据"><a href="#2-4-3更新表中的数据" class="headerlink" title="2.4.3更新表中的数据"></a>2.4.3更新表中的数据</h4><blockquote>
+<p>update 表名称 set 列名称=新值 更新条件;</p>
+</blockquote>
+</li>
+<li><h4 id="2-4-4删除表中数据"><a href="#2-4-4删除表中数据" class="headerlink" title="2.4.4删除表中数据"></a>2.4.4删除表中数据</h4><blockquote>
+<p>delete from 表名称 where 删除条件;</p>
+</blockquote>
+<p>不加条件删除所有数据</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SQL/" rel="tag"># SQL</a>
+          
+            <a href="/tags/DataBase/" rel="tag"># DataBase</a>
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/24/console/" rel="next" title="JavaScript Console 对象">
+                <i class="fa fa-chevron-left"></i> JavaScript Console 对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">CatcherInSky</p>
+              <p class="site-description motion-element" itemprop="description">CatcherInSky的前端知识客栈</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL操作一览"><span class="nav-number">1.</span> <span class="nav-text">MySQL操作一览</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BY-wid"><span class="nav-number">1.1.</span> <span class="nav-text">BY wid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、概念"><span class="nav-number">1.2.</span> <span class="nav-text">一、概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、安装信息"><span class="nav-number">1.3.</span> <span class="nav-text">一、安装信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、基础操作"><span class="nav-number">1.4.</span> <span class="nav-text">二、基础操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-用户行为"><span class="nav-number">1.4.1.</span> <span class="nav-text">1.用户行为</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-登录"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">2.1.1.登录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-库的操作"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.库的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1创建数据库"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">2.2.1创建数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2查看数据库"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">2.2.2查看数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3登录数据库"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">2.2.3登录数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-4删除数据库"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">2.2.4删除数据库</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表的操作"><span class="nav-number">1.4.3.</span> <span class="nav-text">.表的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1创建数据库表"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">2.3.1创建数据库表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2查看数据库表"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">2.3.2查看数据库表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-4删除数据库表"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">2.3.4删除数据库表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-5重命名数据库表"><span class="nav-number">1.4.3.4.</span> <span class="nav-text">2.3.5重命名数据库表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-6修改数据库表"><span class="nav-number">1.4.3.5.</span> <span class="nav-text">2.3.6修改数据库表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-值的操作"><span class="nav-number">1.4.4.</span> <span class="nav-text">4.值的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-1插入数据"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">2.4.1插入数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-2查询表中的数据"><span class="nav-number">1.4.4.2.</span> <span class="nav-text">2.4.2查询表中的数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-3更新表中的数据"><span class="nav-number">1.4.4.3.</span> <span class="nav-text">2.4.3更新表中的数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-4删除表中数据"><span class="nav-number">1.4.4.4.</span> <span class="nav-text">2.4.4删除表中数据</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
