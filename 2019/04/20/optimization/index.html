@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="性能优化标签（空格分隔）： 前端开发  #关键渲染路径  处理 HTML 标记并构建 DOM 树。 处理 CSS 标记并构建 CSSOM 树。(CSS 被视为阻塞渲染的资源，这意味着浏览器将不会渲染任何已处理的内容，直至 CSSOM 构建完毕。) 将 DOM 与 CSSOM 合并成一个渲染树。 根据渲染树来布局。 将各个节点绘制到屏幕上。当DOM或者CSSOM发生变化的时候，浏览器就需要再次执行一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:url" content="http://yoursite.com/2019/04/20/optimization/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="性能优化标签（空格分隔）： 前端开发  #关键渲染路径  处理 HTML 标记并构建 DOM 树。 处理 CSS 标记并构建 CSSOM 树。(CSS 被视为阻塞渲染的资源，这意味着浏览器将不会渲染任何已处理的内容，直至 CSSOM 构建完毕。) 将 DOM 与 CSSOM 合并成一个渲染树。 根据渲染树来布局。 将各个节点绘制到屏幕上。当DOM或者CSSOM发生变化的时候，浏览器就需要再次执行一">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="file://C:/Users/PC/Documents/Gridea/post-images/1555682015122.jpg">
+<meta property="og:updated_time" content="2019-04-20T01:14:19.928Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Knowlegde Bases of CatcherInSky">
+<meta name="twitter:description" content="性能优化标签（空格分隔）： 前端开发  #关键渲染路径  处理 HTML 标记并构建 DOM 树。 处理 CSS 标记并构建 CSSOM 树。(CSS 被视为阻塞渲染的资源，这意味着浏览器将不会渲染任何已处理的内容，直至 CSSOM 构建完毕。) 将 DOM 与 CSSOM 合并成一个渲染树。 根据渲染树来布局。 将各个节点绘制到屏幕上。当DOM或者CSSOM发生变化的时候，浏览器就需要再次执行一">
+<meta name="twitter:image" content="file://C:/Users/PC/Documents/Gridea/post-images/1555682015122.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/20/optimization/">
+
+
+
+
+
+  <title> | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Knowlegde Bases of CatcherInSky</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">CatcherInSky的前端知识客栈</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/20/optimization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-20T09:13:31+08:00">
+                2019-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h1><p>标签（空格分隔）： 前端开发</p>
+<hr>
+<p>#关键渲染路径</p>
+<ol>
+<li>处理 HTML 标记并构建 DOM 树。</li>
+<li>处理 CSS 标记并构建 CSSOM 树。(CSS 被视为阻塞渲染的资源，这意味着浏览器将不会渲染任何已处理的内容，直至 CSSOM 构建完毕。)</li>
+<li>将 DOM 与 CSSOM 合并成一个渲染树。</li>
+<li>根据渲染树来布局。</li>
+<li>将各个节点绘制到屏幕上。<br>当DOM或者CSSOM发生变化的时候，浏览器就需要再次执行一次上面的步骤。</li>
+<li>当HTML解析过程中遇到一个script标记时，它会暂停DOM构建，将控制权移交给JavaScript引擎，等JavaScript引擎运行完毕，浏览器再从中断的地方恢复DOM构建。也就是说，执行内联的JavaScript会阻塞页面的首次渲染。</li>
+</ol>
+<p>##对JS优化</p>
+<ol>
+<li>引用JS方式<br>async，完全的异步操作，HTML解析遇到该标签后，发出网络请求，但不阻止HTML解析和其后面的渲染操作，当JavaScript请求返回后立刻执行，且不等待HTML解析或其他操作的完成。所以，如果脚本中有DOM操作，就并不适合。<br>defer，HTML的解析和对JavaScript资源的网络请求是并行的，但它会等待HTML解析完成之后，才执行脚本。</li>
+</ol>
+<p>##对CSS优化</p>
+<ol>
+<li>尽早和按需的加载CSS</li>
+<li>内联CSS来提高渲染性能</li>
+<li>写样式尽量使用class和id，保证层级扁平，减少过度层叠</li>
+<li>避免使用CSS表达式举个css表达式的例子 font-color: expression( (new Date()).getHours()%3 ? “#FFFFFF” : “#AAAAAA” );这个表达式会持续的在页面上计算样式，影响页面的性能。并且css表达式只被IE支持。</li>
+<li>不同浏览器首屏渲染策略不同。chrome等CSS加载完再渲染，Firefox先生成HTML再附上CSS</li>
+</ol>
+<p>##减少HTTP请求</p>
+<ol>
+<li>尽量少使用外链的JS和CSS文件以前CSS的@import</li>
+<li>雪碧图，尽量合并图片、CSS、JS</li>
+<li>渲染必备CSS内联到HTML中</li>
+<li>缓存策略</li>
+<li>删除重复的JS和CSS重复调用脚本，除了增加额外的HTTP请求外，多次运算也会浪费时间。在IE和Firefox中不管脚本是否可缓存，它们都存在重复运算JavaScript的问题。</li>
+<li><p>可缓存的AJAX异步请求同样的造成用户等待，所以使用ajax请求时，要主动告诉浏览器如果该请求有缓存就去请求缓存内容。如下代码片段,     cache:true就是显式的要求如果当前请求有缓存的话，直接使用缓存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">     url : &apos;url&apos;,</span><br><span class="line">     dataType : &quot;json&quot;,</span><br><span class="line">     cache: true,</span><br><span class="line">     success : function(son, status)&#123;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>减少Cookie的大小Cookie里面别塞那么多东西，因为每个请求都得带着他跑</p>
+</li>
+<li>使用无cookie的域比如CSS、js、图片等，客户端请求静态文件的时候，减少了 Cookie 的反复传输对主域名的影响。</li>
+</ol>
+<p>##减少资源的大小</p>
+<ol>
+<li>压缩、去注释 JavaScript 和 CSS</li>
+<li>使用gzip压缩内容gzip能够压缩任何一个文本类型的响应，包括html，xml，json。大大缩小请求返回的数据量。</li>
+<li>延迟JavaScript非阻塞资源加载</li>
+<li>删除未使用的代码</li>
+<li>异步懒加载代码</li>
+<li>懒加载屏幕外图片</li>
+<li>预先加载关键请求<link rel="preload"></li>
+<li>HTTP的传输层协议是TCP，TCP协议有一个慢启动的过程，即它在第一次传递数据时，只能同时传递14kb的数据块，所以当数据超多14kb时，TCP协议传递数据实际是多次的往返（roundtrip）。如果能够将渲染所需要的资源控制在14kb之内，那么就能TCP协议启动时，一次完成数据的传递。</li>
+</ol>
+<p>##CDN<br>使用CDN网站上静态资源即css、js、图片全都使用cdn分发</p>
+<p>#图像</p>
+<p>##JPG/JPEG</p>
+<p>####优点<br>JPG的压缩方式（有损压缩）是一种高质量的压缩方式：当我们把图片体积压缩至原有体积的 50% 以下时，JPG 仍然可以保持住 60% 的品质。此外，JPG 格式以 24 位存储单个图，可以呈现多达 1600 万种颜色，足以应对大多数场景下对色彩</p>
+<p>的要求</p>
+<p>####缺陷<br>处理矢量图形和 Logo 等线条感较强、颜色对比强烈的图像时，人为压缩导致的图片模糊会明显<br>不支持透明度处理</p>
+<p>####使用场景<br>背景图、轮播图或 Banner 图</p>
+<p>##PNG</p>
+<p>####优点<br>PNG是一种无损压缩的高保真的图片格式。8 位的 PNG 最多支持 256 种颜色，而 24 位的可以呈现约 1600 万种颜色。<br>PNG 图片具有比 JPG 更强的色彩表现力，对线条的处理更加细腻，对透明度有良好的支持。</p>
+<p>####缺点　<br>体积太大。</p>
+<p>####使用场景<br>小的 Logo、颜色简单且对比强烈的图片或背景</p>
+<p>##SVG</p>
+<p>####优点<br>SVG 指可伸缩矢量图形 ，属于对图像的形状描述，本质上是文本文件，体积较小，且不管放大多少倍都不会失真。</p>
+<p>####缺点<br>绘制太复杂</p>
+<p>####使用场景<br>LOGO</p>
+<p>####使用方法</p>
+<ol>
+<li><p>直接插入网页，成为 DOM 的一部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg</span><br><span class="line">  id=&quot;mysvg&quot;</span><br><span class="line">  xmlns=&quot;http://www.w3.org/2000/svg&quot;</span><br><span class="line">  viewBox=&quot;0 0 800 600&quot;</span><br><span class="line">  preserveAspectRatio=&quot;xMidYMid meet&quot;</span><br><span class="line">&gt;</span><br><span class="line">  &lt;circle id=&quot;mycircle&quot; cx=&quot;400&quot; cy=&quot;300&quot; r=&quot;50&quot; /&gt;</span><br><span class="line">&lt;svg&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>写在一个独立文件中，然后用<img>、<object>、<embed>、<iframe>等标签插入网页</iframe></object></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;circle.svg&quot;&gt;</span><br><span class="line">&lt;object id=&quot;object&quot; data=&quot;circle.svg&quot; type=&quot;image/svg+xml&quot;&gt;&lt;/object&gt;</span><br><span class="line">&lt;embed id=&quot;embed&quot; src=&quot;icon.svg&quot; type=&quot;image/svg+xml&quot;&gt;</span><br><span class="line">&lt;iframe id=&quot;iframe&quot; src=&quot;icon.svg&quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>转为 BASE64 编码，然后作为 Data URI 写入网页。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;data:image/svg+xml;base64,[data]&quot;&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重要属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fill：填充色</span><br><span class="line">stroke：描边色</span><br><span class="line">stroke-width：边框宽度</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>##WebP</p>
+<p>####优点<br>与 PNG 相比，WebP 无损图像的尺寸缩小了 26％。在等效的 SSIM 质量指数下，WebP 有损图像比同类 JPEG 图像小25-34％。 无损 WebP 支持透明度（也称为 alpha 通道），仅需 22％ 的额外字节。对于有损 RGB 压缩可接受的情况，有损 WebP 也支持透明度，与 PNG 相比，通常提供 3 倍的文件大小。<br>WebP 是谷歌引入的一种相对较新的格式，它的目标是通过以无损和有损格式编码图像来提供更小的文件大小，使其成为 JPEG 和 PNG 的一个很好的替代方案。<br>WebP 图像的清晰度通常可以与 JPEG 和 PNG相提并论，而且文件大小要小得多。</p>
+<p>####缺点<br>浏览器支持度不够<br><img src="file://C:/Users/PC/Documents/Gridea/post-images/1555682015122.jpg" alt></p>
+<p>####使用方式<br>一旦有了 WebP 图像，可以使用以下标记将它们提供给可以使用它们的浏览器，同时向不兼容 WebP 的浏览器使用 png 或者 jpeg。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;picture&gt;</span><br><span class="line">    &lt;source srcset=&quot;sample_image.webp&quot; type=&quot;image/webp&quot;&gt;</span><br><span class="line">    &lt;source srcset=&quot;sample_image.jpg&quot; type=&quot;image/jpg&quot;&gt;</span><br><span class="line">    &lt;img src=&quot;sample_image.jpg&quot; alt=&quot;&quot;&gt;</span><br><span class="line">&lt;/picture&gt;</span><br></pre></td></tr></table></figure></p>
+<p>理解 image/webp 媒体类型的浏览器将下载 Webp 图片并显示它，而其他浏览器将下载 JPEG 图片。<br>任何不支持 <picture> 的浏览器都将跳过所有 source 标签，并加载底部 img 标签。因此，我们通过提供对所有浏览器类的支持，逐步增强了我们的页面。<br>*<picture>可以根据不同的条件加载不同的图像，这些条件可以是视窗当前的高度（viewport），宽度（width），方向（orientation），像素密度（dpr）</picture></picture></p>
+<p>#网络字体<br>在网络加载比较慢的情况下，用户可能会感受到字体或者图形的变化（Icon Font）。其实，浏览器在渲染树构建完成之后，会指示需要哪些字体在网页上渲染指定文本，然后分派字体请求，浏览器执行布局并将内容绘制到屏幕上，如果字体尚不可用，浏览器可能不会渲染任何文本像素，待字体可用之后，再绘制文本像素，当然，不同浏览器之间实际行为有所差异<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@font-face&#123;</span><br><span class="line">	font-display:wrap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Font display 可帮助你根据交换所需的时间来决定网络字体的渲染或退阶方式。</p>
+<p>##其他</p>
+<ol>
+<li><p>避免空的src和href当link标签的href属性为空、script标签的src属性为空的时候，浏览器渲染的时候会把当前页面的URL作为它们的属性值，从而把页面的内容加载进来作为它们的值。</p>
+</li>
+<li><p>避免跳转有种现象会比较坑爹，看起来没什么差别，其实多次了一次页面跳转。比如当URL本该有斜杠（/）却被忽略掉时。例如，当我们要访问 <a href="http://baidu.com" target="_blank" rel="noopener">http://baidu.com</a> 时，实际上返回的是一个包含301代码的跳转，它指向的是 <a href="http://baidu.com/（注意末尾的斜杠）。在nginx服务器可以使用rewrite；Apache服务器中可以使用Alias" target="_blank" rel="noopener">http://baidu.com/（注意末尾的斜杠）。在nginx服务器可以使用rewrite；Apache服务器中可以使用Alias</a> 或者 mod_rewrite或者the DirectorySlash来避免。另一种是不用域名之间的跳转， 比如访问  <a href="http://baidu.com/bbs" target="_blank" rel="noopener">http://baidu.com/bbs</a> 跳转到<a href="http://bbs.baidu.com/。那么可以通过使用Alias或者mod_rewirte建立CNAME（保存一个域名和另外一个域名之间关系的DNS记录）来替代。" target="_blank" rel="noopener">http://bbs.baidu.com/。那么可以通过使用Alias或者mod_rewirte建立CNAME（保存一个域名和另外一个域名之间关系的DNS记录）来替代。</a></p>
+</li>
+<li><p>减少DOM元素数量就会减少浏览器的解析负担</p>
+</li>
+<li><p>避免404比如外链的css或者js文件出现问题返回404时，会破坏浏览器对文件的并行加载。并且浏览器会把试图在返回的404响应内容中找到可能有用的部分当作JavaScript代码来执行。</p>
+</li>
+</ol>
+<ol start="5">
+<li>不要使用滤镜IE独有属性AlphaImageLoader用于修正7.0以下版本中显示PNG图片的半透明效果。这个滤镜的问题在于浏览器加载图片时它会终止内容的呈现并且冻结浏览器。在每一个元素（不仅仅是图片）它都会运算一次，增加了内存开支，因此它的问题是多方面的。完全避免使用AlphaImageLoader的最好方法就是使用PNG8格式来代替，这种格式能在IE中很好地工作。如果你确实需要使用AlphaImageLoader，请使用下划线_filter又使之对IE7以上版本的用户无效。</li>
+</ol>
+<p>参考资料<br><a href="https://zhuanlan.zhihu.com/p/58419577" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/58419577</a><br><a href="http://www.ruanyifeng.com/blog/2018/08/svg.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2018/08/svg.html</a><br><a href="https://zhuanlan.zhihu.com/p/38548289" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/38548289</a><br>《高性能网站建设指南（第二版》</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/23/MySQL/" rel="next" title="MySQL操作一览">
+                <i class="fa fa-chevron-left"></i> MySQL操作一览
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">CatcherInSky</p>
+              <p class="site-description motion-element" itemprop="description">CatcherInSky的前端知识客栈</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#性能优化"><span class="nav-number">1.</span> <span class="nav-text">性能优化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
