@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试指南,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前端面试指南_浏览器主流浏览器：Internet Explorer、Firefox、Safari、Chrome 浏览器和 Opera浏览器的主要组件为：  用户界面 - 除了浏览器主窗口显示的页面外，其他的部分，包括地址栏、前进/后退按钮、书签菜单等。 浏览器引擎 - 在用户界面和渲染引擎之间传送指令。 渲染引擎 - 负责显示请求的内容，负责解析 HTML 和 CSS，并将解析后的内容显示在屏幕上">
+<meta name="keywords" content="面试指南">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端面试指南_浏览器">
+<meta property="og:url" content="http://yoursite.com/2019/06/03/interview_browser/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="前端面试指南_浏览器主流浏览器：Internet Explorer、Firefox、Safari、Chrome 浏览器和 Opera浏览器的主要组件为：  用户界面 - 除了浏览器主窗口显示的页面外，其他的部分，包括地址栏、前进/后退按钮、书签菜单等。 浏览器引擎 - 在用户界面和渲染引擎之间传送指令。 渲染引擎 - 负责显示请求的内容，负责解析 HTML 和 CSS，并将解析后的内容显示在屏幕上">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="c:/Users/PC/Desktop/webkitflow.png">
+<meta property="og:image" content="c:/Users/PC/Desktop/image008.jpg">
+<meta property="og:updated_time" content="2019-06-03T10:37:48.003Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端面试指南_浏览器">
+<meta name="twitter:description" content="前端面试指南_浏览器主流浏览器：Internet Explorer、Firefox、Safari、Chrome 浏览器和 Opera浏览器的主要组件为：  用户界面 - 除了浏览器主窗口显示的页面外，其他的部分，包括地址栏、前进/后退按钮、书签菜单等。 浏览器引擎 - 在用户界面和渲染引擎之间传送指令。 渲染引擎 - 负责显示请求的内容，负责解析 HTML 和 CSS，并将解析后的内容显示在屏幕上">
+<meta name="twitter:image" content="c:/Users/PC/Desktop/webkitflow.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/03/interview_browser/">
+
+
+
+
+
+  <title>前端面试指南_浏览器 | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Knowlegde Bases of CatcherInSky</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">CatcherInSky的前端知识客栈</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/03/interview_browser/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端面试指南_浏览器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-03T16:10:11+08:00">
+                2019-06-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Interview/" itemprop="url" rel="index">
+                    <span itemprop="name">Interview</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前端面试指南-浏览器"><a href="#前端面试指南-浏览器" class="headerlink" title="前端面试指南_浏览器"></a>前端面试指南_浏览器</h1><p>主流浏览器：Internet Explorer、Firefox、Safari、Chrome 浏览器和 Opera<br>浏览器的主要组件为：</p>
+<ol>
+<li>用户界面 - 除了浏览器主窗口显示的页面外，其他的部分，包括地址栏、前进/后退按钮、书签菜单等。</li>
+<li>浏览器引擎 - 在用户界面和渲染引擎之间传送指令。</li>
+<li>渲染引擎 - 负责显示请求的内容，负责解析 HTML 和 CSS，并将解析后的内容显示在屏幕上。Firefox-Gecko，Safari和Chrome-WebKit</li>
+<li>网络 - 用于网络调用，比如 HTTP 请求。其接口与平台无关，并为所有平台提供底层实现。</li>
+<li>用户界面后端 - 用于绘制基本的窗口小部件。其公开了与平台无关的通用接口，而在底层使用操作系统的用户界面方法。</li>
+<li>JavaScript 解释器。用于解析和执行 JavaScript 代码。</li>
+<li>数据存储。这是持久层。浏览器需要在硬盘上保存各种数据，例如 Cookie。新的 HTML 规范 (HTML5) 定义了“网络数据库”，这是一个完整（但是轻便）的浏览器内数据库。<br>|浏览器|渲染引擎|JS解释器|<br>|–|–|–|<br>|Chrome|WebKit-&gt;Blink(2013)、|V8|<br>|Firefox|Gecko|SpiderMonkey|<br>|Safari|Webkit|Nitro|<br>|Edge|EdgeHTML-&gt;Chromium(Blink)|Chakra|<br>|Opera|Presto-&gt;Blink|V8|<br>|IE|Trident|Chakra|</li>
+</ol>
+<p>Trident IE内核；Blink Chrome内核；Gecko内核 Firefox内核；Safari内核 Webkit内核；<br>360浏览器(IE/Chrome)、2345(IE/Chrome)、钉钉内置浏览器(UC =&gt; Chrome)等等<br>360浏览器、猎豹浏览器内核：IE+Chrome双内核；<br>搜狗、遨游、QQ浏览器内核：Trident（兼容模式）+Webkit（高速模式）；<br>百度浏览器、世界之窗内核：IE内核；<br>2345浏览器内核：好像以前是IE内核，现在也是IE+Chrome双内核了；<br>UC浏览器内核：这个众口不一，UC说是他们自己研发的U3内核，但好像还是基于Webkit和Trident，还有说是基于火狐内核。。</p>
+<h1 id="输入URL"><a href="#输入URL" class="headerlink" title="输入URL"></a>输入URL</h1><h3 id="判断-协议-缓存-输入的是-URL-还是-query"><a href="#判断-协议-缓存-输入的是-URL-还是-query" class="headerlink" title="判断 协议 缓存 输入的是 URL 还是 query"></a>判断 协议 缓存 输入的是 URL 还是 query</h3><h3 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h3><p>DNS 查询</p>
+<h3 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h3><p>HTTPS TCP<br>三握四分</p>
+<h3 id="渲染"><a href="#渲染" class="headerlink" title="渲染"></a>渲染</h3><ol>
+<li><p>加载</p>
+<p>当请求响应返回的时候，network thread 会依据 Content-Type及 MIME Type sniffing 判断响应内容的格式<br>加载过程贼复杂，需要加载各种资源，比如html、css、js或者pdf等等。这里又可以分成两种情况，一种是内容加载，比如需要打开一个新进程、需要打开保存弹窗或者需要直接加载内容；另一种则是子资源下载，比如css、js、图片等等，这里又会涉及到缓存，选择本地读取还是去服务器请求等等一系列的问题。</p>
+<p>如果域名或者请求内容匹配到已知的恶意站点，network thread 会展示一个警告页。此外 CORB 检测也会触发确保敏感数据不会被传递给渲染进程</p>
+</li>
+<li><p>解析</p>
+</li>
+</ol>
+<p>解析过程就就是解析上面加载的文件（HTML），建立DOM树的过程，</p>
+<p>除了解析HTML生成DOM树，为了提高性能，一般浏览器都会做一些预处理动作，比如：DNS预获取、预加载扫描以及安全扫描(防XSS)等等。</p>
+<p>DNS的预获取在前面就顺带提到了，预获取过程就在这里发生的。大家可以回到1688首页可以看到如下一段代码片：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--dns预解析--&gt;</span><br><span class="line">  &lt;link rel=&quot;dns-prefetch&quot; href=&quot;//cbu01.alicdn.com&quot; /&gt;</span><br><span class="line">  &lt;link rel=&quot;dns-prefetch&quot; href=&quot;//img.alicdn.com&quot; /&gt;</span><br><span class="line">  &lt;link rel=&quot;dns-prefetch&quot; href=&quot;//astyle-src.alicdn.com&quot; /&gt;</span><br><span class="line">  &lt;link rel=&quot;dns-prefetch&quot; href=&quot;//g.alicdn.com&quot; /&gt;</span><br><span class="line">  &lt;link rel=&quot;dns-prefetch&quot; href=&quot;//dcms.1688.com&quot; /&gt;</span><br><span class="line">  &lt;link rel=&quot;dns-prefetch&quot; href=&quot;//gm.mmstat.com&quot; /&gt;</span><br><span class="line">  &lt;link rel=&quot;dns-prefetch&quot; href=&quot;//log.mmstat.com&quot; /&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这段代码片没有任何逻辑功能，唯一的作用就是主动告诉浏览器，赶紧去请求解析这些域名，我马上要用了，这样可以极大地缩减dns的解析时间。有人可能怀疑，放在头部，难道不会阻塞页面加载？实际上并不会，查了一下Chrome的文档，这玩意甚至都没有用浏览器的网络栈。Chrome会启动8个异步线程，啥都不干，就蹲在那里等浏览器给他丢任务（队列），然后去找操作系统要解析，这个过程唯一的作用就是提前触发DNS解析，后面再来的时候就直接走缓存了，实际上这8个线程只是下个任务罢了。除了上面这种写法来触发DNS的预获取，实际浏览器还会搞个线程去扫描html文件，看到域名以后也会丢给上面那8个线程。</p>
+<ol start="3">
+<li>构建DOM树</li>
+</ol>
+<p>DOM本身没有任何渲染能力，我们渲染的也不是DOM。webkit会为DOM树建立一堆渲染树，这些渲染树再用于渲染。</p>
+<p>渲染树是归属于DOM树的。<br>渲染树是只存在于上下文中，上下文结束，树销毁；下次再次渲染，再新建一个渲染树。<br>渲染树包含了渲染需要的一切信息。<br>渲染树的节点会有不同种类，下面是几种常见的（都是从一个基类继承出来的），这些类都有自己的渲染方法，你只需要告诉它，该你出场了，他们自己就有方法去把自己画好<br>解析html，生成一个DOM树，解析过程中遇到了script标签就会执行，注意的是，执行js会阻塞DOM的解析，这也是为什么都提倡把不重要的代码放到body的最后面来执行。 如果有些代码确实需要放在靠前的位置，可以写考虑写成异步的方式来避免阻塞页面渲染。新浏览器一般都支持了defer和async属性，其中defer属性的script的下载不会阻塞html解析，而且其会在解析完成后才执行；async属性则是下载不会阻塞html解析，但是执行还是会阻塞。<br>这是因为JavaScript不只是可以改DOM，它还可以更改样式，也就是它可以更改CSSOM。前面我们介绍，不完整的CSSOM是无法使用的，但JavaScript中想访问CSSOM并更改它，那么在执行JavaScript时，必须要能拿到完整的CSSOM。所以就导致了一个现象，如果浏览器尚未完成CSSOM的下载和构建，而我们却想在此时运行脚本，那么浏览器将延迟脚本执行和DOM构建，直至其完成CSSOM的下载和构建。也就是说，在这种情况下，浏览器会先下载和构建CSSOM，然后再执行JavaScript，最后在继续构建DOM。</p>
+<ol start="4">
+<li><p>加载次级的资源<br>网页中常常包含诸如图片，CSS，JS 等额外的资源，这些资源需要从网络上或者 cache 中获取。主进程可以在构建 DOM 的过程中会逐一请求它们，为了加速 preload scanner 会同时运行，如果在 html 中存在 <code>&lt;img&gt;</code> <code>&lt;link&gt;</code> 等标签，preload scanner 会把这些请求传递给 Browser process 中的 network thread 进行相关资源的下载。</p>
+</li>
+<li><p>样式计算<br>进程还会基于 CSS 选择器解析 CSS 获取每一个节点的最终的计算样式值。即使不提供任何 CSS，浏览器对每个元素也会有一个默认的样式</p>
+</li>
+<li>获取布局</li>
+</ol>
+<p>想要渲染一个完整的页面，除了获知每个节点的具体样式，还需要获知每一个节点在页面上的位置，布局其实是找到所有元素的几何关系的过程。其具体过程如下：</p>
+<p>通过遍历 DOM 及相关元素的计算样式，主线程会构建出包含每个元素的坐标信息及盒子大小的布局树。布局树和 DOM 树类似，但是其中只包含页面可见的元素，如果一个元素设置了 <code>display:none</code> ，这个元素不会出现在布局树上，伪元素虽然在 DOM 树上不可见，但是在布局树上是可见的。</p>
+<ol start="7">
+<li><p>绘制各元素<br>浏览器引擎通过 DOM Tree 和 CSS Rule Tree 构建 Rendering Tree<br>即使知道了不同元素的位置及样式信息，我们还需要知道不同元素的绘制先后顺序才能正确绘制出整个页面。在绘制阶段，主线程会遍历布局树以创建绘制记录。绘制记录可以看做是记录各元素绘制先后顺序的笔记。</p>
+</li>
+<li><p>合成帧最终通过调用Native GUI 的 API 绘制网页画面，称为 Paint<br>复合是一种分割页面为不同的层，并单独栅格化，随后组合为帧的技术。不同层的组合由 compositor 线程（合成器线程）完成。<br>主线程会遍历布局树来创建层树（layer tree），添加了 <code>will-change</code> CSS 属性的元素，会被看做单独的一层，</p>
+</li>
+</ol>
+<p>z-index</p>
+<ol start="9">
+<li>事件处理<br>在构建Rendering Tree的同时，生成Javascript 脚本文件加载后， 通过 DOM API 和 CSSOM API 来操作 DOM Tree 和 CSS Rule Tree<br>事件发生时，浏览器进程会发送事件类型及相应的坐标给渲染进程，渲染进程随后找到事件对象并执行所有绑定在其上的相关事件处理函数。<br>件委托，基于事件冒泡，我们常常在最顶层绑定事件：</li>
+</ol>
+<p>document.body.addEventListener(‘touchstart’,  event =&gt; {<br>    if (event.target === area) {<br>        event.preventDefault();<br>    }<br>} );</p>
+<p>事件分法deligation</p>
+<p>Repaint<br>当元素改变的时候，将不会影响元素在页面当中的位置（比如 background-color, border-color, visibility），浏览器仅仅会应用新的样式重绘此元素，此过程称为 Repaint。<br>Reflow<br>当元素改变的时候，将会影响文档内容或结构，或元素位置，此过程称为 Reflow。（ HTML 使用的是 flow based layout ，也就是流式布局，所以，如果某元件的几何尺寸发生了变化，需要重新布局，也就叫 Reflow。）</p>
+<p>重绘:当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观、风格，而不会影响布局的，比如background-color。<br>回流:当render tree中的一部分(或全部)因为元素的规模尺寸、布局、隐藏等改变而需要重新构建<br>回流必定会发生重绘，重绘不一定会引发回流。重绘和回流会在我们设置节点样式时频繁出现，同时也会很大程度上影响性能。回流所需的成本比重绘高的多，改变父节点里的子节点很可能会导致父节点的一系列回流。</p>
+<p>1）常见引起回流属性和方法<br>任何会改变元素几何信息(元素的位置和尺寸大小)的操作，都会触发回流，</p>
+<p>添加或者删除可见的DOM元素；<br>元素尺寸改变——边距、填充、边框、宽度和高度<br>内容变化，比如用户在input框中输入文字<br>浏览器窗口尺寸改变——resize事件发生时<br>计算 offsetWidth 和 offsetHeight 属性<br>设置 style 属性的值</p>
+<p>重排<br>width height margin padding display border position overflow<br>clientWidth/Height/Top/Left offsetWidth/Height/Top/Left scrollWidth/Height/Top/Left scrollIntoView ScrollTo  scrollIntoViewIfNeeded getComputedStyle getBoundingClientRect<br>重绘<br>color border-style viisbility<br>background text-decoration background-image background-position background-repeat outline-color outline outline-style border-radius outline-width box-shadow background-size</p>
+<p>不同的浏览器对于CSS和HTML的处理方式不同<br>如果有的浏览器的渲染引擎是需要等待CSS加载完成之后，对HTML元素进行渲染和展示的，那么在CSS加载完成之前，页面上不有任何信息，这种现象称为白屏（谷歌Chrome和苹果Safari）<br>而有的是先对HTML元素进行展示，然后等待CSS加载完成之后重新对样式进行修改，那么在CSS加载完之前，会首先在页面上显示没有任何CSS渲染的信息，这种现象称为FOUC(无样式内容闪烁)（IE和Firefox火狐）</p>
+<p>问题四：为什么操作 DOM 慢<br>因为 DOM 是属于渲染引擎中的东西，而 JS 又是 JS 引擎中的东西。当我们通过 JS 操作 DOM 的时候，其实这个操作涉及到了两个线程之间的通信，那么势必会带来一些性能上的损耗。操作 DOM 次数一多，也就等同于一直在进行线程之间的通信，并且操作 DOM 可能还会带来重绘回流的情况，所以也就导致了性能上的问题。</p>
+<p>问题五：渲染页面时常见哪些不良现象？<br>由于浏览器的渲染机制不同，在渲染页面时会出现两种常见的不良现象—-白屏问题和FOUS（无样式内容闪烁）</p>
+<p>FOUC：由于浏览器渲染机制（比如firefox），再CSS加载之前，先呈现了HTML，就会导致展示出无样式内容，然后样式突然呈现的现象；</p>
+<p>白屏：有些浏览器渲染机制（比如chrome）要先构建DOM树和CSSOM树，构建完成后再进行渲染，如果CSS部分放在HTML尾部，由于CSS未加载完成，浏览器迟迟未渲染，从而导致白屏；也可能是把js文件放在头部，脚本会阻塞后面内容的呈现，脚本会阻塞其后组件的下载，出现白屏问题。</p>
+<h1 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h1><p><img src="C:\Users\PC\Desktop\webkitflow.png" alt="webkitflow"><br><img src="C:\Users\PC\Desktop\image008.jpg" alt="image008"></p>
+<h1 id="渲染-1"><a href="#渲染-1" class="headerlink" title="渲染"></a>渲染</h1><h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><p><a href="https://zhuanlan.zhihu.com/p/47407398" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/47407398</a><br><a href="https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/" target="_blank" rel="noopener">https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试指南/" rel="tag"># 面试指南</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/03/interview_JavaScript/" rel="next" title="前端面试指南_JavaScript">
+                <i class="fa fa-chevron-left"></i> 前端面试指南_JavaScript
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/12/typescript/" rel="prev" title="Typescript学习笔记">
+                Typescript学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">CatcherInSky</p>
+              <p class="site-description motion-element" itemprop="description">CatcherInSky的前端知识客栈</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端面试指南-浏览器"><span class="nav-number">1.</span> <span class="nav-text">前端面试指南_浏览器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输入URL"><span class="nav-number">2.</span> <span class="nav-text">输入URL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#判断-协议-缓存-输入的是-URL-还是-query"><span class="nav-number">2.0.1.</span> <span class="nav-text">判断 协议 缓存 输入的是 URL 还是 query</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#域名解析"><span class="nav-number">2.0.2.</span> <span class="nav-text">域名解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立连接"><span class="nav-number">2.0.3.</span> <span class="nav-text">建立连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染"><span class="nav-number">2.0.4.</span> <span class="nav-text">渲染</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#工作原理"><span class="nav-number">3.</span> <span class="nav-text">工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#渲染-1"><span class="nav-number">4.</span> <span class="nav-text">渲染</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#API"><span class="nav-number">5.</span> <span class="nav-text">API</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

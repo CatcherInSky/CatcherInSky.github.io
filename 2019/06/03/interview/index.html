@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试指南,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前端面试指南 前言计算机通识计算机组成原理计算机网络TCP报头格式UDP报头格式TCP/UDP区别（不仅是宏观上的，最好能根据各自的机制讲解清楚）HTTP状态码（最好结合使用场景，比如在缓存命中时使用哪个）HTTP协议（一些报头字段的作用，如cace-control、keep-alive）OSI协议、TCP/IP协议以及每层对应的协议。SESSION机制、cookie机制TCP三次握手、四次挥手（">
+<meta name="keywords" content="面试指南">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端面试指南">
+<meta property="og:url" content="http://yoursite.com/2019/06/03/interview/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="前端面试指南 前言计算机通识计算机组成原理计算机网络TCP报头格式UDP报头格式TCP/UDP区别（不仅是宏观上的，最好能根据各自的机制讲解清楚）HTTP状态码（最好结合使用场景，比如在缓存命中时使用哪个）HTTP协议（一些报头字段的作用，如cace-control、keep-alive）OSI协议、TCP/IP协议以及每层对应的协议。SESSION机制、cookie机制TCP三次握手、四次挥手（">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-19T09:53:52.489Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端面试指南">
+<meta name="twitter:description" content="前端面试指南 前言计算机通识计算机组成原理计算机网络TCP报头格式UDP报头格式TCP/UDP区别（不仅是宏观上的，最好能根据各自的机制讲解清楚）HTTP状态码（最好结合使用场景，比如在缓存命中时使用哪个）HTTP协议（一些报头字段的作用，如cace-control、keep-alive）OSI协议、TCP/IP协议以及每层对应的协议。SESSION机制、cookie机制TCP三次握手、四次挥手（">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/03/interview/">
+
+
+
+
+
+  <title>前端面试指南 | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Knowlegde Bases of CatcherInSky</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">CatcherInSky的前端知识客栈</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/03/interview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端面试指南</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-03T14:59:54+08:00">
+                2019-06-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Interview/" itemprop="url" rel="index">
+                    <span itemprop="name">Interview</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前端面试指南"><a href="#前端面试指南" class="headerlink" title="前端面试指南"></a>前端面试指南</h1><hr>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h1 id="计算机通识"><a href="#计算机通识" class="headerlink" title="计算机通识"></a>计算机通识</h1><h2 id="计算机组成原理"><a href="#计算机组成原理" class="headerlink" title="计算机组成原理"></a>计算机组成原理</h2><h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h2><p>TCP报头格式<br>UDP报头格式<br>TCP/UDP区别（不仅是宏观上的，最好能根据各自的机制讲解清楚）<br>HTTP状态码（最好结合使用场景，比如在缓存命中时使用哪个）<br>HTTP协议（一些报头字段的作用，如cace-control、keep-alive）<br>OSI协议、TCP/IP协议以及每层对应的协议。<br>SESSION机制、cookie机制<br>TCP三次握手、四次挥手（这个问题真的要回答吐了，不过真的是面试官最喜欢问的，建议每天手撸一遍，而且不只是每次请求的过程，各种FIN_WAIT、TIME_WAIT状态也要掌握）。<br>打开网页到页面显示之间的过程（涵盖了各个方面，DNS解析过程，Nginx请求转发、连接建立和保持过程、浏览器内容渲染过程，考虑的越详细越好）。<br>http和https区别，https在请求时额外的过程，https是如何保证数据安全的<br>IP地址子网划分<br>POST和GET区别<br>DNS解析过程<br>深入部分</p>
+<ol start="13">
+<li>TCP如何保证数据的可靠传输的（这个问题可以引申出很多子问题，拥塞控制慢开始、拥塞避免、快重传、滑动窗口协议、停止等待协议、超时重传机制，最好都能掌握）</li>
+<li>地址解析协议ARP</li>
+<li>交换机和路由器的区别</li>
+</ol>
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p>当我们启动一个应用，计算机会创建一个进程，操作系统会为进程分配一部分内存，应用的所有状态都会保存在这块内存中，应用也许还会创建多个线程来辅助工作，这些线程可以共享这部分内存中的数据。如果应用关闭，进程会被终结，操作系统会释放相关内存。</p>
+<p>一个进程还可以要求操作系统生成另一个进程来执行不同的任务，系统会为新的进程分配独立的内存，两个进程之间可以使用 IPC （Inter Process Communication）进行通信。很多应用都会采用这样的设计，如果一个工作进程反应迟钝，重启这个进程不会影响应用其它进程的工作。</p>
+<p>“互斥锁””信号量”</p>
+<p>内存的页面置换算法<br>进程调度算法<br>进程间通信方式<br>进程线程区别<br>进程之间的通信<br>父子进程、孤儿进程<br>fork进程时的操作</p>
+<h2 id="编译原理"><a href="#编译原理" class="headerlink" title="编译原理"></a>编译原理</h2><h1 id="数学基础"><a href="#数学基础" class="headerlink" title="数学基础"></a>数学基础</h1><h2 id="离散数学"><a href="#离散数学" class="headerlink" title="离散数学"></a>离散数学</h2><h2 id="线性代数"><a href="#线性代数" class="headerlink" title="线性代数"></a>线性代数</h2><h1 id="数据结构与算法"><a href="#数据结构与算法" class="headerlink" title="数据结构与算法"></a>数据结构与算法</h1><h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h3><h3 id="栈、队列"><a href="#栈、队列" class="headerlink" title="栈、队列"></a>栈、队列</h3><p>两个栈实现队列。</p>
+<h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><p>插入节点、链表逆置、使用链表进行大数字的加减，双向链表实现队列、寻找链表中的环）</p>
+<h3 id="树"><a href="#树" class="headerlink" title="树"></a>树</h3><p>层次遍历、求深度、求两个节点距离、翻转二叉树、前中后序遍历）红黑树性质</p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>大量数据中寻找最大N个数字几乎每次都会问，还有堆在插入时进行的调整）</p>
+<h3 id="图"><a href="#图" class="headerlink" title="图"></a>图</h3><p>深度广度优先遍历、单源最短路径、最小生成树）</p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><p>二分查找（一般会深入，如寻找数组总和为K的两个数字</p>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>排序（八大排序，各自的时间复杂度、排序算法的稳定性。快排几乎每次都问）</p>
+<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><h3 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h3><h3 id="分治"><a href="#分治" class="headerlink" title="分治"></a>分治</h3><h1 id="前端基础"><a href="#前端基础" class="headerlink" title="前端基础"></a>前端基础</h1><h2 id="HTML5"><a href="#HTML5" class="headerlink" title="HTML5"></a>HTML5</h2><p>H5新特性：<br>(1)Canvas绘图<br>(2)SVG绘图<br>(3)地理定位<br>(4)Web Worker<br>web worker 是运行在后台的 JS，独立于其他脚本，不会影响页面的性能。<br>(5)Web Storage<br>1.Cookie技术 （ 兼容性好,数据不能超4kb,操作复杂）2.（兼容性差,数据8MB,操作简单）sessionStorage 3.localStorage<br>(6)Web Socket<br>WebSocket协议是基于TCP的一种新的网络协议。它实现了浏览器与服务器全双工(full-duplex)通信——允许服务器主动发送信息给客户端。</p>
+<h2 id="CSS3"><a href="#CSS3" class="headerlink" title="CSS3"></a>CSS3</h2><p>1.复杂的选择器<br>2.弹性布局<br>3.动画</p>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const peopleConfig = Object.create(peopleConfigPrototype)</span><br><span class="line">// 采用Object.create方法，当前对象将被复制到peopleConfig的__proto__上</span><br></pre></td></tr></table></figure>
+<p>还有另一种方式进行对象拷贝，但是会丢掉对象中的函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const peopleConfig = JSON.parse(JSON.stringfy(peopleConfigProtytype))</span><br></pre></td></tr></table></figure>
+<p><strong>MVC，MVVM</strong>就是非常典型的中介模式。</p>
+<p>中介模式，桥接模式，代理模式的区别是：</p>
+<p><strong>代理模式一对一，只能代理特定类和对象，是对其的扩展或是约束。</strong></p>
+<p><strong>桥接模式一对多，是对类或对象成员或属性的扩展。</strong></p>
+<p><strong>中介模式多对多，全权承包所有两个概念间的关系。</strong></p>
+<p><a href="https://zhuanlan.zhihu.com/p/43283016" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/43283016</a></p>
+<p>设计模式</p>
+<h2 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h2><h2 id="ES7"><a href="#ES7" class="headerlink" title="ES7+"></a>ES7+</h2><h2 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h2><p>1.它是JavaScript的一个超集，而且本质上向这个语言添加了可选的静态类型和基于类的面向对象编程。<br>2.TypeScript扩展了JavaScript的语法，所以任何现有的JavaScript程序可以不加改变的在TypeScript下工作。<br>TypeScript是为大型应用之开发而设计，而编译时它产生 JavaScript 以确保兼容性。</p>
+<h2 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h2><h2 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h2><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="cookie-session-LocalStorage-SessionStorage"><a href="#cookie-session-LocalStorage-SessionStorage" class="headerlink" title="cookie/session/LocalStorage/SessionStorage"></a>cookie/session/LocalStorage/SessionStorage</h3><table>
+<thead>
+<tr>
+<th>cookie</th>
+<th>session</th>
+<th>LocalStorage</th>
+<th>SessionStorage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ff</td>
+<td>ff</td>
+<td>ff</td>
+<td>ff</td>
+</tr>
+</tbody>
+</table>
+<h1 id="工程化"><a href="#工程化" class="headerlink" title="工程化"></a>工程化</h1><h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><h2 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h2><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h2 id="管理"><a href="#管理" class="headerlink" title="管理"></a>管理</h2><h3 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h3><h3 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h3><h2 id="模块化组件化"><a href="#模块化组件化" class="headerlink" title="模块化组件化"></a>模块化组件化</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JS模块</td>
+<td>独立的算法和数据单元</td>
+<td>浏览器环境检测(detect)，网络请求(ajax)，应用配置(config)，DOM操作(dom)，工具函数(utils)，以及组件里的JS单元</td>
+</tr>
+<tr>
+<td>CSS模块</td>
+<td>独立的功能性样式单元</td>
+<td>栅格系统(grid)，字体图标(icon-fonts)，动画样式(animate)，以及组件里的CSS单元</td>
+</tr>
+<tr>
+<td>UI组件</td>
+<td>独立的可视/可交互功能单元</td>
+<td>页头(header)，页尾(footer)，导航栏(nav)，搜索框(search)</td>
+</tr>
+<tr>
+<td>页面</td>
+<td>前端这种GUI软件的界面状态，是UI组件的容器</td>
+<td>首页(index)，列表页(list)，用户管理(user)</td>
+</tr>
+<tr>
+<td>应用</td>
+<td>整个项目或整个站点被称之为应用，由多个页面组成</td>
+</tr>
+</tbody>
+</table>
+<h1 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h1><h2 id="React"><a href="#React" class="headerlink" title="React"></a>React</h2><h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><h2 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试指南/" rel="tag"># 面试指南</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/12/notes/pikachu/" rel="next" title="如何用CSS画一只电老鼠">
+                <i class="fa fa-chevron-left"></i> 如何用CSS画一只电老鼠
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/03/interview_algorithm/" rel="prev" title="前端面试指南_算法">
+                前端面试指南_算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">CatcherInSky</p>
+              <p class="site-description motion-element" itemprop="description">CatcherInSky的前端知识客栈</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端面试指南"><span class="nav-number">1.</span> <span class="nav-text">前端面试指南</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机通识"><span class="nav-number">3.</span> <span class="nav-text">计算机通识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机组成原理"><span class="nav-number">3.1.</span> <span class="nav-text">计算机组成原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机网络"><span class="nav-number">3.2.</span> <span class="nav-text">计算机网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作系统"><span class="nav-number">3.3.</span> <span class="nav-text">操作系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译原理"><span class="nav-number">3.4.</span> <span class="nav-text">编译原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数学基础"><span class="nav-number">4.</span> <span class="nav-text">数学基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#离散数学"><span class="nav-number">4.1.</span> <span class="nav-text">离散数学</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性代数"><span class="nav-number">4.2.</span> <span class="nav-text">线性代数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构与算法"><span class="nav-number">5.</span> <span class="nav-text">数据结构与算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构"><span class="nav-number">5.1.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表"><span class="nav-number">5.1.1.</span> <span class="nav-text">线性表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈、队列"><span class="nav-number">5.1.2.</span> <span class="nav-text">栈、队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表"><span class="nav-number">5.1.3.</span> <span class="nav-text">链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树"><span class="nav-number">5.1.4.</span> <span class="nav-text">树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆"><span class="nav-number">5.1.5.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图"><span class="nav-number">5.1.6.</span> <span class="nav-text">图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法"><span class="nav-number">5.2.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找"><span class="nav-number">5.2.1.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序"><span class="nav-number">5.2.2.</span> <span class="nav-text">排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划"><span class="nav-number">5.2.3.</span> <span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贪心"><span class="nav-number">5.2.4.</span> <span class="nav-text">贪心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分治"><span class="nav-number">5.2.5.</span> <span class="nav-text">分治</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前端基础"><span class="nav-number">6.</span> <span class="nav-text">前端基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5"><span class="nav-number">6.1.</span> <span class="nav-text">HTML5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS3"><span class="nav-number">6.2.</span> <span class="nav-text">CSS3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript"><span class="nav-number">6.3.</span> <span class="nav-text">JavaScript</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6"><span class="nav-number">6.4.</span> <span class="nav-text">ES6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES7"><span class="nav-number">6.5.</span> <span class="nav-text">ES7+</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript"><span class="nav-number">6.6.</span> <span class="nav-text">TypeScript</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-js"><span class="nav-number">6.7.</span> <span class="nav-text">Node.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器"><span class="nav-number">6.8.</span> <span class="nav-text">浏览器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">6.9.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie-session-LocalStorage-SessionStorage"><span class="nav-number">6.9.1.</span> <span class="nav-text">cookie/session/LocalStorage/SessionStorage</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工程化"><span class="nav-number">7.</span> <span class="nav-text">工程化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#性能优化"><span class="nav-number">7.1.</span> <span class="nav-text">性能优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全"><span class="nav-number">7.2.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">7.3.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管理"><span class="nav-number">7.4.</span> <span class="nav-text">管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Git"><span class="nav-number">7.4.1.</span> <span class="nav-text">Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Webpack"><span class="nav-number">7.4.2.</span> <span class="nav-text">Webpack</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块化组件化"><span class="nav-number">7.5.</span> <span class="nav-text">模块化组件化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#框架"><span class="nav-number">8.</span> <span class="nav-text">框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#React"><span class="nav-number">8.1.</span> <span class="nav-text">React</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue"><span class="nav-number">8.2.</span> <span class="nav-text">Vue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计模式"><span class="nav-number">8.3.</span> <span class="nav-text">设计模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数式编程"><span class="nav-number">8.4.</span> <span class="nav-text">函数式编程</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
