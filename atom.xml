@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Knowlegde Bases of CatcherInSky</title>
+  
+  <subtitle>CatcherInSky的前端知识库</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2019-06-19T09:16:44.556Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>CatcherInSky</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Typescript学习笔记</title>
+    <link href="http://yoursite.com/2019/06/12/typescript/"/>
+    <id>http://yoursite.com/2019/06/12/typescript/</id>
+    <published>2019-06-12T07:12:21.000Z</published>
+    <updated>2019-06-19T09:16:44.556Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Typescript学习笔记&quot;&gt;&lt;a href=&quot;#Typescript学习笔记&quot; class=&quot;headerlink&quot; title=&quot;Typescript学习笔记&quot;&gt;&lt;/a&gt;Typescript学习笔记&lt;/h1&gt;&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot;
+      
+    
+    </summary>
+    
+      <category term="Typescript" scheme="http://yoursite.com/categories/Typescript/"/>
+    
+    
+      <category term="Typescript" scheme="http://yoursite.com/tags/Typescript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端面试指南_浏览器</title>
+    <link href="http://yoursite.com/2019/06/03/interview_browser/"/>
+    <id>http://yoursite.com/2019/06/03/interview_browser/</id>
+    <published>2019-06-03T08:10:11.000Z</published>
+    <updated>2019-06-03T10:37:48.003Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前端面试指南-浏览器&quot;&gt;&lt;a href=&quot;#前端面试指南-浏览器&quot; class=&quot;headerlink&quot; title=&quot;前端面试指南_浏览器&quot;&gt;&lt;/a&gt;前端面试指南_浏览器&lt;/h1&gt;&lt;p&gt;主流浏览器：Internet Explorer、Firefox、Safari
+      
+    
+    </summary>
+    
+      <category term="Interview" scheme="http://yoursite.com/categories/Interview/"/>
+    
+    
+      <category term="面试指南" scheme="http://yoursite.com/tags/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端面试指南_算法</title>
+    <link href="http://yoursite.com/2019/06/03/interview_algorithm/"/>
+    <id>http://yoursite.com/2019/06/03/interview_algorithm/</id>
+    <published>2019-06-03T08:10:11.000Z</published>
+    <updated>2019-07-22T07:49:31.440Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前端面试指南-算法&quot;&gt;&lt;a href=&quot;#前端面试指南-算法&quot; class=&quot;headerlink&quot; title=&quot;前端面试指南_算法&quot;&gt;&lt;/a&gt;前端面试指南_算法&lt;/h1&gt;&lt;h2 id=&quot;数据结构&quot;&gt;&lt;a href=&quot;#数据结构&quot; class=&quot;headerli
+      
+    
+    </summary>
+    
+      <category term="Interview" scheme="http://yoursite.com/categories/Interview/"/>
+    
+    
+      <category term="面试指南" scheme="http://yoursite.com/tags/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端面试指南_JavaScript</title>
+    <link href="http://yoursite.com/2019/06/03/interview_JavaScript/"/>
+    <id>http://yoursite.com/2019/06/03/interview_JavaScript/</id>
+    <published>2019-06-03T08:10:11.000Z</published>
+    <updated>2019-06-03T08:15:09.873Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前端面试指南-JavaScript&quot;&gt;&lt;a href=&quot;#前端面试指南-JavaScript&quot; class=&quot;headerlink&quot; title=&quot;前端面试指南_JavaScript&quot;&gt;&lt;/a&gt;前端面试指南_JavaScript&lt;/h1&gt;&lt;hr&gt;
+&lt;h1 id=&quot;
+      
+    
+    </summary>
+    
+      <category term="Interview" scheme="http://yoursite.com/categories/Interview/"/>
+    
+    
+      <category term="面试指南" scheme="http://yoursite.com/tags/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端面试指南</title>
+    <link href="http://yoursite.com/2019/06/03/interview/"/>
+    <id>http://yoursite.com/2019/06/03/interview/</id>
+    <published>2019-06-03T06:59:54.000Z</published>
+    <updated>2019-06-19T09:53:52.489Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前端面试指南&quot;&gt;&lt;a href=&quot;#前端面试指南&quot; class=&quot;headerlink&quot; title=&quot;前端面试指南&quot;&gt;&lt;/a&gt;前端面试指南&lt;/h1&gt;&lt;hr&gt;
+&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;
+      
+    
+    </summary>
+    
+      <category term="Interview" scheme="http://yoursite.com/categories/Interview/"/>
+    
+    
+      <category term="面试指南" scheme="http://yoursite.com/tags/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何用CSS画一只电老鼠</title>
+    <link href="http://yoursite.com/2019/05/12/pikachu/"/>
+    <id>http://yoursite.com/2019/05/12/pikachu/</id>
+    <published>2019-05-12T03:25:01.000Z</published>
+    <updated>2019-05-12T03:41:26.638Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;如何用CSS画一只电老鼠&quot;&gt;&lt;a href=&quot;#如何用CSS画一只电老鼠&quot; class=&quot;headerlink&quot; title=&quot;如何用CSS画一只电老鼠&quot;&gt;&lt;/a&gt;如何用CSS画一只电老鼠&lt;/h1&gt;&lt;hr&gt;
+&lt;p&gt;不知道大家有没有去看大侦探皮卡丘呀，有没有被银幕上毛茸茸的电老鼠萌到呢？现在我就来用CSS画一只简易版的皮卡丘吧。（希望不会收到东半球最强法务部的律师函）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/CatcherInSky/pikachu/blob/master/pikachu.jpg&quot; alt=&quot;pikachu&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://yoursite.com/categories/CSS/"/>
+    
+    
+      <category term="CSS" scheme="http://yoursite.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>性能优化</title>
+    <link href="http://yoursite.com/2019/04/04/optimization/"/>
+    <id>http://yoursite.com/2019/04/04/optimization/</id>
+    <published>2019-04-04T15:47:41.000Z</published>
+    <updated>2019-04-20T03:19:16.223Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Git入门&quot;&gt;&lt;a href=&quot;#Git入门&quot; class=&quot;headerlink&quot; title=&quot;Git入门&quot;&gt;&lt;/a&gt;Git入门&lt;/h1&gt;&lt;hr&gt;
+&lt;p&gt;#关键渲染路径&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;处理 HTML 标记并构建 DOM 树。&lt;/li&gt;
+&lt;li&gt;处理
+      
+    
+    </summary>
+    
+      <category term="FrontEnd" scheme="http://yoursite.com/categories/FrontEnd/"/>
+    
+    
+      <category term="前端开发" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL操作一览</title>
+    <link href="http://yoursite.com/2019/02/23/MySQL/"/>
+    <id>http://yoursite.com/2019/02/23/MySQL/</id>
+    <published>2019-02-23T12:50:45.000Z</published>
+    <updated>2019-04-20T03:19:16.209Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;MySQL操作一览&quot;&gt;&lt;a href=&quot;#MySQL操作一览&quot; class=&quot;headerlink&quot; title=&quot;MySQL操作一览&quot;&gt;&lt;/a&gt;MySQL操作一览&lt;/h1&gt;&lt;hr&gt;
+&lt;h2 id=&quot;BY-wid&quot;&gt;&lt;a href=&quot;#BY-wid&quot; class=
+      
+    
+    </summary>
+    
+      <category term="SQL" scheme="http://yoursite.com/categories/SQL/"/>
+    
+    
+      <category term="SQL" scheme="http://yoursite.com/tags/SQL/"/>
+    
+      <category term="DataBase" scheme="http://yoursite.com/tags/DataBase/"/>
+    
+      <category term="MySQL" scheme="http://yoursite.com/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript Console 对象</title>
+    <link href="http://yoursite.com/2018/11/24/console/"/>
+    <id>http://yoursite.com/2018/11/24/console/</id>
+    <published>2018-11-24T06:33:01.000Z</published>
+    <updated>2019-03-04T09:37:50.696Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;JavaScript-Console-对象&quot;&gt;&lt;a href=&quot;#JavaScript-Console-对象&quot; class=&quot;headerlink&quot; title=&quot;JavaScript Console 对象&quot;&gt;&lt;/a&gt;JavaScript Console 对象&lt;/
+      
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://yoursite.com/categories/JavaScript/"/>
+    
+    
+      <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RegExp正则表达式</title>
+    <link href="http://yoursite.com/2018/07/13/regexp/"/>
+    <id>http://yoursite.com/2018/07/13/regexp/</id>
+    <published>2018-07-13T12:46:25.000Z</published>
+    <updated>2019-03-04T09:37:22.235Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;正则表达式&quot;&gt;&lt;a href=&quot;#正则表达式&quot; class=&quot;headerlink&quot; title=&quot;正则表达式&quot;&gt;&lt;/a&gt;正则表达式&lt;/h1&gt;&lt;hr&gt;
+&lt;h1 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;
+      
+    
+    </summary>
+    
+      <category term="Algorithms" scheme="http://yoursite.com/categories/Algorithms/"/>
+    
+    
+      <category term="Algorithms" scheme="http://yoursite.com/tags/Algorithms/"/>
+    
+      <category term="RegExp" scheme="http://yoursite.com/tags/RegExp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>各种方式进行网页布局</title>
+    <link href="http://yoursite.com/2018/05/03/layouts/"/>
+    <id>http://yoursite.com/2018/05/03/layouts/</id>
+    <published>2018-05-03T02:40:26.000Z</published>
+    <updated>2019-03-04T09:37:22.250Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;网页布局&quot;&gt;&lt;a href=&quot;#网页布局&quot; class=&quot;headerlink&quot; title=&quot;网页布局&quot;&gt;&lt;/a&gt;网页布局&lt;/h1&gt;&lt;hr&gt;
+&lt;h2 id=&quot;静态布局&quot;&gt;&lt;a href=&quot;#静态布局&quot; class=&quot;headerlink&quot; title=&quot;静态布局
+      
+    
+    </summary>
+    
+      <category term="FrontEnd" scheme="http://yoursite.com/categories/FrontEnd/"/>
+    
+    
+      <category term="前端开发" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git入门</title>
+    <link href="http://yoursite.com/2017/12/16/git/"/>
+    <id>http://yoursite.com/2017/12/16/git/</id>
+    <published>2017-12-16T15:47:41.000Z</published>
+    <updated>2019-04-20T03:19:16.236Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Git入门&quot;&gt;&lt;a href=&quot;#Git入门&quot; class=&quot;headerlink&quot; title=&quot;Git入门&quot;&gt;&lt;/a&gt;Git入门&lt;/h1&gt;&lt;hr&gt;
+&lt;h1 id=&quot;关于版本控制&quot;&gt;&lt;a href=&quot;#关于版本控制&quot; class=&quot;headerlink&quot; tit
+      
+    
+    </summary>
+    
+      <category term="Git" scheme="http://yoursite.com/categories/Git/"/>
+    
+    
+      <category term="Git" scheme="http://yoursite.com/tags/Git/"/>
+    
+  </entry>
+  
+</feed>
