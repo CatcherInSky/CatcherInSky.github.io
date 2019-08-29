@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="Git入门 #关键渲染路径  处理 HTML 标记并构建 DOM 树。 处理 CSS 标记并构建 CSSOM 树。(CSS 被视为阻塞渲染的资源，这意味着浏览器将不会渲染任何已处理的内容，直至 CSSOM 构建完毕。) 将 DOM 与 CSSOM 合并成一个渲染树。 根据渲染树来布局。 将各个节点绘制到屏幕上。当DOM或者CSSOM发生变化的时候，浏览器就需要再次执行一次上面的步骤。 当HTML解">
+<meta name="description" content="性能优化 关键渲染路径 处理 HTML 标记并构建 DOM 树。 处理 CSS 标记并构建 CSSOM 树。(CSS 被视为阻塞渲染的资源，这意味着浏览器将不会渲染任何已处理的内容，直至 CSSOM 构建完毕。) 将 DOM 与 CSSOM 合并成一个渲染树。 根据渲染树来布局。 将各个节点绘制到屏幕上。当DOM或者CSSOM发生变化的时候，浏览器就需要再次执行一次上面的步骤。 当HTML解析过程">
 <meta name="keywords" content="前端开发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="性能优化">
 <meta property="og:url" content="http://yoursite.com/2019/04/04/optimization/index.html">
 <meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
-<meta property="og:description" content="Git入门 #关键渲染路径  处理 HTML 标记并构建 DOM 树。 处理 CSS 标记并构建 CSSOM 树。(CSS 被视为阻塞渲染的资源，这意味着浏览器将不会渲染任何已处理的内容，直至 CSSOM 构建完毕。) 将 DOM 与 CSSOM 合并成一个渲染树。 根据渲染树来布局。 将各个节点绘制到屏幕上。当DOM或者CSSOM发生变化的时候，浏览器就需要再次执行一次上面的步骤。 当HTML解">
+<meta property="og:description" content="性能优化 关键渲染路径 处理 HTML 标记并构建 DOM 树。 处理 CSS 标记并构建 CSSOM 树。(CSS 被视为阻塞渲染的资源，这意味着浏览器将不会渲染任何已处理的内容，直至 CSSOM 构建完毕。) 将 DOM 与 CSSOM 合并成一个渲染树。 根据渲染树来布局。 将各个节点绘制到屏幕上。当DOM或者CSSOM发生变化的时候，浏览器就需要再次执行一次上面的步骤。 当HTML解析过程">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="file://C:/Users/PC/Documents/Gridea/post-images/1555682015122.jpg">
-<meta property="og:updated_time" content="2019-04-20T03:19:16.223Z">
+<meta property="og:updated_time" content="2019-07-29T15:56:05.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="性能优化">
-<meta name="twitter:description" content="Git入门 #关键渲染路径  处理 HTML 标记并构建 DOM 树。 处理 CSS 标记并构建 CSSOM 树。(CSS 被视为阻塞渲染的资源，这意味着浏览器将不会渲染任何已处理的内容，直至 CSSOM 构建完毕。) 将 DOM 与 CSSOM 合并成一个渲染树。 根据渲染树来布局。 将各个节点绘制到屏幕上。当DOM或者CSSOM发生变化的时候，浏览器就需要再次执行一次上面的步骤。 当HTML解">
+<meta name="twitter:description" content="性能优化 关键渲染路径 处理 HTML 标记并构建 DOM 树。 处理 CSS 标记并构建 CSSOM 树。(CSS 被视为阻塞渲染的资源，这意味着浏览器将不会渲染任何已处理的内容，直至 CSSOM 构建完毕。) 将 DOM 与 CSSOM 合并成一个渲染树。 根据渲染树来布局。 将各个节点绘制到屏幕上。当DOM或者CSSOM发生变化的时候，浏览器就需要再次执行一次上面的步骤。 当HTML解析过程">
 <meta name="twitter:image" content="file://C:/Users/PC/Documents/Gridea/post-images/1555682015122.jpg">
 
 
@@ -367,9 +367,8 @@
       
 
       
-        <h1 id="Git入门"><a href="#Git入门" class="headerlink" title="Git入门"></a>Git入门</h1><hr>
-<p>#关键渲染路径</p>
-<ol>
+        <h1 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h1><hr>
+<h1 id="关键渲染路径"><a href="#关键渲染路径" class="headerlink" title="关键渲染路径"></a>关键渲染路径</h1><ol>
 <li>处理 HTML 标记并构建 DOM 树。</li>
 <li>处理 CSS 标记并构建 CSSOM 树。(CSS 被视为阻塞渲染的资源，这意味着浏览器将不会渲染任何已处理的内容，直至 CSSOM 构建完毕。)</li>
 <li>将 DOM 与 CSSOM 合并成一个渲染树。</li>
@@ -377,20 +376,17 @@
 <li>将各个节点绘制到屏幕上。<br>当DOM或者CSSOM发生变化的时候，浏览器就需要再次执行一次上面的步骤。</li>
 <li>当HTML解析过程中遇到一个script标记时，它会暂停DOM构建，将控制权移交给JavaScript引擎，等JavaScript引擎运行完毕，浏览器再从中断的地方恢复DOM构建。也就是说，执行内联的JavaScript会阻塞页面的首次渲染。</li>
 </ol>
-<p>##对JS优化</p>
-<ol>
+<h2 id="对JS优化"><a href="#对JS优化" class="headerlink" title="对JS优化"></a>对JS优化</h2><ol>
 <li>引用JS方式<br>async，完全的异步操作，HTML解析遇到该标签后，发出网络请求，但不阻止HTML解析和其后面的渲染操作，当JavaScript请求返回后立刻执行，且不等待HTML解析或其他操作的完成。所以，如果脚本中有DOM操作，就并不适合。<br>defer，HTML的解析和对JavaScript资源的网络请求是并行的，但它会等待HTML解析完成之后，才执行脚本。</li>
 </ol>
-<p>##对CSS优化</p>
-<ol>
+<h2 id="对CSS优化"><a href="#对CSS优化" class="headerlink" title="对CSS优化"></a>对CSS优化</h2><ol>
 <li>尽早和按需的加载CSS</li>
 <li>内联CSS来提高渲染性能</li>
 <li>写样式尽量使用class和id，保证层级扁平，减少过度层叠</li>
 <li>避免使用CSS表达式举个css表达式的例子 font-color: expression( (new Date()).getHours()%3 ? “#FFFFFF” : “#AAAAAA” );这个表达式会持续的在页面上计算样式，影响页面的性能。并且css表达式只被IE支持。</li>
 <li>不同浏览器首屏渲染策略不同。chrome等CSS加载完再渲染，Firefox先生成HTML再附上CSS</li>
 </ol>
-<p>##减少HTTP请求</p>
-<ol>
+<h2 id="减少HTTP请求"><a href="#减少HTTP请求" class="headerlink" title="减少HTTP请求"></a>减少HTTP请求</h2><ol>
 <li>尽量少使用外链的JS和CSS文件以前CSS的@import</li>
 <li>雪碧图，尽量合并图片、CSS、JS</li>
 <li>渲染必备CSS内联到HTML中</li>
@@ -403,8 +399,7 @@
 </li>
 <li>使用无cookie的域比如CSS、js、图片等，客户端请求静态文件的时候，减少了 Cookie 的反复传输对主域名的影响。</li>
 </ol>
-<p>##减少资源的大小</p>
-<ol>
+<h2 id="减少资源的大小"><a href="#减少资源的大小" class="headerlink" title="减少资源的大小"></a>减少资源的大小</h2><ol>
 <li>压缩、去注释 JavaScript 和 CSS</li>
 <li>使用gzip压缩内容gzip能够压缩任何一个文本类型的响应，包括html，xml，json。大大缩小请求返回的数据量。</li>
 <li>延迟JavaScript非阻塞资源加载</li>
@@ -414,23 +409,17 @@
 <li>预先加载关键请求<link rel="preload"></li>
 <li>HTTP的传输层协议是TCP，TCP协议有一个慢启动的过程，即它在第一次传递数据时，只能同时传递14kb的数据块，所以当数据超多14kb时，TCP协议传递数据实际是多次的往返（roundtrip）。如果能够将渲染所需要的资源控制在14kb之内，那么就能TCP协议启动时，一次完成数据的传递。</li>
 </ol>
-<p>##CDN<br>使用CDN网站上静态资源即css、js、图片全都使用cdn分发</p>
-<p>#图像</p>
-<p>##JPG/JPEG</p>
-<p>####优点<br>JPG的压缩方式（有损压缩）是一种高质量的压缩方式：当我们把图片体积压缩至原有体积的 50% 以下时，JPG 仍然可以保持住 60% 的品质。此外，JPG 格式以 24 位存储单个图，可以呈现多达 1600 万种颜色，足以应对大多数场景下对色彩</p>
-<p>的要求</p>
-<p>####缺陷<br>处理矢量图形和 Logo 等线条感较强、颜色对比强烈的图像时，人为压缩导致的图片模糊会明显<br>不支持透明度处理</p>
-<p>####使用场景<br>背景图、轮播图或 Banner 图</p>
-<p>##PNG</p>
-<p>####优点<br>PNG是一种无损压缩的高保真的图片格式。8 位的 PNG 最多支持 256 种颜色，而 24 位的可以呈现约 1600 万种颜色。<br>PNG 图片具有比 JPG 更强的色彩表现力，对线条的处理更加细腻，对透明度有良好的支持。</p>
-<p>####缺点　<br>体积太大。</p>
-<p>####使用场景<br>小的 Logo、颜色简单且对比强烈的图片或背景</p>
-<p>##SVG</p>
-<p>####优点<br>SVG 指可伸缩矢量图形 ，属于对图像的形状描述，本质上是文本文件，体积较小，且不管放大多少倍都不会失真。</p>
-<p>####缺点<br>绘制太复杂</p>
-<p>####使用场景<br>LOGO</p>
-<p>####使用方法</p>
-<ol>
+<h2 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h2><p>使用CDN网站上静态资源即css、js、图片全都使用cdn分发</p>
+<h1 id="图像"><a href="#图像" class="headerlink" title="图像"></a>图像</h1><h2 id="JPG-JPEG"><a href="#JPG-JPEG" class="headerlink" title="JPG/JPEG"></a>JPG/JPEG</h2><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p>JPG的压缩方式（有损压缩）是一种高质量的压缩方式：当我们把图片体积压缩至原有体积的 50% 以下时，JPG 仍然可以保持住 60% 的品质。此外，JPG 格式以 24 位存储单个图，可以呈现多达 1600 万种颜色，足以应对大多数场景下对色彩的要求</p>
+<h4 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h4><p>处理矢量图形和 Logo 等线条感较强、颜色对比强烈的图像时，人为压缩导致的图片模糊会明显<br>不支持透明度处理</p>
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><p>背景图、轮播图或 Banner 图</p>
+<h2 id="PNG"><a href="#PNG" class="headerlink" title="PNG"></a>PNG</h2><h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><p>PNG是一种无损压缩的高保真的图片格式。8 位的 PNG 最多支持 256 种颜色，而 24 位的可以呈现约 1600 万种颜色。<br>PNG 图片具有比 JPG 更强的色彩表现力，对线条的处理更加细腻，对透明度有良好的支持。</p>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点　"></a>缺点　</h4><p>体积太大。</p>
+<h4 id="使用场景-1"><a href="#使用场景-1" class="headerlink" title="使用场景"></a>使用场景</h4><p>小的 Logo、颜色简单且对比强烈的图片或背景</p>
+<h2 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a>SVG</h2><h4 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h4><p>SVG 指可伸缩矢量图形 ，属于对图像的形状描述，本质上是文本文件，体积较小，且不管放大多少倍都不会失真。</p>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><p>绘制太复杂</p>
+<h4 id="使用场景-2"><a href="#使用场景-2" class="headerlink" title="使用场景"></a>使用场景</h4><p>LOGO</p>
+<h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><ol>
 <li><p>直接插入网页，成为 DOM 的一部分</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg</span><br><span class="line">  id=&quot;mysvg&quot;</span><br><span class="line">  xmlns=&quot;http://www.w3.org/2000/svg&quot;</span><br><span class="line">  viewBox=&quot;0 0 800 600&quot;</span><br><span class="line">  preserveAspectRatio=&quot;xMidYMid meet&quot;</span><br><span class="line">&gt;</span><br><span class="line">  &lt;circle id=&quot;mycircle&quot; cx=&quot;400&quot; cy=&quot;300&quot; r=&quot;50&quot; /&gt;</span><br><span class="line">&lt;svg&gt;</span><br></pre></td></tr></table></figure>
 </li>
@@ -444,15 +433,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fill：填充色</span><br><span class="line">stroke：描边色</span><br><span class="line">stroke-width：边框宽度</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>##WebP</p>
-<p>####优点<br>与 PNG 相比，WebP 无损图像的尺寸缩小了 26％。在等效的 SSIM 质量指数下，WebP 有损图像比同类 JPEG 图像小25-34％。 无损 WebP 支持透明度（也称为 alpha 通道），仅需 22％ 的额外字节。对于有损 RGB 压缩可接受的情况，有损 WebP 也支持透明度，与 PNG 相比，通常提供 3 倍的文件大小。<br>WebP 是谷歌引入的一种相对较新的格式，它的目标是通过以无损和有损格式编码图像来提供更小的文件大小，使其成为 JPEG 和 PNG 的一个很好的替代方案。<br>WebP 图像的清晰度通常可以与 JPEG 和 PNG相提并论，而且文件大小要小得多。</p>
-<p>####缺点<br>浏览器支持度不够<br><img src="file://C:/Users/PC/Documents/Gridea/post-images/1555682015122.jpg" alt></p>
-<p>####使用方式<br>一旦有了 WebP 图像，可以使用以下标记将它们提供给可以使用它们的浏览器，同时向不兼容 WebP 的浏览器使用 png 或者 jpeg。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;picture&gt;</span><br><span class="line">    &lt;source srcset=&quot;sample_image.webp&quot; type=&quot;image/webp&quot;&gt;</span><br><span class="line">    &lt;source srcset=&quot;sample_image.jpg&quot; type=&quot;image/jpg&quot;&gt;</span><br><span class="line">    &lt;img src=&quot;sample_image.jpg&quot; alt=&quot;&quot;&gt;</span><br><span class="line">&lt;/picture&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="WebP"><a href="#WebP" class="headerlink" title="WebP"></a>WebP</h2><h4 id="优点-3"><a href="#优点-3" class="headerlink" title="优点"></a>优点</h4><p>与 PNG 相比，WebP 无损图像的尺寸缩小了 26％。在等效的 SSIM 质量指数下，WebP 有损图像比同类 JPEG 图像小25-34％。 无损 WebP 支持透明度（也称为 alpha 通道），仅需 22％ 的额外字节。对于有损 RGB 压缩可接受的情况，有损 WebP 也支持透明度，与 PNG 相比，通常提供 3 倍的文件大小。<br>WebP 是谷歌引入的一种相对较新的格式，它的目标是通过以无损和有损格式编码图像来提供更小的文件大小，使其成为 JPEG 和 PNG 的一个很好的替代方案。<br>WebP 图像的清晰度通常可以与 JPEG 和 PNG相提并论，而且文件大小要小得多。</p>
+<h4 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h4><p>浏览器支持度不够<br><img src="file://C:/Users/PC/Documents/Gridea/post-images/1555682015122.jpg" alt></p>
+<h4 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h4><p>一旦有了 WebP 图像，可以使用以下标记将它们提供给可以使用它们的浏览器，同时向不兼容 WebP 的浏览器使用 png 或者 jpeg。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;picture&gt;</span><br><span class="line">    &lt;source srcset=&quot;sample_image.webp&quot; type=&quot;image/webp&quot;&gt;</span><br><span class="line">    &lt;source srcset=&quot;sample_image.jpg&quot; type=&quot;image/jpg&quot;&gt;</span><br><span class="line">    &lt;img src=&quot;sample_image.jpg&quot; alt=&quot;&quot;&gt;</span><br><span class="line">&lt;/picture&gt;</span><br></pre></td></tr></table></figure>
 <p>理解 image/webp 媒体类型的浏览器将下载 Webp 图片并显示它，而其他浏览器将下载 JPEG 图片。<br>任何不支持 <picture> 的浏览器都将跳过所有 source 标签，并加载底部 img 标签。因此，我们通过提供对所有浏览器类的支持，逐步增强了我们的页面。<br>*<picture>可以根据不同的条件加载不同的图像，这些条件可以是视窗当前的高度（viewport），宽度（width），方向（orientation），像素密度（dpr）</picture></picture></p>
-<p>#网络字体<br>在网络加载比较慢的情况下，用户可能会感受到字体或者图形的变化（Icon Font）。其实，浏览器在渲染树构建完成之后，会指示需要哪些字体在网页上渲染指定文本，然后分派字体请求，浏览器执行布局并将内容绘制到屏幕上，如果字体尚不可用，浏览器可能不会渲染任何文本像素，待字体可用之后，再绘制文本像素，当然，不同浏览器之间实际行为有所差异<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@font-face&#123;</span><br><span class="line">	font-display:wrap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="网络字体"><a href="#网络字体" class="headerlink" title="网络字体"></a>网络字体</h1><p>在网络加载比较慢的情况下，用户可能会感受到字体或者图形的变化（Icon Font）。其实，浏览器在渲染树构建完成之后，会指示需要哪些字体在网页上渲染指定文本，然后分派字体请求，浏览器执行布局并将内容绘制到屏幕上，如果字体尚不可用，浏览器可能不会渲染任何文本像素，待字体可用之后，再绘制文本像素，当然，不同浏览器之间实际行为有所差异</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@font-face&#123;</span><br><span class="line">	font-display:wrap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Font display 可帮助你根据交换所需的时间来决定网络字体的渲染或退阶方式。</p>
-<p>##其他</p>
-<ol>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ol>
 <li><p>避免空的src和href当link标签的href属性为空、script标签的src属性为空的时候，浏览器渲染的时候会把当前页面的URL作为它们的属性值，从而把页面的内容加载进来作为它们的值。</p>
 </li>
 <li><p>避免跳转有种现象会比较坑爹，看起来没什么差别，其实多次了一次页面跳转。比如当URL本该有斜杠（/）却被忽略掉时。例如，当我们要访问 <a href="http://baidu.com" target="_blank" rel="noopener">http://baidu.com</a> 时，实际上返回的是一个包含301代码的跳转，它指向的是 <a href="http://baidu.com/（注意末尾的斜杠）。在nginx服务器可以使用rewrite；Apache服务器中可以使用Alias" target="_blank" rel="noopener">http://baidu.com/（注意末尾的斜杠）。在nginx服务器可以使用rewrite；Apache服务器中可以使用Alias</a> 或者 mod_rewrite或者the DirectorySlash来避免。另一种是不用域名之间的跳转， 比如访问  <a href="http://baidu.com/bbs" target="_blank" rel="noopener">http://baidu.com/bbs</a> 跳转到<a href="http://bbs.baidu.com/。那么可以通过使用Alias或者mod_rewirte建立CNAME（保存一个域名和另外一个域名之间关系的DNS记录）来替代。" target="_blank" rel="noopener">http://bbs.baidu.com/。那么可以通过使用Alias或者mod_rewirte建立CNAME（保存一个域名和另外一个域名之间关系的DNS记录）来替代。</a></p>
@@ -605,7 +594,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -627,7 +616,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -683,7 +672,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git入门"><span class="nav-number">1.</span> <span class="nav-text">Git入门</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#性能优化"><span class="nav-number">1.</span> <span class="nav-text">性能优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键渲染路径"><span class="nav-number">2.</span> <span class="nav-text">关键渲染路径</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对JS优化"><span class="nav-number">2.1.</span> <span class="nav-text">对JS优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对CSS优化"><span class="nav-number">2.2.</span> <span class="nav-text">对CSS优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少HTTP请求"><span class="nav-number">2.3.</span> <span class="nav-text">减少HTTP请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少资源的大小"><span class="nav-number">2.4.</span> <span class="nav-text">减少资源的大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN"><span class="nav-number">2.5.</span> <span class="nav-text">CDN</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图像"><span class="nav-number">3.</span> <span class="nav-text">图像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JPG-JPEG"><span class="nav-number">3.1.</span> <span class="nav-text">JPG/JPEG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺陷"><span class="nav-number">3.1.0.2.</span> <span class="nav-text">缺陷</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景"><span class="nav-number">3.1.0.3.</span> <span class="nav-text">使用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PNG"><span class="nav-number">3.2.</span> <span class="nav-text">PNG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-1"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-number">3.2.0.2.</span> <span class="nav-text">缺点　</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景-1"><span class="nav-number">3.2.0.3.</span> <span class="nav-text">使用场景</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#SVG"><span class="nav-number">3.3.</span> <span class="nav-text">SVG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-2"><span class="nav-number">3.3.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点-1"><span class="nav-number">3.3.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景-2"><span class="nav-number">3.3.0.3.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用方法"><span class="nav-number">3.3.0.4.</span> <span class="nav-text">使用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebP"><span class="nav-number">3.4.</span> <span class="nav-text">WebP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-3"><span class="nav-number">3.4.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点-2"><span class="nav-number">3.4.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用方式"><span class="nav-number">3.4.0.3.</span> <span class="nav-text">使用方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络字体"><span class="nav-number">4.</span> <span class="nav-text">网络字体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">4.1.</span> <span class="nav-text">其他</span></a></li></ol></li></div>
             
 
           </div>

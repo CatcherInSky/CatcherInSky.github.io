@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-06-19T09:16:44.556Z</updated>
+  <updated>2019-08-29T03:19:41.164Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,197 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2019/08/19/LeetCode/"/>
+    <id>http://yoursite.com/2019/08/19/LeetCode/</id>
+    <published>2019-08-19T02:09:08.565Z</published>
+    <updated>2019-08-29T03:19:41.164Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;1-两数之和&quot;&gt;&lt;a href=&quot;#1-两数之和&quot; class=&quot;headerlink&quot; title=&quot;1. 两数之和&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/two-sum/&quot; target=&quot;_blank&quot;
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2019/08/11/express/"/>
+    <id>http://yoursite.com/2019/08/11/express/</id>
+    <published>2019-08-11T03:22:35.247Z</published>
+    <updated>2019-08-11T03:45:32.427Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Express&quot;&gt;&lt;a href=&quot;#Express&quot; class=&quot;headerlink&quot; title=&quot;Express&quot;&gt;&lt;/a&gt;Express&lt;/h1&gt;&lt;h2 id=&quot;express构造的是Http-createServer的回调函数&quot;&gt;&lt;a href=&quot;#
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2019/08/11/interview_secure/"/>
+    <id>http://yoursite.com/2019/08/11/interview_secure/</id>
+    <published>2019-08-11T02:52:22.844Z</published>
+    <updated>2019-08-11T03:21:53.191Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、XSS&quot;&gt;&lt;a href=&quot;#一、XSS&quot; class=&quot;headerlink&quot; title=&quot;一、XSS&quot;&gt;&lt;/a&gt;一、XSS&lt;/h2&gt;&lt;p&gt;XSS (Cross-Site Scripting)，跨站脚本攻击，因为缩写和 CSS重叠，所以只能叫 XSS。跨站
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2019/08/07/wx/"/>
+    <id>http://yoursite.com/2019/08/07/wx/</id>
+    <published>2019-08-07T02:32:38.805Z</published>
+    <updated>2019-08-29T05:41:47.463Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;微信小程序&quot;&gt;&lt;a href=&quot;#微信小程序&quot; class=&quot;headerlink&quot; title=&quot;微信小程序&quot;&gt;&lt;/a&gt;微信小程序&lt;/h1&gt;&lt;h2 id=&quot;运行环境&quot;&gt;&lt;a href=&quot;#运行环境&quot; class=&quot;headerlink&quot; title=&quot;运行环境&quot;
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2019/08/05/HopeLibrarySystem/"/>
+    <id>http://yoursite.com/2019/08/05/HopeLibrarySystem/</id>
+    <published>2019-08-05T07:27:58.207Z</published>
+    <updated>2019-08-11T03:22:32.573Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;HopeLibrarySystem-项目总结&quot;&gt;&lt;a href=&quot;#HopeLibrarySystem-项目总结&quot; class=&quot;headerlink&quot; title=&quot;HopeLibrarySystem 项目总结&quot;&gt;&lt;/a&gt;HopeLibrarySystem 项目
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2019/08/03/UnitTesting/"/>
+    <id>http://yoursite.com/2019/08/03/UnitTesting/</id>
+    <published>2019-08-02T16:11:10.140Z</published>
+    <updated>2019-08-02T16:36:14.534Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;单元测试&quot;&gt;&lt;a href=&quot;#单元测试&quot; class=&quot;headerlink&quot; title=&quot;单元测试&quot;&gt;&lt;/a&gt;单元测试&lt;/h1&gt;&lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2019/07/30/interview_CSS/"/>
+    <id>http://yoursite.com/2019/07/30/interview_CSS/</id>
+    <published>2019-07-30T04:55:37.427Z</published>
+    <updated>2019-07-30T04:58:50.238Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;BFC&quot;&gt;&lt;a href=&quot;#BFC&quot; class=&quot;headerlink&quot; title=&quot;BFC&quot;&gt;&lt;/a&gt;BFC&lt;/h3&gt;&lt;p&gt;Box 是 CSS 布局的对象和基本单位，页面是由若干个Box组成的。&lt;/p&gt;
+&lt;p&gt;元素的类型 和 &lt;code&gt;display&lt;/
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2019/07/30/designPattern/"/>
+    <id>http://yoursite.com/2019/07/30/designPattern/</id>
+    <published>2019-07-29T16:11:50.415Z</published>
+    <updated>2019-07-29T16:11:51.446Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;设计模式&quot;&gt;&lt;a href=&quot;#设计模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式&quot;&gt;&lt;/a&gt;设计模式&lt;/h1&gt;&lt;p&gt;软件模式是将模式的一般概念应用于软件开发领域，即软件开发的 总体指导思路或参照样板。软件模式并非仅限于设计模式，还包括 架构
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2019/07/30/SPA/"/>
+    <id>http://yoursite.com/2019/07/30/SPA/</id>
+    <published>2019-07-29T16:09:51.306Z</published>
+    <updated>2019-07-29T16:10:03.242Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;SPA与MPA对比&quot;&gt;&lt;a href=&quot;#SPA与MPA对比&quot; class=&quot;headerlink&quot; title=&quot;SPA与MPA对比&quot;&gt;&lt;/a&gt;SPA与MPA对比&lt;/h1&gt;&lt;h2 id=&quot;SPA&quot;&gt;&lt;a href=&quot;#SPA&quot; class=&quot;headerlink
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2019/07/28/interview_experience/"/>
+    <id>http://yoursite.com/2019/07/28/interview_experience/</id>
+    <published>2019-07-28T15:43:03.705Z</published>
+    <updated>2019-08-27T14:41:38.423Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前端面试历程&quot;&gt;&lt;a href=&quot;#前端面试历程&quot; class=&quot;headerlink&quot; title=&quot;前端面试历程&quot;&gt;&lt;/a&gt;前端面试历程&lt;/h1&gt;&lt;h2 id=&quot;2019-07&quot;&gt;&lt;a href=&quot;#2019-07&quot; class=&quot;headerlink&quot; ti
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Typescript学习笔记</title>
@@ -40,35 +231,11 @@
   </entry>
   
   <entry>
-    <title>前端面试指南_JavaScript</title>
-    <link href="http://yoursite.com/2019/06/03/interview_JavaScript/"/>
-    <id>http://yoursite.com/2019/06/03/interview_JavaScript/</id>
-    <published>2019-06-03T08:10:11.000Z</published>
-    <updated>2019-06-03T08:15:09.873Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;前端面试指南-JavaScript&quot;&gt;&lt;a href=&quot;#前端面试指南-JavaScript&quot; class=&quot;headerlink&quot; title=&quot;前端面试指南_JavaScript&quot;&gt;&lt;/a&gt;前端面试指南_JavaScript&lt;/h1&gt;&lt;hr&gt;
-&lt;h1 id=&quot;
-      
-    
-    </summary>
-    
-      <category term="Interview" scheme="http://yoursite.com/categories/Interview/"/>
-    
-    
-      <category term="面试指南" scheme="http://yoursite.com/tags/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>前端面试指南_算法</title>
+    <title>前端学习指南_算法</title>
     <link href="http://yoursite.com/2019/06/03/interview_algorithm/"/>
     <id>http://yoursite.com/2019/06/03/interview_algorithm/</id>
     <published>2019-06-03T08:10:11.000Z</published>
-    <updated>2019-07-22T07:49:31.440Z</updated>
+    <updated>2019-08-29T03:54:09.762Z</updated>
     
     <summary type="html">
     
@@ -79,57 +246,82 @@
     
     </summary>
     
-      <category term="Interview" scheme="http://yoursite.com/categories/Interview/"/>
+      <category term="Algorithm" scheme="http://yoursite.com/categories/Algorithm/"/>
     
     
-      <category term="面试指南" scheme="http://yoursite.com/tags/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/"/>
+      <category term="学习指南" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97/"/>
     
   </entry>
   
   <entry>
-    <title>前端面试指南_浏览器</title>
+    <title>前端学习指南_浏览器</title>
     <link href="http://yoursite.com/2019/06/03/interview_browser/"/>
     <id>http://yoursite.com/2019/06/03/interview_browser/</id>
     <published>2019-06-03T08:10:11.000Z</published>
-    <updated>2019-06-03T10:37:48.003Z</updated>
+    <updated>2019-08-07T02:30:01.679Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;前端面试指南-浏览器&quot;&gt;&lt;a href=&quot;#前端面试指南-浏览器&quot; class=&quot;headerlink&quot; title=&quot;前端面试指南_浏览器&quot;&gt;&lt;/a&gt;前端面试指南_浏览器&lt;/h1&gt;&lt;p&gt;主流浏览器：Internet Explorer、Firefox、Safari
+        &lt;h1 id=&quot;前端面试指南-浏览器&quot;&gt;&lt;a href=&quot;#前端面试指南-浏览器&quot; class=&quot;headerlink&quot; title=&quot;前端面试指南_浏览器&quot;&gt;&lt;/a&gt;前端面试指南_浏览器&lt;/h1&gt;&lt;h2 id=&quot;浏览器组成&quot;&gt;&lt;a href=&quot;#浏览器组成&quot; class=&quot;he
       
     
     </summary>
     
-      <category term="Interview" scheme="http://yoursite.com/categories/Interview/"/>
+      <category term="FrontEnd" scheme="http://yoursite.com/categories/FrontEnd/"/>
     
     
-      <category term="面试指南" scheme="http://yoursite.com/tags/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/"/>
+      <category term="学习指南" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97/"/>
     
   </entry>
   
   <entry>
-    <title>前端面试指南</title>
-    <link href="http://yoursite.com/2019/06/03/interview/"/>
-    <id>http://yoursite.com/2019/06/03/interview/</id>
-    <published>2019-06-03T06:59:54.000Z</published>
-    <updated>2019-06-19T09:53:52.489Z</updated>
+    <title></title>
+    <link href="http://yoursite.com/2019/06/03/interview_JavaScript/"/>
+    <id>http://yoursite.com/2019/06/03/interview_JavaScript/</id>
+    <published>2019-06-03T08:09:44.385Z</published>
+    <updated>2019-08-05T23:41:10.541Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;前端面试指南&quot;&gt;&lt;a href=&quot;#前端面试指南&quot; class=&quot;headerlink&quot; title=&quot;前端面试指南&quot;&gt;&lt;/a&gt;前端面试指南&lt;/h1&gt;&lt;hr&gt;
+        &lt;p&gt;title: 前端学习指南_JavaScript&lt;br&gt;categories:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;FrontEndd&lt;/li&gt;
+&lt;li&gt;JavaScript&lt;br&gt;tags:&lt;/li&gt;
+&lt;li&gt;学习指南&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;date: 2019/06/03 
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端学习指南</title>
+    <link href="http://yoursite.com/2019/06/03/interview/"/>
+    <id>http://yoursite.com/2019/06/03/interview/</id>
+    <published>2019-06-03T06:59:54.000Z</published>
+    <updated>2019-07-29T15:11:40.794Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前端学习指南&quot;&gt;&lt;a href=&quot;#前端学习指南&quot; class=&quot;headerlink&quot; title=&quot;前端学习指南&quot;&gt;&lt;/a&gt;前端学习指南&lt;/h1&gt;&lt;hr&gt;
 &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;
       
     
     </summary>
     
-      <category term="Interview" scheme="http://yoursite.com/categories/Interview/"/>
+      <category term="FrontEnd" scheme="http://yoursite.com/categories/FrontEnd/"/>
     
     
-      <category term="面试指南" scheme="http://yoursite.com/tags/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/"/>
+      <category term="学习指南" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97/"/>
     
   </entry>
   
@@ -138,13 +330,13 @@
     <link href="http://yoursite.com/2019/05/12/pikachu/"/>
     <id>http://yoursite.com/2019/05/12/pikachu/</id>
     <published>2019-05-12T03:25:01.000Z</published>
-    <updated>2019-05-12T03:41:26.638Z</updated>
+    <updated>2019-07-29T15:16:13.545Z</updated>
     
     <summary type="html">
     
       &lt;h1 id=&quot;如何用CSS画一只电老鼠&quot;&gt;&lt;a href=&quot;#如何用CSS画一只电老鼠&quot; class=&quot;headerlink&quot; title=&quot;如何用CSS画一只电老鼠&quot;&gt;&lt;/a&gt;如何用CSS画一只电老鼠&lt;/h1&gt;&lt;hr&gt;
 &lt;p&gt;不知道大家有没有去看大侦探皮卡丘呀，有没有被银幕上毛茸茸的电老鼠萌到呢？现在我就来用CSS画一只简易版的皮卡丘吧。（希望不会收到东半球最强法务部的律师函）&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://github.com/CatcherInSky/pikachu/blob/master/pikachu.jpg&quot; alt=&quot;pikachu&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/CatcherInSky/pikachu/blob/master/pikachu.jpg?raw=true&quot; alt=&quot;pikachu.jpg&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -160,17 +352,14 @@
     <link href="http://yoursite.com/2019/04/04/optimization/"/>
     <id>http://yoursite.com/2019/04/04/optimization/</id>
     <published>2019-04-04T15:47:41.000Z</published>
-    <updated>2019-04-20T03:19:16.223Z</updated>
+    <updated>2019-07-29T15:56:05.493Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;Git入门&quot;&gt;&lt;a href=&quot;#Git入门&quot; class=&quot;headerlink&quot; title=&quot;Git入门&quot;&gt;&lt;/a&gt;Git入门&lt;/h1&gt;&lt;hr&gt;
-&lt;p&gt;#关键渲染路径&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;处理 HTML 标记并构建 DOM 树。&lt;/li&gt;
-&lt;li&gt;处理
+        &lt;h1 id=&quot;性能优化&quot;&gt;&lt;a href=&quot;#性能优化&quot; class=&quot;headerlink&quot; title=&quot;性能优化&quot;&gt;&lt;/a&gt;性能优化&lt;/h1&gt;&lt;hr&gt;
+&lt;h1 id=&quot;关键渲染路径&quot;&gt;&lt;a href=&quot;#关键渲染路径&quot; class=&quot;headerlink&quot; title=&quot;
       
     
     </summary>
@@ -211,17 +400,40 @@
   </entry>
   
   <entry>
-    <title>JavaScript Console 对象</title>
-    <link href="http://yoursite.com/2018/11/24/console/"/>
-    <id>http://yoursite.com/2018/11/24/console/</id>
-    <published>2018-11-24T06:33:01.000Z</published>
-    <updated>2019-03-04T09:37:50.696Z</updated>
+    <title>Node.js</title>
+    <link href="http://yoursite.com/2019/02/23/Nodejs/"/>
+    <id>http://yoursite.com/2019/02/23/Nodejs/</id>
+    <published>2019-02-23T12:50:45.000Z</published>
+    <updated>2019-07-29T15:56:10.952Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;JavaScript-Console-对象&quot;&gt;&lt;a href=&quot;#JavaScript-Console-对象&quot; class=&quot;headerlink&quot; title=&quot;JavaScript Console 对象&quot;&gt;&lt;/a&gt;JavaScript Console 对象&lt;/
+        &lt;p&gt;Node 中的 Event Loop 和浏览器中的是完全不相同的东西。Node.js 采用 V8 作为 js 的解析引擎，而 I/O 处理方面使用了自己设计的 libuv，libuv 是一个基于事件驱动的跨平台抽象层，封装了不同操作系统一些底层特性，对外提供统一的 API，
+      
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://yoursite.com/categories/JavaScript/"/>
+    
+    
+      <category term="Node.js" scheme="http://yoursite.com/tags/Node-js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>跨域</title>
+    <link href="http://yoursite.com/2018/12/24/crossOrigin/"/>
+    <id>http://yoursite.com/2018/12/24/crossOrigin/</id>
+    <published>2018-12-24T06:33:01.000Z</published>
+    <updated>2019-08-29T05:11:09.793Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;什么是跨域&quot;&gt;&lt;a href=&quot;#什么是跨域&quot; class=&quot;headerlink&quot; title=&quot;什么是跨域&quot;&gt;&lt;/a&gt;什么是跨域&lt;/h1&gt;&lt;h2 id=&quot;同源策略&quot;&gt;&lt;a href=&quot;#同源策略&quot; class=&quot;headerlink&quot; title=&quot;同源策略&quot;
       
     
     </summary>
@@ -230,80 +442,6 @@
     
     
       <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>RegExp正则表达式</title>
-    <link href="http://yoursite.com/2018/07/13/regexp/"/>
-    <id>http://yoursite.com/2018/07/13/regexp/</id>
-    <published>2018-07-13T12:46:25.000Z</published>
-    <updated>2019-03-04T09:37:22.235Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;正则表达式&quot;&gt;&lt;a href=&quot;#正则表达式&quot; class=&quot;headerlink&quot; title=&quot;正则表达式&quot;&gt;&lt;/a&gt;正则表达式&lt;/h1&gt;&lt;hr&gt;
-&lt;h1 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;
-      
-    
-    </summary>
-    
-      <category term="Algorithms" scheme="http://yoursite.com/categories/Algorithms/"/>
-    
-    
-      <category term="Algorithms" scheme="http://yoursite.com/tags/Algorithms/"/>
-    
-      <category term="RegExp" scheme="http://yoursite.com/tags/RegExp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>各种方式进行网页布局</title>
-    <link href="http://yoursite.com/2018/05/03/layouts/"/>
-    <id>http://yoursite.com/2018/05/03/layouts/</id>
-    <published>2018-05-03T02:40:26.000Z</published>
-    <updated>2019-03-04T09:37:22.250Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;网页布局&quot;&gt;&lt;a href=&quot;#网页布局&quot; class=&quot;headerlink&quot; title=&quot;网页布局&quot;&gt;&lt;/a&gt;网页布局&lt;/h1&gt;&lt;hr&gt;
-&lt;h2 id=&quot;静态布局&quot;&gt;&lt;a href=&quot;#静态布局&quot; class=&quot;headerlink&quot; title=&quot;静态布局
-      
-    
-    </summary>
-    
-      <category term="FrontEnd" scheme="http://yoursite.com/categories/FrontEnd/"/>
-    
-    
-      <category term="前端开发" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git入门</title>
-    <link href="http://yoursite.com/2017/12/16/git/"/>
-    <id>http://yoursite.com/2017/12/16/git/</id>
-    <published>2017-12-16T15:47:41.000Z</published>
-    <updated>2019-04-20T03:19:16.236Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Git入门&quot;&gt;&lt;a href=&quot;#Git入门&quot; class=&quot;headerlink&quot; title=&quot;Git入门&quot;&gt;&lt;/a&gt;Git入门&lt;/h1&gt;&lt;hr&gt;
-&lt;h1 id=&quot;关于版本控制&quot;&gt;&lt;a href=&quot;#关于版本控制&quot; class=&quot;headerlink&quot; tit
-      
-    
-    </summary>
-    
-      <category term="Git" scheme="http://yoursite.com/categories/Git/"/>
-    
-    
-      <category term="Git" scheme="http://yoursite.com/tags/Git/"/>
     
   </entry>
   
