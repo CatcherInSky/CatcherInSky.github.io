@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-08-29T03:19:41.164Z</updated>
+  <updated>2019-09-16T15:58:22.148Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -18,10 +18,47 @@
   
   <entry>
     <title></title>
+    <link href="http://yoursite.com/2019/09/16/Untitled/"/>
+    <id>http://yoursite.com/2019/09/16/Untitled/</id>
+    <published>2019-09-16T15:58:22.148Z</published>
+    <updated>2019-09-16T15:58:22.148Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2019/09/05/interview_html/"/>
+    <id>http://yoursite.com/2019/09/05/interview_html/</id>
+    <published>2019-09-05T10:13:34.947Z</published>
+    <updated>2019-09-19T01:45:15.834Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;html manifest=&quot;demo.appcache&quot;&gt;
+
+&lt;p&gt;manifest 属性规定文档的缓存 manifest 的位置。&lt;/p&gt;
+&lt;p&gt;HTML5 引入了应用程序缓存，这意味着 Web 应用程序可以被缓存，然后在无互联网连接的时候进行访问。&lt;/p&gt;
+&lt;p&gt;应用程序
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
     <link href="http://yoursite.com/2019/08/19/LeetCode/"/>
     <id>http://yoursite.com/2019/08/19/LeetCode/</id>
     <published>2019-08-19T02:09:08.565Z</published>
-    <updated>2019-08-29T03:19:41.164Z</updated>
+    <updated>2019-09-18T09:32:24.059Z</updated>
     
     <summary type="html">
     
@@ -59,7 +96,7 @@
     <link href="http://yoursite.com/2019/08/11/interview_secure/"/>
     <id>http://yoursite.com/2019/08/11/interview_secure/</id>
     <published>2019-08-11T02:52:22.844Z</published>
-    <updated>2019-08-11T03:21:53.191Z</updated>
+    <updated>2019-09-18T16:32:43.804Z</updated>
     
     <summary type="html">
     
@@ -135,14 +172,15 @@
     <link href="http://yoursite.com/2019/07/30/interview_CSS/"/>
     <id>http://yoursite.com/2019/07/30/interview_CSS/</id>
     <published>2019-07-30T04:55:37.427Z</published>
-    <updated>2019-07-30T04:58:50.238Z</updated>
+    <updated>2019-09-18T16:30:07.020Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;h3 id=&quot;BFC&quot;&gt;&lt;a href=&quot;#BFC&quot; class=&quot;headerlink&quot; title=&quot;BFC&quot;&gt;&lt;/a&gt;BFC&lt;/h3&gt;&lt;p&gt;Box 是 CSS 布局的对象和基本单位，页面是由若干个Box组成的。&lt;/p&gt;
-&lt;p&gt;元素的类型 和 &lt;code&gt;display&lt;/
+        &lt;h2 id=&quot;transform&quot;&gt;&lt;a href=&quot;#transform&quot; class=&quot;headerlink&quot; title=&quot;transform&quot;&gt;&lt;/a&gt;transform&lt;/h2&gt;&lt;p&gt;position&lt;/p&gt;
+&lt;p&gt;display&lt;/p&gt;
+&lt;p&gt;inline-&lt;/p&gt;
       
     
     </summary>
@@ -193,7 +231,7 @@
     <link href="http://yoursite.com/2019/07/28/interview_experience/"/>
     <id>http://yoursite.com/2019/07/28/interview_experience/</id>
     <published>2019-07-28T15:43:03.705Z</published>
-    <updated>2019-08-27T14:41:38.423Z</updated>
+    <updated>2019-09-22T16:49:28.442Z</updated>
     
     <summary type="html">
     
@@ -208,57 +246,11 @@
   </entry>
   
   <entry>
-    <title>Typescript学习笔记</title>
-    <link href="http://yoursite.com/2019/06/12/typescript/"/>
-    <id>http://yoursite.com/2019/06/12/typescript/</id>
-    <published>2019-06-12T07:12:21.000Z</published>
-    <updated>2019-06-19T09:16:44.556Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Typescript学习笔记&quot;&gt;&lt;a href=&quot;#Typescript学习笔记&quot; class=&quot;headerlink&quot; title=&quot;Typescript学习笔记&quot;&gt;&lt;/a&gt;Typescript学习笔记&lt;/h1&gt;&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot;
-      
-    
-    </summary>
-    
-      <category term="Typescript" scheme="http://yoursite.com/categories/Typescript/"/>
-    
-    
-      <category term="Typescript" scheme="http://yoursite.com/tags/Typescript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>前端学习指南_算法</title>
-    <link href="http://yoursite.com/2019/06/03/interview_algorithm/"/>
-    <id>http://yoursite.com/2019/06/03/interview_algorithm/</id>
-    <published>2019-06-03T08:10:11.000Z</published>
-    <updated>2019-08-29T03:54:09.762Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;前端面试指南-算法&quot;&gt;&lt;a href=&quot;#前端面试指南-算法&quot; class=&quot;headerlink&quot; title=&quot;前端面试指南_算法&quot;&gt;&lt;/a&gt;前端面试指南_算法&lt;/h1&gt;&lt;h2 id=&quot;数据结构&quot;&gt;&lt;a href=&quot;#数据结构&quot; class=&quot;headerli
-      
-    
-    </summary>
-    
-      <category term="Algorithm" scheme="http://yoursite.com/categories/Algorithm/"/>
-    
-    
-      <category term="学习指南" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97/"/>
-    
-  </entry>
-  
-  <entry>
     <title>前端学习指南_浏览器</title>
     <link href="http://yoursite.com/2019/06/03/interview_browser/"/>
     <id>http://yoursite.com/2019/06/03/interview_browser/</id>
     <published>2019-06-03T08:10:11.000Z</published>
-    <updated>2019-08-07T02:30:01.679Z</updated>
+    <updated>2019-09-22T16:42:04.072Z</updated>
     
     <summary type="html">
     
@@ -277,23 +269,40 @@
   </entry>
   
   <entry>
-    <title></title>
-    <link href="http://yoursite.com/2019/06/03/interview_JavaScript/"/>
-    <id>http://yoursite.com/2019/06/03/interview_JavaScript/</id>
-    <published>2019-06-03T08:09:44.385Z</published>
-    <updated>2019-08-05T23:41:10.541Z</updated>
+    <title>前端学习指南_算法</title>
+    <link href="http://yoursite.com/2019/06/03/interview_algorithm/"/>
+    <id>http://yoursite.com/2019/06/03/interview_algorithm/</id>
+    <published>2019-06-03T08:10:11.000Z</published>
+    <updated>2019-09-17T12:33:51.598Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;title: 前端学习指南_JavaScript&lt;br&gt;categories:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;FrontEndd&lt;/li&gt;
-&lt;li&gt;JavaScript&lt;br&gt;tags:&lt;/li&gt;
-&lt;li&gt;学习指南&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;date: 2019/06/03 
+        &lt;h1 id=&quot;前端面试指南-算法&quot;&gt;&lt;a href=&quot;#前端面试指南-算法&quot; class=&quot;headerlink&quot; title=&quot;前端面试指南_算法&quot;&gt;&lt;/a&gt;前端面试指南_算法&lt;/h1&gt;&lt;h2 id=&quot;数据结构&quot;&gt;&lt;a href=&quot;#数据结构&quot; class=&quot;headerli
+      
+    
+    </summary>
+    
+      <category term="Algorithm" scheme="http://yoursite.com/categories/Algorithm/"/>
+    
+    
+      <category term="学习指南" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2019/06/03/interview_JavaScript/"/>
+    <id>http://yoursite.com/2019/06/03/interview_JavaScript/</id>
+    <published>2019-06-03T08:09:44.385Z</published>
+    <updated>2019-09-21T16:29:27.962Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前端面试指南-JavaScript&quot;&gt;&lt;a href=&quot;#前端面试指南-JavaScript&quot; class=&quot;headerlink&quot; title=&quot;前端面试指南_JavaScript&quot;&gt;&lt;/a&gt;前端面试指南_JavaScript&lt;/h1&gt;&lt;h2 id=&quot;类型&quot;&gt;&lt;
       
     
     </summary>
@@ -306,7 +315,7 @@
     <link href="http://yoursite.com/2019/06/03/interview/"/>
     <id>http://yoursite.com/2019/06/03/interview/</id>
     <published>2019-06-03T06:59:54.000Z</published>
-    <updated>2019-07-29T15:11:40.794Z</updated>
+    <updated>2019-09-19T01:50:22.633Z</updated>
     
     <summary type="html">
     
@@ -322,28 +331,6 @@
     
     
       <category term="学习指南" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何用CSS画一只电老鼠</title>
-    <link href="http://yoursite.com/2019/05/12/pikachu/"/>
-    <id>http://yoursite.com/2019/05/12/pikachu/</id>
-    <published>2019-05-12T03:25:01.000Z</published>
-    <updated>2019-07-29T15:16:13.545Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;如何用CSS画一只电老鼠&quot;&gt;&lt;a href=&quot;#如何用CSS画一只电老鼠&quot; class=&quot;headerlink&quot; title=&quot;如何用CSS画一只电老鼠&quot;&gt;&lt;/a&gt;如何用CSS画一只电老鼠&lt;/h1&gt;&lt;hr&gt;
-&lt;p&gt;不知道大家有没有去看大侦探皮卡丘呀，有没有被银幕上毛茸茸的电老鼠萌到呢？现在我就来用CSS画一只简易版的皮卡丘吧。（希望不会收到东半球最强法务部的律师函）&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://github.com/CatcherInSky/pikachu/blob/master/pikachu.jpg?raw=true&quot; alt=&quot;pikachu.jpg&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="CSS" scheme="http://yoursite.com/categories/CSS/"/>
-    
-    
-      <category term="CSS" scheme="http://yoursite.com/tags/CSS/"/>
     
   </entry>
   
@@ -423,17 +410,17 @@
   </entry>
   
   <entry>
-    <title>跨域</title>
-    <link href="http://yoursite.com/2018/12/24/crossOrigin/"/>
-    <id>http://yoursite.com/2018/12/24/crossOrigin/</id>
-    <published>2018-12-24T06:33:01.000Z</published>
-    <updated>2019-08-29T05:11:09.793Z</updated>
+    <title>JavaScript Console 对象</title>
+    <link href="http://yoursite.com/2018/11/24/console/"/>
+    <id>http://yoursite.com/2018/11/24/console/</id>
+    <published>2018-11-24T06:33:01.000Z</published>
+    <updated>2019-07-29T15:10:01.155Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;什么是跨域&quot;&gt;&lt;a href=&quot;#什么是跨域&quot; class=&quot;headerlink&quot; title=&quot;什么是跨域&quot;&gt;&lt;/a&gt;什么是跨域&lt;/h1&gt;&lt;h2 id=&quot;同源策略&quot;&gt;&lt;a href=&quot;#同源策略&quot; class=&quot;headerlink&quot; title=&quot;同源策略&quot;
+        &lt;h1 id=&quot;JavaScript-Console-对象&quot;&gt;&lt;a href=&quot;#JavaScript-Console-对象&quot; class=&quot;headerlink&quot; title=&quot;JavaScript Console 对象&quot;&gt;&lt;/a&gt;JavaScript Console 对象&lt;/
       
     
     </summary>

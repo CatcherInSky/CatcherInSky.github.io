@@ -81,14 +81,15 @@
 
 
 
-<meta name="description" content="前端学习指南 前言计算机通识计算机组成原理计算机网络 五层协议 应用层 ：为特定应用程序提供数据传输服务，例如 HTTP、DNS 等协议。数据单位为报文。 传输层 ：为进程提供通用数据传输服务。由于应用层协议很多，定义通用的传输层协议就可以支持不断增多的应用层协议。运输层包括两种协议：传输控制协议 TCP，提供面向连接、可靠的数据传输服务，数据单位为报文段；用户数据报协议 UDP，提供无连接、尽最">
+<meta name="description" content="前端学习指南 前言计算机通识计算机组成原理计算机网络 大白话，就是URI是抽象的定义，不管用什么方法表示，只要能定位一个资源，就叫URI，本来设想的的使用两种方法定位：1，URL，用地址定位；2，URN 用名称定位。 通过URL找到资源是对网络位置进行标识，如：通过URI找到资源是通过对名称进行标识，这个名称在某命名空间中，并不代表网络地址，如：urn:issn:1535-3613 URI 是统一">
 <meta name="keywords" content="学习指南">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端学习指南">
 <meta property="og:url" content="http://yoursite.com/2019/06/03/interview/index.html">
 <meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
-<meta property="og:description" content="前端学习指南 前言计算机通识计算机组成原理计算机网络 五层协议 应用层 ：为特定应用程序提供数据传输服务，例如 HTTP、DNS 等协议。数据单位为报文。 传输层 ：为进程提供通用数据传输服务。由于应用层协议很多，定义通用的传输层协议就可以支持不断增多的应用层协议。运输层包括两种协议：传输控制协议 TCP，提供面向连接、可靠的数据传输服务，数据单位为报文段；用户数据报协议 UDP，提供无连接、尽最">
+<meta property="og:description" content="前端学习指南 前言计算机通识计算机组成原理计算机网络 大白话，就是URI是抽象的定义，不管用什么方法表示，只要能定位一个资源，就叫URI，本来设想的的使用两种方法定位：1，URL，用地址定位；2，URN 用名称定位。 通过URL找到资源是对网络位置进行标识，如：通过URI找到资源是通过对名称进行标识，这个名称在某命名空间中，并不代表网络地址，如：urn:issn:1535-3613 URI 是统一">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://pic4.zhimg.com/80/f66f9f573436858aeeb2ac3da732f5a9_hd.jpg">
 <meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/0fa6c237-a909-4e2a-a771-2c5485cd8ce0.png">
 <meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/48d79be8-085b-4862-8a9d-18402eb93b31.png">
 <meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/d4c3a4a1-0846-46ec-9cc3-eaddfca71254.jpg">
@@ -111,11 +112,11 @@
 <meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/af198da1-2480-4043-b07f-a3b91a88b815.png">
 <meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/e3f1657c-80fc-4dfa-9643-bf51abd201c6.png">
 <meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/_u4E0B_u8F7D.png">
-<meta property="og:updated_time" content="2019-07-29T15:11:40.794Z">
+<meta property="og:updated_time" content="2019-09-19T01:50:22.633Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端学习指南">
-<meta name="twitter:description" content="前端学习指南 前言计算机通识计算机组成原理计算机网络 五层协议 应用层 ：为特定应用程序提供数据传输服务，例如 HTTP、DNS 等协议。数据单位为报文。 传输层 ：为进程提供通用数据传输服务。由于应用层协议很多，定义通用的传输层协议就可以支持不断增多的应用层协议。运输层包括两种协议：传输控制协议 TCP，提供面向连接、可靠的数据传输服务，数据单位为报文段；用户数据报协议 UDP，提供无连接、尽最">
-<meta name="twitter:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/0fa6c237-a909-4e2a-a771-2c5485cd8ce0.png">
+<meta name="twitter:description" content="前端学习指南 前言计算机通识计算机组成原理计算机网络 大白话，就是URI是抽象的定义，不管用什么方法表示，只要能定位一个资源，就叫URI，本来设想的的使用两种方法定位：1，URL，用地址定位；2，URN 用名称定位。 通过URL找到资源是对网络位置进行标识，如：通过URI找到资源是通过对名称进行标识，这个名称在某命名空间中，并不代表网络地址，如：urn:issn:1535-3613 URI 是统一">
+<meta name="twitter:image" content="https://pic4.zhimg.com/80/f66f9f573436858aeeb2ac3da732f5a9_hd.jpg">
 
 
 
@@ -389,7 +390,18 @@
 
       
         <h1 id="前端学习指南"><a href="#前端学习指南" class="headerlink" title="前端学习指南"></a>前端学习指南</h1><hr>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h1 id="计算机通识"><a href="#计算机通识" class="headerlink" title="计算机通识"></a>计算机通识</h1><h2 id="计算机组成原理"><a href="#计算机组成原理" class="headerlink" title="计算机组成原理"></a>计算机组成原理</h2><h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h2><p><img src="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/0fa6c237-a909-4e2a-a771-2c5485cd8ce0.png" alt="img"></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h1 id="计算机通识"><a href="#计算机通识" class="headerlink" title="计算机通识"></a>计算机通识</h1><h2 id="计算机组成原理"><a href="#计算机组成原理" class="headerlink" title="计算机组成原理"></a>计算机组成原理</h2><h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h2><p><img src="https://pic4.zhimg.com/80/f66f9f573436858aeeb2ac3da732f5a9_hd.jpg" alt="img"></p>
+<p><strong>大白话，就是</strong>URI是抽象的定义，不管用什么方法表示，只要能定位一个资源，就叫URI，本来设想的的使用两种方法定位：1，URL，用地址定位；2，URN 用名称定位。</p>
+<p>通过URL找到资源是对网络位置进行标识，如：<br>通过URI找到资源是通过对名称进行标识，这个名称在某命名空间中，并不代表网络地址，如：<strong>urn:issn:1535-3613</strong></p>
+<p><strong>URI 是统一资源标识符，而 URL 是统一资源定位符。</strong>因此，笼统地说，每个 URL 都是 URI，但不一定每个 URI 都是 URL。这是因为 URI 还包括一个子类，即统一资源名称 (URN)，它命名资源但不指定如何定位资源。上面的 mailto、news 和 isbn URI 都是 URN 的示例。</p>
+<p>URI 和 URL 概念上的不同反映在此类和 URL 类的不同中。</p>
+<p>此类的实例代表由 RFC 2396 定义的语法意义上的一个 URI 引用。URI 可以是绝对的，也可以是相对的。对 URI 字符串按照一般语法进行解析，不考虑它所指定的方案（如果有）不对主机（如果有）执行查找，也不构造依赖于方案的流处理程序。相等性、哈希计算以及比较都严格地根据实例的字符内容进行定义。<strong>换句话说，一个 URI 实例和一个支持语法意义上的、依赖于方案的比较、规范化、解析和相对化计算的结构化字符串差不多。</strong></p>
+<p><strong>作为对照，URL 类的实例代表了 URL 的语法组成部分以及访问它描述的资源所需的信息。URL 必须是绝对的，即它必须始终指定一个方案。</strong>URL 字符串按照其方案进行解析。通常会为 URL 建立一个流处理程序，实际上无法为未提供处理程序的方案创建一个 URL 实例。相等性和哈希计算依赖于方案和主机的 Internet 地址（如果有）；没有定义比较。<strong>换句话说，URL 是一个结构化字符串，它支持解析的语法运算以及查找主机和打开到指定资源的连接之类的网络 I/O 操作。</strong></p>
+<p><strong>URI类不包含任何访问资源的方法，它唯一的作用就是解析。</strong></p>
+<p><strong>相反的是，URL类可以打开一个到达资源的流。</strong></p>
+<p><strong>URI—Uniform Resource Identifier通用资源标志符</strong>Web上可用的每种资源如HTML文档、图像、视频片段、程序等都是一个来URI来定位的<br>URI一般由三部组成<br>①访问资源的命名机制<br>②存放资源的主机名<br>③资源自身的名称，由路径表示，着重强调于资源。</p>
+<p><strong>URL—Uniform Resource Location统一资源定位符</strong>URL是Internet上用来描述信息资源的字符串，主要用在各种WWW客户程序和服务器程序上，特别是著名的Mosaic。<br>采用URL可以用一种统一的格式来描述各种信息资源，包括文件、服务器的地址和目录等。<br>URL一般由三部组成<br>①协议(或称为服务方式)<br>②存有该资源的主机IP地址(有时也包括端口号)<br>③主机资源的具体地址。如目录和文件名等</p>
+<p><img src="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/0fa6c237-a909-4e2a-a771-2c5485cd8ce0.png" alt="img"></p>
 <h3 id="五层协议"><a href="#五层协议" class="headerlink" title="五层协议"></a>五层协议</h3><ul>
 <li><strong>应用层</strong> ：为特定应用程序提供数据传输服务，例如 HTTP、DNS 等协议。数据单位为报文。</li>
 <li><strong>传输层</strong> ：为进程提供通用数据传输服务。由于应用层协议很多，定义通用的传输层协议就可以支持不断增多的应用层协议。运输层包括两种协议：传输控制协议 TCP，提供面向连接、可靠的数据传输服务，数据单位为报文段；用户数据报协议 UDP，提供无连接、尽最大努力的数据传输服务，数据单位为用户数据报。TCP 主要提供完整性服务，UDP 主要提供及时性服务。</li>
@@ -405,6 +417,9 @@
 <p>五层协议没有表示层和会话层，而是将这些功能留给应用程序开发者处理。</p>
 <h4 id="TCP-IP"><a href="#TCP-IP" class="headerlink" title="TCP/IP"></a>TCP/IP</h4><p>它只有四层，相当于五层协议中数据链路层和物理层合并为网络接口层。</p>
 <p>TCP/IP 体系结构不严格遵循 OSI 分层概念，应用层可能会直接使用 IP 层或者网络接口层。</p>
+<p>基于TCP的应用层协议有：SMTP、TELNET、HTTP、FTP</p>
+<p>基于UDP的应用层协议：DNS、TFTP（简单文件传输协议）、RIP（路由选择协议）、DHCP、BOOTP（是DHCP的前身）、IGMP（Internet组管理协议）</p>
+<p>DNS占用53号端口，同时使用TCP和UDP协议。<br><strong>DNS区域传输的时候使用TCP协议</strong><br><strong>域名解析时使用UDP协议</strong></p>
 <p><a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/pics/48d79be8-085b-4862-8a9d-18402eb93b31.png" target="_blank" rel="noopener"><img src="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/48d79be8-085b-4862-8a9d-18402eb93b31.png" alt="img"></a></p>
 <h3 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h3><h4 id="UDP-和-TCP-的特点"><a href="#UDP-和-TCP-的特点" class="headerlink" title="UDP 和 TCP 的特点"></a>UDP 和 TCP 的特点</h4><ul>
 <li>用户数据报协议 UDP（User Datagram Protocol）是无连接的，尽最大可能交付，没有拥塞控制，面向报文（对于应用程序传下来的报文不合并也不拆分，只是添加 UDP 首部），支持一对一、一对多、多对一和多对多的交互通信。</li>
@@ -505,6 +520,37 @@
 </blockquote>
 <p>POST 主要用来传输数据，而 GET 主要用来获取资源。</p>
 <p>更多 POST 与 GET 的比较请见第九章。</p>
+<p>GET产生一个TCP数据包；POST产生两个TCP数据包。</p>
+<p>长的说：</p>
+<p>对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；</p>
+<p>而对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。</p>
+<ul>
+<li>GET在浏览器回退时是无害的，而POST会再次提交请求。</li>
+</ul>
+<ul>
+<li>GET产生的URL地址可以被Bookmark，而POST不可以。</li>
+</ul>
+<ul>
+<li>GET请求会被浏览器主动cache，而POST不会，除非手动设置。</li>
+</ul>
+<ul>
+<li>GET请求只能进行url编码，而POST支持多种编码方式。</li>
+</ul>
+<ul>
+<li>GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。</li>
+</ul>
+<ul>
+<li>GET请求在URL中传送的参数是有长度限制的，而POST么有。</li>
+</ul>
+<ul>
+<li>对参数的数据类型，GET只接受ASCII字符，而POST没有限制。</li>
+</ul>
+<ul>
+<li>GET比POST更不安全，因为参数直接暴露在URL上，所以不能用来传递敏感信息。</li>
+</ul>
+<ul>
+<li>GET参数通过URL传递，POST放在Request body中。</li>
+</ul>
 <h5 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h5><blockquote>
 <p>上传文件</p>
 </blockquote>
@@ -715,7 +761,12 @@
 <li>支持虚拟主机</li>
 <li>新增状态码 100</li>
 <li>支持分块传输编码</li>
-<li>新增缓存处理指令 max-age</li>
+<li>新增缓存处理指令 max-age Entity tag，If-Unmodified-Since, If-Match, If-None-Match</li>
+<li><strong>缓存处理</strong>，在HTTP1.0中主要使用header里的If-Modified-Since,Expires来做为缓存判断的标准，HTTP1.1则引入了更多的缓存控制策略例如Entity tag，If-Unmodified-Since, If-Match, If-None-Match等更多可供选择的缓存头来控制缓存策略。</li>
+<li><strong>带宽优化及网络连接的使用</strong>，HTTP1.0中，存在一些浪费带宽的现象，例如客户端只是需要某个对象的一部分，而服务器却将整个对象送过来了，并且不支持断点续传功能，HTTP1.1则在请求头引入了range头域，它允许只请求资源的某个部分，即返回码是206（Partial Content），这样就方便了开发者自由的选择以便于充分利用带宽和连接。</li>
+<li><strong>错误通知的管理</strong>，在HTTP1.1中新增了24个错误状态响应码，如409（Conflict）表示请求的资源与资源的当前状态发生冲突；410（Gone）表示服务器上的某个资源被永久性的删除。</li>
+<li><strong>Host头处理</strong>，在HTTP1.0中认为每台服务器都绑定一个唯一的IP地址，因此，请求消息中的URL并没有传递主机名（hostname）。但随着虚拟主机技术的发展，在一台物理服务器上可以存在多个虚拟主机（Multi-homed Web Servers），并且它们共享一个IP地址。HTTP1.1的请求消息和响应消息都应支持Host头域，且请求消息中如果没有Host头域会报告一个错误（400 Bad Request）。</li>
+<li><strong>长连接</strong>，HTTP 1.1支持长连接（PersistentConnection）和请求的流水线（Pipelining）处理，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟，在HTTP1.1中默认开启Connection： keep-alive，一定程度上弥补了HTTP1.0每次请求都要创建连接的缺点。</li>
 </ul>
 <h4 id="七、HTTP-2-0"><a href="#七、HTTP-2-0" class="headerlink" title="七、HTTP/2.0"></a>七、HTTP/2.0</h4><p><strong>HTTP/1.x 缺陷</strong></p>
 <p>HTTP/1.x 实现简单是以牺牲性能为代价的：</p>
@@ -892,8 +943,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/12/pikachu/" rel="next" title="如何用CSS画一只电老鼠">
-                <i class="fa fa-chevron-left"></i> 如何用CSS画一只电老鼠
+              <a href="/2019/04/04/optimization/" rel="next" title="性能优化">
+                <i class="fa fa-chevron-left"></i> 性能优化
               </a>
             
           </div>
@@ -983,7 +1034,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -994,7 +1045,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -1005,7 +1056,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

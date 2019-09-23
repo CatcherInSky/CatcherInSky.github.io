@@ -81,17 +81,17 @@
 
 
 
-<meta name="description" content="BFCBox 是 CSS 布局的对象和基本单位，页面是由若干个Box组成的。 元素的类型 和 display 属性，决定了这个 Box 的类型。不同类型的 Box 会参与不同的 Formatting Context。  Formatting Context  Formatting Context 是页面的一块渲染区域，并且有一套渲染规则，决定了其子元素将如何定位，以及和其它元素的关系和相互作用。">
+<meta name="description" content="transformposition display inline- flex 垂直居中 https://segmentfault.com/a/1190000016389031 123456789&amp;lt;div class=&amp;quot;red blue&amp;quot;&amp;gt;123&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;blue red&amp;quot;&amp;gt;123&amp;lt;/div&amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Knowlegde Bases of CatcherInSky">
 <meta property="og:url" content="http://yoursite.com/2019/07/30/interview_CSS/index.html">
 <meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
-<meta property="og:description" content="BFCBox 是 CSS 布局的对象和基本单位，页面是由若干个Box组成的。 元素的类型 和 display 属性，决定了这个 Box 的类型。不同类型的 Box 会参与不同的 Formatting Context。  Formatting Context  Formatting Context 是页面的一块渲染区域，并且有一套渲染规则，决定了其子元素将如何定位，以及和其它元素的关系和相互作用。">
+<meta property="og:description" content="transformposition display inline- flex 垂直居中 https://segmentfault.com/a/1190000016389031 123456789&amp;lt;div class=&amp;quot;red blue&amp;quot;&amp;gt;123&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;blue red&amp;quot;&amp;gt;123&amp;lt;/div&amp;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-30T04:58:50.238Z">
+<meta property="og:updated_time" content="2019-09-18T16:30:07.020Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Knowlegde Bases of CatcherInSky">
-<meta name="twitter:description" content="BFCBox 是 CSS 布局的对象和基本单位，页面是由若干个Box组成的。 元素的类型 和 display 属性，决定了这个 Box 的类型。不同类型的 Box 会参与不同的 Formatting Context。  Formatting Context  Formatting Context 是页面的一块渲染区域，并且有一套渲染规则，决定了其子元素将如何定位，以及和其它元素的关系和相互作用。">
+<meta name="twitter:description" content="transformposition display inline- flex 垂直居中 https://segmentfault.com/a/1190000016389031 123456789&amp;lt;div class=&amp;quot;red blue&amp;quot;&amp;gt;123&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;blue red&amp;quot;&amp;gt;123&amp;lt;/div&amp;">
 
 
 
@@ -342,7 +342,64 @@
       
 
       
-        <h3 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h3><p>Box 是 CSS 布局的对象和基本单位，页面是由若干个Box组成的。</p>
+        <h2 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h2><p>position</p>
+<p>display</p>
+<p>inline-</p>
+<p>flex</p>
+<p>垂直居中</p>
+<p><a href="https://segmentfault.com/a/1190000016389031" target="_blank" rel="noopener">https://segmentfault.com/a/1190000016389031</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;red blue&quot;&gt;123&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;blue red&quot;&gt;123&lt;/div&gt;</span><br><span class="line">.red &#123;</span><br><span class="line">    color: red</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.blue &#123;</span><br><span class="line">    color: blue</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两蓝</p>
+<p>权重一样，按照声明顺序，后声明的优先。</p>
+<h2 id="CSS单位"><a href="#CSS单位" class="headerlink" title="CSS单位"></a>CSS单位</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">单位</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">%</td>
+<td style="text-align:left">百分比</td>
+</tr>
+<tr>
+<td style="text-align:left">in</td>
+<td style="text-align:left">英寸</td>
+</tr>
+<tr>
+<td style="text-align:left">cm</td>
+<td style="text-align:left">厘米</td>
+</tr>
+<tr>
+<td style="text-align:left">mm</td>
+<td style="text-align:left">毫米</td>
+</tr>
+<tr>
+<td style="text-align:left">em</td>
+<td style="text-align:left">1em 等于当前的字体尺寸。2em 等于当前字体尺寸的两倍。例如，如果某元素以 12pt 显示，那么 2em 是24pt。在 CSS 中，em 是非常有用的单位，因为它可以自动适应用户所使用的字体。</td>
+</tr>
+<tr>
+<td style="text-align:left">ex</td>
+<td style="text-align:left">一个 ex 是一个字体的 x-height。 (x-height 通常是字体尺寸的一半。)</td>
+</tr>
+<tr>
+<td style="text-align:left">pt</td>
+<td style="text-align:left">磅 (1 pt 等于 1/72 英寸)</td>
+</tr>
+<tr>
+<td style="text-align:left">pc</td>
+<td style="text-align:left">12 点活字 (1 pc 等于 12 点)</td>
+</tr>
+<tr>
+<td style="text-align:left">px</td>
+<td style="text-align:left">像素 (计算机屏幕上的一个点)</td>
+</tr>
+</tbody>
+</table>
+<p>选择器</p>
+<h2 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h2><p>border-box content-box</p>
+<h3 id="BFC块格式化上下文"><a href="#BFC块格式化上下文" class="headerlink" title="BFC块格式化上下文"></a>BFC块格式化上下文</h3><p>Box 是 CSS 布局的对象和基本单位，页面是由若干个Box组成的。</p>
 <p>元素的类型 和 <code>display</code> 属性，决定了这个 Box 的类型。不同类型的 Box 会参与不同的 Formatting Context。</p>
 <blockquote>
 <p>Formatting Context</p>
@@ -364,11 +421,16 @@
 <p>如何创建BFC</p>
 </blockquote>
 <ul>
-<li>根元素</li>
-<li>浮动元素（float 属性不为 none）</li>
-<li>position 为 absolute 或 fixed</li>
-<li>overflow 不为 visible 的块元素</li>
-<li>display 为 inline-block, table-cell, table-caption</li>
+<li>根元素或其它包含它的元素</li>
+<li>浮动元素 (元素的 float 不是 none)</li>
+<li>绝对定位元素 (元素具有 position 为 absolute 或 fixed)</li>
+<li>内联块 (元素具有 display: inline-block)</li>
+<li>表格单元格 (元素具有 display: table-cell，HTML表格单元格默认属性)</li>
+<li>表格标题 (元素具有 display: table-caption, HTML表格标题默认属性)</li>
+<li>具有overflow 且值不是 visible 的块元素，</li>
+<li>display: flow-root</li>
+<li>column-span: all 应当总是会创建一个新的格式化上下文，即便具有 column-span: all 的元素并不被包裹在一个多列容器中。</li>
+<li>一个块格式化上下文包括创建它的元素内部所有内容，除了被包含于创建新的块级格式化上下文的后代元素内的元素。</li>
 </ul>
 <blockquote>
 <p>BFC 的应用</p>
@@ -378,6 +440,10 @@
 <li>清除内部浮动 (创建一个新的 BFC，因为根据 BFC 的规则，计算 BFC 的高度时，浮动元素也参与计算)</li>
 <li>自适应多栏布局 (BFC的区域不会与float box重叠。因此，可以触发生成一个新的BFC)</li>
 </ol>
+<h3 id="W3C对BFC的定义如下："><a href="#W3C对BFC的定义如下：" class="headerlink" title="W3C对BFC的定义如下："></a>W3C对BFC的定义如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">浮动元素和绝对定位元素，非块级盒子的块级容器（例如 inline-blocks, table-cells, 和 table-captions），以及overflow值不为“visiable”的块级盒子，都会为他们的内容创建新的BFC（块级格式上下文）。</span><br></pre></td></tr></table></figure>
+<p>为了便于理解，我们换一种方式来重新定义BFC。一个HTML元素要创建BFC，则满足下列的任意一个或多个条件即可：</p>
+<p>1、float的值不是none。<br>2、position的值不是static或者relative。<br>3、display的值是inline-block、table-cell、flex、table-caption或者inline-flex<br>4、overflow的值不是visible</p>
+<p>BFC是一个独立的布局环境，其中的元素布局是不受外界的影响，并且在一个BFC中，块盒与行盒（行盒由一行中所有的内联元素所组成）都会垂直的沿着其父元素的边框排列。</p>
 <h3 id="隐藏页面中的某个元素的方法有哪些？"><a href="#隐藏页面中的某个元素的方法有哪些？" class="headerlink" title="隐藏页面中的某个元素的方法有哪些？"></a>隐藏页面中的某个元素的方法有哪些？</h3><blockquote>
 <p>隐藏类型</p>
 </blockquote>
@@ -395,6 +461,9 @@
 <p><strong>2.hidden 属性</strong></p>
 <p>HTML5 新增属性，相当于 <code>display: none</code></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">hidden</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>dipslay:none,visibility:hidden都会被构建DOM树</p>
+<p>解析HTML构建DOM树在前面；而样式的加载在后面</p>
+<p>dispaly:none的元素不会被加入到<strong>Render Tree</strong> 而visibility:hidden的元素会被加入到Render Tree；</p>
 <blockquote>
 <p>视觉上的隐藏</p>
 </blockquote>
@@ -448,6 +517,14 @@
 <p><strong>aria-hidden 属性</strong></p>
 <p>读屏软件不可读，占据空间，可见。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">aria-hidden</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="圣杯布局和双飞翼布局的理解与思考"><a href="#圣杯布局和双飞翼布局的理解与思考" class="headerlink" title="圣杯布局和双飞翼布局的理解与思考"></a>圣杯布局和双飞翼布局的理解与思考</h1><p><a href="https://www.jianshu.com/p/81ef7e7094e8" target="_blank" rel="noopener">https://www.jianshu.com/p/81ef7e7094e8</a></p>
+<ul>
+<li>两侧宽度固定，中间宽度自适应</li>
+<li>中间部分在DOM结构上优先，以便先行渲染</li>
+<li>允许三列中的任意一列成为最高列</li>
+<li>只需要使用一个额外的<code>&lt;div&gt;</code>标签</li>
+</ul>
+
       
     </div>
     
@@ -580,7 +657,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -591,7 +668,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -602,7 +679,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -658,7 +735,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#BFC"><span class="nav-number">1.</span> <span class="nav-text">BFC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏页面中的某个元素的方法有哪些？"><span class="nav-number">2.</span> <span class="nav-text">隐藏页面中的某个元素的方法有哪些？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#transform"><span class="nav-number">1.</span> <span class="nav-text">transform</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS单位"><span class="nav-number">2.</span> <span class="nav-text">CSS单位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#盒模型"><span class="nav-number">3.</span> <span class="nav-text">盒模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BFC块格式化上下文"><span class="nav-number">3.1.</span> <span class="nav-text">BFC块格式化上下文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#W3C对BFC的定义如下："><span class="nav-number">3.2.</span> <span class="nav-text">W3C对BFC的定义如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏页面中的某个元素的方法有哪些？"><span class="nav-number">3.3.</span> <span class="nav-text">隐藏页面中的某个元素的方法有哪些？</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#圣杯布局和双飞翼布局的理解与思考"><span class="nav-number"></span> <span class="nav-text">圣杯布局和双飞翼布局的理解与思考</span></a></li></div>
             
 
           </div>
