@@ -81,13 +81,13 @@
 
 
 
-<meta name="description" content="Git入门 关于版本控制版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 本地版本控制系统文件夹备份法。复制整个项目目录来保存不同的版本，或许还会改名加上备份时间以示区别。  其中最流行的一种叫做 RCS，现今许多计算机系统上都还看得到它的踪影。 甚至在流行的 Mac OS X 系统上安装了开发者工具包之后，也可以使用 rcs 命令。 它的工作原理是在硬盘上保存补丁集">
+<meta name="description" content="前言简单记录Git用法以做记录">
 <meta name="keywords" content="Git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git入门">
 <meta property="og:url" content="http://yoursite.com/2017/12/16/git/index.html">
 <meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
-<meta property="og:description" content="Git入门 关于版本控制版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 本地版本控制系统文件夹备份法。复制整个项目目录来保存不同的版本，或许还会改名加上备份时间以示区别。  其中最流行的一种叫做 RCS，现今许多计算机系统上都还看得到它的踪影。 甚至在流行的 Mac OS X 系统上安装了开发者工具包之后，也可以使用 rcs 命令。 它的工作原理是在硬盘上保存补丁集">
+<meta property="og:description" content="前言简单记录Git用法以做记录">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://static.zybuluo.com/CatcherInSky/8sgqkyhk2ynwlhmpp8x2dvrj/local.png">
 <meta property="og:image" content="http://static.zybuluo.com/CatcherInSky/278sftvmncalon23zgmx813w/centralized.png">
@@ -95,10 +95,10 @@
 <meta property="og:image" content="http://static.zybuluo.com/CatcherInSky/yk6jsujk957i1d6jo4iol1kk/lifecycle.png">
 <meta property="og:image" content="http://www.liaoxuefeng.com/files/attachments/0013849087937492135fbf4bbd24dfcbc18349a8a59d36d000/0">
 <meta property="og:image" content="http://www.liaoxuefeng.com/files/attachments/001384908811773187a597e2d844eefb11f5cf5d56135ca000/0">
-<meta property="og:updated_time" content="2019-04-20T03:19:16.236Z">
+<meta property="og:updated_time" content="2019-10-03T14:56:34.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git入门">
-<meta name="twitter:description" content="Git入门 关于版本控制版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 本地版本控制系统文件夹备份法。复制整个项目目录来保存不同的版本，或许还会改名加上备份时间以示区别。  其中最流行的一种叫做 RCS，现今许多计算机系统上都还看得到它的踪影。 甚至在流行的 Mac OS X 系统上安装了开发者工具包之后，也可以使用 rcs 命令。 它的工作原理是在硬盘上保存补丁集">
+<meta name="twitter:description" content="前言简单记录Git用法以做记录">
 <meta name="twitter:image" content="http://static.zybuluo.com/CatcherInSky/8sgqkyhk2ynwlhmpp8x2dvrj/local.png">
 
 
@@ -372,35 +372,56 @@
       
 
       
-        <h1 id="Git入门"><a href="#Git入门" class="headerlink" title="Git入门"></a>Git入门</h1><hr>
-<h1 id="关于版本控制"><a href="#关于版本控制" class="headerlink" title="关于版本控制"></a>关于版本控制</h1><p>版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。</p>
-<h2 id="本地版本控制系统"><a href="#本地版本控制系统" class="headerlink" title="本地版本控制系统"></a>本地版本控制系统</h2><p>文件夹备份法。复制整个项目目录来保存不同的版本，或许还会改名加上备份时间以示区别。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>简单记录Git用法以做记录</p>
+<a id="more"></a>
+<h2 id="关于版本控制"><a href="#关于版本控制" class="headerlink" title="关于版本控制"></a>关于版本控制</h2><p>版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。</p>
+<h3 id="本地版本控制系统"><a href="#本地版本控制系统" class="headerlink" title="本地版本控制系统"></a>本地版本控制系统</h3><p>文件夹备份法。复制整个项目目录来保存不同的版本，或许还会改名加上备份时间以示区别。</p>
 <p><img src="http://static.zybuluo.com/CatcherInSky/8sgqkyhk2ynwlhmpp8x2dvrj/local.png" alt="local.png-19.8kB"></p>
 <p>其中最流行的一种叫做 RCS，现今许多计算机系统上都还看得到它的踪影。 甚至在流行的 Mac OS X 系统上安装了开发者工具包之后，也可以使用 rcs 命令。 它的工作原理是在硬盘上保存补丁集（补丁是指文件修订前后的变化）；通过应用所有的补丁，可以重新计算出各个版本的文件内容。</p>
-<h2 id="集中化的版本控制系统（Centralized-Version-Control-Systems）"><a href="#集中化的版本控制系统（Centralized-Version-Control-Systems）" class="headerlink" title="集中化的版本控制系统（Centralized Version Control Systems）"></a>集中化的版本控制系统（Centralized Version Control Systems）</h2><p>使用一个单一的集中管理的服务器，保存所有文件的修订版本，而协同工作的人们都通过客户端连到这台服务器，取出最新的文件或者提交更新。</p>
+<h3 id="集中化的版本控制系统（Centralized-Version-Control-Systems）"><a href="#集中化的版本控制系统（Centralized-Version-Control-Systems）" class="headerlink" title="集中化的版本控制系统（Centralized Version Control Systems）"></a>集中化的版本控制系统（Centralized Version Control Systems）</h3><p>使用一个单一的集中管理的服务器，保存所有文件的修订版本，而协同工作的人们都通过客户端连到这台服务器，取出最新的文件或者提交更新。</p>
 <p><img src="http://static.zybuluo.com/CatcherInSky/278sftvmncalon23zgmx813w/centralized.png" alt="centralized.png-22.3kB"></p>
 <p>这类系统，常见的有 CVS、Subversion 以及 Perforce 等，优点是有完善的权限系统，以及统一的服务端，适合商业软件的开发。缺点是如果出现中央服务器的单点故障，会有所有人无法工作甚至丢失文件的风险。</p>
-<h2 id="分布式版本控制系统-Distributed-Version-Control-System"><a href="#分布式版本控制系统-Distributed-Version-Control-System" class="headerlink" title="分布式版本控制系统(Distributed Version Control System)"></a>分布式版本控制系统(Distributed Version Control System)</h2><p>客户端并不只提取最新版本的文件快照，而是把代码仓库完整地镜像下来。 这么一来，任何一处协同工作用的服务器发生故障，事后都可以用任何一个镜像出来的本地仓库恢复。 因为每一次的克隆操作，实际上都是一次对代码仓库的完整备份。</p>
+<h3 id="分布式版本控制系统-Distributed-Version-Control-System"><a href="#分布式版本控制系统-Distributed-Version-Control-System" class="headerlink" title="分布式版本控制系统(Distributed Version Control System)"></a>分布式版本控制系统(Distributed Version Control System)</h3><p>客户端并不只提取最新版本的文件快照，而是把代码仓库完整地镜像下来。 这么一来，任何一处协同工作用的服务器发生故障，事后都可以用任何一个镜像出来的本地仓库恢复。 因为每一次的克隆操作，实际上都是一次对代码仓库的完整备份。</p>
 <p><img src="http://static.zybuluo.com/CatcherInSky/qn0p8pmbwndxp2jy98czrl7f/distributed.png" alt="distributed.png-26kB"></p>
 <p>在这类系统中，像 Git、Mercurial、Bazaar、BitKeeper 以及 Darcs 等，它们相当于把集中式版本控制系统的服务端和客户端都交给参与开发的客户端来保管，只有需要不同开发者合并代码时，才需要一个中转站来完成。</p>
-<h3 id="集成管理者工作流"><a href="#集成管理者工作流" class="headerlink" title="集成管理者工作流"></a>集成管理者工作流</h3><p>Git 允许多个远程仓库存在，使得这样一种工作流成为可能：每个开发者拥有自己仓库的写权限和其他所有人仓库的读权限。 这种情形下通常会有个代表`‘官方’’项目的权威的仓库。 要为这个项目做贡献，你需要从该项目克隆出一个自己的公开仓库，然后将自己的修改推送上去。 接着你可以请求官方仓库的维护者拉取更新合并到主项目。 维护者可以将你的仓库作为远程仓库添加进来，在本地测试你的变更，将其合并入他们的分支并推送回官方仓库。 这一流程的工作方式如下所示</p>
+<h4 id="集成管理者工作流"><a href="#集成管理者工作流" class="headerlink" title="集成管理者工作流"></a>集成管理者工作流</h4><p>Git 允许多个远程仓库存在，使得这样一种工作流成为可能：每个开发者拥有自己仓库的写权限和其他所有人仓库的读权限。 这种情形下通常会有个代表`‘官方’’项目的权威的仓库。 要为这个项目做贡献，你需要从该项目克隆出一个自己的公开仓库，然后将自己的修改推送上去。 接着你可以请求官方仓库的维护者拉取更新合并到主项目。 维护者可以将你的仓库作为远程仓库添加进来，在本地测试你的变更，将其合并入他们的分支并推送回官方仓库。 这一流程的工作方式如下所示</p>
 <p>项目维护者推送到主仓库。</p>
 <p>贡献者克隆此仓库，做出修改。</p>
 <p>贡献者将数据推送到自己的公开仓库。</p>
 <p>贡献者给维护者发送邮件，请求拉取自己的更新。</p>
 <p>维护者在自己本地的仓库中，将贡献者的仓库加为远程仓库并合并修改。</p>
 <p>维护者将合并后的修改推送到主仓库。</p>
-<h1 id="什么是Git"><a href="#什么是Git" class="headerlink" title="什么是Git"></a>什么是Git</h1><p>Git是目前世界上最先进的分布式版本控制系统。最初由Linus Torvalds编写，用作Linux内核代码的管理。</p>
-<h3 id="直接记录快照，而非差异比较"><a href="#直接记录快照，而非差异比较" class="headerlink" title="直接记录快照，而非差异比较"></a>直接记录快照，而非差异比较</h3><p> Git 对待数据更像是一个 快照流。这是 Git 与几乎所有其它版本控制系统的重要区别。</p>
-<h3 id="近乎所有操作都是本地执行"><a href="#近乎所有操作都是本地执行" class="headerlink" title="近乎所有操作都是本地执行"></a>近乎所有操作都是本地执行</h3><h3 id="Git-保证完整性"><a href="#Git-保证完整性" class="headerlink" title="Git 保证完整性"></a>Git 保证完整性</h3><p>Git 中所有数据在存储前都计算校验和，然后以校验和来引用。 这意味着不可能在 Git 不知情时更改任何文件内容或目录内容。 这个功能建构在 Git 底层，是构成 Git 哲学不可或缺的部分。 若你在传送过程中丢失信息或损坏文件，Git 就能发现。<br>Git 用以计算校验和的机制叫做 SHA-1 散列（hash，哈希）。 这是一个由 40 个十六进制字符（0-9 和 a-f）组成字符串，基于 Git 中文件的内容或目录结构计算出来。 SHA-1 哈希看起来是这样：</p>
+<h3 id="什么是Git"><a href="#什么是Git" class="headerlink" title="什么是Git"></a>什么是Git</h3><p>Git是目前世界上最先进的分布式版本控制系统。最初由Linus Torvalds编写，用作Linux内核代码的管理。</p>
+<p><strong>直接记录快照，而非差异比较</strong></p>
+<p> Git 对待数据更像是一个 快照流。这是 Git 与几乎所有其它版本控制系统的重要区别。</p>
+<p><strong>近乎所有操作都是本地执行</strong></p>
+<p><strong>Git 保证完整性</strong></p>
+<p>Git 中所有数据在存储前都计算校验和，然后以校验和来引用。 这意味着不可能在 Git 不知情时更改任何文件内容或目录内容。 这个功能建构在 Git 底层，是构成 Git 哲学不可或缺的部分。 若你在传送过程中丢失信息或损坏文件，Git 就能发现。<br>Git 用以计算校验和的机制叫做 SHA-1 散列（hash，哈希）。 这是一个由 40 个十六进制字符（0-9 和 a-f）组成字符串，基于 Git 中文件的内容或目录结构计算出来。 SHA-1 哈希看起来是这样：</p>
 <blockquote>
 <p>24b9da6552252987aa493b52f8696cd6d3b00373</p>
 </blockquote>
 <p>Git 中使用这种哈希值的情况很多，你将经常看到这种哈希值。 实际上，Git 数据库中保存的信息都是以文件内容的哈希值来索引，而不是文件名。</p>
-<h3 id="Git-一般只添加数据"><a href="#Git-一般只添加数据" class="headerlink" title="Git 一般只添加数据"></a>Git 一般只添加数据</h3><p>所有Git 操作，几乎只往 Git 数据库中增加数据。以删除数据为例，删除一个文件只会是这次提交的版本中没有这个文件的快照，不会删除前几个版本中的这个文件。</p>
-<h3 id="三种状态"><a href="#三种状态" class="headerlink" title="三种状态"></a>三种状态</h3><p>已提交（committed）、已修改（modified）和已暂存（staged）</p>
-<h1 id="什么是github"><a href="#什么是github" class="headerlink" title="什么是github"></a>什么是github</h1><p>github是一个用git做版本控制系统的项目托管平台。</p>
-<h3 id="github上常见用语"><a href="#github上常见用语" class="headerlink" title="github上常见用语"></a>github上常见用语</h3><p>Version Control（版本控制）: 任何一个能够让你了解文件的历史，以及该文件的发展进程的系统。<br>Git：一个版本控制程序，通过对变更进行注释，以创建一个易于遍历的系统历史。<br>Commit（提交）：在指定时间点对系统差异进行的注释 “快照”。<br>Local（本地）：指任意时刻工作时正在使用的电脑。<br>Remote（远程）： 指某个联网的位置。<br>Repository (仓库，简称 repo)：配置了Git超级权限的特定文件夹，包含了你的项目或系统相关的所有文件。<br>Github：获取本地提交历史记录，并进行远程存储，以便你可以从任何计算机访问这些记录。<br>Pushing（推送）：取得本地Git提交（以及相关的所有工作），然后将其上传到在线Github。<br>Pulling（拉取）：从在线的Github上获取最新的提交记录，然后合并到本地电脑上。<br>Master (branch)：主分支，提交历史 “树”的 “树干”，包含所有已审核的内容/代码。<br>Feature branch（功能分支/特性分支）：一个基于主分支的独立的位置，在再次并入到主分支之前，你可以在这里安全地写工作中的新任务。<br>Pull Request（发布请求）：一个 Github 工具，允许用户轻松地查看某功能分支的更改 （the difference或 “diff”），同时允许用户在该分支合并到主分支之前对其进行讨论和调整。<br>Merging（合并）：该操作指获取功能分支的提交，加入到主分支提交历史的顶部。<br>Checking out（切换）：该操作指从一个分支切换到另一个分支。</p>
+<p><strong>Git 一般只添加数据</strong></p>
+<p>所有Git 操作，几乎只往 Git 数据库中增加数据。以删除数据为例，删除一个文件只会是这次提交的版本中没有这个文件的快照，不会删除前几个版本中的这个文件。</p>
+<p><strong>三种状态</strong></p>
+<p>已提交（committed）、已修改（modified）和已暂存（staged）</p>
+<h3 id="什么是github"><a href="#什么是github" class="headerlink" title="什么是github"></a>什么是github</h3><p>github是一个用git做版本控制系统的项目托管平台。</p>
+<p><strong>github上常见用语</strong></p>
+<ul>
+<li>Version Control（版本控制）: 任何一个能够让你了解文件的历史，以及该文件的发展进程的系统。</li>
+<li>Git：一个版本控制程序，通过对变更进行注释，以创建一个易于遍历的系统历史。<br>Commit（提交）：在指定时间点对系统差异进行的注释 “快照”。</li>
+<li>Local（本地）：指任意时刻工作时正在使用的电脑。</li>
+<li>Remote（远程）： 指某个联网的位置。</li>
+<li>Repository (仓库，简称 repo)：配置了Git超级权限的特定文件夹，包含了你的项目或系统相关的所有文件。</li>
+<li>Github：获取本地提交历史记录，并进行远程存储，以便你可以从任何计算机访问这些记录。</li>
+<li>Pushing（推送）：取得本地Git提交（以及相关的所有工作），然后将其上传到在线Github。</li>
+<li>Pulling（拉取）：从在线的Github上获取最新的提交记录，然后合并到本地电脑上。</li>
+<li>Master (branch)：主分支，提交历史 “树”的 “树干”，包含所有已审核的内容/代码。</li>
+<li>Feature branch（功能分支/特性分支）：一个基于主分支的独立的位置，在再次并入到主分支之前，你可以在这里安全地写工作中的新任务。</li>
+<li>Pull Request（发布请求）：一个 Github 工具，允许用户轻松地查看某功能分支的更改 （the difference或 “diff”），同时允许用户在该分支合并到主分支之前对其进行讨论和调整。</li>
+<li>Merging（合并）：该操作指获取功能分支的提交，加入到主分支提交历史的顶部。</li>
+<li>Checking out（切换）：该操作指从一个分支切换到另一个分支。</li>
+</ul>
 <h2 id="一、基本操作"><a href="#一、基本操作" class="headerlink" title="一、基本操作"></a>一、基本操作</h2><h4 id="1-设置用户信息"><a href="#1-设置用户信息" class="headerlink" title="1.设置用户信息"></a>1.设置用户信息</h4><blockquote>
 <p>$ git config –global user.name “用户名”</p>
 </blockquote>
@@ -580,7 +601,7 @@
 <blockquote>
 <p>$ git stash list   —&gt;查看所有暂时分支</p>
 </blockquote>
-<p>参考资料<br><a href="http://blog.jobbole.com/111187/" target="_blank" rel="noopener">http://blog.jobbole.com/111187/</a><br><a href="https://zhuanlan.zhihu.com/p/45724857" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/45724857</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://blog.jobbole.com/111187/" target="_blank" rel="noopener">http://blog.jobbole.com/111187/</a><br><a href="https://zhuanlan.zhihu.com/p/45724857" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/45724857</a></p>
 
       
     </div>
@@ -629,14 +650,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/12/16/SSO/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/03/layouts/" rel="prev" title="各种方式进行网页布局">
-                各种方式进行网页布局 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/12/16/SPA/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -716,7 +741,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -727,7 +752,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -738,7 +763,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -794,7 +819,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git入门"><span class="nav-number">1.</span> <span class="nav-text">Git入门</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于版本控制"><span class="nav-number">2.</span> <span class="nav-text">关于版本控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本地版本控制系统"><span class="nav-number">2.1.</span> <span class="nav-text">本地版本控制系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集中化的版本控制系统（Centralized-Version-Control-Systems）"><span class="nav-number">2.2.</span> <span class="nav-text">集中化的版本控制系统（Centralized Version Control Systems）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式版本控制系统-Distributed-Version-Control-System"><span class="nav-number">2.3.</span> <span class="nav-text">分布式版本控制系统(Distributed Version Control System)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集成管理者工作流"><span class="nav-number">2.3.1.</span> <span class="nav-text">集成管理者工作流</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Git"><span class="nav-number">3.</span> <span class="nav-text">什么是Git</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#直接记录快照，而非差异比较"><span class="nav-number">3.0.1.</span> <span class="nav-text">直接记录快照，而非差异比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#近乎所有操作都是本地执行"><span class="nav-number">3.0.2.</span> <span class="nav-text">近乎所有操作都是本地执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git-保证完整性"><span class="nav-number">3.0.3.</span> <span class="nav-text">Git 保证完整性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git-一般只添加数据"><span class="nav-number">3.0.4.</span> <span class="nav-text">Git 一般只添加数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三种状态"><span class="nav-number">3.0.5.</span> <span class="nav-text">三种状态</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是github"><span class="nav-number">4.</span> <span class="nav-text">什么是github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#github上常见用语"><span class="nav-number">4.0.1.</span> <span class="nav-text">github上常见用语</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、基本操作"><span class="nav-number">4.1.</span> <span class="nav-text">一、基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-设置用户信息"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">1.设置用户信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查配置信息"><span class="nav-number">4.1.0.2.</span> <span class="nav-text">检查配置信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-建库"><span class="nav-number">4.1.0.3.</span> <span class="nav-text">2.建库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-提交"><span class="nav-number">4.1.0.4.</span> <span class="nav-text">3.提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-查看"><span class="nav-number">4.1.0.5.</span> <span class="nav-text">4.查看</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-回退"><span class="nav-number">4.1.0.6.</span> <span class="nav-text">5.回退</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-撤销"><span class="nav-number">4.1.0.7.</span> <span class="nav-text">6.撤销</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-删除"><span class="nav-number">4.1.0.8.</span> <span class="nav-text">7.删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-移动"><span class="nav-number">4.1.0.9.</span> <span class="nav-text">8.移动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、标签"><span class="nav-number">4.2.</span> <span class="nav-text">二、标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、远程仓库"><span class="nav-number">4.3.</span> <span class="nav-text">三、远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建SSH-Key"><span class="nav-number">4.3.0.1.</span> <span class="nav-text">1. 创建SSH Key</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-绑定GitHub"><span class="nav-number">4.3.0.2.</span> <span class="nav-text">2. 绑定GitHub</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-绑定库"><span class="nav-number">4.3.0.3.</span> <span class="nav-text">3. 绑定库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-推送本地库内容"><span class="nav-number">4.3.0.4.</span> <span class="nav-text">4.推送本地库内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-克隆远程库内容"><span class="nav-number">4.3.0.5.</span> <span class="nav-text">5.克隆远程库内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-抓取远程库内容"><span class="nav-number">4.3.0.6.</span> <span class="nav-text">6.抓取远程库内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、分支管理"><span class="nav-number">4.4.</span> <span class="nav-text">四、分支管理</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于版本控制"><span class="nav-number">2.</span> <span class="nav-text">关于版本控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地版本控制系统"><span class="nav-number">2.1.</span> <span class="nav-text">本地版本控制系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集中化的版本控制系统（Centralized-Version-Control-Systems）"><span class="nav-number">2.2.</span> <span class="nav-text">集中化的版本控制系统（Centralized Version Control Systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式版本控制系统-Distributed-Version-Control-System"><span class="nav-number">2.3.</span> <span class="nav-text">分布式版本控制系统(Distributed Version Control System)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#集成管理者工作流"><span class="nav-number">2.3.1.</span> <span class="nav-text">集成管理者工作流</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Git"><span class="nav-number">2.4.</span> <span class="nav-text">什么是Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是github"><span class="nav-number">2.5.</span> <span class="nav-text">什么是github</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、基本操作"><span class="nav-number">3.</span> <span class="nav-text">一、基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-设置用户信息"><span class="nav-number">3.0.1.</span> <span class="nav-text">1.设置用户信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查配置信息"><span class="nav-number">3.0.2.</span> <span class="nav-text">检查配置信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-建库"><span class="nav-number">3.0.3.</span> <span class="nav-text">2.建库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-提交"><span class="nav-number">3.0.4.</span> <span class="nav-text">3.提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-查看"><span class="nav-number">3.0.5.</span> <span class="nav-text">4.查看</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-回退"><span class="nav-number">3.0.6.</span> <span class="nav-text">5.回退</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-撤销"><span class="nav-number">3.0.7.</span> <span class="nav-text">6.撤销</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-删除"><span class="nav-number">3.0.8.</span> <span class="nav-text">7.删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-移动"><span class="nav-number">3.0.9.</span> <span class="nav-text">8.移动</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#二、标签"><span class="nav-number">4.</span> <span class="nav-text">二、标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、远程仓库"><span class="nav-number">5.</span> <span class="nav-text">三、远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建SSH-Key"><span class="nav-number">5.0.1.</span> <span class="nav-text">1. 创建SSH Key</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-绑定GitHub"><span class="nav-number">5.0.2.</span> <span class="nav-text">2. 绑定GitHub</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-绑定库"><span class="nav-number">5.0.3.</span> <span class="nav-text">3. 绑定库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-推送本地库内容"><span class="nav-number">5.0.4.</span> <span class="nav-text">4.推送本地库内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-克隆远程库内容"><span class="nav-number">5.0.5.</span> <span class="nav-text">5.克隆远程库内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-抓取远程库内容"><span class="nav-number">5.0.6.</span> <span class="nav-text">6.抓取远程库内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、分支管理"><span class="nav-number">6.</span> <span class="nav-text">四、分支管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></div>
             
 
           </div>

@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="性能优化 关键渲染路径 处理 HTML 标记并构建 DOM 树。 处理 CSS 标记并构建 CSSOM 树。(CSS 被视为阻塞渲染的资源，这意味着浏览器将不会渲染任何已处理的内容，直至 CSSOM 构建完毕。) 将 DOM 与 CSSOM 合并成一个渲染树。 根据渲染树来布局。 将各个节点绘制到屏幕上。当DOM或者CSSOM发生变化的时候，浏览器就需要再次执行一次上面的步骤。 当HTML解析过程">
+<meta name="description" content="前言">
 <meta name="keywords" content="前端开发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="性能优化">
 <meta property="og:url" content="http://yoursite.com/2019/04/04/optimization/index.html">
 <meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
-<meta property="og:description" content="性能优化 关键渲染路径 处理 HTML 标记并构建 DOM 树。 处理 CSS 标记并构建 CSSOM 树。(CSS 被视为阻塞渲染的资源，这意味着浏览器将不会渲染任何已处理的内容，直至 CSSOM 构建完毕。) 将 DOM 与 CSSOM 合并成一个渲染树。 根据渲染树来布局。 将各个节点绘制到屏幕上。当DOM或者CSSOM发生变化的时候，浏览器就需要再次执行一次上面的步骤。 当HTML解析过程">
+<meta property="og:description" content="前言">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="file://C:/Users/PC/Documents/Gridea/post-images/1555682015122.jpg">
-<meta property="og:updated_time" content="2019-07-29T15:56:05.493Z">
+<meta property="og:updated_time" content="2019-10-03T15:03:04.357Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="性能优化">
-<meta name="twitter:description" content="性能优化 关键渲染路径 处理 HTML 标记并构建 DOM 树。 处理 CSS 标记并构建 CSSOM 树。(CSS 被视为阻塞渲染的资源，这意味着浏览器将不会渲染任何已处理的内容，直至 CSSOM 构建完毕。) 将 DOM 与 CSSOM 合并成一个渲染树。 根据渲染树来布局。 将各个节点绘制到屏幕上。当DOM或者CSSOM发生变化的时候，浏览器就需要再次执行一次上面的步骤。 当HTML解析过程">
+<meta name="twitter:description" content="前言">
 <meta name="twitter:image" content="file://C:/Users/PC/Documents/Gridea/post-images/1555682015122.jpg">
 
 
@@ -367,7 +367,8 @@
       
 
       
-        <h1 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h1><hr>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><a id="more"></a>
+<h1 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h1><hr>
 <h1 id="关键渲染路径"><a href="#关键渲染路径" class="headerlink" title="关键渲染路径"></a>关键渲染路径</h1><ol>
 <li>处理 HTML 标记并构建 DOM 树。</li>
 <li>处理 CSS 标记并构建 CSSOM 树。(CSS 被视为阻塞渲染的资源，这意味着浏览器将不会渲染任何已处理的内容，直至 CSSOM 构建完毕。)</li>
@@ -503,8 +504,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/23/Nodejs/" rel="next" title="Node.js">
-                <i class="fa fa-chevron-left"></i> Node.js
+              <a href="/2019/02/23/MySQL/" rel="next" title="MySQL操作一览">
+                <i class="fa fa-chevron-left"></i> MySQL操作一览
               </a>
             
           </div>
@@ -513,8 +514,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/03/interview/" rel="prev" title="前端学习指南">
-                前端学习指南 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/12/pikachu/" rel="prev" title="如何用CSS画一只电老鼠">
+                如何用CSS画一只电老鼠 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -594,7 +595,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -605,7 +606,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -616,7 +617,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -672,7 +673,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#性能优化"><span class="nav-number">1.</span> <span class="nav-text">性能优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键渲染路径"><span class="nav-number">2.</span> <span class="nav-text">关键渲染路径</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对JS优化"><span class="nav-number">2.1.</span> <span class="nav-text">对JS优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对CSS优化"><span class="nav-number">2.2.</span> <span class="nav-text">对CSS优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少HTTP请求"><span class="nav-number">2.3.</span> <span class="nav-text">减少HTTP请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少资源的大小"><span class="nav-number">2.4.</span> <span class="nav-text">减少资源的大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN"><span class="nav-number">2.5.</span> <span class="nav-text">CDN</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图像"><span class="nav-number">3.</span> <span class="nav-text">图像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JPG-JPEG"><span class="nav-number">3.1.</span> <span class="nav-text">JPG/JPEG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺陷"><span class="nav-number">3.1.0.2.</span> <span class="nav-text">缺陷</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景"><span class="nav-number">3.1.0.3.</span> <span class="nav-text">使用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PNG"><span class="nav-number">3.2.</span> <span class="nav-text">PNG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-1"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-number">3.2.0.2.</span> <span class="nav-text">缺点　</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景-1"><span class="nav-number">3.2.0.3.</span> <span class="nav-text">使用场景</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#SVG"><span class="nav-number">3.3.</span> <span class="nav-text">SVG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-2"><span class="nav-number">3.3.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点-1"><span class="nav-number">3.3.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景-2"><span class="nav-number">3.3.0.3.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用方法"><span class="nav-number">3.3.0.4.</span> <span class="nav-text">使用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebP"><span class="nav-number">3.4.</span> <span class="nav-text">WebP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-3"><span class="nav-number">3.4.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点-2"><span class="nav-number">3.4.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用方式"><span class="nav-number">3.4.0.3.</span> <span class="nav-text">使用方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络字体"><span class="nav-number">4.</span> <span class="nav-text">网络字体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">4.1.</span> <span class="nav-text">其他</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#性能优化"><span class="nav-number"></span> <span class="nav-text">性能优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键渲染路径"><span class="nav-number"></span> <span class="nav-text">关键渲染路径</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对JS优化"><span class="nav-number">1.</span> <span class="nav-text">对JS优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对CSS优化"><span class="nav-number">2.</span> <span class="nav-text">对CSS优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少HTTP请求"><span class="nav-number">3.</span> <span class="nav-text">减少HTTP请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少资源的大小"><span class="nav-number">4.</span> <span class="nav-text">减少资源的大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN"><span class="nav-number">5.</span> <span class="nav-text">CDN</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图像"><span class="nav-number"></span> <span class="nav-text">图像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JPG-JPEG"><span class="nav-number">1.</span> <span class="nav-text">JPG/JPEG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">1.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺陷"><span class="nav-number">1.0.2.</span> <span class="nav-text">缺陷</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景"><span class="nav-number">1.0.3.</span> <span class="nav-text">使用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PNG"><span class="nav-number">2.</span> <span class="nav-text">PNG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-number">2.0.2.</span> <span class="nav-text">缺点　</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景-1"><span class="nav-number">2.0.3.</span> <span class="nav-text">使用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SVG"><span class="nav-number">3.</span> <span class="nav-text">SVG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-2"><span class="nav-number">3.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点-1"><span class="nav-number">3.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景-2"><span class="nav-number">3.0.3.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用方法"><span class="nav-number">3.0.4.</span> <span class="nav-text">使用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebP"><span class="nav-number">4.</span> <span class="nav-text">WebP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-3"><span class="nav-number">4.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点-2"><span class="nav-number">4.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用方式"><span class="nav-number">4.0.3.</span> <span class="nav-text">使用方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络字体"><span class="nav-number"></span> <span class="nav-text">网络字体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">1.</span> <span class="nav-text">其他</span></a></li></ol></li></div>
             
 
           </div>
