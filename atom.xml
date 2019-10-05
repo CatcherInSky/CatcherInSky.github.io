@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-10-03T15:16:52.370Z</updated>
+  <updated>2019-10-05T17:15:15.046Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,11 +21,12 @@
     <link href="http://yoursite.com/2019/06/12/typescript/"/>
     <id>http://yoursite.com/2019/06/12/typescript/</id>
     <published>2019-06-12T07:12:21.000Z</published>
-    <updated>2019-10-03T15:16:52.370Z</updated>
+    <updated>2019-10-05T17:15:15.046Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;
+      &lt;p&gt;Typescript的学习记录，更新中……&lt;/p&gt;
+&lt;p&gt;基础类型、接口、泛型、类、函数、对象、声明&lt;/p&gt;
     
     </summary>
     
@@ -61,11 +62,11 @@
     <link href="http://yoursite.com/2019/06/03/interview_browser/"/>
     <id>http://yoursite.com/2019/06/03/interview_browser/</id>
     <published>2019-06-03T08:10:11.000Z</published>
-    <updated>2019-10-03T15:00:27.606Z</updated>
+    <updated>2019-10-05T17:16:21.484Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;
+      &lt;p&gt;前端知识中涉及浏览器的部分、包括浏览器内核、工作原理、存储等&lt;/p&gt;
     
     </summary>
     
@@ -101,13 +102,12 @@
     <link href="http://yoursite.com/2019/05/12/pikachu/"/>
     <id>http://yoursite.com/2019/05/12/pikachu/</id>
     <published>2019-05-12T03:25:01.000Z</published>
-    <updated>2019-10-03T15:30:37.995Z</updated>
+    <updated>2019-10-05T17:13:39.307Z</updated>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;如何用CSS画一只电老鼠&quot;&gt;&lt;a href=&quot;#如何用CSS画一只电老鼠&quot; class=&quot;headerlink&quot; title=&quot;如何用CSS画一只电老鼠&quot;&gt;&lt;/a&gt;如何用CSS画一只电老鼠&lt;/h1&gt;&lt;hr&gt;
-&lt;p&gt;不知道大家有没有去看大侦探皮卡丘呀，有没有被银幕上毛茸茸的电老鼠萌到呢？现在我就来用CSS画一只简易版的皮卡丘吧。（希望不会收到东半球最强法务部的律师函）&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://github.com/CatcherInSky/pikachu/blob/master/pikachu.jpg?raw=true&quot; alt=&quot;pikachu.jpg&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;不知道大家有没有去看大侦探皮卡丘呀，有没有被银幕上毛茸茸的电老鼠萌到呢？现在我就来用CSS画一只简易版的皮卡丘吧。（希望不会收到东半球最强法务部的律师函）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/pikachu-1570118214526-1570118216324.jpg&quot; alt=&quot;img&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -119,15 +119,57 @@
   </entry>
   
   <entry>
+    <title>LeetCode做题记录</title>
+    <link href="http://yoursite.com/2019/05/03/LeetCode/"/>
+    <id>http://yoursite.com/2019/05/03/LeetCode/</id>
+    <published>2019-05-03T15:47:41.000Z</published>
+    <updated>2019-10-05T02:14:30.768Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;个人LeetCode记录，持续更新中……&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Algorithm" scheme="http://yoursite.com/categories/Algorithm/"/>
+    
+    
+      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端学习指南_JavaScript</title>
+    <link href="http://yoursite.com/2019/04/16/interview_JavaScript/"/>
+    <id>http://yoursite.com/2019/04/16/interview_JavaScript/</id>
+    <published>2019-04-16T15:47:41.000Z</published>
+    <updated>2019-10-05T17:25:17.117Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;梳理JS知识&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="FrontEnd" scheme="http://yoursite.com/categories/FrontEnd/"/>
+    
+    
+      <category term="学习指南" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97/"/>
+    
+  </entry>
+  
+  <entry>
     <title>性能优化</title>
     <link href="http://yoursite.com/2019/04/04/optimization/"/>
     <id>http://yoursite.com/2019/04/04/optimization/</id>
     <published>2019-04-04T15:47:41.000Z</published>
-    <updated>2019-10-03T15:03:04.357Z</updated>
+    <updated>2019-10-05T17:17:33.284Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;
+      &lt;p&gt;前端页面性能优化技巧&lt;/p&gt;
     
     </summary>
     
@@ -139,35 +181,15 @@
   </entry>
   
   <entry>
-    <title>Node.js</title>
-    <link href="http://yoursite.com/2019/02/23/Nodejs/"/>
-    <id>http://yoursite.com/2019/02/23/Nodejs/</id>
-    <published>2019-02-23T12:50:45.000Z</published>
-    <updated>2019-10-03T15:02:50.743Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;
-    
-    </summary>
-    
-      <category term="JavaScript" scheme="http://yoursite.com/categories/JavaScript/"/>
-    
-    
-      <category term="Node.js" scheme="http://yoursite.com/tags/Node-js/"/>
-    
-  </entry>
-  
-  <entry>
     <title>MySQL操作一览</title>
     <link href="http://yoursite.com/2019/02/23/MySQL/"/>
     <id>http://yoursite.com/2019/02/23/MySQL/</id>
     <published>2019-02-23T12:50:45.000Z</published>
-    <updated>2019-10-03T15:02:41.437Z</updated>
+    <updated>2019-10-05T17:18:07.938Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;
+      &lt;p&gt;SQL基本操作指令&lt;/p&gt;
     
     </summary>
     
@@ -183,15 +205,35 @@
   </entry>
   
   <entry>
+    <title>Node.js</title>
+    <link href="http://yoursite.com/2019/02/23/Nodejs/"/>
+    <id>http://yoursite.com/2019/02/23/Nodejs/</id>
+    <published>2019-02-23T12:50:45.000Z</published>
+    <updated>2019-10-05T17:18:27.624Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Node.js学习记录&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://yoursite.com/categories/JavaScript/"/>
+    
+    
+      <category term="Node.js" scheme="http://yoursite.com/tags/Node-js/"/>
+    
+  </entry>
+  
+  <entry>
     <title>跨域</title>
     <link href="http://yoursite.com/2018/12/24/crossOrigin/"/>
     <id>http://yoursite.com/2018/12/24/crossOrigin/</id>
     <published>2018-12-24T06:33:01.000Z</published>
-    <updated>2019-10-03T15:17:15.684Z</updated>
+    <updated>2019-10-05T17:18:53.658Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;简单记录Git用法以做记录&lt;/p&gt;
+      &lt;p&gt;常用跨域方法汇总&lt;/p&gt;
     
     </summary>
     
@@ -207,11 +249,11 @@
     <link href="http://yoursite.com/2018/11/24/console/"/>
     <id>http://yoursite.com/2018/11/24/console/</id>
     <published>2018-11-24T06:33:01.000Z</published>
-    <updated>2019-10-03T14:57:02.339Z</updated>
+    <updated>2019-10-05T17:19:31.818Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;
+      &lt;p&gt;了解console.log对象可以更好地调试代码&lt;/p&gt;
     
     </summary>
     
@@ -227,11 +269,11 @@
     <link href="http://yoursite.com/2018/07/13/regexp/"/>
     <id>http://yoursite.com/2018/07/13/regexp/</id>
     <published>2018-07-13T12:46:25.000Z</published>
-    <updated>2019-10-03T15:17:04.447Z</updated>
+    <updated>2019-10-05T17:20:10.238Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;
+      &lt;p&gt;JS中常用正则表达式操作&lt;/p&gt;
     
     </summary>
     
@@ -245,15 +287,35 @@
   </entry>
   
   <entry>
+    <title>前端常用设计模式</title>
+    <link href="http://yoursite.com/2018/06/17/designPattern/"/>
+    <id>http://yoursite.com/2018/06/17/designPattern/</id>
+    <published>2018-06-17T15:47:41.000Z</published>
+    <updated>2019-10-05T17:22:41.532Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;施工中……&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="designPattern" scheme="http://yoursite.com/categories/designPattern/"/>
+    
+    
+      <category term="FrontEnd" scheme="http://yoursite.com/tags/FrontEnd/"/>
+    
+  </entry>
+  
+  <entry>
     <title>各种方式进行网页布局</title>
     <link href="http://yoursite.com/2018/05/03/layouts/"/>
     <id>http://yoursite.com/2018/05/03/layouts/</id>
     <published>2018-05-03T02:40:26.000Z</published>
-    <updated>2019-10-03T15:02:20.275Z</updated>
+    <updated>2019-10-05T17:21:07.034Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;
+      &lt;p&gt;各类常用网页布局方式：静态、自适应、流式、弹性、网格布局。&lt;/p&gt;
     
     </summary>
     
@@ -266,58 +328,26 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2017/12/16/HopeLibrarySystem/"/>
-    <id>http://yoursite.com/2017/12/16/HopeLibrarySystem/</id>
-    <published>2017-12-16T15:47:41.000Z</published>
-    <updated>2019-10-03T14:59:04.923Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2017/12/16/interview_React/"/>
-    <id>http://yoursite.com/2017/12/16/interview_React/</id>
-    <published>2017-12-16T15:47:41.000Z</published>
-    <updated>2019-10-03T15:01:25.833Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2017/12/16/SPA/"/>
-    <id>http://yoursite.com/2017/12/16/SPA/</id>
-    <published>2017-12-16T15:47:41.000Z</published>
-    <updated>2019-10-03T15:03:48.954Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
     <link href="http://yoursite.com/2017/12/16/interview_html/"/>
     <id>http://yoursite.com/2017/12/16/interview_html/</id>
     <published>2017-12-16T15:47:41.000Z</published>
     <updated>2019-10-03T15:00:57.863Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2017/12/16/wx/"/>
+    <id>http://yoursite.com/2017/12/16/wx/</id>
+    <published>2017-12-16T15:47:41.000Z</published>
+    <updated>2019-10-03T15:04:31.763Z</updated>
     
     <summary type="html">
     
@@ -345,54 +375,36 @@
   </entry>
   
   <entry>
-    <title></title>
-    <link href="http://yoursite.com/2017/12/16/designPattern/"/>
-    <id>http://yoursite.com/2017/12/16/designPattern/</id>
+    <title>HopeLibrarySystem项目总结</title>
+    <link href="http://yoursite.com/2017/12/16/HopeLibrarySystem/"/>
+    <id>http://yoursite.com/2017/12/16/HopeLibrarySystem/</id>
     <published>2017-12-16T15:47:41.000Z</published>
-    <updated>2019-10-03T14:58:12.684Z</updated>
+    <updated>2019-10-05T17:24:00.433Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;
+      &lt;p&gt;记录此项目中一些技术要点&lt;/p&gt;
     
     </summary>
     
     
+      <category term="FrontEnd" scheme="http://yoursite.com/tags/FrontEnd/"/>
+    
   </entry>
   
   <entry>
-    <title></title>
+    <title>Express学习记录</title>
     <link href="http://yoursite.com/2017/12/16/express/"/>
     <id>http://yoursite.com/2017/12/16/express/</id>
     <published>2017-12-16T15:47:41.000Z</published>
-    <updated>2019-10-03T14:58:50.193Z</updated>
+    <updated>2019-10-05T17:23:06.942Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;
+      &lt;p&gt;施工中……&lt;/p&gt;
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>Git入门</title>
-    <link href="http://yoursite.com/2017/12/16/git/"/>
-    <id>http://yoursite.com/2017/12/16/git/</id>
-    <published>2017-12-16T15:47:41.000Z</published>
-    <updated>2019-10-03T14:56:34.087Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;简单记录Git用法以做记录&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Git" scheme="http://yoursite.com/categories/Git/"/>
-    
-    
-      <category term="Git" scheme="http://yoursite.com/tags/Git/"/>
     
   </entry>
   

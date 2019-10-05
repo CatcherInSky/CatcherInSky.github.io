@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="FrontEnd,">
 
 
 
@@ -81,18 +81,19 @@
 
 
 
-<meta name="description" content="前言">
+<meta name="description" content="记录此项目中一些技术要点">
+<meta name="keywords" content="FrontEnd">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:title" content="HopeLibrarySystem项目总结">
 <meta property="og:url" content="http://yoursite.com/2017/12/16/HopeLibrarySystem/index.html">
 <meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
-<meta property="og:description" content="前言">
+<meta property="og:description" content="记录此项目中一些技术要点">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://images2018.cnblogs.com/blog/1295418/201805/1295418-20180527211518006-2003422834.png">
-<meta property="og:updated_time" content="2019-10-03T14:59:04.923Z">
+<meta property="og:updated_time" content="2019-10-05T17:24:00.433Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Knowlegde Bases of CatcherInSky">
-<meta name="twitter:description" content="前言">
+<meta name="twitter:title" content="HopeLibrarySystem项目总结">
+<meta name="twitter:description" content="记录此项目中一些技术要点">
 <meta name="twitter:image" content="https://images2018.cnblogs.com/blog/1295418/201805/1295418-20180527211518006-2003422834.png">
 
 
@@ -129,7 +130,7 @@
 
 
 
-  <title> | Knowlegde Bases of CatcherInSky</title>
+  <title>HopeLibrarySystem项目总结 | Knowlegde Bases of CatcherInSky</title>
   
 
 
@@ -199,6 +200,26 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
           </a>
         </li>
       
@@ -294,7 +315,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">HopeLibrarySystem项目总结</h1>
         
 
         <div class="post-meta">
@@ -344,7 +365,8 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><a id="more"></a>
+        <p>记录此项目中一些技术要点</p>
+<a id="more"></a>
 <h1 id="HopeLibrarySystem-项目总结"><a href="#HopeLibrarySystem-项目总结" class="headerlink" title="HopeLibrarySystem 项目总结"></a>HopeLibrarySystem 项目总结</h1><h2 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h2><h3 id="express-ejs"><a href="#express-ejs" class="headerlink" title="express+ejs"></a>express+ejs</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// view engine setup</span><br><span class="line">app.set(&apos;views&apos;, path.join(__dirname, &apos;views&apos;));</span><br><span class="line">app.set(&apos;view engine&apos;, &apos;ejs&apos;);</span><br></pre></td></tr></table></figure>
 <p>Express里有个中间件（<a href="http://expressjs.com/guide/using-middleware.html" target="_blank" rel="noopener"><strong>middleware</strong></a>）的概念。所谓中间件，就是在收到请求后和发送响应之前这个阶段执行的一些函数。</p>
 <p>要在一条路由的处理链上插入中间件，可以使用express对象的use方法。该方法原型如下：</p>
@@ -533,7 +555,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2017/12/16/HopeLibrarySystem/" title>http://yoursite.com/2017/12/16/HopeLibrarySystem/</a>
+    <a href="http://yoursite.com/2017/12/16/HopeLibrarySystem/" title="HopeLibrarySystem项目总结">http://yoursite.com/2017/12/16/HopeLibrarySystem/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -546,6 +568,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/FrontEnd/" rel="tag"># FrontEnd</a>
+          
+        </div>
+      
 
       
       
@@ -555,8 +583,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/16/interview_React/" rel="next" title>
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/2017/12/16/express/" rel="next" title="Express学习记录">
+                <i class="fa fa-chevron-left"></i> Express学习记录
               </a>
             
           </div>
@@ -565,8 +593,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/03/layouts/" rel="prev" title="各种方式进行网页布局">
-                各种方式进行网页布局 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/12/16/interview_Vue/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -656,10 +684,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">8</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -667,10 +695,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">12</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -724,7 +752,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#HopeLibrarySystem-项目总结"><span class="nav-number"></span> <span class="nav-text">HopeLibrarySystem 项目总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#框架"><span class="nav-number">1.</span> <span class="nav-text">框架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#express-ejs"><span class="nav-number">1.1.</span> <span class="nav-text">express+ejs</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件"><span class="nav-number">2.</span> <span class="nav-text">组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#express-session"><span class="nav-number">2.1.</span> <span class="nav-text">express-session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Morgan"><span class="nav-number">2.2.</span> <span class="nav-text">Morgan</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#body-parser"><span class="nav-number">2.3.</span> <span class="nav-text">body-parser</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加载到没有挂载路径的中间件"><span class="nav-number">2.3.1.</span> <span class="nav-text">加载到没有挂载路径的中间件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie-parser"><span class="nav-number">2.4.</span> <span class="nav-text">Cookie-parser</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#express-static"><span class="nav-number">2.5.</span> <span class="nav-text">express.static</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HLayer-js"><span class="nav-number">2.6.</span> <span class="nav-text">HLayer.js</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重要部分"><span class="nav-number">3.</span> <span class="nav-text">重要部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#登录系统"><span class="nav-number">3.1.</span> <span class="nav-text">登录系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#流程"><span class="nav-number">3.1.1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证码"><span class="nav-number">3.1.2.</span> <span class="nav-text">验证码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加密"><span class="nav-number">3.1.3.</span> <span class="nav-text">加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#升级"><span class="nav-number">3.1.4.</span> <span class="nav-text">升级</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安全方面"><span class="nav-number">3.1.4.1.</span> <span class="nav-text">安全方面</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据交互"><span class="nav-number">3.2.</span> <span class="nav-text">数据交互</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#封装"><span class="nav-number">3.2.1.</span> <span class="nav-text">封装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页面渲染"><span class="nav-number">3.3.</span> <span class="nav-text">页面渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#鉴权系统"><span class="nav-number">3.4.</span> <span class="nav-text">鉴权系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录：项目结构"><span class="nav-number">4.</span> <span class="nav-text">附录：项目结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-目录结构"><span class="nav-number">4.1.</span> <span class="nav-text">1. 目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-数据库结构"><span class="nav-number">4.2.</span> <span class="nav-text">2. 数据库结构</span></a></li></ol></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HopeLibrarySystem-项目总结"><span class="nav-number">1.</span> <span class="nav-text">HopeLibrarySystem 项目总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#框架"><span class="nav-number">1.1.</span> <span class="nav-text">框架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#express-ejs"><span class="nav-number">1.1.1.</span> <span class="nav-text">express+ejs</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件"><span class="nav-number">1.2.</span> <span class="nav-text">组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#express-session"><span class="nav-number">1.2.1.</span> <span class="nav-text">express-session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Morgan"><span class="nav-number">1.2.2.</span> <span class="nav-text">Morgan</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#body-parser"><span class="nav-number">1.2.3.</span> <span class="nav-text">body-parser</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加载到没有挂载路径的中间件"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">加载到没有挂载路径的中间件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie-parser"><span class="nav-number">1.2.4.</span> <span class="nav-text">Cookie-parser</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#express-static"><span class="nav-number">1.2.5.</span> <span class="nav-text">express.static</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HLayer-js"><span class="nav-number">1.2.6.</span> <span class="nav-text">HLayer.js</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重要部分"><span class="nav-number">1.3.</span> <span class="nav-text">重要部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#登录系统"><span class="nav-number">1.3.1.</span> <span class="nav-text">登录系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#流程"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证码"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">验证码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加密"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#升级"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">升级</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安全方面"><span class="nav-number">1.3.1.4.1.</span> <span class="nav-text">安全方面</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据交互"><span class="nav-number">1.3.2.</span> <span class="nav-text">数据交互</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#封装"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">封装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页面渲染"><span class="nav-number">1.3.3.</span> <span class="nav-text">页面渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#鉴权系统"><span class="nav-number">1.3.4.</span> <span class="nav-text">鉴权系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录：项目结构"><span class="nav-number">1.4.</span> <span class="nav-text">附录：项目结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-目录结构"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. 目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-数据库结构"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. 数据库结构</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

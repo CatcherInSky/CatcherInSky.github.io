@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="前言简单记录Git用法以做记录">
+<meta name="description" content="常用跨域方法汇总">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="跨域">
 <meta property="og:url" content="http://yoursite.com/2018/12/24/crossOrigin/index.html">
 <meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
-<meta property="og:description" content="前言简单记录Git用法以做记录">
+<meta property="og:description" content="常用跨域方法汇总">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-4b85a2e85aab5a14d8ac3ec2d6133dcc_hd.jpg">
-<meta property="og:updated_time" content="2019-10-03T15:17:15.684Z">
+<meta property="og:updated_time" content="2019-10-05T17:18:53.658Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨域">
-<meta name="twitter:description" content="前言简单记录Git用法以做记录">
+<meta name="twitter:description" content="常用跨域方法汇总">
 <meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-4b85a2e85aab5a14d8ac3ec2d6133dcc_hd.jpg">
 
 
@@ -200,6 +200,26 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
           </a>
         </li>
       
@@ -367,7 +387,7 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>简单记录Git用法以做记录</p>
+        <p>常用跨域方法汇总</p>
 <a id="more"></a>
 <h1 id="什么是跨域"><a href="#什么是跨域" class="headerlink" title="什么是跨域"></a>什么是跨域</h1><h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>同源指 <strong>协议 域名 端口</strong> 相同为同源，即便两个不同的域名指向同一个 ip 地址，也非同源。<br>浏览器的同源策略限制了从同一个源加载的文档或脚本如何与来自另一个源的资源进行交互。<br>它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，浏览器很容易受到 XSS、CSFR 等攻击。</p>
 <h2 id="触发跨域错误"><a href="#触发跨域错误" class="headerlink" title="触发跨域错误"></a>触发跨域错误</h2><p>浏览器端的限制（服务端收到了请求并正确返回）<br>发送的是 XMLHttpRequest 请求（使用 img 标签发送的请求为 json 类型，并不会报错）<br>请求了不同域的资源</p>
@@ -473,8 +493,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/23/MySQL/" rel="prev" title="MySQL操作一览">
-                MySQL操作一览 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/23/Nodejs/" rel="prev" title="Node.js">
+                Node.js <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -564,10 +584,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">8</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -575,10 +595,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">12</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -632,7 +652,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是跨域"><span class="nav-number"></span> <span class="nav-text">什么是跨域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#同源策略"><span class="nav-number">1.</span> <span class="nav-text">同源策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触发跨域错误"><span class="nav-number">2.</span> <span class="nav-text">触发跨域错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF"><span class="nav-number">2.1.</span> <span class="nav-text">CSRF</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法"><span class="nav-number"></span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSONP"><span class="nav-number">1.</span> <span class="nav-text">JSONP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空iframe加form"><span class="nav-number">2.</span> <span class="nav-text">空iframe加form</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#postMessage-跨域"><span class="nav-number">3.</span> <span class="nav-text">postMessage 跨域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CORS”跨域资源共享”（Cross-origin-resource-sharing）"><span class="nav-number">4.</span> <span class="nav-text">CORS”跨域资源共享”（Cross-origin resource sharing）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx代理"><span class="nav-number">5.</span> <span class="nav-text">Nginx代理</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是跨域"><span class="nav-number">1.</span> <span class="nav-text">什么是跨域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#同源策略"><span class="nav-number">1.1.</span> <span class="nav-text">同源策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触发跨域错误"><span class="nav-number">1.2.</span> <span class="nav-text">触发跨域错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF"><span class="nav-number">1.2.1.</span> <span class="nav-text">CSRF</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSONP"><span class="nav-number">2.1.</span> <span class="nav-text">JSONP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空iframe加form"><span class="nav-number">2.2.</span> <span class="nav-text">空iframe加form</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#postMessage-跨域"><span class="nav-number">2.3.</span> <span class="nav-text">postMessage 跨域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CORS”跨域资源共享”（Cross-origin-resource-sharing）"><span class="nav-number">2.4.</span> <span class="nav-text">CORS”跨域资源共享”（Cross-origin resource sharing）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx代理"><span class="nav-number">2.5.</span> <span class="nav-text">Nginx代理</span></a></li></ol></li></ol></div>
             
 
           </div>

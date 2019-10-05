@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="前言">
+<meta name="description" content="JS中常用正则表达式操作">
 <meta name="keywords" content="Algorithms,RegExp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RegExp正则表达式">
 <meta property="og:url" content="http://yoursite.com/2018/07/13/regexp/index.html">
 <meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
-<meta property="og:description" content="前言">
+<meta property="og:description" content="JS中常用正则表达式操作">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-03T15:17:04.447Z">
+<meta property="og:updated_time" content="2019-10-05T17:20:10.238Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RegExp正则表达式">
-<meta name="twitter:description" content="前言">
+<meta name="twitter:description" content="JS中常用正则表达式操作">
 
 
 
@@ -198,6 +198,26 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
           </a>
         </li>
       
@@ -365,7 +385,8 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><a id="more"></a>
+        <p>JS中常用正则表达式操作</p>
+<a id="more"></a>
 <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><hr>
 <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>正则表达式，又称规则表达式。（英语：Regular Expression，在代码中常简写为regex、RegExp或RE），计算机科学的一个概念。在编写处理字符串的程序或网页时，经常会有查找符合某些复杂规则的字符串的需要。正则表达式就是用于<strong>描述这些规则</strong>的工具。换句话说，正则表达式就是记录文本规则的代码。正则表达式通常被用来检索、替换那些符合某个模式(规则)的文本。</p>
 <p>正则表达式是对字符串操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。</p>
@@ -749,8 +770,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/03/layouts/" rel="next" title="各种方式进行网页布局">
-                <i class="fa fa-chevron-left"></i> 各种方式进行网页布局
+              <a href="/2018/06/17/designPattern/" rel="next" title="前端常用设计模式">
+                <i class="fa fa-chevron-left"></i> 前端常用设计模式
               </a>
             
           </div>
@@ -850,10 +871,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">8</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -861,10 +882,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">12</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -918,7 +939,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#正则表达式"><span class="nav-number"></span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定义"><span class="nav-number"></span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试"><span class="nav-number"></span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作用："><span class="nav-number"></span> <span class="nav-text">作用：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#声明"><span class="nav-number"></span> <span class="nav-text">声明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实例属性"><span class="nav-number"></span> <span class="nav-text">实例属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RegExp实例方法"><span class="nav-number"></span> <span class="nav-text">RegExp实例方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#regObj-test-strObj"><span class="nav-number">1.</span> <span class="nav-text">regObj.test(strObj)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#regObj-exec-strObj"><span class="nav-number">2.</span> <span class="nav-text">regObj.exec(strObj)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串方法"><span class="nav-number"></span> <span class="nav-text">字符串方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#strObj-search-RegObj"><span class="nav-number">1.</span> <span class="nav-text">strObj.search(RegObj)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#strObj-match-RegObj"><span class="nav-number">2.</span> <span class="nav-text">strObj.match(RegObj)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#strObj-replace-regObj-replaceStr-function"><span class="nav-number">3.</span> <span class="nav-text">strObj.replace(regObj,replaceStr|function(){})</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#strObj-split-regObj"><span class="nav-number">4.</span> <span class="nav-text">strObj.split(regObj)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语法"><span class="nav-number"></span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#元字符"><span class="nav-number">1.</span> <span class="nav-text">元字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预定义的特殊字符"><span class="nav-number">2.</span> <span class="nav-text">预定义的特殊字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分枝条件"><span class="nav-number">3.</span> <span class="nav-text">分枝条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边界"><span class="nav-number">4.</span> <span class="nav-text">边界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符类"><span class="nav-number">5.</span> <span class="nav-text">字符类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单类"><span class="nav-number">5.1.</span> <span class="nav-text">简单类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负向类"><span class="nav-number">5.2.</span> <span class="nav-text">负向类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#范围类"><span class="nav-number">5.3.</span> <span class="nav-text">范围类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合类"><span class="nav-number">5.4.</span> <span class="nav-text">组合类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预定义类"><span class="nav-number">5.5.</span> <span class="nav-text">预定义类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#量词（限定符）"><span class="nav-number">6.</span> <span class="nav-text">量词（限定符）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#贪婪量词，懒惰量词与支配性量词"><span class="nav-number">6.1.</span> <span class="nav-text">贪婪量词，懒惰量词与支配性量词</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分组"><span class="nav-number">7.</span> <span class="nav-text">分组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#捕获性分组"><span class="nav-number">7.1.</span> <span class="nav-text">捕获性分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反向引用"><span class="nav-number">7.2.</span> <span class="nav-text">反向引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非捕获性分组"><span class="nav-number">7.3.</span> <span class="nav-text">非捕获性分组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#零宽断言"><span class="nav-number">8.</span> <span class="nav-text">零宽断言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小练习"><span class="nav-number"></span> <span class="nav-text">小练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#检验"><span class="nav-number">1.</span> <span class="nav-text">检验</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#官方教程"><span class="nav-number"></span> <span class="nav-text">官方教程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number"></span> <span class="nav-text">参考资料</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#正则表达式"><span class="nav-number">1.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定义"><span class="nav-number">2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试"><span class="nav-number">3.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作用："><span class="nav-number">4.</span> <span class="nav-text">作用：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#声明"><span class="nav-number">5.</span> <span class="nav-text">声明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实例属性"><span class="nav-number">6.</span> <span class="nav-text">实例属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RegExp实例方法"><span class="nav-number">7.</span> <span class="nav-text">RegExp实例方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#regObj-test-strObj"><span class="nav-number">7.1.</span> <span class="nav-text">regObj.test(strObj)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#regObj-exec-strObj"><span class="nav-number">7.2.</span> <span class="nav-text">regObj.exec(strObj)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串方法"><span class="nav-number">8.</span> <span class="nav-text">字符串方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#strObj-search-RegObj"><span class="nav-number">8.1.</span> <span class="nav-text">strObj.search(RegObj)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#strObj-match-RegObj"><span class="nav-number">8.2.</span> <span class="nav-text">strObj.match(RegObj)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#strObj-replace-regObj-replaceStr-function"><span class="nav-number">8.3.</span> <span class="nav-text">strObj.replace(regObj,replaceStr|function(){})</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#strObj-split-regObj"><span class="nav-number">8.4.</span> <span class="nav-text">strObj.split(regObj)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语法"><span class="nav-number">9.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#元字符"><span class="nav-number">9.1.</span> <span class="nav-text">元字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预定义的特殊字符"><span class="nav-number">9.2.</span> <span class="nav-text">预定义的特殊字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分枝条件"><span class="nav-number">9.3.</span> <span class="nav-text">分枝条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边界"><span class="nav-number">9.4.</span> <span class="nav-text">边界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符类"><span class="nav-number">9.5.</span> <span class="nav-text">字符类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单类"><span class="nav-number">9.5.1.</span> <span class="nav-text">简单类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负向类"><span class="nav-number">9.5.2.</span> <span class="nav-text">负向类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#范围类"><span class="nav-number">9.5.3.</span> <span class="nav-text">范围类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合类"><span class="nav-number">9.5.4.</span> <span class="nav-text">组合类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预定义类"><span class="nav-number">9.5.5.</span> <span class="nav-text">预定义类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#量词（限定符）"><span class="nav-number">9.6.</span> <span class="nav-text">量词（限定符）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#贪婪量词，懒惰量词与支配性量词"><span class="nav-number">9.6.1.</span> <span class="nav-text">贪婪量词，懒惰量词与支配性量词</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分组"><span class="nav-number">9.7.</span> <span class="nav-text">分组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#捕获性分组"><span class="nav-number">9.7.1.</span> <span class="nav-text">捕获性分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反向引用"><span class="nav-number">9.7.2.</span> <span class="nav-text">反向引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非捕获性分组"><span class="nav-number">9.7.3.</span> <span class="nav-text">非捕获性分组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#零宽断言"><span class="nav-number">9.8.</span> <span class="nav-text">零宽断言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小练习"><span class="nav-number">10.</span> <span class="nav-text">小练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#检验"><span class="nav-number">10.1.</span> <span class="nav-text">检验</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#官方教程"><span class="nav-number">11.</span> <span class="nav-text">官方教程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">12.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>

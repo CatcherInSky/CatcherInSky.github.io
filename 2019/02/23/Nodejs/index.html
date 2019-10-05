@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="前言">
+<meta name="description" content="Node.js学习记录">
 <meta name="keywords" content="Node.js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node.js">
 <meta property="og:url" content="http://yoursite.com/2019/02/23/Nodejs/index.html">
 <meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
-<meta property="og:description" content="前言">
+<meta property="og:description" content="Node.js学习记录">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-de1858abd236bdc70904525c3c5b05d7_hd.jpg">
-<meta property="og:updated_time" content="2019-10-03T15:02:50.743Z">
+<meta property="og:updated_time" content="2019-10-05T17:18:27.624Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node.js">
-<meta name="twitter:description" content="前言">
+<meta name="twitter:description" content="Node.js学习记录">
 <meta name="twitter:image" content="https://pic4.zhimg.com/80/v2-de1858abd236bdc70904525c3c5b05d7_hd.jpg">
 
 
@@ -200,6 +200,26 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
           </a>
         </li>
       
@@ -367,7 +387,8 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><a id="more"></a>
+        <p>Node.js学习记录</p>
+<a id="more"></a>
 <p>Node 中的 Event Loop 和浏览器中的是完全不相同的东西。Node.js 采用 V8 作为 js 的解析引擎，而 I/O 处理方面使用了自己设计的 libuv，libuv 是一个基于事件驱动的跨平台抽象层，封装了不同操作系统一些底层特性，对外提供统一的 API，事件循环机制也是它里面的实现</p>
 <h2 id="轮询机制"><a href="#轮询机制" class="headerlink" title="轮询机制"></a>轮询机制</h2><p>通过libuv库实现 </p>
 <p>uv_run函数分为六个阶段</p>
@@ -486,8 +507,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/23/MySQL/" rel="next" title="MySQL操作一览">
-                <i class="fa fa-chevron-left"></i> MySQL操作一览
+              <a href="/2018/12/24/crossOrigin/" rel="next" title="跨域">
+                <i class="fa fa-chevron-left"></i> 跨域
               </a>
             
           </div>
@@ -496,8 +517,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/04/optimization/" rel="prev" title="性能优化">
-                性能优化 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/23/MySQL/" rel="prev" title="MySQL操作一览">
+                MySQL操作一览 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -587,10 +608,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">8</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -598,10 +619,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">12</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -655,7 +676,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#轮询机制"><span class="nav-number">2.</span> <span class="nav-text">轮询机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">2.0.1.</span> <span class="nav-text">注意</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#简单实现Node的Events模块"><span class="nav-number">3.</span> <span class="nav-text">简单实现Node的Events模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考回答："><span class="nav-number">3.1.</span> <span class="nav-text">参考回答：</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#轮询机制"><span class="nav-number">1.</span> <span class="nav-text">轮询机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">1.0.1.</span> <span class="nav-text">注意</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#简单实现Node的Events模块"><span class="nav-number">2.</span> <span class="nav-text">简单实现Node的Events模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考回答："><span class="nav-number">2.1.</span> <span class="nav-text">参考回答：</span></a></li></ol></li></div>
             
 
           </div>

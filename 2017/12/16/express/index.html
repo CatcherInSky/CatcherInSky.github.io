@@ -81,21 +81,21 @@
 
 
 
-<meta name="description" content="前言">
+<meta name="description" content="施工中……">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:title" content="Express学习记录">
 <meta property="og:url" content="http://yoursite.com/2017/12/16/express/index.html">
 <meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
-<meta property="og:description" content="前言">
+<meta property="og:description" content="施工中……">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-df324fff2a6e6ae252bc89b40aa13b1d_hd.jpg">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-5b5b41971e5c894405df35e55d2fe39f_hd.jpg">
 <meta property="og:image" content="https://pic3.zhimg.com/80/v2-038ac07a7c23b2184a1a2f552cfbf8d6_hd.jpg">
 <meta property="og:image" content="https://img-blog.csdn.net/20180710000737469?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BweDIwMTc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:updated_time" content="2019-10-03T14:58:50.193Z">
+<meta property="og:updated_time" content="2019-10-05T17:23:06.942Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Knowlegde Bases of CatcherInSky">
-<meta name="twitter:description" content="前言">
+<meta name="twitter:title" content="Express学习记录">
+<meta name="twitter:description" content="施工中……">
 <meta name="twitter:image" content="https://pic2.zhimg.com/80/v2-df324fff2a6e6ae252bc89b40aa13b1d_hd.jpg">
 
 
@@ -132,7 +132,7 @@
 
 
 
-  <title> | Knowlegde Bases of CatcherInSky</title>
+  <title>Express学习记录 | Knowlegde Bases of CatcherInSky</title>
   
 
 
@@ -202,6 +202,26 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
           </a>
         </li>
       
@@ -297,7 +317,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">Express学习记录</h1>
         
 
         <div class="post-meta">
@@ -347,7 +367,8 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><a id="more"></a>
+        <p>施工中……</p>
+<a id="more"></a>
 <h2 id="express构造的是Http-createServer的回调函数"><a href="#express构造的是Http-createServer的回调函数" class="headerlink" title="express构造的是Http.createServer的回调函数"></a>express构造的是Http.createServer的回调函数</h2><p>express是一个基于NodeJS的框架，先来看下如果不使用框架要创建一个最简单的web应用应该是怎么样</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="keyword">const</span> server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>)</span>&#123;</span><br><span class="line">    res.end(<span class="string">'hello word!'</span>)</span><br><span class="line">&#125;);</span><br><span class="line">server.listen(<span class="number">8000</span>);</span><br></pre></td></tr></table></figure>
 <p>实际上express是一个函数，运行后可以构造出上面代码中http.createServer的回调函数，express做的一切文章都是在这个回调函数上。来看下express3.x的源码express.js</p>
@@ -410,7 +431,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2017/12/16/express/" title>http://yoursite.com/2017/12/16/express/</a>
+    <a href="http://yoursite.com/2017/12/16/express/" title="Express学习记录">http://yoursite.com/2017/12/16/express/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -442,8 +463,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/16/designPattern/" rel="prev" title>
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/12/16/HopeLibrarySystem/" rel="prev" title="HopeLibrarySystem项目总结">
+                HopeLibrarySystem项目总结 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -533,10 +554,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">8</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -544,10 +565,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">12</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -601,7 +622,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#express构造的是Http-createServer的回调函数"><span class="nav-number">2.</span> <span class="nav-text">express构造的是Http.createServer的回调函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最为核心的中间件框架"><span class="nav-number">3.</span> <span class="nav-text">最为核心的中间件框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步串行流程控制"><span class="nav-number">4.</span> <span class="nav-text">异步串行流程控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Router是一个内置在app函数上的中间件"><span class="nav-number">5.</span> <span class="nav-text">Router是一个内置在app函数上的中间件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图-模板引擎"><span class="nav-number">6.</span> <span class="nav-text">视图-模板引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态文件服务"><span class="nav-number">7.</span> <span class="nav-text">静态文件服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单实现："><span class="nav-number">8.</span> <span class="nav-text">简单实现：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#express构造的是Http-createServer的回调函数"><span class="nav-number">1.</span> <span class="nav-text">express构造的是Http.createServer的回调函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最为核心的中间件框架"><span class="nav-number">2.</span> <span class="nav-text">最为核心的中间件框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步串行流程控制"><span class="nav-number">3.</span> <span class="nav-text">异步串行流程控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Router是一个内置在app函数上的中间件"><span class="nav-number">4.</span> <span class="nav-text">Router是一个内置在app函数上的中间件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图-模板引擎"><span class="nav-number">5.</span> <span class="nav-text">视图-模板引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态文件服务"><span class="nav-number">6.</span> <span class="nav-text">静态文件服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单实现："><span class="nav-number">7.</span> <span class="nav-text">简单实现：</span></a></li></ol></div>
             
 
           </div>
