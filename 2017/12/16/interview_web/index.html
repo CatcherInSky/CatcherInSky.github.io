@@ -101,10 +101,10 @@
 <meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/a3253deb-8d21-40a1-aae4-7d178e4aa319.jpg">
 <meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/51e2ed95-65b8-4ae9-8af3-65602d452a25.jpg">
 <meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/910f613f-514f-4534-87dd-9b4699d59d31.png">
-<meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/f61b5419-c94a-4df1-8d4d-aed9ae8cc6d5.png">
-<meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/HTTP_RequestMessageExample.png">
-<meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/HTTP_ResponseMessageExample.png">
-<meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/dc00f70e-c5c8-4d20-baf1-2d70014a97e3.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/12/16/images/f61b5419-c94a-4df1-8d4d-aed9ae8cc6d5.png">
+<meta property="og:image" content="http://yoursite.com/2017/12/16/images/HTTP_RequestMessageExample.png">
+<meta property="og:image" content="http://yoursite.com/2017/12/16/images/HTTP_ResponseMessageExample.png">
+<meta property="og:image" content="http://yoursite.com/2017/12/16/images/dc00f70e-c5c8-4d20-baf1-2d70014a97e3.jpg">
 <meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/ssl-offloading.jpg">
 <meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/39ccb299-ee99-4dd1-b8b4-2f9ec9495cb4.png">
 <meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/How-HTTPS-Works.png">
@@ -124,7 +124,7 @@
 <meta property="og:image" content="http://yoursite.com/2017/12/16/images/v2-8306c168ee98b175104bf8e67423162a_hd.jpg">
 <meta property="og:image" content="http://yoursite.com/2017/12/16/images/v2-cbda8e34eb125803377e69369e08ed18_hd.jpg">
 <meta property="og:image" content="http://yoursite.com/2017/12/16/images/v2-2459d2a2ebd4923453a0022ea9718128_hd.jpg">
-<meta property="og:updated_time" content="2019-10-07T16:38:11.397Z">
+<meta property="og:updated_time" content="2019-10-09T01:22:12.867Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端学习指南_计算机网络">
 <meta name="twitter:description" content="梳理计算机网络的知识">
@@ -530,11 +530,11 @@
 <p>在发送方，如果收到三个重复确认，那么可以知道下一个报文段丢失，此时执行快重传，立即重传下一个报文段。例如收到三个 M2，则 M3 丢失，立即重传 M3。</p>
 <p>在这种情况下，只是丢失个别报文段，而不是网络拥塞。因此执行快恢复，令 ssthresh = cwnd / 2 ，cwnd = ssthresh，注意到此时直接进入拥塞避免。</p>
 <p>慢开始和快恢复的快慢指的是 cwnd 的设定值，而不是 cwnd 的增长速率。慢开始 cwnd 设定为 1，而快恢复 cwnd 设定为 ssthresh。</p>
-<p><a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/pics/f61b5419-c94a-4df1-8d4d-aed9ae8cc6d5.png" target="_blank" rel="noopener"><img src="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/f61b5419-c94a-4df1-8d4d-aed9ae8cc6d5.png" alt="img"></a></p>
+<p><a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/pics/f61b5419-c94a-4df1-8d4d-aed9ae8cc6d5.png" target="_blank" rel="noopener"><img src="../images/f61b5419-c94a-4df1-8d4d-aed9ae8cc6d5.png" alt="img"></a></p>
 <h3 id="应用层—HTTP"><a href="#应用层—HTTP" class="headerlink" title="应用层—HTTP"></a>应用层—HTTP</h3><h4 id="一-、基础概念"><a href="#一-、基础概念" class="headerlink" title="一 、基础概念"></a>一 、基础概念</h4><h4 id="请求和响应报文"><a href="#请求和响应报文" class="headerlink" title="请求和响应报文"></a>请求和响应报文</h4><ol>
 <li>请求报文</li>
 </ol>
-<p><a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/pics/HTTP_RequestMessageExample.png" target="_blank" rel="noopener"><img src="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/HTTP_RequestMessageExample.png" alt="img"></a></p>
+<p><a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/pics/HTTP_RequestMessageExample.png" target="_blank" rel="noopener"><img src="../images/HTTP_RequestMessageExample.png" alt="img"></a></p>
 <p>Http请求报文由三部分组成：请求行，请求头，请求体</p>
 <p>请求行：请求方法、请求地址、协议名称和版本号<br>请求头：Referer、User-Agent、Accept、Cookie、Cache-Control、Content-Length等属性。Content-Length可用于服务端判断消息接受完的条件<br>请求体：GET请求与POST请求传递方式不同(Message Body)</p>
 <p>Accept：浏览器可接受的MIME类型。<br>Accept-Charset：浏览器可接受的<a href="https://baike.baidu.com/item/字符集" target="_blank" rel="noopener">字符集</a>。<br>Accept-Encoding：浏览器能够进行解码的数据编码方式，比如gzip。Servlet能够向支持gzip的浏览器返回经gzip编码的HTML页面。许多情形下这可以减少5到10倍的下载时间。<br>Accept-Language：浏览器所希望的语言种类，当服务器能够提供一种以上的语言版本时要用到。</p>
@@ -552,7 +552,7 @@
 <ol start="2">
 <li>响应报文</li>
 </ol>
-<p><a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/pics/HTTP_ResponseMessageExample.png" target="_blank" rel="noopener"><img src="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/HTTP_ResponseMessageExample.png" alt="img"></a></p>
+<p><a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/pics/HTTP_ResponseMessageExample.png" target="_blank" rel="noopener"><img src="../images/HTTP_ResponseMessageExample.png" alt="img"></a></p>
 <p>响应行：报文协议及版本，状态码及状态描述<br>响应头：Referer、User-Agent、Accept、Cookie、Cache-Control等属性<br>响应体：服务器返回的数据</p>
 <p>Allow 服务器支持哪些请求方法（如GET、POST等）。</p>
 <p>Content-Encoding 文档的编码（Encode）方法。只有在解码之后才可以得到Content-Type头指定的内容类型。利用gzip压缩文档能够显著地减少HTML文档的下载时间。</p>
@@ -637,7 +637,7 @@
 </blockquote>
 <p>使用 SSL（Secure Sockets Layer，安全套接层）和 TLS（Transport Layer Security，传输层安全）协议把通信内容加密后经网络隧道传输。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONNECT www.example.com:443 HTTP/1.1</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/pics/dc00f70e-c5c8-4d20-baf1-2d70014a97e3.jpg" target="_blank" rel="noopener"><img src="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/dc00f70e-c5c8-4d20-baf1-2d70014a97e3.jpg" alt="img"></a></p>
+<p><a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/pics/dc00f70e-c5c8-4d20-baf1-2d70014a97e3.jpg" target="_blank" rel="noopener"><img src="../images/dc00f70e-c5c8-4d20-baf1-2d70014a97e3.jpg" alt="img"></a></p>
 <h5 id="TRACE"><a href="#TRACE" class="headerlink" title="TRACE"></a>TRACE</h5><blockquote>
 <p>追踪路径</p>
 </blockquote>
