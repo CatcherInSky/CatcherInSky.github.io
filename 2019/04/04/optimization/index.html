@@ -89,12 +89,15 @@
 <meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
 <meta property="og:description" content="前端页面性能优化技巧">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/04/04/images/v2-8fb844cc01358def3fc73b702732f337_hd.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/04/04/images/v2-4094f790f1e398f07a1ccbed53810cd9_hd.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/04/04/images/v2-b93c30b140eb0b958341e972c352178a_hd.jpg">
 <meta property="og:image" content="file://C:/Users/PC/Documents/Gridea/post-images/1555682015122.jpg">
-<meta property="og:updated_time" content="2019-10-05T17:17:33.284Z">
+<meta property="og:updated_time" content="2019-10-11T16:09:05.522Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="性能优化">
 <meta name="twitter:description" content="前端页面性能优化技巧">
-<meta name="twitter:image" content="file://C:/Users/PC/Documents/Gridea/post-images/1555682015122.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/04/images/v2-8fb844cc01358def3fc73b702732f337_hd.jpg">
 
 
 
@@ -401,6 +404,30 @@
 <h2 id="对JS优化"><a href="#对JS优化" class="headerlink" title="对JS优化"></a>对JS优化</h2><ol>
 <li>引用JS方式<br>async，完全的异步操作，HTML解析遇到该标签后，发出网络请求，但不阻止HTML解析和其后面的渲染操作，当JavaScript请求返回后立刻执行，且不等待HTML解析或其他操作的完成。所以，如果脚本中有DOM操作，就并不适合。<br>defer，HTML的解析和对JavaScript资源的网络请求是并行的，但它会等待HTML解析完成之后，才执行脚本。</li>
 </ol>
+<h3 id="passive-事件修饰符"><a href="#passive-事件修饰符" class="headerlink" title="passive 事件修饰符"></a><a href="https://www.cnblogs.com/ziyunfei/p/5545439.html" target="_blank" rel="noopener">passive 事件修饰符</a></h3><ul>
+<li>流水线的执行方式，后面的工作必须等待前面工作执行完成才能处理，无法将相互独立的工作并行处理。</li>
+<li>内核线程负责的工作太多且耗时，一旦遇上内核在执行耗时较长的工作，用户的输入事件将无法立即得到响应。</li>
+</ul>
+<p>很多移动端的页面都会监听 touchstart 等 touch 事件，由于 touchstart 事件对象的 cancelable 属性为 true，也就是说它的默认行为可以被监听器通过 preventDefault() 方法阻止，那它的默认行为是什么呢，通常来说就是滚动当前页面（还可能是缩放页面），如果它的默认行为被阻止了，页面就必须静止不动。但浏览器无法预先知道一个监听器会不会调用 preventDefault()，它能做的只有等监听器执行完后再去执行默认行为，而监听器执行是要耗时的，有些甚至耗时很明显，这样就会导致页面卡顿。</p>
+<p>视频里也说了，即便监听器是个空函数，也会产生一定的卡顿，毕竟空函数的执行也会耗时。有 80% 的滚动事件监听器是不会阻止默认行为的，也就是说大部分情况下，浏览器是白等了。所以，passive 监听器诞生了，passive 的意思是“顺从的”，表示它不会对事件的默认行为说 no，浏览器知道了一个监听器是 passive 的，它就可以在两个线程里同时执行监听器中的 JavaScript 代码和浏览器的默认行为了。<strong>passive设置为true可以大幅提高移动端的滑动流畅度</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">document.addEventListener(type, listener, &#123;</span><br><span class="line">  capture: false, // 等价于以前的 useCapture 参数</span><br><span class="line">  passive: false, // Firefox 和 Chrome 已经实现</span><br><span class="line">  once: false // 表明该监听器是一次性的，执行一次后就被自动 removeEventListener 掉，还没有浏览器实现它</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="开启多线程"><a href="#开启多线程" class="headerlink" title="开启多线程"></a>开启多线程</h3><p>使用<code>Web Worker</code>为<code>JS</code>创造多线程环境，主线程创建<code>Worker</code>线程，将一些计算密集型或高延迟的任务分配给后者运行</p>
+<p><img src="../images/v2-8fb844cc01358def3fc73b702732f337_hd.jpg" alt="img"></p>
+<p><img src="../images/v2-4094f790f1e398f07a1ccbed53810cd9_hd.jpg" alt="img"></p>
+<h3 id="Web-Assembly"><a href="#Web-Assembly" class="headerlink" title="Web Assembly"></a>Web Assembly</h3><p>Web Assembly特别适合那些需要非常高性能的Web产品，提供了一种转换机制，把高级语言（C、C++、Go）编译为Web Assembly字节码，以便在浏览器中运行，能够大幅提高运行效率。<br>使用WebAssembly对浏览器API进行任何调用时，目前还需要JS进行交互，用JS作为入口。未来WebAssembly可能被浏览器内置支持，并使其能够直接调用DOM，Web Workers或其他浏览器API等</p>
+<blockquote>
+<p>注意事项：同源限制、DOM 限制、不能读取本地文件、使用消息通信、不能使用alert、confirm、prompt</p>
+</blockquote>
+<h3 id="Canvas-优化"><a href="#Canvas-优化" class="headerlink" title="Canvas 优化"></a>Canvas 优化</h3><ul>
+<li>避免浮点数的坐标点，用整数取而代之</li>
+<li>在离屏canvas上预渲染相似的图形或重复的对象</li>
+<li>不要在用drawImage时缩放图像</li>
+<li>使用多层画布去画一个复杂的场景</li>
+<li>用CSS设置大的背景图</li>
+<li>不需要透明度时关闭alpha通道</li>
+<li>渲染画布中的不同点，而非整个新状态</li>
+<li>谨慎使用大型物理库</li>
+</ul>
 <h2 id="对CSS优化"><a href="#对CSS优化" class="headerlink" title="对CSS优化"></a>对CSS优化</h2><ol>
 <li>尽早和按需的加载CSS</li>
 <li>内联CSS来提高渲染性能</li>
@@ -408,6 +435,27 @@
 <li>避免使用CSS表达式举个css表达式的例子 font-color: expression( (new Date()).getHours()%3 ? “#FFFFFF” : “#AAAAAA” );这个表达式会持续的在页面上计算样式，影响页面的性能。并且css表达式只被IE支持。</li>
 <li>不同浏览器首屏渲染策略不同。chrome等CSS加载完再渲染，Firefox先生成HTML再附上CSS</li>
 </ol>
+<h3 id="1-选择器优化"><a href="#1-选择器优化" class="headerlink" title="(1) 选择器优化"></a>(1) 选择器优化</h3><p>注意优先级，慎用<code>!important</code>，样式系统从最右边的选择符开始向左进行匹配规则。只要当前选择符的左边还有其他选择符，样式系统就会继续向左移动，直到找到和规则匹配的元素，或者因为不匹配而退出。<br><strong>写法注意点</strong>：</p>
+<ul>
+<li>id选择器肯定是最快，但是不要在ID选择器使用的同时再使用标签或类选择器了</li>
+<li>不要使用类选择器时用标签选择器</li>
+</ul>
+<blockquote>
+<p>特别是<code>for</code>循环中js编写html代码时直接定义样式类名到所需要作用的元素，之后尽量用一个选择器写样式，可以大幅提高渲染效率</p>
+</blockquote>
+<ul>
+<li>如果明确dom结构，优先使用子选择器，减少后代选择器使用</li>
+<li>使用类选择器替代后代选择器和子选择器</li>
+<li>避免使用通配符选择器（*）和属性选择器</li>
+</ul>
+<h3 id="2-谨慎使用-CSS3-特性"><a href="#2-谨慎使用-CSS3-特性" class="headerlink" title="(2) 谨慎使用 CSS3 特性"></a>(2) 谨慎使用 CSS3 特性</h3><p>CSS3一些新特性能带来酷炫的视觉效果，但对设备性能有一定要求</p>
+<ul>
+<li>border-radius</li>
+<li>gradient</li>
+<li>box-shadow</li>
+<li>box-reflect</li>
+<li>text-stroke，text-fill</li>
+</ul>
 <h2 id="减少HTTP请求"><a href="#减少HTTP请求" class="headerlink" title="减少HTTP请求"></a>减少HTTP请求</h2><ol>
 <li>尽量少使用外链的JS和CSS文件以前CSS的@import</li>
 <li>雪碧图，尽量合并图片、CSS、JS</li>
@@ -432,6 +480,25 @@
 <li>HTTP的传输层协议是TCP，TCP协议有一个慢启动的过程，即它在第一次传递数据时，只能同时传递14kb的数据块，所以当数据超多14kb时，TCP协议传递数据实际是多次的往返（roundtrip）。如果能够将渲染所需要的资源控制在14kb之内，那么就能TCP协议启动时，一次完成数据的传递。</li>
 </ol>
 <h2 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h2><p>使用CDN网站上静态资源即css、js、图片全都使用cdn分发</p>
+<h3 id="使用DNS-prefech-DNS预解析"><a href="#使用DNS-prefech-DNS预解析" class="headerlink" title="使用DNS prefech   DNS预解析"></a>使用DNS prefech   <strong>DNS预解析</strong></h3><p>使浏览器试图在用户访问链接之前解析域名,在<code>head</code>中添加对应属性即可，如下</p>
+<p><img src="../images/v2-b93c30b140eb0b958341e972c352178a_hd.jpg" alt="img"></p>
+<p>DNS预解析是浏览器试图在用户访问链接之前解析域名，这是计算机的正常DNS解析机制。</p>
+<p>　　域名解析后，如果用户确实访问该域名，那么DNS解析时间将不会有延迟。</p>
+<p>　　最明显的例子，DNS预解析在某个页面中包含非常多的域名非常有效，如搜索结果页。遇到网页中的超链接，<code>DNS prefetching</code>从中提取域名并将其解析为IP地址，这些工作在用户浏览网页时，使用最少的CPU和网络在后台进行解析。当用户点击这些已经预解析的域名，可以平均减少200毫秒耗时（假设用户最近还未访问过该域名），更重要的是用户不会遇到DNS解析最坏的情况（往往超过1秒）。</p>
+<p>　　DNS Prefetch，即DNS预获取，是前端优化的一部分。一般来说，在前端优化中与 DNS 有关的有两点：</p>
+<p>　　<strong>一个是减少DNS的请求次数，</strong></p>
+<p>　　<strong>另一个就是进行DNS预获取</strong> 。</p>
+<p>　　DNS 作为互联网的基础协议，其解析的速度似乎很容易被网站优化人员忽视。现在大多数新浏览器已经针对DNS解析进行了优化，典型的一次DNS解析需要耗费 20-120 毫秒，减少DNS解析时间和次数是个很好的优化方式。</p>
+<p>　　DNS Prefetching 是让具有此属性的域名不需要用户点击链接就在后台解析，而域名解析和内容载入是串行的网络操作，所以这个方式能 <strong>减少用户的等待时间，提升用户体验</strong> 。</p>
+<p>DNS Prefetch 应该尽量的放在网页的前面，推荐放在 <code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code> 后面</p>
+<p>预解析的实现：</p>
+<p>　　1、用meta信息来告知浏览器, 当前页面要做DNS预解析:<code>&lt;meta http-equiv=&quot;x-dns-prefetch-control&quot; content=&quot;on&quot; /&gt;</code></p>
+<p>　　2、在页面header中使用link标签来强制对DNS预解析: <code>&lt;link rel=&quot;dns-prefetch&quot; href=&quot;http://bdimg.share.baidu.com&quot; /&gt;</code></p>
+<p>　　预解析的实现：</p>
+<p>　　1、用meta信息来告知浏览器, 当前页面要做DNS预解析:<meta http-equiv="x-dns-prefetch-control" content="on"></p>
+<p>　　2、在页面header中使用link标签来强制对DNS预解析: <link rel="dns-prefetch" href="http://bdimg.share.baidu.com"></p>
+<p>如果需要禁止隐式的 DNS Prefetch，可以使用以下的标签：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta http-equiv=&quot;x-dns-prefetch-control&quot; content=&quot;off&quot;&gt;</span><br></pre></td></tr></table></figure>
 <h1 id="图像"><a href="#图像" class="headerlink" title="图像"></a>图像</h1><h2 id="JPG-JPEG"><a href="#JPG-JPEG" class="headerlink" title="JPG/JPEG"></a>JPG/JPEG</h2><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p>JPG的压缩方式（有损压缩）是一种高质量的压缩方式：当我们把图片体积压缩至原有体积的 50% 以下时，JPG 仍然可以保持住 60% 的品质。此外，JPG 格式以 24 位存储单个图，可以呈现多达 1600 万种颜色，足以应对大多数场景下对色彩的要求</p>
 <h4 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h4><p>处理矢量图形和 Logo 等线条感较强、颜色对比强烈的图像时，人为压缩导致的图片模糊会明显<br>不支持透明度处理</p>
 <h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><p>背景图、轮播图或 Banner 图</p>
@@ -477,6 +544,7 @@
 <li>不要使用滤镜IE独有属性AlphaImageLoader用于修正7.0以下版本中显示PNG图片的半透明效果。这个滤镜的问题在于浏览器加载图片时它会终止内容的呈现并且冻结浏览器。在每一个元素（不仅仅是图片）它都会运算一次，增加了内存开支，因此它的问题是多方面的。完全避免使用AlphaImageLoader的最好方法就是使用PNG8格式来代替，这种格式能在IE中很好地工作。如果你确实需要使用AlphaImageLoader，请使用下划线_filter又使之对IE7以上版本的用户无效。</li>
 </ol>
 <p>参考资料<br><a href="https://zhuanlan.zhihu.com/p/58419577" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/58419577</a><br><a href="http://www.ruanyifeng.com/blog/2018/08/svg.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2018/08/svg.html</a><br><a href="https://zhuanlan.zhihu.com/p/38548289" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/38548289</a><br>《高性能网站建设指南（第二版》</p>
+<p><a href="https://zhuanlan.zhihu.com/p/81090955" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/81090955</a></p>
 
       
     </div>
@@ -616,7 +684,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -694,7 +762,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#性能优化"><span class="nav-number">1.</span> <span class="nav-text">性能优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键渲染路径"><span class="nav-number">2.</span> <span class="nav-text">关键渲染路径</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对JS优化"><span class="nav-number">2.1.</span> <span class="nav-text">对JS优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对CSS优化"><span class="nav-number">2.2.</span> <span class="nav-text">对CSS优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少HTTP请求"><span class="nav-number">2.3.</span> <span class="nav-text">减少HTTP请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少资源的大小"><span class="nav-number">2.4.</span> <span class="nav-text">减少资源的大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN"><span class="nav-number">2.5.</span> <span class="nav-text">CDN</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图像"><span class="nav-number">3.</span> <span class="nav-text">图像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JPG-JPEG"><span class="nav-number">3.1.</span> <span class="nav-text">JPG/JPEG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺陷"><span class="nav-number">3.1.0.2.</span> <span class="nav-text">缺陷</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景"><span class="nav-number">3.1.0.3.</span> <span class="nav-text">使用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PNG"><span class="nav-number">3.2.</span> <span class="nav-text">PNG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-1"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-number">3.2.0.2.</span> <span class="nav-text">缺点　</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景-1"><span class="nav-number">3.2.0.3.</span> <span class="nav-text">使用场景</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#SVG"><span class="nav-number">3.3.</span> <span class="nav-text">SVG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-2"><span class="nav-number">3.3.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点-1"><span class="nav-number">3.3.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景-2"><span class="nav-number">3.3.0.3.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用方法"><span class="nav-number">3.3.0.4.</span> <span class="nav-text">使用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebP"><span class="nav-number">3.4.</span> <span class="nav-text">WebP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-3"><span class="nav-number">3.4.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点-2"><span class="nav-number">3.4.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用方式"><span class="nav-number">3.4.0.3.</span> <span class="nav-text">使用方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络字体"><span class="nav-number">4.</span> <span class="nav-text">网络字体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">4.1.</span> <span class="nav-text">其他</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#性能优化"><span class="nav-number">1.</span> <span class="nav-text">性能优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键渲染路径"><span class="nav-number">2.</span> <span class="nav-text">关键渲染路径</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对JS优化"><span class="nav-number">2.1.</span> <span class="nav-text">对JS优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#passive-事件修饰符"><span class="nav-number">2.1.1.</span> <span class="nav-text">passive 事件修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启多线程"><span class="nav-number">2.1.2.</span> <span class="nav-text">开启多线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web-Assembly"><span class="nav-number">2.1.3.</span> <span class="nav-text">Web Assembly</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Canvas-优化"><span class="nav-number">2.1.4.</span> <span class="nav-text">Canvas 优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对CSS优化"><span class="nav-number">2.2.</span> <span class="nav-text">对CSS优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-选择器优化"><span class="nav-number">2.2.1.</span> <span class="nav-text">(1) 选择器优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-谨慎使用-CSS3-特性"><span class="nav-number">2.2.2.</span> <span class="nav-text">(2) 谨慎使用 CSS3 特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少HTTP请求"><span class="nav-number">2.3.</span> <span class="nav-text">减少HTTP请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少资源的大小"><span class="nav-number">2.4.</span> <span class="nav-text">减少资源的大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN"><span class="nav-number">2.5.</span> <span class="nav-text">CDN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用DNS-prefech-DNS预解析"><span class="nav-number">2.5.1.</span> <span class="nav-text">使用DNS prefech   DNS预解析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图像"><span class="nav-number">3.</span> <span class="nav-text">图像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JPG-JPEG"><span class="nav-number">3.1.</span> <span class="nav-text">JPG/JPEG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺陷"><span class="nav-number">3.1.0.2.</span> <span class="nav-text">缺陷</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景"><span class="nav-number">3.1.0.3.</span> <span class="nav-text">使用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PNG"><span class="nav-number">3.2.</span> <span class="nav-text">PNG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-1"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-number">3.2.0.2.</span> <span class="nav-text">缺点　</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景-1"><span class="nav-number">3.2.0.3.</span> <span class="nav-text">使用场景</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#SVG"><span class="nav-number">3.3.</span> <span class="nav-text">SVG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-2"><span class="nav-number">3.3.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点-1"><span class="nav-number">3.3.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景-2"><span class="nav-number">3.3.0.3.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用方法"><span class="nav-number">3.3.0.4.</span> <span class="nav-text">使用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebP"><span class="nav-number">3.4.</span> <span class="nav-text">WebP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-3"><span class="nav-number">3.4.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点-2"><span class="nav-number">3.4.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用方式"><span class="nav-number">3.4.0.3.</span> <span class="nav-text">使用方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络字体"><span class="nav-number">4.</span> <span class="nav-text">网络字体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">4.1.</span> <span class="nav-text">其他</span></a></li></ol></li></div>
             
 
           </div>
