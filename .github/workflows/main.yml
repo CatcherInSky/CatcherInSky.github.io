@@ -34,7 +34,7 @@ jobs:
         npm run start 
     # from https://github.com/peaceiris/actions-gh-pages 
     - name: Deploy 
-      uses: peaceiris/actions-gh-pages@v3 ib
+      uses: peaceiris/actions-gh-pages@v3
       with: 
         deploy_key: ${{ secrets.SSH_PRIVATE_KEY }} 
         external_repository: CatcherInSky/CatcherInSky.github.io 
