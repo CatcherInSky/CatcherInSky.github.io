@@ -28,5 +28,13 @@
   },
   "devDependencies": {
     "yuque-hexo": "^1.7.0"
+  },
+  "yuqueConfig": {
+    "baseUrl": "https://www.yuque.com/api/v2",
+    "login": "catcherinsky",
+    "repo": "fe",
+    "mdNameFormat": "title",
+    "postPath": "source/_posts",
+    "onlyPublished": false
   }
 }
