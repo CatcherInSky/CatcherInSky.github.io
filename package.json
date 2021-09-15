@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    
     "start": "yuque-hexo clean && yuque-hexo sync && hexo clean && hexo generate",
     "build": "hexo generate",
     "clean": "hexo clean",
@@ -30,6 +29,14 @@
     "yuque-hexo": "^1.7.0"
   },
   "yuqueConfig": {
+    "baseUrl": "https://www.yuque.com/api/v2",
+    "login": "catcherinsky",
+    "repo": "fe",
+    "mdNameFormat": "title",
+    "postPath": "source/_posts",
+    "onlyPublished": false
+  },
+  "yueConfig": {
     "baseUrl": "https://www.yuque.com/api/v2",
     "login": "catcherinsky",
     "repo": "fe",
