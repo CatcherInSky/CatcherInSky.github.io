@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
+title: Knowlegde Bases of CatcherInSky
+subtitle: CatcherInSky的前端知识库
+description: CatcherInSky的前端知识库
 keywords:
-author: John Doe
-language: en
-timezone: ''
+author: CatcherInSky
+language: zh-Hans
+timezone:
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
@@ -28,7 +28,7 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
-skip_render:
+skip_render: README.md
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -102,4 +102,8 @@ theme: landscape
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  repository: git@github.com:CatcherInSky/CatcherInSky.github.io.git
+  branch: master
+  extend_dirs:
+    - .github
