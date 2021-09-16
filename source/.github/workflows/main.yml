@@ -38,6 +38,8 @@ jobs:
     - name: Copy Github Actions and README to Public
       run: |
         ls ./source
+        cp -r ./.github ./public
+        cp ./README.md ./public 
         ls ./public
     # from https://github.com/peaceiris/actions-gh-pages 
     - name: Deploy 
