@@ -36,7 +36,8 @@ jobs:
         npm run start 
     - name: Copy Github Actions and README to Public
       run: |
-        cp ./.github ./public
+        ls ./source
+        cp -r ./.github ./public
         cp ./README.md ./public 
     # from https://github.com/peaceiris/actions-gh-pages 
     - name: Deploy 
