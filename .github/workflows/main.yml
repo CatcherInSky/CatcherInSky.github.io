@@ -25,7 +25,17 @@ jobs:
       uses: actions/setup-node@master 
       with: 
         node-version: "12.x" 
-    # from https://github.com/x-cold/yuque-hexo =
+    - name: Setup Github SSH_PRIVATE_KEY
+      env: 
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+        git config --global user.name 'CatcherInSky'
+        git config --global user.email '1530775669@qq.com'
+    # from https://github.com/x-cold/yuque-hexo 
     - name: Setup Hexo Dependencies and Generate Public Files 
       env: 
         YUQUE_TOKEN: ${{ secrets.YUQUE_TOKEN }} 
@@ -34,20 +44,17 @@ jobs:
         npm install yuque-hexo -g 
         npm install 
         ls -al ./source
-        npm run start 
-    - name: Copy Github Actions and README to Public
-      run: |
-        ls -al ./source
-        ls -al ./public
+        npm run start
     # from https://github.com/peaceiris/actions-gh-pages 
-    - name: Deploy 
-      uses: peaceiris/actions-gh-pages@v3
-      with: 
-        deploy_key: ${{ secrets.SSH_PRIVATE_KEY }} 
-        external_repository: CatcherInSky/CatcherInSky.github.io 
-        publish_branch: master 
-        publish_dir: ./public 
-        commit_message: ${{ github.event.head_commit.message }}
+    # this method can not push .github because it is a hidden folder
+    # - name: Deploy 
+    #   uses: peaceiris/actions-gh-pages@v3
+    #   with: 
+    #     deploy_key: ${{ secrets.SSH_PRIVATE_KEY }} 
+    #     external_repository: CatcherInSky/CatcherInSky.github.io 
+    #     publish_branch: master 
+    #     publish_dir: ./public 
+    #     commit_message: ${{ github.event.head_commit.message }}
 # 来源: HONGWEI
 # 文章作者: HONGWEI
 # 文章链接: https://www.zhwei.cn/hexo-github-actions-yuque/#toc-heading-14

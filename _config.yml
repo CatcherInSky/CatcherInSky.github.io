@@ -30,7 +30,7 @@ code_dir: downloads/code
 i18n_dir: :lang
 skip_render: 
    - README.md
-   - .github/workflows/main.yml
+  #  - .github/workflows/main.yml
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -93,7 +93,7 @@ pagination_dir: page
 # Include / Exclude file(s)
 ## include:/exclude: options only apply to the 'source/' folder
 include: 
-  - .github/workflows/main.yml
+  # - .github/workflows/main.yml
 exclude:
 ignore:
 
@@ -109,4 +109,4 @@ deploy:
   repository: git@github.com:CatcherInSky/CatcherInSky.github.io.git
   branch: master
   extend_dirs:
-    # - .github
+    - .github
