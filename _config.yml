@@ -92,7 +92,8 @@ pagination_dir: page
 
 # Include / Exclude file(s)
 ## include:/exclude: options only apply to the 'source/' folder
-include: .github/workflows/main.yml
+include: 
+  - .github/workflows/main.yml
 exclude:
 ignore:
 
