@@ -55,7 +55,7 @@ jobs:
     #     publish_branch: master 
     #     publish_dir: ./public 
     #     commit_message: ${{ github.event.head_commit.message }}
-# 来源: HONGWEI
-# 文章作者: HONGWEI
-# 文章链接: https://www.zhwei.cn/hexo-github-actions-yuque/#toc-heading-14
-# 本文章著作权归作者所有，任何形式的转载都请注明出处。
+    
+# 参考资料：
+# https://blog.csdn.net/z_johnny/article/details/103910373
+# https://www.zhwei.cn/hexo-github-actions-yuque/#toc-heading-14
