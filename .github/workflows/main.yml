@@ -43,7 +43,6 @@ jobs:
         npm install hexo-cli -g 
         npm install yuque-hexo -g 
         npm install 
-        ls -al ./source
         npm run start
     # from https://github.com/peaceiris/actions-gh-pages 
     # this method can not push .github because it is a hidden folder
@@ -55,7 +54,7 @@ jobs:
     #     publish_branch: master 
     #     publish_dir: ./public 
     #     commit_message: ${{ github.event.head_commit.message }}
-    
+
 # 参考资料：
 # https://blog.csdn.net/z_johnny/article/details/103910373
 # https://www.zhwei.cn/hexo-github-actions-yuque/#toc-heading-14

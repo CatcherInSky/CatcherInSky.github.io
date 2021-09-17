@@ -8,7 +8,7 @@ subtitle: CatcherInSky的前端知识库
 description: CatcherInSky的前端知识库
 keywords:
 author: CatcherInSky
-language: zh-Hans
+language: zh-CN
 timezone:
 
 # URL
@@ -97,11 +97,6 @@ include:
 exclude:
 ignore:
 
-# Extensions
-## Plugins: https://hexo.io/plugins/
-## Themes: https://hexo.io/themes/
-theme: landscape
-
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
@@ -110,3 +105,9 @@ deploy:
   branch: master
   extend_dirs:
     - .github
+
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: next
+
