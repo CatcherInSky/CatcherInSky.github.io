@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"catcherinsky.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="表格分页后端只给某一页数据，通过分页器控制页数。但展示效果不够完美，全选操作也需要分页进行。​ 虚拟滚动原理当内存缓存了上万条数据，渲染、dom 操作的时候会触发回流，造成卡顿。所以采用虚拟列表来分段展示数据，每次只加载可视区域（一页）的报表数据，滚动一定距离触发翻页再渲染下一页。 固定好每行的高度，通过数据长度计算出整体列表高度。除实际渲染数据部分外，使用 margin|padding 来撑开列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="表格 &amp;&amp; 表单">
+<meta property="og:url" content="http://catcherinsky.github.io/2021/11/02/%E8%A1%A8%E6%A0%BC%20&&%20%E8%A1%A8%E5%8D%95/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="表格分页后端只给某一页数据，通过分页器控制页数。但展示效果不够完美，全选操作也需要分页进行。​ 虚拟滚动原理当内存缓存了上万条数据，渲染、dom 操作的时候会触发回流，造成卡顿。所以采用虚拟列表来分段展示数据，每次只加载可视区域（一页）的报表数据，滚动一定距离触发翻页再渲染下一页。 固定好每行的高度，通过数据长度计算出整体列表高度。除实际渲染数据部分外，使用 margin|padding 来撑开列">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/webp/106384/1635842366173-b9b27d70-d441-43b8-aec1-a41abbefb7ad.webp#clientId=u0af5c4d5-b0b6-4&from=paste&id=ud47b06de&margin=%5Bobject%20Object%5D&originHeight=1070&originWidth=1954&originalType=url%E2%88%B6=1&status=done&style=none&taskId=u0120e1b1-b4e6-40ed-a7d5-b9a0cee51cd">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1635823173430-8941e0fe-0875-48cc-bf43-bdbbb6f635a9.png#clientId=u5773eb69-ffd0-4&from=paste&id=u54a5a336&margin=%5Bobject%20Object%5D&name=image.png&originHeight=396&originWidth=659&originalType=url%E2%88%B6=1&size=155484&status=done&style=none&taskId=ud93d7c59-216e-4d5a-b093-934e234c401">
+<meta property="article:published_time" content="2021-11-02T03:13:15.000Z">
+<meta property="article:modified_time" content="2022-02-14T11:41:03.649Z">
+<meta property="article:author" content="CatcherInSky">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/webp/106384/1635842366173-b9b27d70-d441-43b8-aec1-a41abbefb7ad.webp#clientId=u0af5c4d5-b0b6-4&from=paste&id=ud47b06de&margin=%5Bobject%20Object%5D&originHeight=1070&originWidth=1954&originalType=url%E2%88%B6=1&status=done&style=none&taskId=u0120e1b1-b4e6-40ed-a7d5-b9a0cee51cd">
+
+<link rel="canonical" href="http://catcherinsky.github.io/2021/11/02/%E8%A1%A8%E6%A0%BC%20&&%20%E8%A1%A8%E5%8D%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>表格 && 表单 | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+  <meta name="referrer" content="same-origin">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Knowlegde Bases of CatcherInSky</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CatcherInSky的前端知识库</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://catcherinsky.github.io/2021/11/02/%E8%A1%A8%E6%A0%BC%20&&%20%E8%A1%A8%E5%8D%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content="CatcherInSky的前端知识库">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          表格 && 表单
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-11-02 11:13:15" itemprop="dateCreated datePublished" datetime="2021-11-02T11:13:15+08:00">2021-11-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-14 19:41:03" itemprop="dateModified" datetime="2022-02-14T19:41:03+08:00">2022-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3><p>后端只给某一页数据，通过分页器控制页数。但展示效果不够完美，全选操作也需要分页进行。<br>​</p>
+<h3 id="虚拟滚动"><a href="#虚拟滚动" class="headerlink" title="虚拟滚动"></a>虚拟滚动</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>当内存缓存了上万条数据，渲染、dom 操作的时候会触发回流，造成卡顿。所以采用虚拟列表来分段展示数据，每次只加载可视区域（一页）的报表数据，滚动一定距离触发翻页再渲染下一页。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/webp/106384/1635842366173-b9b27d70-d441-43b8-aec1-a41abbefb7ad.webp#clientId=u0af5c4d5-b0b6-4&from=paste&id=ud47b06de&margin=%5Bobject%20Object%5D&originHeight=1070&originWidth=1954&originalType=url%E2%88%B6=1&status=done&style=none&taskId=u0120e1b1-b4e6-40ed-a7d5-b9a0cee51cd"><br>固定好每行的高度，通过数据长度计算出整体列表高度。除实际渲染数据部分外，使用 margin|padding 来撑开列表。获取屏幕高度计算出可视化窗口区域的大小，进一步得出每次渲染数据数量。</p>
+<p>监听视窗滚动事件，通过滚动高度计算出现在应该显示的数据区间，slice 后渲染出该区间数据，并缓存区间起始位置。（可节流控制频率）<br>​</p>
+<p>也可以在监听之后使用 transform 来移动可视区域到视窗中（不会引起 Reflow 和 Repaint）</p>
+<h4 id="数据管理"><a href="#数据管理" class="headerlink" title="数据管理"></a>数据管理</h4><p>如果数据流足够大，可以考虑将数据存放在 indexedDB 中<br>数据的预处理放在 webworker 中进行，避免阻塞主线程<br>如果是响应式数据且数据量不大，还是可以直接在内存中处理</p>
+<h3 id="请求分片"><a href="#请求分片" class="headerlink" title="请求分片"></a>请求分片</h3><p>有些表格数据的展示依赖异步请求获取进一步信息，自然不可能在初始化的时候一口气批量获取（卡顿以及限频），最好是懒加载请求当前视窗展示的数据。<br>通过监听滚动高度的变化，计算出当前展示行，然后请求对应数据。如果请求多，为了避免修改对应数据造成的重绘或回流，可以缓存起来，等所有请求完成之后一次性修改数据。</p>
+<hr>
+<h2 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h2><h3 id="基于配置"><a href="#基于配置" class="headerlink" title="基于配置"></a>基于配置</h3><p>公司的业务不会停下，需求必然要跟着业务而不断演化，一个看似简单的页面表单也会变得越来越臃肿。当表单中出现联动的需求，或者跨行之间发生制约关系时，表单代码的复杂度就会上升。随着业务需求的演变，如果代码处理的不好，会变得越来越难维护。<br>理想状态下，可以用如下的 JSON 结构来定义一个表单。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1635823173430-8941e0fe-0875-48cc-bf43-bdbbb6f635a9.png#clientId=u5773eb69-ffd0-4&from=paste&id=u54a5a336&margin=%5Bobject%20Object%5D&name=image.png&originHeight=396&originWidth=659&originalType=url%E2%88%B6=1&size=155484&status=done&style=none&taskId=ud93d7c59-216e-4d5a-b093-934e234c401" alt="image.png"></p>
+<h3 id="状态联动"><a href="#状态联动" class="headerlink" title="状态联动"></a>状态联动</h3><p>经常用 v-if 以及各种枚举值来处理联动，模板中又耦合其他逻辑，很难维护。使用 JSON 和 v-if，在配置型表单中也可以尝试条件渲染、动态范围（$watch 监听？）、动态赋值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 条件渲染</span></span><br><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">title</span>: <span class="string">&#x27;生效日期&#x27;</span>,</span><br><span class="line">    <span class="attr">key</span>: <span class="string">&#x27;range&#x27;</span>,</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;dates&#x27;</span>,</span><br><span class="line">    <span class="title function_">ifRender</span>(<span class="params">form</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> form.<span class="property">instant</span> == <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br><span class="line"><span class="comment">// 动态范围</span></span><br><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">title</span>: <span class="string">&#x27;活动类型&#x27;</span>,</span><br><span class="line">    <span class="attr">key</span>: <span class="string">&#x27;act_type&#x27;</span>,</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;radio&#x27;</span>,</span><br><span class="line">    <span class="attr">props</span>: &#123;</span><br><span class="line">      <span class="attr">options</span>: &#123; <span class="number">1</span>: <span class="string">&#x27;拉新&#x27;</span>, <span class="number">2</span>: <span class="string">&#x27;冲单&#x27;</span>, <span class="number">3</span>: <span class="string">&#x27;回馈&#x27;</span> &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">title</span>: <span class="string">&#x27;生效方式&#x27;</span>,</span><br><span class="line">    <span class="attr">key</span>: <span class="string">&#x27;effect_type&#x27;</span>,</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;radio&#x27;</span>,</span><br><span class="line">    <span class="title function_">props</span>(<span class="params">form</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> map = &#123; <span class="number">1</span>: <span class="string">&#x27;立即&#x27;</span>, <span class="number">2</span>: <span class="string">&#x27;按时间&#x27;</span>, <span class="number">3</span>: <span class="string">&#x27;按条件&#x27;</span> &#125;;</span><br><span class="line">      <span class="keyword">if</span> (form.<span class="property">act_type</span> === <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="keyword">delete</span> map[<span class="number">3</span>];</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> &#123; <span class="attr">options</span>: map &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">     &#123;</span><br><span class="line">      <span class="attr">title</span>: <span class="string">&#x27;生效方式&#x27;</span>,</span><br><span class="line">      <span class="attr">key</span>: <span class="string">&#x27;effect_type&#x27;</span>,</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&#x27;radio&#x27;</span>,</span><br><span class="line">      <span class="title function_">props</span>(<span class="params">form</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> value;</span><br><span class="line">        <span class="keyword">const</span> map = &#123; <span class="number">1</span>: <span class="string">&#x27;立即&#x27;</span>, <span class="number">2</span>: <span class="string">&#x27;按时间&#x27;</span>, <span class="number">3</span>: <span class="string">&#x27;按条件&#x27;</span> &#125;;</span><br><span class="line">        <span class="keyword">if</span> (form.<span class="property">act_type</span> === <span class="number">3</span>) &#123;</span><br><span class="line">          value = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">          <span class="attr">value</span>: value,</span><br><span class="line">          <span class="attr">options</span>: map</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="副作用联动"><a href="#副作用联动" class="headerlink" title="副作用联动"></a>副作用联动</h3><p>使用 observable 的思想进行联动的处理<br>应用状态，服务端数据状态，页面 URL，某个字段 UI 组件内部数据，当前字段自身的其他数据状态，某些特殊异步事件</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>扩展自定义组件、渲染自定义模板（render 函数）、生命周期、数据校验<br>​</p>
+<h2 id="数据管理-1"><a href="#数据管理-1" class="headerlink" title="数据管理"></a>数据管理</h2><p>输入数据 表单数据 输出数据直接往往结构不一样，需要经过转换，尤其是枚举值的转换。<br>可以约定好格式，使用模板对象来转换结构<br>​</p>
+<h2 id="性能问题"><a href="#性能问题" class="headerlink" title="性能问题"></a>性能问题</h2><p>vue 好像不太有这方面的问题</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6990596611189506062">https://juejin.cn/post/6990596611189506062</a><br><a target="_blank" rel="noopener" href="https://github.com/tangbc/vue-virtual-scroll-list">https://github.com/tangbc/vue-virtual-scroll-list</a><br><a target="_blank" rel="noopener" href="https://github.com/CatcherInSky/Virtual-Scroll-Table">https://github.com/CatcherInSky/Virtual-Scroll-Table</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/53455289">https://zhuanlan.zhihu.com/p/53455289</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/53455289">https://zhuanlan.zhihu.com/p/53455289</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6995334008603148295">https://juejin.cn/post/6995334008603148295</a><br><a target="_blank" rel="noopener" href="https://v2.formilyjs.org/zh-CN/guide">https://v2.formilyjs.org/zh-CN/guide</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/48241645">https://zhuanlan.zhihu.com/p/48241645</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/28/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" rel="prev" title="函数式编程">
+      <i class="fa fa-chevron-left"></i> 函数式编程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/11/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="next" title="数据结构">
+      数据结构 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E6%A0%BC"><span class="nav-number">1.</span> <span class="nav-text">表格</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E9%A1%B5"><span class="nav-number">1.1.</span> <span class="nav-text">分页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%BB%9A%E5%8A%A8"><span class="nav-number">1.2.</span> <span class="nav-text">虚拟滚动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86"><span class="nav-number">1.2.2.</span> <span class="nav-text">数据管理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E5%88%86%E7%89%87"><span class="nav-number">1.3.</span> <span class="nav-text">请求分片</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E5%8D%95"><span class="nav-number">2.</span> <span class="nav-text">表单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E9%85%8D%E7%BD%AE"><span class="nav-number">2.1.</span> <span class="nav-text">基于配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E8%81%94%E5%8A%A8"><span class="nav-number">2.2.</span> <span class="nav-text">状态联动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%AF%E4%BD%9C%E7%94%A8%E8%81%94%E5%8A%A8"><span class="nav-number">2.3.</span> <span class="nav-text">副作用联动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">2.4.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86-1"><span class="nav-number">3.</span> <span class="nav-text">数据管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">性能问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CatcherInSky"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">CatcherInSky</p>
+  <div class="site-description" itemprop="description">CatcherInSky的前端知识库</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CatcherInSky" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CatcherInSky" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangchunxiang98@outlook.com" title="E-Mail → mailto:zhangchunxiang98@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

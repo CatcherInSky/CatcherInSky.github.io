@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"catcherinsky.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="设计原则开闭原则、里氏替换原则、依赖倒置原则、单一职责原则、接口隔离原则​ 设计模式单例模式指一个类仅有一个实例，并提供一个访问它的全局访问点。简单的讲就是一个类只能创建一个实例，即使创建了多个实例，这些实例都是相同的。不会出现被覆盖的问题，保证只有一个实例，并提供全局访问。 vuexvue 的状态管理模式，采用集中式存储管理应用的所有组件的状态，利用一个全局的 Store 存储应用的状态，提供">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 设计模式">
+<meta property="og:url" content="http://catcherinsky.github.io/2021/12/25/JavaScript%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="设计原则开闭原则、里氏替换原则、依赖倒置原则、单一职责原则、接口隔离原则​ 设计模式单例模式指一个类仅有一个实例，并提供一个访问它的全局访问点。简单的讲就是一个类只能创建一个实例，即使创建了多个实例，这些实例都是相同的。不会出现被覆盖的问题，保证只有一个实例，并提供全局访问。 vuexvue 的状态管理模式，采用集中式存储管理应用的所有组件的状态，利用一个全局的 Store 存储应用的状态，提供">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1640423110638-962f4e8a-6e08-4fdd-a0e1-25632ea7f9ae.png#clientId=u827ff1df-9aaa-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u7375859b&margin=%5Bobject%20Object%5D&originHeight=475&originWidth=481&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=uccb15ffc-388c-404b-b187-550e2568cfd&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1640425135802-f65b92d1-a039-45c4-99f6-c7f342af0145.png#clientId=u827ff1df-9aaa-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ud086d7b0&margin=%5Bobject%20Object%5D&name=image.png&originHeight=310&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=92751&status=done&style=none&taskId=u087033a4-d957-4fce-94ab-1b7432ff3cc&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/webp/106384/1640420341165-7b7b8d69-64ea-4a94-a7ae-45cc1518f8e1.webp#clientId=u827ff1df-9aaa-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ud34dbd65&margin=%5Bobject%20Object%5D&originHeight=291&originWidth=401&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u1319ca6c-6e0e-4a10-970b-88e602fca09&title=">
+<meta property="article:published_time" content="2021-12-25T08:13:20.000Z">
+<meta property="article:modified_time" content="2022-02-14T11:41:02.617Z">
+<meta property="article:author" content="CatcherInSky">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1640423110638-962f4e8a-6e08-4fdd-a0e1-25632ea7f9ae.png#clientId=u827ff1df-9aaa-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u7375859b&margin=%5Bobject%20Object%5D&originHeight=475&originWidth=481&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=uccb15ffc-388c-404b-b187-550e2568cfd&title=">
+
+<link rel="canonical" href="http://catcherinsky.github.io/2021/12/25/JavaScript%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>JavaScript 设计模式 | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+  <meta name="referrer" content="same-origin">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Knowlegde Bases of CatcherInSky</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CatcherInSky的前端知识库</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://catcherinsky.github.io/2021/12/25/JavaScript%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content="CatcherInSky的前端知识库">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript 设计模式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-25 16:13:20" itemprop="dateCreated datePublished" datetime="2021-12-25T16:13:20+08:00">2021-12-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-14 19:41:02" itemprop="dateModified" datetime="2022-02-14T19:41:02+08:00">2022-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h2><p>开闭原则、里氏替换原则、依赖倒置原则、单一职责原则、接口隔离原则<br>​</p>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p>指一个类仅有一个实例，并提供一个访问它的全局访问点。简单的讲就是一个类只能创建一个实例，即使创建了多个实例，这些实例都是相同的。不会出现被覆盖的问题，保证只有一个实例，并提供全局访问。</p>
+<h4 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h4><p>vue 的状态管理模式，采用集中式存储管理应用的所有组件的状态，利用一个全局的 Store 存储应用的状态，提供 api 供用户做读写操作。不同的页面都能访问该 Store 对象，获取的值也是一样的，实现了不同页面数据保持同步。其本质上的实现就是通过单例模式。vuex 的实现是单例模式的经典应用。<br>​</p>
+<h3 id="构造器模式"><a href="#构造器模式" class="headerlink" title="构造器模式"></a>构造器模式</h3><p>构造器属性赋值给对象的过程封装，确保了每个对象都具备这些属性，确保共性的不变，同时将 个别属性取值操作开放，确保了个性的灵活。<br>​</p>
+<h4 id="class"><a href="#class" class="headerlink" title="class"></a>class</h4><p>​</p>
+<h3 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h3><p>处理需要多个 switch…case…或者 if…else…的场景。策略模式的核心思想就是：<strong>寻找业务中的不变的部分和变化的部分，把不变的隔离，可变的封装起来</strong>。策略模式的目的就是将算法的使用和算法的实现分离开。这种就是策略模式。<br>一个基于策略模式的代码至少由两部分组成，一是<strong>策略类</strong>，策略类封装具体的算法，并负责具体的计算过程。二是<strong>环境类</strong>Context，Context 接受客户的请求，随后把请求委托给某策略类做处理，Context 需要维持对某策略对象的引用。<br>​</p>
+<h3 id="访问者模式"><a href="#访问者模式" class="headerlink" title="访问者模式"></a>访问者模式</h3><h4 id="babel"><a href="#babel" class="headerlink" title="babel"></a>babel</h4><p>转换器会遍历 AST 树，找出自己感兴趣的节点类型, 再进行转换操作.如果每个插件自己去遍历 AST，对不同的节点进行不同的操作，维护自己的状态。这样子不仅低效，它们的逻辑分散在各处，会让整个系统变得难以理解和调试。所以转换器操作 AST 一般都是使用访问器模式，由这个访问者(Visitor)来 ① 进行统一的遍历操作，② 提供节点的操作方法，③ 响应式维护节点之间的关系；而插件(设计模式中称为‘具体访问者’)只需要定义自己感兴趣的节点类型，当访问者访问到对应节点时，就调用插件的访问(visit)方法。<br>​</p>
+<h3 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h3><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1640423110638-962f4e8a-6e08-4fdd-a0e1-25632ea7f9ae.png#clientId=u827ff1df-9aaa-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u7375859b&margin=%5Bobject%20Object%5D&originHeight=475&originWidth=481&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=uccb15ffc-388c-404b-b187-550e2568cfd&title="><br>promise 有三个状态，pending,resolved,rejected 状态，.then()方法监听 resolved 状态，.catch()监听 rejected 状态。也是一种观察模式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Subject</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span> = <span class="number">1</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">observers</span> = [];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">addObserver</span>(<span class="params">ob</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">observers</span>.<span class="title function_">push</span>(ob);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">setState</span>(<span class="params">state</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span> = state;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">observers</span>.<span class="title function_">forEach</span>(<span class="function">(<span class="params">ob</span>) =&gt;</span> ob.<span class="title function_">update</span>());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Observer</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">subject</span>) &#123;</span><br><span class="line">    subject.<span class="title function_">addObserver</span>(<span class="variable language_">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">update</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h4><p>所有的 DOM 事件监听机制都是观察者模式。如事件委托<br>​</p>
+<h3 id="发布订阅模式"><a href="#发布订阅模式" class="headerlink" title="发布订阅模式"></a>发布订阅模式</h3><p>发布订阅模式主要是解决多个对象之间的通信问题，其中一个对象的行为发生变化可能会导致一个或者多个其他对象的行为也发生改变。一般具有<strong>发布者、订阅者、调度中心</strong>三个角色。<br>和观察者模式本质上是一样的，区别在于，发布订阅者模式中发布者和订阅者之间存在第三者，也就是调度中心，发布者和订阅者之间没有耦合，统一由调度中心做信息内容的调度，发布者只负责往调度中心推送，订阅者只需要接受调度中心的通知获取信息。发布订阅模式做到了对象之间的解耦。<br>​</p>
+<h4 id="vue-响应式"><a href="#vue-响应式" class="headerlink" title="vue 响应式"></a>vue 响应式</h4><p>Vue2.x 的响应式原理以及 eventBus 都是通过发布订阅模式实现的，下面我们来看看 vue 的 eventBus 的实现<br>​</p>
+<h4 id="EventBus"><a href="#EventBus" class="headerlink" title="EventBus"></a>EventBus</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Bus</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">collector</span> = <span class="keyword">new</span> <span class="title class_">Map</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  $on(name, event) &#123;</span><br><span class="line">    <span class="keyword">let</span> fns = <span class="variable language_">this</span>.<span class="property">collector</span>.<span class="title function_">get</span>(name) || [];</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">collector</span>.<span class="title function_">set</span>(name, fns.<span class="title function_">push</span>(event) &amp;&amp; fns);</span><br><span class="line">  &#125;</span><br><span class="line">  $emit(name, ...args) &#123;</span><br><span class="line">    <span class="keyword">let</span> fns = <span class="variable language_">this</span>.<span class="property">collector</span>.<span class="title function_">get</span>(name) || [];</span><br><span class="line">    <span class="keyword">if</span> (fns.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      fns.<span class="title function_">forEach</span>(<span class="function">(<span class="params">fn</span>) =&gt;</span> &#123;</span><br><span class="line">        fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// throw Error(`event $&#123;name&#125; does not exist`);</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  $off(name, event) &#123;</span><br><span class="line">    <span class="keyword">let</span> fns = <span class="variable language_">this</span>.<span class="property">collector</span>.<span class="title function_">get</span>(name);</span><br><span class="line">    <span class="keyword">if</span> (fns &amp;&amp; fns.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      fns = fns.<span class="title function_">filter</span>(<span class="function">(<span class="params">fn</span>) =&gt;</span> fn.<span class="property">name</span> != event);</span><br><span class="line">      fns.<span class="property">length</span> &gt; <span class="number">0</span></span><br><span class="line">        ? <span class="variable language_">this</span>.<span class="property">collector</span>.<span class="title function_">set</span>(name, fns)</span><br><span class="line">        : <span class="variable language_">this</span>.<span class="property">collector</span>.<span class="title function_">delete</span>(name);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// throw Error(`event $&#123;name&#125; does not exist`);</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> bus = <span class="keyword">new</span> <span class="title class_">Bus</span>();</span><br></pre></td></tr></table></figure>
+
+<h3 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h3><p>装饰者模式的作用是为了给对象增加功能<br>在不改变原对象的基础上，通过对其进行包装拓展，使原有对象可以满足用户的更复杂需求</p>
+<h4 id="AOP-（Aspect-Oriented-Programming）面向切面编程"><a href="#AOP-（Aspect-Oriented-Programming）面向切面编程" class="headerlink" title="AOP （Aspect-Oriented Programming）面向切面编程"></a>AOP （Aspect-Oriented Programming）面向切面编程</h4><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1640425135802-f65b92d1-a039-45c4-99f6-c7f342af0145.png#clientId=u827ff1df-9aaa-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ud086d7b0&margin=%5Bobject%20Object%5D&name=image.png&originHeight=310&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=92751&status=done&style=none&taskId=u087033a4-d957-4fce-94ab-1b7432ff3cc&title=" alt="image.png"><br><strong>ES3</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> after = <span class="keyword">function</span> (<span class="params">fn, afterfn</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> res = fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, <span class="variable language_">arguments</span>);</span><br><span class="line">    afterfn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, <span class="variable language_">arguments</span>);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>ES5</strong><br><strong>原型链</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">before</span> = <span class="keyword">function</span> (<span class="params">beforeFn</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...arg</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">beforeFn</span>(...arg);</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">this</span>(...arg);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">after</span> = <span class="keyword">function</span> (<span class="params">afterFn</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...arg</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> result = <span class="title function_">this</span>(...arg);</span><br><span class="line">    <span class="title function_">afterFn</span>(...arg);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title class_">ImportEvent2</span>.<span class="title function_">before</span>(<span class="title class_">ImportEvent1</span>).<span class="title function_">after</span>(<span class="title class_">ImportEvent3</span>)();</span><br></pre></td></tr></table></figure>
+
+<p><strong>defineProperty</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">aop</span>(<span class="params">fn, after, before</span>) &#123;</span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(fn, <span class="string">&quot;after&quot;</span>, &#123;</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">value</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      <span class="title function_">after</span>();</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(fn, <span class="string">&quot;before&quot;</span>, &#123;</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">value</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      <span class="title function_">before</span>();</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    fn.<span class="title function_">before</span>();</span><br><span class="line">    <span class="title function_">fn</span>();</span><br><span class="line">    fn.<span class="title function_">after</span>();</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>ES7</strong><br>只能在 babel 里用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">after</span>(<span class="params">target, key, desc</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; value &#125; = desc;</span><br><span class="line">  desc.<span class="property">value</span> = <span class="keyword">function</span> (<span class="params">...args</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> res = value.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;加滤镜&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> desc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">  @after</span><br><span class="line">  <span class="title function_">takePhoto</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;拍照&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> t = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line">t.<span class="title function_">takePhoto</span>();</span><br></pre></td></tr></table></figure>
+
+<p><strong>批量函数</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">object</span>&#125;</span></span><br><span class="line"><span class="comment"> * fn: 需要执行的函数</span></span><br><span class="line"><span class="comment"> * params: 对象数组，每个执行的参数</span></span><br><span class="line"><span class="comment"> * size： 每个分包的大小，默认5</span></span><br><span class="line"><span class="comment"> * steps：每个分包执行执行结束后执行的函数</span></span><br><span class="line"><span class="comment"> * success：执行成功队列</span></span><br><span class="line"><span class="comment"> * fail：执行失败队列</span></span><br><span class="line"><span class="comment"> * last：执行结束队列-&gt; Promise.finally</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">batch</span> = <span class="keyword">async</span> (<span class="params">&#123;</span></span><br><span class="line"><span class="params">  fn,</span></span><br><span class="line"><span class="params">  params,</span></span><br><span class="line"><span class="params">  size = <span class="number">5</span>,</span></span><br><span class="line"><span class="params">  before = () =&gt; &#123;&#125;,</span></span><br><span class="line"><span class="params">  steps = () =&gt; &#123;&#125;,</span></span><br><span class="line"><span class="params">  success = () =&gt; &#123;&#125;,</span></span><br><span class="line"><span class="params">  fail = () =&gt; &#123;&#125;,</span></span><br><span class="line"><span class="params">  last = () =&gt; &#123;&#125;,</span></span><br><span class="line"><span class="params">&#125;</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> successArr = [],</span><br><span class="line">    failArr = [],</span><br><span class="line">    index = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">before</span>(params, size);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 同一批请求设置微小时间差</span></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">request</span> = (<span class="params">fn, param, index, gap</span>) =&gt;</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 每条请求间隔10 ms</span></span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="title function_">fn</span>(param, index)</span><br><span class="line">          .<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> <span class="title function_">resolve</span>(res))</span><br><span class="line">          .<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> <span class="title function_">reject</span>(err));</span><br><span class="line">      &#125;, gap * <span class="number">10</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, times = <span class="title class_">Math</span>.<span class="title function_">ceil</span>(params.<span class="property">length</span> / size); i &lt; times; i++) &#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">allSettled</span>(</span><br><span class="line">      params</span><br><span class="line">        .<span class="title function_">slice</span>(i * size, (i + <span class="number">1</span>) * size)</span><br><span class="line">        .<span class="title function_">map</span>(<span class="function">(<span class="params">param, gap</span>) =&gt;</span> <span class="title function_">request</span>(fn, param, index++, gap))</span><br><span class="line">    ).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 分成成功和失败两个队列</span></span><br><span class="line">      <span class="comment">// 成功改变row，并从队列中移除</span></span><br><span class="line">      <span class="comment">// 失败报错，并保留</span></span><br><span class="line">      res.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (item.<span class="property">status</span> === <span class="string">&quot;fulfilled&quot;</span>) &#123;</span><br><span class="line">          successArr.<span class="title function_">push</span>(item.<span class="property">value</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          failArr.<span class="title function_">push</span>(item.<span class="property">reason</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      <span class="title function_">steps</span>((i + <span class="number">1</span>) * size);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">success</span>(successArr);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">fail</span>(failArr);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">last</span>(successArr, failArr);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h3><p>把一个类的接口变换成我们想要的接口，可以帮我们解决不兼容的问题<br>处理接口数据为想要的样子</p>
+<h4 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> settle = <span class="built_in">require</span>(<span class="string">&quot;./../core/settle&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">function</span> <span class="title function_">myAdapter</span>(<span class="params">config</span>) &#123;</span><br><span class="line">  <span class="comment">// At this point:</span></span><br><span class="line">  <span class="comment">//  - config has been merged with defaults</span></span><br><span class="line">  <span class="comment">//  - request transformers have already run</span></span><br><span class="line">  <span class="comment">//  - request interceptors have already run</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// Make the request using config provided</span></span><br><span class="line">  <span class="comment">// Upon response settle the Promise</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="keyword">function</span> (<span class="params">resolve, reject</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> response = &#123;</span><br><span class="line">      <span class="attr">data</span>: responseData,</span><br><span class="line">      <span class="attr">status</span>: request.<span class="property">status</span>,</span><br><span class="line">      <span class="attr">statusText</span>: request.<span class="property">statusText</span>,</span><br><span class="line">      <span class="attr">headers</span>: responseHeaders,</span><br><span class="line">      <span class="attr">config</span>: config,</span><br><span class="line">      <span class="attr">request</span>: request,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">settle</span>(resolve, reject, response);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// From here:</span></span><br><span class="line">    <span class="comment">//  - response transformers will run</span></span><br><span class="line">    <span class="comment">//  - response interceptors will run</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用设计模式"><a href="#常用设计模式" class="headerlink" title="常用设计模式"></a>常用设计模式</h2><h3 id="MVC-架构思想"><a href="#MVC-架构思想" class="headerlink" title="MVC 架构思想"></a>MVC 架构思想</h3><p><img src="https://cdn.nlark.com/yuque/0/2021/webp/106384/1640420341165-7b7b8d69-64ea-4a94-a7ae-45cc1518f8e1.webp#clientId=u827ff1df-9aaa-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ud34dbd65&margin=%5Bobject%20Object%5D&originHeight=291&originWidth=401&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u1319ca6c-6e0e-4a10-970b-88e602fca09&title="></p>
+<p>mvc 架构设计的提出目的就是将视图界面和业务逻辑分离，从而达到代码的可拓展性、复用性、可维护性等，降低相应的业务耦合度<br>​</p>
+<h4 id="view-组合模式"><a href="#view-组合模式" class="headerlink" title="view 组合模式"></a>view 组合模式</h4><p>组合模式将对象组合成树形结构，以表示“部分-整体”的层次结构，组件化思想。组合模式让客户端可以统一单个对象和组合对象的处理逻辑(递归遍历)。<br>​</p>
+<h4 id="view-model-观察者模式"><a href="#view-model-观察者模式" class="headerlink" title="view+model 观察者模式"></a>view+model 观察者模式</h4><p>model 发生变化，view 会被通知做相应的视图更新，但是 model 和 view 不会产生直接关联，当 model 中的数据发生变化，不需要 model 主动将数据的变化的消息推送给 view，而是通过 controller 来处理<br>​</p>
+<h4 id="view-controller-策略模式"><a href="#view-controller-策略模式" class="headerlink" title="view + controller 策略模式"></a>view + controller 策略模式</h4><p>view 和 controller 是一对多的关系，controller 是 view 的一个策略，controller 对于 view 来说是可以替换的</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6947575368282800136">https://juejin.cn/post/6947575368282800136</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/56436085">https://zhuanlan.zhihu.com/p/56436085</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6953423646664687652">https://juejin.cn/post/6953423646664687652</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/23/CSS/" rel="prev" title="CSS">
+      <i class="fa fa-chevron-left"></i> CSS
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/26/Vue/" rel="next" title="Vue">
+      Vue <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="nav-number">1.</span> <span class="nav-text">设计原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vuex"><span class="nav-number">2.1.1.</span> <span class="nav-text">vuex</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">构造器模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#class"><span class="nav-number">2.2.1.</span> <span class="nav-text">class</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">策略模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.4.</span> <span class="nav-text">访问者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#babel"><span class="nav-number">2.4.1.</span> <span class="nav-text">babel</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.5.</span> <span class="nav-text">观察者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98"><span class="nav-number">2.5.1.</span> <span class="nav-text">事件委托</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.6.</span> <span class="nav-text">发布订阅模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vue-%E5%93%8D%E5%BA%94%E5%BC%8F"><span class="nav-number">2.6.1.</span> <span class="nav-text">vue 响应式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EventBus"><span class="nav-number">2.6.2.</span> <span class="nav-text">EventBus</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.7.</span> <span class="nav-text">装饰器模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AOP-%EF%BC%88Aspect-Oriented-Programming%EF%BC%89%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B"><span class="nav-number">2.7.1.</span> <span class="nav-text">AOP （Aspect-Oriented Programming）面向切面编程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.8.</span> <span class="nav-text">适配器模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#axios"><span class="nav-number">2.8.1.</span> <span class="nav-text">axios</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">常用设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MVC-%E6%9E%B6%E6%9E%84%E6%80%9D%E6%83%B3"><span class="nav-number">3.1.</span> <span class="nav-text">MVC 架构思想</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#view-%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.1.1.</span> <span class="nav-text">view 组合模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#view-model-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.1.2.</span> <span class="nav-text">view+model 观察者模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#view-controller-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.1.3.</span> <span class="nav-text">view + controller 策略模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CatcherInSky"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">CatcherInSky</p>
+  <div class="site-description" itemprop="description">CatcherInSky的前端知识库</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CatcherInSky" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CatcherInSky" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangchunxiang98@outlook.com" title="E-Mail → mailto:zhangchunxiang98@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

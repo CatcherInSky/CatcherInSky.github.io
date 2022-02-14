@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"catcherinsky.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="基本概念集线器、网桥、交换机、路由器 网线是物理层的硬件 集线器（Hub）是物理层的硬件，连接所有的线路，广播所有信息 网桥（Bridge）是数据链路层的硬件。网桥隔离两个端口，不同的端口形成单独的冲突域，减少网内冲突。网桥在不同或相同类型的 LAN 之间存储并转发数据帧，根据 MAC 头部来决定转发端口，显然是数据链路层的设备 交换机（Switch）是数据链路层的硬件，相当于多端口的网桥。交换机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络">
+<meta property="og:url" content="http://catcherinsky.github.io/2021/08/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="基本概念集线器、网桥、交换机、路由器 网线是物理层的硬件 集线器（Hub）是物理层的硬件，连接所有的线路，广播所有信息 网桥（Bridge）是数据链路层的硬件。网桥隔离两个端口，不同的端口形成单独的冲突域，减少网内冲突。网桥在不同或相同类型的 LAN 之间存储并转发数据帧，根据 MAC 头部来决定转发端口，显然是数据链路层的设备 交换机（Switch）是数据链路层的硬件，相当于多端口的网桥。交换机">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629875728548-418e37ef-5084-4c81-91cb-db56a501050c.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=535&id=u6c331c68&margin=%5Bobject%20Object%5D&originHeight=425&originWidth=586&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u15b666f8-fc6d-4082-b98e-3fb2a145390&title=&width=738">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629876296598-a736c60c-52bb-4da9-b515-e7efa0ab22ce.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=382&id=u64730bbe&margin=%5Bobject%20Object%5D&name=image.png&originHeight=382&originWidth=670&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=105722&status=done&style=none&taskId=u87908e71-c0c8-4e0a-b380-ee73f7d0691&title=&width=670">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629880329444-2a05e937-cb52-4151-8270-5b6086dc3396.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=869&id=u2a2395ee&margin=%5Bobject%20Object%5D&name=image.png&originHeight=869&originWidth=1219&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=376242&status=done&style=none&taskId=u50d9d002-d304-47cb-a6f0-e984f192aac&title=&width=1219">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629880814039-169490f2-cb83-4ba0-a8c4-51489e3664ab.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=801&id=u0b9dff14&margin=%5Bobject%20Object%5D&name=image.png&originHeight=801&originWidth=1231&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=256949&status=done&style=none&taskId=uc11ad661-6195-42c2-ba8d-ead61626213&title=&width=1231">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629881109934-6ec71627-1fa4-477e-8d29-193f5bec32c1.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=601&id=u1f26be96&margin=%5Bobject%20Object%5D&name=image.png&originHeight=601&originWidth=892&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=264673&status=done&style=none&taskId=ua6b241ee-21e7-44f6-9038-a7fa357ae89&title=&width=892">
+<meta property="og:image" content="https://camo.githubusercontent.com/4b31b44c078c2a6fe1354e38006e624c3ae5af66ad3f982d3d73e220a120ab98/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f525454733d28312d61292a2852545473292b612a525454#crop=0&crop=0&crop=1&crop=1&from=url&id=IppMq&margin=%5Bobject%20Object%5D&originHeight=19&originWidth=295&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=">
+<meta property="og:image" content="https://camo.githubusercontent.com/ae415414727a193c7c23b73199e5ca6c1caa84df9822bf02f8483f8a359605e0/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f52544f3d525454732b342a5254545f64#crop=0&crop=0&crop=1&crop=1&from=url&id=W0ccJ&margin=%5Bobject%20Object%5D&originHeight=16&originWidth=205&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=">
+<meta property="og:image" content="https://camo.githubusercontent.com/f670e3a7df385079035c54d43f156e63bde8c01b320e1ee40f4060a097c4dad9/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f61333235336465622d386432312d343061312d616165342d3764313738653461613331392e6a7067#crop=0&crop=0&crop=1&crop=1&from=url&id=Ohc3m&margin=%5Bobject%20Object%5D&originHeight=474&originWidth=1055&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=">
+<meta property="og:image" content="https://camo.githubusercontent.com/96b543c35dfc6a024897cea0354427605b9d238d7af0e8c5821c7ab0c26c2f27/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f39313066363133662d353134662d343533342d383764642d3962343639396435396433312e706e67#crop=0&crop=0&crop=1&crop=1&from=url&id=yqJQ2&margin=%5Bobject%20Object%5D&originHeight=754&originWidth=1914&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629883408119-81922613-5f45-4aef-977a-a0f86866b454.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u8931f46e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=388&originWidth=662&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=190225&status=done&style=none&taskId=u5608d952-3bf6-41f1-877e-1779167a2a7&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629884187194-7c895fbf-2159-4143-b9aa-2c127f2214d9.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=296&id=u178459b1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=296&originWidth=619&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=78955&status=done&style=none&taskId=ub0c6680c-f3be-4d3f-abac-ace22069cf6&title=&width=619">
+<meta property="og:image" content="https://github.com/CatcherInSky/CatcherInSky.github.io/raw/source/source/images/f61b5419-c94a-4df1-8d4d-aed9ae8cc6d5.png#crop=0&crop=0&crop=1&crop=1&from=url&id=t1Gf6&margin=%5Bobject%20Object%5D&originHeight=648&originWidth=1174&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629884122178-acbcadb5-f02e-4ac8-ab54-71fa3085579c.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=304&id=u92c1f087&margin=%5Bobject%20Object%5D&name=image.png&originHeight=304&originWidth=676&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=80790&status=done&style=none&taskId=u60b31344-6706-4c6f-83e1-dc385944325&title=&width=676">
+<meta property="og:image" content="https://camo.githubusercontent.com/513fdc176a3598465859ee974e9217e2cc0f4e14dbf6c0d0cd03d611865bb3b1/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f64346333613461312d303834362d343665632d396363332d6561646466636137313235342e6a7067#crop=0&crop=0&crop=1&crop=1&from=url&id=fWuxT&margin=%5Bobject%20Object%5D&originHeight=674&originWidth=1137&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629945425540-f677b00b-26a8-4e36-b117-8c4c6d4464f4.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=uf6ada5fa&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1074&originWidth=1274&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=629835&status=done&style=none&taskId=u88d2d34d-d6a3-4295-96bb-a97696daced&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628563793849-e0a836b2-d102-4a7e-9ac2-74837cbcd2c4.png#crop=0&crop=0&crop=1&crop=1&from=url&id=pbWcH&margin=%5Bobject%20Object%5D&originHeight=681&originWidth=751&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=">
+<meta property="og:image" content="https://github.com/CatcherInSky/CatcherInSky.github.io/raw/source/source/images/HTTP_RequestMessageExample.png#crop=0&crop=0&crop=1&crop=1&from=url&id=KRl1w&margin=%5Bobject%20Object%5D&originHeight=221&originWidth=656&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=">
+<meta property="og:image" content="https://github.com/CatcherInSky/CatcherInSky.github.io/raw/source/source/images/HTTP_ResponseMessageExample.png#crop=0&crop=0&crop=1&crop=1&from=url&id=PRoMc&margin=%5Bobject%20Object%5D&originHeight=267&originWidth=704&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=">
+<meta property="og:image" content="https://github.com/CatcherInSky/CatcherInSky.github.io/raw/source/source/images/20170406154122927.png#crop=0&crop=0&crop=1&crop=1&from=url&id=vCcuh&margin=%5Bobject%20Object%5D&originHeight=543&originWidth=701&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=">
+<meta property="og:image" content="https://github.com/CatcherInSky/CatcherInSky.github.io/raw/source/source/images/20170406154450854.png#crop=0&crop=0&crop=1&crop=1&from=url&id=rLmJp&margin=%5Bobject%20Object%5D&originHeight=563&originWidth=720&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629965824844-e7ab703c-97db-485a-9e1a-fb4f45a07c86.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ub66249ff&margin=%5Bobject%20Object%5D&name=image.png&originHeight=590&originWidth=1727&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=374351&status=done&style=none&taskId=u372bf66c-d9a6-4421-a0a9-ae5b1d7eec9&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629966358376-8c844f35-47a0-4545-b760-5a69883797fa.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=323&id=u836d382b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=323&originWidth=740&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=135064&status=done&style=none&taskId=ub6296883-36ed-45ca-814f-4e99f0abcca&title=&width=740">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629965882538-6ecca185-afec-40f6-b64b-8bdcaea639fc.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u18ebdbb6&margin=%5Bobject%20Object%5D&name=image.png&originHeight=349&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=113227&status=done&style=none&taskId=u8c933992-6a18-47e3-b254-39c09f115c0&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629966168164-16ad67cc-9fd8-4f5a-acc4-edd11072f542.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=302&id=ue7db7154&margin=%5Bobject%20Object%5D&name=image.png&originHeight=302&originWidth=474&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=54726&status=done&style=none&taskId=u91570a41-a819-413d-b049-925a0ce1303&title=&width=474">
+<meta property="og:image" content="https://github.com/CatcherInSky/CatcherInSky.github.io/raw/source/source/images/HTTPS-HTTP-TLS-SSL.png#crop=0&crop=0&crop=1&crop=1&from=url&id=KdwAi&margin=%5Bobject%20Object%5D&originHeight=302&originWidth=534&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629967185050-586d54af-3b37-47f2-98a5-377c7d00797e.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u93496a8b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1875&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=463575&status=done&style=none&taskId=u672de59f-4925-4fb9-a2ad-b266445e08f&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629967818769-e1713f35-d637-417c-acaf-f3988f83738c.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=oQJB9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=845&originWidth=577&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=109366&status=done&style=none&taskId=u4054a29b-8e02-4c57-a22e-30fef8d461d&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630130902526-b2edbd2f-3c27-40ad-a536-be6d30acb739.png#clientId=u6550f194-680e-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ubb775e05&margin=%5Bobject%20Object%5D&name=image.png&originHeight=475&originWidth=644&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=83677&status=done&style=none&taskId=uc4b6dd4d-e094-4998-9d78-ce778c1ddd5&title=">
+<meta property="og:image" content="https://camo.githubusercontent.com/5a570852a0baf09c9592f0a08c8476cf3d653b8d673ca47d8f3e65342d5fd81c/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f62353465656231362d306230652d343834632d626536322d3330366635376334306437372e6a7067#crop=0&crop=0&crop=1&crop=1&from=url&id=mVkFx&margin=%5Bobject%20Object%5D&originHeight=286&originWidth=859&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629969999858-3f4b1e44-b21e-4fb9-8bb4-5b106a7b7458.png#clientId=ud0ba031e-b2e0-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u4cf06dbc&margin=%5Bobject%20Object%5D&name=image.png&originHeight=258&originWidth=752&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=93675&status=done&style=none&taskId=ua1a97f2c-41fb-42cc-8574-f51479b31b3&title=">
+<meta property="article:published_time" content="2021-08-25T02:57:29.000Z">
+<meta property="article:modified_time" content="2022-02-14T11:41:06.729Z">
+<meta property="article:author" content="CatcherInSky">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629875728548-418e37ef-5084-4c81-91cb-db56a501050c.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=535&id=u6c331c68&margin=%5Bobject%20Object%5D&originHeight=425&originWidth=586&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u15b666f8-fc6d-4082-b98e-3fb2a145390&title=&width=738">
+
+<link rel="canonical" href="http://catcherinsky.github.io/2021/08/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>计算机网络 | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+  <meta name="referrer" content="same-origin">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Knowlegde Bases of CatcherInSky</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CatcherInSky的前端知识库</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://catcherinsky.github.io/2021/08/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content="CatcherInSky的前端知识库">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机网络
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-25 10:57:29" itemprop="dateCreated datePublished" datetime="2021-08-25T10:57:29+08:00">2021-08-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-14 19:41:06" itemprop="dateModified" datetime="2022-02-14T19:41:06+08:00">2022-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="集线器、网桥、交换机、路由器"><a href="#集线器、网桥、交换机、路由器" class="headerlink" title="集线器、网桥、交换机、路由器"></a>集线器、网桥、交换机、路由器</h3><ul>
+<li>网线是物理层的硬件</li>
+<li>集线器（Hub）是<strong>物理层</strong>的硬件，连接所有的线路，广播所有信息</li>
+<li>网桥（Bridge）是<strong>数据链路层</strong>的硬件。网桥隔离两个端口，不同的端口形成单独的冲突域，减少网内冲突。网桥在不同或相同类型的 LAN 之间存储并转发数据帧，根据 MAC 头部来决定转发端口，显然是数据链路层的设备</li>
+<li>交换机（Switch）是<strong>数据链路层</strong>的硬件，相当于多端口的网桥。交换机内部存储 MAC 表，只会将数据帧发送到指定的目的地址</li>
+<li>路由器（Router）是<strong>网络层</strong>的硬件，根据 IP 地址进行寻址，不同子网间的数据传输隔离</li>
+</ul>
+<p>​</p>
+<h3 id="协议数据单元"><a href="#协议数据单元" class="headerlink" title="协议数据单元"></a>协议数据单元</h3><p>协议数据单元(Prtocol data unit)，指对等层协议之间交换的信息单元。PDU 再往上就是数据（data）。<br>在 OSI 模型里，PDU 和底下四层相关：</p>
+<ul>
+<li>物理层———比特（Bit）</li>
+<li>数据链路层———帧（Frame）</li>
+<li>网络层———分组、数据包（Packet）</li>
+<li>传输层———数据段（Segment）</li>
+<li>第五层或以上为数据（data）。也有一种说法是，应用层的信息称为消息、报文（message），表示完整的信息。</li>
+</ul>
+<h3 id="MSL、TTL、RTT"><a href="#MSL、TTL、RTT" class="headerlink" title="MSL、TTL、RTT"></a>MSL、TTL、RTT</h3><ul>
+<li>MSL（Maximum segment lifetime）：报文最大生存时间。它是任何 TCP 报文在网络上存在的最长时间，超过这个时间报文将被丢弃。实际应用中常用的设置是 30 秒，1 分钟和 2 分钟。TCP 四次挥手时，需要在 TIME-WAIT 状态等待 2MSL 的时间，可以保证本次连接产生的所有报文段都从网络中消失。</li>
+<li>TTL（Time to live）：IP 数据报在网络中可以存活的总跳数，称为“生存时间”，但并不是一个真正的时间。该域由源主机设置初始值，每经过一个路由器，跳数减 1，如果减至 0，则丢弃该数据包，同时发送 ICMP 报文通知源主机。取值范围 1-255，如果设置的 TTL 值小于传输过程中需要经过的路由器数量，则该数据包在传输中就会被丢弃。</li>
+<li>RTT（Round trip time）：客户端到服务端往返所花时间。RTT 受网络传输拥塞的变化而变化，由 TCP <strong>动态地估算</strong>。</li>
+</ul>
+<h2 id="协议栈"><a href="#协议栈" class="headerlink" title="协议栈"></a>协议栈</h2><h3 id="OSI-参考模型"><a href="#OSI-参考模型" class="headerlink" title="OSI 参考模型"></a>OSI 参考模型</h3><ul>
+<li>应用层：应用层协议定义的是应用进程间的通信和交互的规则，不同的网络应用需要不同的应用层协议</li>
+<li>表示层：把数据转换为能与接收者的系统格式兼容并适合传输的格式</li>
+<li>会话层：在数据传输中设置和维护电脑网络中两台电脑之间的通信连接</li>
+<li>传输层：向两台主机进程之间的通信提供通用的数据传输服务</li>
+<li>网络层：基于网络层地址（IP 地址）进行不同网络系统间的路径选择</li>
+<li>数据链路层：在不可靠的物理介质上提供可靠的传输</li>
+<li>物理层：在局域网上透明地传送比特，尽可能屏蔽掉具体传输介质和物理设备的差异</li>
+</ul>
+<p>​</p>
+<p>​</p>
+<h3 id="TCP-IP-参考模型"><a href="#TCP-IP-参考模型" class="headerlink" title="TCP/IP 参考模型"></a>TCP/IP 参考模型</h3><ul>
+<li>应用层：对应于 OSI 参考模型的应用层，为用户提供所需要的各种服务。定义的是应用进程间的通信和交互的规则，不同的网络应用需要不同的应用层协议。协议包括 SMTP、HTTP、FTP 等</li>
+<li>传输层：对应于 OSI 参考模型的传输层，为应用层实体提供端到端的、通用的通信功能，<strong>保证了数据包的顺序传送及数据的完整性</strong>。“通用的”是指不同的应用可以使用同一个运输层服务。协议包括 TCP、UDP 等</li>
+<li>网络层（或网际互联层）：对应于 OSI 参考模型的网络层，主要解决<strong>主机到主机的路由</strong>问题。协议包括 IP、ICMP 等</li>
+<li>网络接入层：对应于 OSI 参考模型的物理层和数据链路层，负责相邻的物理节点间的可靠数据传输。协议包括 ARP、IEEE 802.2 等</li>
+<li>将“网络接入层”进一步分为“数据链路层”与“物理层”</li>
+</ul>
+<p>​</p>
+<p>将“网络接入层”进一步分为“数据链路层”与“物理层”，得到五层协议模型。各层的常见协议如下：</p>
+<table>
+<thead>
+<tr>
+<th>TCP/IP 协议层</th>
+<th>协议</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>应用层</td>
+<td><strong>HTTP</strong></td>
+<td>超文本传输协议（HyperText Transfer Protocol）</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>FTP</strong></td>
+<td>文件传输协议（File Transfer Protocol）用于在客户端和服务器之间进行文件传输</td>
+</tr>
+<tr>
+<td></td>
+<td>SMTP</td>
+<td>简单邮件传输协议（Simple Mail Transfer Protocol）是一个在网络上传输电子邮件的标准</td>
+</tr>
+<tr>
+<td></td>
+<td>TELNET</td>
+<td>Telnet 是服务器远程登录控制的标准协议与主要方式</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>DNS 53</strong></td>
+<td>域名系统（Domain Name System）是域名和 IP 地址相互映射的分布式数据库</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>SSH</strong></td>
+<td>安全外壳协议（Secure Shell）是一种加密的网络传输协议，可在不安全的网络中为网络服务提供安全的传输环境</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>DHCP</strong></td>
+<td>动态主机配置协议（Dynamic Host Configuration Protocol）的主要作用是集中管理、动态分配 IP 地址，提升地址的使用率</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td><strong>TCP</strong></td>
+<td>传输控制协议（Transmission Control Protocol）是一种面向连接的、可靠的、基于字节流的传输层通信协议</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>UDP</strong></td>
+<td>用户数据报协议（User Datagram Protocol）是一个简单的、无连接的、不可靠的、面向数据报的通信协议</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td><strong>IP</strong></td>
+<td>网际协议（Internet Protocol）是用于分组交换数据网络的一种协议，功能包括寻址、路由、尽最大努力交付数据包</td>
+</tr>
+<tr>
+<td></td>
+<td>ICMP</td>
+<td>互联网控制消息协议（Internet Control Message Protocol）用于返回通信环境的错误消息。traceroute 和 ping 都是基于 ICMP 消息实现的，traceroute 是通过发送含有特殊 TTL 的包，然后接收 ICMP 超时消息和目标不可达消息来实现的；ping 则是用 ICMP 的“Echo request (8)”和“Echo reply (0)”消息来实现的</td>
+</tr>
+<tr>
+<td></td>
+<td>IGMP</td>
+<td>因特网组管理协议（Internet Group Management Protocol ）管理 IP 协议多播组成员</td>
+</tr>
+<tr>
+<td></td>
+<td>RIP</td>
+<td>路由信息协议（Routing Information Protocol）是一种内部网关协议（IGP），是距离向量路由协议的一种实现</td>
+</tr>
+<tr>
+<td></td>
+<td>OSFP</td>
+<td>开放式最短路径优先（Open Shortest Path First）是一种内部网关协议（IGP），使用 Dijkstra 算法计算最短路径，是链路状态路由协议的一种实现</td>
+</tr>
+<tr>
+<td></td>
+<td>BGP</td>
+<td>边界网关协议（Border Gateway Protocol）是互联网上一个核心的去中心化自治路由协议，属于矢量路由协议。BGP 用于互联网上，将自治系统视作一个整体；每个自治系统使用 IGP（代表实现有 RIP 和 OSPF）进行路由</td>
+</tr>
+<tr>
+<td>数据链路层</td>
+<td><strong>ARP*</strong></td>
+<td>地址解析协议（Address Resolution Protocol）通过 IP 寻找 MAC 地址</td>
+</tr>
+<tr>
+<td></td>
+<td>ARQ</td>
+<td>自动重传请求（Automatic Repeat-reQuest）是一种错误纠正协议</td>
+</tr>
+<tr>
+<td>物理层</td>
+<td>IEEE802</td>
+<td>IEEE 802 指 IEEE 标准中关于局域网和城域网的一系列标准，其中最广泛使用的有以太网、令牌环、无线局域网等</td>
+</tr>
+</tbody></table>
+<p>ARP 协议：ARP 协议应该属于哪一层？一种说法是属于网络层，因为 IP 协议使用 ARP 协议；另一种说法是属于数据链路层，因为 MAC 地址是数据链路层的内容。在 OSI 模型中，ARP 协议属于链路层；而在 TCP/IP 模型中，ARP 协议属于网络层。<br>​</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629875728548-418e37ef-5084-4c81-91cb-db56a501050c.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=535&id=u6c331c68&margin=%5Bobject%20Object%5D&originHeight=425&originWidth=586&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u15b666f8-fc6d-4082-b98e-3fb2a145390&title=&width=738"><br>​</p>
+<h3 id="异同"><a href="#异同" class="headerlink" title="异同"></a>异同</h3><h4 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h4><ul>
+<li>都采用了层次结构的概念</li>
+<li>都能够提供面向连接和无连接的通信服务机制</li>
+</ul>
+<h4 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h4><ul>
+<li>OSI 采用了七层模型，而 TCP/IP 是四层</li>
+<li>OSI 是一个在协议开发前设计的、有清晰概念的模型；TCP/IP 是先有协议集然后建立的、事实上得到广泛应用的弱模型，功能描述和实现细节混在一起</li>
+<li>OSI 的网络层既提供面向连接的服务，又提供无连接的服务；TCP/IP 的网络层只提供无连接的网络服务</li>
+<li>OSI 的传输层只提供面向连接的服务；TCP/IP 的传输层即提供面向连接的服务 TCP，也提供无连接的服务 UDP</li>
+</ul>
+<p>​</p>
+<p>​</p>
+<h2 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h2><p>IP 协议负责把数据从一台计算机通过网络发送到另一台计算机。（像快递的收货地址和发出地址）数据被分割成一小块一小块，然后通过 IP 包发送出去。由于互联网链路复杂，两台计算机之间经常有多条线路，因此，路由器就负责决定如何把一个 IP 包转发出去。IP 包的特点是按块发送，途径多个路由，但不保证能到达，也不保证顺序到达。<br>IP 协议基于底层物理网络的连通，且 IP 路由表在全球路由器里完成了同步<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629876296598-a736c60c-52bb-4da9-b515-e7efa0ab22ce.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=382&id=u64730bbe&margin=%5Bobject%20Object%5D&name=image.png&originHeight=382&originWidth=670&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=105722&status=done&style=none&taskId=u87908e71-c0c8-4e0a-b380-ee73f7d0691&title=&width=670" alt="image.png"><br>​</p>
+<h2 id="TCP-UDP"><a href="#TCP-UDP" class="headerlink" title="TCP/UDP"></a>TCP/UDP</h2><p>TCP 协议则是建立在 IP 协议之上的。TCP 协议负责在两台计算机之间建立可靠连接，保证数据包按顺序到达。TCP 协议会通过握手建立连接，然后，对每个 IP 包编号，确保对方按顺序收到，如果包丢掉了，就自动重发。<br>​</p>
+<h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><p><strong>传输控制协议 TCP（Transmission Control Protocol）</strong>是面向连接的，提供可靠交付，有流量控制，拥塞控制，提供全双工通信，面向字节流（把应用层传下来的报文看成字节流，把字节流组织成大小不等的数据块），每一条 TCP 连接只能是点对点的（一对一）。<br>​</p>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ol>
+<li><strong>面向连接</strong></li>
+</ol>
+<p>面向连接，是指发送数据之前必须在两端建立连接。建立连接的方法是“三次握手”，这样能建立可靠的连接。建立连接，是为数据的可靠传输打下了基础。<br>​</p>
+<ol start="2">
+<li><strong>单播</strong></li>
+</ol>
+<p>面向连接，是指发送数据之前必须在两端建立连接。建立连接的方法是“三次握手”，这样能建立可靠的连接。建立连接，是为数据的可靠传输打下了基础。<br>​</p>
+<ol start="3">
+<li><strong>面向字节流</strong></li>
+</ol>
+<p>TCP 不像 UDP 一样那样一个个报文独立地传输，而是在不保留报文边界的情况下以字节流方式进行传输。<br>​</p>
+<ol start="4">
+<li><strong>可靠传输</strong></li>
+</ol>
+<p>对于可靠传输，判断丢包，误码靠的是 TCP 的段编号以及确认号。TCP 为了保证报文传输的可靠，就给每个包一个序号，同时序号也保证了传送到接收端实体的包的按序接收。然后接收端实体对已成功收到的字节发回一个相应的确认(ACK)；如果发送端实体在合理的往返时延(RTT)内未收到确认，那么对应的数据（假设丢失了）将会被重传。<br>​</p>
+<ol start="5">
+<li><strong>拥塞控制</strong></li>
+</ol>
+<p>当网络出现拥塞的时候，TCP 能够减小向网络注入数据的速率和数量，缓解拥塞<br>​</p>
+<ol start="6">
+<li><strong>全双工通信</strong></li>
+</ol>
+<p>TCP 允许通信双方的应用程序在任何时候都能发送数据，因为 TCP 连接的两端都设有缓存，用来临时存放双向通信的数据。当然，TCP 可以立即发送一个数据段，也可以缓存一段时间以便一次发送更多的数据段（最大的数据段大小取决于 MSS）</p>
+<h3 id="首部格式"><a href="#首部格式" class="headerlink" title="首部格式"></a>首部格式</h3><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629880329444-2a05e937-cb52-4151-8270-5b6086dc3396.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=869&id=u2a2395ee&margin=%5Bobject%20Object%5D&name=image.png&originHeight=869&originWidth=1219&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=376242&status=done&style=none&taskId=u50d9d002-d304-47cb-a6f0-e984f192aac&title=&width=1219" alt="image.png"></p>
+<ul>
+<li><strong>序号</strong> ：用于对字节流进行编号，例如序号为 301，表示第一个字节的编号为 301，如果携带的数据长度为 100 字节，那么下一个报文段的序号应为 401。</li>
+<li><strong>确认号</strong> ：期望收到的下一个报文段的序号。例如 B 正确收到 A 发送来的一个报文段，序号为 501，携带的数据长度为 200 字节，因此 B 期望下一个报文段的序号为 701，B 发送给 A 的确认报文段中确认号就为 701。</li>
+<li><strong>数据偏移</strong> ：指的是数据部分距离报文段起始处的偏移量，实际上指的是<strong>首部的长度</strong>。</li>
+<li><strong>确认 ACK</strong> ：当 ACK=1 时确认号字段有效，否则无效。TCP 规定，在连接建立后所有传送的报文段都必须把 ACK 置 1。</li>
+<li><strong>同步 SYN</strong> ：在连接建立时用来同步序号。当 SYN=1，ACK=0 时表示这是一个连接请求报文段。若对方同意建立连接，则响应报文中 SYN=1，ACK=1。</li>
+<li><strong>终止 FIN</strong> ：用来释放一个连接，当 FIN=1 时，表示此报文段的发送方的数据已发送完毕，并要求释放连接。</li>
+<li><strong>窗口</strong> ：窗口值作为接收方让发送方设置其发送窗口的依据。之所以要有这个限制，是因为接收方的数据缓存空间是有限的。</li>
+</ul>
+<h3 id="连接过程"><a href="#连接过程" class="headerlink" title="连接过程"></a>连接过程</h3><h4 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h4><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629880814039-169490f2-cb83-4ba0-a8c4-51489e3664ab.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=801&id=u0b9dff14&margin=%5Bobject%20Object%5D&name=image.png&originHeight=801&originWidth=1231&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=256949&status=done&style=none&taskId=uc11ad661-6195-42c2-ba8d-ead61626213&title=&width=1231" alt="image.png"><br>假设 A 为客户端，B 为服务器端。</p>
+<ul>
+<li>首先 B 处于 LISTEN（监听）状态，等待客户的连接请求。</li>
+<li>A 向 B 发送连接请求报文，SYN=1，ACK=0，选择一个初始的序号 x。</li>
+<li>B 收到连接请求报文，如果同意建立连接，则向 A 发送连接确认报文，SYN=1，ACK=1，确认号为 x+1，同时也选择一个初始的序号 y。</li>
+<li>A 收到 B 的连接确认报文后，还要向 B 发出确认，确认号为 y+1，序号为 x+1。</li>
+<li>B 收到 A 的确认后，连接建立。</li>
+</ul>
+<p>​</p>
+<p><strong>三次握手的原因</strong><br>为什么不是两次握手？如果只有两次握手，那么服务端向客户端发送 SYN/ACK 报文后，就会认为连接建立。但是如果客户端没有收到报文，那么客户端是没有建立连接的。这就导致服务端会浪费资源。<br>第三次握手是为了防止失效的连接请求到达服务器，让服务器错误打开连接。<br>通信的双方要互相通知对方自己的初始化的 Sequence Number，也就上图中的 x 和 y。这个号要作为以后的数据通信的序号，以保证应用层接收到的数据不会因为网络上的传输的问题而乱序<br>客户端发送的连接请求如果在网络中滞留，那么就会隔很长一段时间才能收到服务器端发回的连接确认。客户端等待一个超时重传时间之后，就会重新请求连接。但是这个滞留的连接请求最后还是会到达服务器，如果不进行三次握手，那么服务器就会打开两个连接。如果有第三次握手，客户端会忽略服务器之后发送的对滞留连接请求的连接确认，不进行第三次握手，因此就不会再次打开连接。<br>​</p>
+<h4 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h4><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629881109934-6ec71627-1fa4-477e-8d29-193f5bec32c1.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=601&id=u1f26be96&margin=%5Bobject%20Object%5D&name=image.png&originHeight=601&originWidth=892&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=264673&status=done&style=none&taskId=ua6b241ee-21e7-44f6-9038-a7fa357ae89&title=&width=892" alt="image.png"><br>以下描述不讨论序号和确认号，因为序号和确认号的规则比较简单。并且不讨论 ACK，因为 ACK 在连接建立之后都为 1。</p>
+<ul>
+<li>A 发送连接释放报文，FIN=1。</li>
+<li>B 收到之后发出确认，此时 TCP 属于半关闭状态，B 能向 A 发送数据但是 A 不能向 B 发送数据。</li>
+<li>当 B 不再需要连接时，发送连接释放报文，FIN=1。</li>
+<li>A 收到后发出确认，进入 TIME-WAIT 状态，等待 2 MSL（最大报文存活时间）后释放连接。</li>
+<li>B 收到 A 的确认后释放连接。</li>
+<li>​</li>
+</ul>
+<p><strong>四次挥手的原因</strong><br>因为 TCP 是全双工的，一方关闭连接后，另一方还可以继续发送数据。所以四次挥手，将断开连接分成两个独立的过程。<br><strong>​</strong></p>
+<p><strong>TIME_WAIT 原因</strong><br>客户端接收到服务器端的 FIN 报文后进入此状态，此时并不是直接进入 CLOSED 状态，还需要等待一个时间计时器设置的时间 2MSL。这么做有两个理由：</p>
+<ul>
+<li>确保最后一个确认报文能够到达。如果 B 没收到 A 发送来的确认报文，那么就会重新发送连接释放请求报文，A 等待一段时间就是为了处理这种情况的发生。</li>
+<li>等待一段时间是为了让本连接持续时间内所产生的所有报文都从网络中消失，使得下一个新的连接不会出现旧的连接请求报文。</li>
+</ul>
+<p>​</p>
+<p><strong>TIME_WAIT 数量太多</strong><br>TIME_WAIT 是主动断开连接的一方会进入的状态，但是如果在大并发的短链接下，TIME_WAIT 就会太多，这也会消耗很多系统资源。<br>​</p>
+<p><strong>SYN Flood 攻击</strong><br>恶意的人就为此制造了 SYN Flood 攻击——给服务器发了一个 SYN 后，就下线了，于是服务器需要默认等 63s 才会断开连接，这样，攻击者就可以把服务器的 syn 连接的队列耗尽，让正常的连接请求不能处理。<br>​</p>
+<h3 id="可靠传输"><a href="#可靠传输" class="headerlink" title="可靠传输"></a>可靠传输</h3><h4 id="检验和"><a href="#检验和" class="headerlink" title="检验和"></a>检验和</h4><p>通过检验和的方式，接收端可以检测出来数据是否有差错和异常，假如有差错就会直接丢弃 TCP 段，重新发送。TCP 在计算检验和时，会在 TCP 首部加上一个 12 字节的伪首部。检验和总共计算 3 部分：TCP 首部、TCP 数据、TCP 伪首部</p>
+<h4 id="序列号-确认应答"><a href="#序列号-确认应答" class="headerlink" title="序列号/确认应答"></a>序列号/确认应答</h4><p>发送端发送信息给接收端，接收端会回应一个包，这个包就是应答包。只要发送端有一个包传输，接收端没有回应确认包（ACK 包），都会重发。<br>​</p>
+<h4 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h4><p>如果一个已经发送的报文段在超时时间内没有收到确认，那么就重传这个报文段。<br>一个报文段从发送再到接收到确认所经过的时间称为往返时间 RTT，加权平均往返时间 RTTs 计算如下：<br><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/4b31b44c078c2a6fe1354e38006e624c3ae5af66ad3f982d3d73e220a120ab98/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f525454733d28312d61292a2852545473292b612a525454"><img src="https://camo.githubusercontent.com/4b31b44c078c2a6fe1354e38006e624c3ae5af66ad3f982d3d73e220a120ab98/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f525454733d28312d61292a2852545473292b612a525454#crop=0&crop=0&crop=1&crop=1&from=url&id=IppMq&margin=%5Bobject%20Object%5D&originHeight=19&originWidth=295&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title="></a></p>
+<p>其中，0 ≤ a ＜ 1，RTTs 随着 a 的增加更容易受到 RTT 的影响。<br>超时时间 RTO 应该略大于 RTTs，TCP 使用的超时时间计算如下：<br><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/ae415414727a193c7c23b73199e5ca6c1caa84df9822bf02f8483f8a359605e0/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f52544f3d525454732b342a5254545f64"><img src="https://camo.githubusercontent.com/ae415414727a193c7c23b73199e5ca6c1caa84df9822bf02f8483f8a359605e0/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f52544f3d525454732b342a5254545f64#crop=0&crop=0&crop=1&crop=1&from=url&id=W0ccJ&margin=%5Bobject%20Object%5D&originHeight=16&originWidth=205&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title="></a></p>
+<p>其中 RTTd 为偏差的加权平均值。</p>
+<h3 id="流量控制（Flow-Control）"><a href="#流量控制（Flow-Control）" class="headerlink" title="流量控制（Flow Control）"></a>流量控制（Flow Control）</h3><h4 id="滑动窗口（Sliding-Window）"><a href="#滑动窗口（Sliding-Window）" class="headerlink" title="滑动窗口（Sliding Window）"></a>滑动窗口（Sliding Window）</h4><p>窗口是缓存的一部分，用来暂时存放字节流。发送方和接收方各有一个窗口，接收方通过 TCP 报文段中的窗口字段告诉发送方自己还有多少缓冲区可以接收数据，发送方根据这个值和其它信息设置自己的窗口大小。</p>
+<p>发送窗口内的字节都允许被发送，接收窗口内的字节都允许被接收。如果发送窗口左部的字节已经发送并且收到了确认，那么就将发送窗口向右滑动一定距离，直到左部第一个字节不是已发送并且已确认的状态；接收窗口的滑动类似，接收窗口左部字节已经发送确认并交付主机，就向右滑动接收窗口。</p>
+<p>接收窗口只会对窗口内最后一个按序到达的字节进行确认，例如接收窗口已经收到的字节为 {31, 34, 35}，其中 {31} 按序到达，而 {34, 35} 就不是，因此只对字节 31 进行确认。发送方得到一个字节的确认之后，就知道这个字节之前的所有字节都已经被接收。<br><img src="https://camo.githubusercontent.com/f670e3a7df385079035c54d43f156e63bde8c01b320e1ee40f4060a097c4dad9/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f61333235336465622d386432312d343061312d616165342d3764313738653461613331392e6a7067#crop=0&crop=0&crop=1&crop=1&from=url&id=Ohc3m&margin=%5Bobject%20Object%5D&originHeight=474&originWidth=1055&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title="></p>
+<p><strong>zero window</strong><br>发送端在窗口变成 0 后，会发 ZWP(Zero Window Probe)的包给接收方，让接收方来 ack 他的 Window 尺寸，一般这个值会设置成 3 次，第次大约 30-60 秒（不同的实现可能会不一样）。如果 3 次过后还是 0 的话，有的 TCP 实现就会发 RST 把链接断了。<br>一些攻击者会在和 HTTP 建好链发完 GET 请求后，就把 Window 设置为 0，然后服务端就只能等待进行 ZWP，于是攻击者会并发大量的这样的请求，把服务器端的资源耗尽。<br>​</p>
+<h3 id="拥塞控制（Congestion-Handling）"><a href="#拥塞控制（Congestion-Handling）" class="headerlink" title="拥塞控制（Congestion Handling）"></a>拥塞控制（Congestion Handling）</h3><p>如果网络出现拥塞，分组将会丢失，此时发送方会继续重传，从而导致网络拥塞程度更高。因此当出现拥塞时，应当控制发送方的速率。这一点和流量控制很像，但是出发点不同。流量控制是为了让接收方能来得及接收，而拥塞控制是为了降低整个网络的拥塞程度。<br>​</p>
+<p>发送方需要维护一个叫做拥塞窗口（Congestion Window）的状态变量，注意拥塞窗口与发送方窗口的区别：拥塞窗口只是一个状态变量，实际决定发送方能发送多少数据的是发送方窗口。<br>​</p>
+<p><img src="https://camo.githubusercontent.com/96b543c35dfc6a024897cea0354427605b9d238d7af0e8c5821c7ab0c26c2f27/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f39313066363133662d353134662d343533342d383764642d3962343639396435396433312e706e67#crop=0&crop=0&crop=1&crop=1&from=url&id=yqJQ2&margin=%5Bobject%20Object%5D&originHeight=754&originWidth=1914&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title="></p>
+<h4 id="慢开始与拥塞避免"><a href="#慢开始与拥塞避免" class="headerlink" title="慢开始与拥塞避免"></a>慢开始与拥塞避免</h4><p>慢启动</p>
+<ol>
+<li>连接建好的开始先初始化 cwnd = 1，表明可以传一个 MSS 大小的数据。</li>
+<li>每当收到一个 ACK，cwnd++; 呈<strong>线性上升</strong></li>
+<li>每当过了一个 RTT，cwnd = cwnd*2; 呈<strong>指数上升</strong></li>
+<li>还有一个 ssthresh（slow start threshold），是一个上限，当 cwnd &gt;= ssthresh 时，就会进入“拥塞避免算法”</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629883408119-81922613-5f45-4aef-977a-a0f86866b454.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u8931f46e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=388&originWidth=662&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=190225&status=done&style=none&taskId=u5608d952-3bf6-41f1-877e-1779167a2a7&title=" alt="image.png"><br>拥塞避免<br>一般来说 ssthresh 的值是 65535，单位是字节，当 cwnd 达到这个值时后，算法如下：</p>
+<ol>
+<li>收到一个 ACK 时，cwnd = cwnd + 1/cwnd</li>
+<li>当每过一个 RTT 时，cwnd = cwnd + 1</li>
+</ol>
+<p>这样就可以避免增长过快导致网络拥塞，慢慢的增加调整到网络的最佳值。很明显，是一个<strong>线性上升</strong>的算法。</p>
+<p><strong>拥塞状态</strong><br>当丢包的时候，会有两种情况：<br>​</p>
+<ol>
+<li>等到 RTO 超时，重传数据包。TCP 认为这种情况太糟糕，反应也很强烈。</li>
+</ol>
+<p>sshthresh = cwnd /2<br>cwnd 重置为 1<br>进入慢启动过程</p>
+<ol start="2">
+<li>进行快重传与快恢复</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629884187194-7c895fbf-2159-4143-b9aa-2c127f2214d9.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=296&id=u178459b1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=296&originWidth=619&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=78955&status=done&style=none&taskId=ub0c6680c-f3be-4d3f-abac-ace22069cf6&title=&width=619" alt="image.png"></p>
+<h4 id="快重传与快恢复"><a href="#快重传与快恢复" class="headerlink" title="快重传与快恢复"></a>快重传与快恢复</h4><p><strong>快重传</strong><br>每一个数据包都带有下一个数据包的编号。如果下一个数据包没有收到，那么 ACK 的编号就不会发生变化<br>如果发送方发现收到三个连续的重复 ACK，或者超时了还没有收到任何 ACK，就会确认丢包，从而再次发送这个包。<br><img src="https://github.com/CatcherInSky/CatcherInSky.github.io/raw/source/source/images/f61b5419-c94a-4df1-8d4d-aed9ae8cc6d5.png#crop=0&crop=0&crop=1&crop=1&from=url&id=t1Gf6&margin=%5Bobject%20Object%5D&originHeight=648&originWidth=1174&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title="><br><strong>快恢复</strong><br>在这种情况下，只是丢失个别报文段，而不是网络拥塞。因此执行快恢复，令 ssthresh = cwnd / 2 ，cwnd = ssthresh，注意到此时直接进入拥塞避免<br>慢开始和快恢复的快慢指的是 cwnd 的设定值，而不是 cwnd 的增长速率。慢开始 cwnd 设定为 1，而快恢复 cwnd 设定为 ssthresh<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629884122178-acbcadb5-f02e-4ac8-ab54-71fa3085579c.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=304&id=u92c1f087&margin=%5Bobject%20Object%5D&name=image.png&originHeight=304&originWidth=676&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=80790&status=done&style=none&taskId=u60b31344-6706-4c6f-83e1-dc385944325&title=&width=676" alt="image.png"></p>
+<h3 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h3><p><strong>用户数据报协议 UDP（User Datagram Protocol）</strong>是无连接的，尽最大可能交付，没有拥塞控制，面向报文（对于应用程序传下来的报文不合并也不拆分，只是添加 UDP 首部），支持一对一、一对多、多对一和多对多的交互通信。</p>
+<h4 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h4><ol>
+<li><strong>面向无连接</strong></li>
+</ol>
+<p>UDP 不需要和 TCP 一样在发送数据前进行三次握手建立连接，只是数据报文的搬运工，不会对数据报文进行任何拆分和拼接操作。</p>
+<ul>
+<li>在发送端，应用层将数据传递给传输层的 UDP 协议，UDP 只会给数据增加一个 UDP 头标识下是 UDP 协议，然后就传递给网络层了</li>
+<li>在接收端，网络层将数据传递给传输层，UDP 只去除 IP 报文头就传递给应用层，不会任何拼接操作</li>
+</ul>
+<ol start="2">
+<li><strong>头部开销小</strong>​</li>
+</ol>
+<p><img src="https://camo.githubusercontent.com/513fdc176a3598465859ee974e9217e2cc0f4e14dbf6c0d0cd03d611865bb3b1/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f64346333613461312d303834362d343665632d396363332d6561646466636137313235342e6a7067#crop=0&crop=0&crop=1&crop=1&from=url&id=fWuxT&margin=%5Bobject%20Object%5D&originHeight=674&originWidth=1137&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title="><br>首部字段只有 8 个字节，包括源端口、目的端口、长度、检验和。12 字节的伪首部是为了计算检验和临时添加的，传输数据报文时是很高效的。<br>​</p>
+<ol start="3">
+<li><strong>有单播，多播，广播的功能</strong></li>
+</ol>
+<p>UDP 不止支持一对一的传输方式，同样支持一对多，多对多，多对一的方式，也就是说 UDP 提供了单播，多播，广播的功能<br>​</p>
+<ol start="4">
+<li><strong>UDP 是面向报文的</strong></li>
+</ol>
+<p>发送方的 UDP 对应用程序交下来的报文，在添加首部后就向下交付 IP 层。UDP 对应用层交下来的报文，既不合并，也不拆分，而是保留这些报文的边界。因此，应用程序必须选择合适大小的报文<br>​</p>
+<ol start="5">
+<li><strong>不可靠性</strong></li>
+</ol>
+<p>首先不可靠性体现在无连接上，通信都不需要建立连接，想发就发，这样的情况肯定不可靠。并且收到什么数据就传递什么数据，并且也不会备份数据，发送数据也不会关心对方是否已经正确接收到数据了。<br>UDP 没有拥塞控制，一直会以恒定的速度发送数据。可能会导致丢包，但是优点也很明显，在某些实时性要求高的场景（比如电话会议）就需要使用 UDP 而不是 TCP。</p>
+<h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><p>HTTP 无状态协议，是指协议对于交互性场景没有记忆能力。<br>每次的请求都是独立的，它的执行情况和结果与前面的请求和之后的请求时无直接关系的，它不会受前面的请求应答情况直接影响，也不会直接影响后面的请求应答情况<br>通过 cookie session 额外维护状态</p>
+<h3 id="请求方法"><a href="#请求方法" class="headerlink" title="请求方法"></a>请求方法</h3><h4 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h4><p>获取服务器的指定资源</p>
+<h4 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h4><p>提交资源到服务器 / 在服务器新建资源</p>
+<h4 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h4><p>与 GET 方法一样，都是发出一个获取服务器指定资源的请求，但服务器只会返回 Header 而不会返回 Body。用于确认 URI 的有效性及资源更新的日期时间等。一个典型应用是下载文件时，先通过 HEAD 方法获取 Header，从中读取文件大小 Content-Length；然后再配合 Range 字段，<strong>分片</strong>下载服务器资源</p>
+<h4 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h4><p>替换整个目标资源</p>
+<h4 id="PATCH"><a href="#PATCH" class="headerlink" title="PATCH"></a>PATCH</h4><p>替换目标资源的部分内容</p>
+<h4 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h4><p>删除指定的资源</p>
+<h4 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h4><p>用于描述目标资源的通信选项。可以用于检测服务器支持哪些 HTTP 方法，或者在 CORS 中发起一个<strong>预检</strong>请求，以检测实际请求是否可以被服务器所接受</p>
+<h4 id="CONNECT"><a href="#CONNECT" class="headerlink" title="CONNECT"></a>CONNECT</h4><p>建立一个到由目标资源标识的服务器的隧道</p>
+<h4 id="TRACE"><a href="#TRACE" class="headerlink" title="TRACE"></a>TRACE</h4><p>执行一个消息环回测试，返回到服务端的路径。客户端请求连接到目标服务器时可能会通过代理中转，通过 TRACE 方法可以查询发送出去的请求的一系列操作<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629945425540-f677b00b-26a8-4e36-b117-8c4c6d4464f4.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=uf6ada5fa&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1074&originWidth=1274&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=629835&status=done&style=none&taskId=u88d2d34d-d6a3-4295-96bb-a97696daced&title=" alt="image.png"></p>
+<h4 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h4><p><strong>幂等（</strong>Idempotent<strong>）</strong><br>一个 HTTP 方法是幂等的，指的是同样的请求执行一次与执行多次的效果是一样的。换句话说就是，幂等方法不应该具有副作用。</p>
+<ul>
+<li>常见的幂等方法：GET，HEAD，PUT，DELETE，OPTIONS</li>
+<li>常见的非幂等方法：POST</li>
+</ul>
+<p>按照 RFC 规范，PUT，DELETE 和安全方法都是幂等的。同样，这也仅仅是规范，服务端实现是否幂等是无法确保的。引入幂等主要是为了处理同一个请求重复发送的情况，比如在请求响应前失去连接，如果方法是幂等的，就可以放心地重发一次请求。这也是浏览器在后退/刷新时遇到 POST 会给用户提示的原因：POST 语义不是幂等的，重复请求可能会带来意想不到的后果。<br><strong>安全（</strong>Safe<strong>）</strong><br>一个 HTTP 方法是安全的，指的是这是一个对服务器只读操作的方法，不会修改服务器数据。</p>
+<ul>
+<li>常见的安全方法：GET，HEAD，OPTIONS</li>
+<li>常见的不安全方法：PUT，DELETE，POST</li>
+</ul>
+<p>所有安全的方法都是幂等的；有些不安全的方法如 DELETE 是幂等的，有些不安全的方法如 PUT 和 DELETE 则不是<br>但是这个定义只是规范，并不能保证方法的实现也是安全的，服务端的实现可能会不符合方法语义，比方说用 GET 去修改。引入安全这个概念的目的是为了方便网络爬虫和缓存，以免调用或者缓存某些不安全方法时引起某些意外的后果。User Agent（浏览器）应该在执行安全和不安全方法时做出区分对待，并给用户以提示。<br><strong>缓存（</strong>Cacheable<strong>）</strong><br>GET、HEAD<br>GET，HEAD 和某些情况下的 POST 都是可缓存的，但是绝大多数的浏览器的实现里仅仅支持 GET 和 HEAD。<br>​</p>
+<h4 id="GET-POST-区别"><a href="#GET-POST-区别" class="headerlink" title="GET/POST 区别"></a>GET/POST 区别</h4><p>以下来自 w3school</p>
+<blockquote>
+<ul>
+<li>GET 后退按钮/刷新无害，POST 数据会被重新提交（浏览器应该告知用户数据会被重新提交）。</li>
+<li>GET 书签可收藏，POST 为书签不可收藏。</li>
+<li>GET 能被缓存，POST 不能缓存 。</li>
+<li>GET 历史参数保留在浏览器历史中。POST 参数不会保存在浏览器历史中。</li>
+<li>GET 的数据在 URL 中对所有人都是可见的。POST 的数据不会显示在 URL 中。</li>
+<li><del>GET 编码类型 application/x-www-form-url，POST 编码类型 encodedapplication/x-www-form-urlencoded 或 multipart/form-data。为二进制数据使用多重编码。</del></li>
+<li>​</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><del>GET 对数据长度有限制，当发送数据时，GET 方法向 URL 添加数据；URL 的长度是受限制的（URL 的最大长度是 2048 个字符）。POST 无限制。GET 只允许 ASCII 字符。POST 没有限制。也允许二进制数据。</del></li>
+<li><del>与 POST 相比，GET 的安全性较差，因为所发送的数据是 URL 的一部分。在发送密码或其他敏感信息时绝不要使用 GET ！POST 比 GET 更安全，因为参数不会被保存在浏览器历史或 web 服务器日志中。</del></li>
+<li>​</li>
+</ul>
+</blockquote>
+<p>最主要的区别是语义上的区别，浏览器用 GET 请求来获取资源；用 POST 来提交表单等。<br>​</p>
+<p>GET 数据有长度限制“其实是指”URL 的长度限制。HTTP 协议本身对 URL 长度并没有做任何规定。实际的限制是由客户端/浏览器以及服务器端决定的。<br>​</p>
+<p>编码类型 URL 只能用 ASCII 的子集[a-zA-Z0-9$-_.+!*’(),]，它们是可以“不经编码”在 url 中使用。比如尽管空格也是 ASCII 字符，但是不能直接用在 url 里。特殊符号和中卫会被 Percent Encoding 转化成%16 位数字的序列。<br>Body 的编码由 content-type 定义。<br>​</p>
+<p>但是从攻击的角度，无论是 GET 还是 POST 都不够安全，因为<strong>HTTP</strong>本身是<strong>明文协议</strong>。每个 HTTP 请求和返回的每个 byte 都会在网络上明文传播，不管是 url，header 还是 body。避免泄密的唯一手段就是 https<br>​</p>
+<h4 id="关于-POST-待-100-响应再传-data"><a href="#关于-POST-待-100-响应再传-data" class="headerlink" title="关于 POST 待 100 响应再传 data"></a>关于 POST 待 100 响应再传 data</h4><p>只有在请求里带了 Expect: 100-continue header 的时候才有意义，如果超时没有收到应答，也会发送 body。</p>
+<blockquote>
+<p>When the request contains an Expect header field that includes a 100-continue expectation, the 100 response indicates that the server wishes to receive the request payload body, as described in Section 5.1.1. The client ought to continue sending the request and discard the 100 response.<br>If the request did not contain an Expect header field containing the 100-continue expectation, the client can simply discard this interim response.</p>
+</blockquote>
+<p>而实际上，不论哪一种浏览器，在发送 POST 的时候都没有带 Expect 头，server 也自然不会发 100 continue。通过抓包发现，尽管会分两次，body 就是紧随在 header 后面发送的，根本不存在『等待服务器响应』这一说。<br>发一次还是发 N 次，客户端可以很灵活的决定。因为不管怎么发都是符合 HTTP 协议的，因此我们应该视为这种优化是一种实现细节，而不用扯到 GET 和 POST 本身的区别上。更不要当个什么世纪大发现。<br><strong>​</strong></p>
+<p><strong>​</strong></p>
+<h3 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h3><h4 id="信息响应（100–199）"><a href="#信息响应（100–199）" class="headerlink" title="信息响应（100–199）"></a>信息响应（100–199）</h4><ul>
+<li>100 Continue：表明到目前为止都很正常，客户端可以继续发送请求或者忽略这个响应</li>
+</ul>
+<h4 id="成功响应（200–299）"><a href="#成功响应（200–299）" class="headerlink" title="成功响应（200–299）"></a>成功响应（200–299）</h4><ul>
+<li>200 OK</li>
+<li>201 Created：该请求已成功，并因此创建了一个新的资源。这通常是在 POST 请求之后返回的响应</li>
+<li>204 No Content：该请求已成功处理，但是返回的响应报文不包含实体的主体部分。通常用于只需要从客户端往服务器发送信息，而不需要返回数据时</li>
+<li>206 Partial Content：服务器已经成功处理了部分 GET 请求，该请求必须包含 Range 头信息来指示客户端希望得到的内容范围。通常使用此类响应来实现断点续传，或者将一个大文档分为多个片段然后并行下载</li>
+</ul>
+<h4 id="重定向（300–399）"><a href="#重定向（300–399）" class="headerlink" title="重定向（300–399）"></a>重定向（300–399）</h4><ul>
+<li>301 Moved Permanently：<strong>永久性重定向</strong></li>
+<li>302 Found：<strong>临时性重定向</strong>。常见应用场景是通过 302 跳转将所有的 HTTP 流量重定向到 HTTPS</li>
+<li>303 See Other：和 302 有着相同的功能，但是 303 明确要求客户端应该采用 GET 方法获取资源</li>
+<li>304 Not Modified：如果客户端发送了一个带条件的 GET 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个状态码。304 响应不包含消息体</li>
+<li>307 Temporary Redirect：临时重定向。307 与 302 之间的唯一区别在于，当发送重定向请求的时候，307 状态码可以确保请求方法和消息主体不会发生变化；而如果使用 302 响应状态码，一些旧客户端会错误地将请求方法转换为 GET</li>
+</ul>
+<h4 id="客户端错误（400–499）"><a href="#客户端错误（400–499）" class="headerlink" title="客户端错误（400–499）"></a>客户端错误（400–499）</h4><ul>
+<li>400 Bad Request：请求报文中存在语法错误，或者参数有误</li>
+<li>401 Unauthorized：未认证（没有登录）</li>
+<li>403 Forbidden：没有权限（登录了但没有权限）</li>
+<li>404 Not Found</li>
+<li>405 Method Not Allowed</li>
+</ul>
+<h4 id="服务器错误-（500–599）"><a href="#服务器错误-（500–599）" class="headerlink" title="服务器错误 （500–599）"></a>服务器错误 （500–599）</h4><ul>
+<li>500 Internal Server Error：服务器遇到了不知道如何处理的情况</li>
+<li>502 Bad Gateway：网关错误，作为网关或代理角色的服务器，从上游服务器（如 tomcat、php-fpm）中接收到的响应是无效的</li>
+<li>503 Service Unavailable：服务器无法处理请求，常见原因是服务器因维护或重载而停机</li>
+</ul>
+<h4 id="301、302、307-重定向的原理"><a href="#301、302、307-重定向的原理" class="headerlink" title="301、302、307 重定向的原理"></a>301、302、307 重定向的原理</h4><p>返回的 Header 中有一个 Location 字段指向目标 URL，浏览器会重定向到这个 URL。<br>​</p>
+<h4 id="304-与缓存机制"><a href="#304-与缓存机制" class="headerlink" title="304 与缓存机制"></a>304 与缓存机制</h4><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628563793849-e0a836b2-d102-4a7e-9ac2-74837cbcd2c4.png#crop=0&crop=0&crop=1&crop=1&from=url&id=pbWcH&margin=%5Bobject%20Object%5D&originHeight=681&originWidth=751&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title="></p>
+<h3 id="报文格式"><a href="#报文格式" class="headerlink" title="报文格式"></a>报文格式</h3><h4 id="请求报文"><a href="#请求报文" class="headerlink" title="请求报文"></a>请求报文</h4><p>HTTP 协议以 ASCII 码传输，请求报文由<strong>请求行、请求头、和消息主体</strong>组成。如果有消息主体，那么请求头之后的空行是必须的，用来表示请求头结束：</p>
+<blockquote>
+<p><method> <request-URL> <version><br><headers></p>
+</blockquote>
+<blockquote>
+<entity-body>
+</blockquote>
+<p><img src="https://github.com/CatcherInSky/CatcherInSky.github.io/raw/source/source/images/HTTP_RequestMessageExample.png#crop=0&crop=0&crop=1&crop=1&from=url&id=KRl1w&margin=%5Bobject%20Object%5D&originHeight=221&originWidth=656&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title="></p>
+<h4 id="响应报文"><a href="#响应报文" class="headerlink" title="响应报文"></a>响应报文</h4><p>HTTP 响应报文也由三部分组成：<strong>状态行、响应头、消息主体</strong>。同样的，消息主体前必须有一个空行，表示请求头结束：</p>
+<blockquote>
+<p><version> <status-code> <reason-phrase><br><headers></p>
+</blockquote>
+<blockquote>
+<message-body>
+</blockquote>
+<p><img src="https://github.com/CatcherInSky/CatcherInSky.github.io/raw/source/source/images/HTTP_ResponseMessageExample.png#crop=0&crop=0&crop=1&crop=1&from=url&id=PRoMc&margin=%5Bobject%20Object%5D&originHeight=267&originWidth=704&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title="></p>
+<h3 id="HTTP-0-9-最初版本"><a href="#HTTP-0-9-最初版本" class="headerlink" title="HTTP 0.9 - 最初版本"></a>HTTP 0.9 - 最初版本</h3><ul>
+<li>HTTP 的最初版本，请求由单行指令构成，只支持 GET 方法。</li>
+</ul>
+<h3 id="HTTP-1-0-构建可扩展性"><a href="#HTTP-1-0-构建可扩展性" class="headerlink" title="HTTP/1.0 - 构建可扩展性"></a>HTTP/1.0 - 构建可扩展性</h3><ul>
+<li>在请求中新增了协议版本信息</li>
+<li>引入了 HTTP 头的概念</li>
+<li>在响应中新增了状态码</li>
+<li>默认使用短连接：浏览器每请求一个静态资源，就建立一次连接，任务结束就中断连接</li>
+</ul>
+<p>​</p>
+<h3 id="HTTP-1-1-标准化的协议"><a href="#HTTP-1-1-标准化的协议" class="headerlink" title="HTTP/1.1 - 标准化的协议"></a>HTTP/1.1 - 标准化的协议</h3><ul>
+<li>默认支持<strong>长连接</strong>：在一个网页打开期间，所有网络请求都复用同一条已经建立的连接，如果要断开连接，需要由客户端或者服务器端提出断开，使用 Connection : close，使用 Connection : Keep-Alive 可开启长连接<ul>
+<li>优点：性能更好，节省频繁建立 TCP 连接、慢启动、关闭连接等的时间，整体耗时更短</li>
+<li>缺点：会占用服务器的资源</li>
+</ul>
+</li>
+<li>引入额外的<strong>缓存控制</strong>机制：如 Entity tag、If-None-Match 等更多可供选择的缓存头</li>
+<li>新增了 24 个<strong>错误状态响应码</strong>，如 409（Conflict）、410（Gone）</li>
+<li>引入内容协商，允许通信双方约定语言（Accept-Language）、编码（Accept-Encoding）等</li>
+<li>支持响应分块（断点续传）</li>
+<li>引入<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/HTTP%E7%AE%A1%E7%B7%9A%E5%8C%96">管线化（Pipelining）</a>：从前发送请求后需等待并收到响应，才能发送下一个请求，现在允许客户端同时并行发送多个请求<ul>
+<li>优点：在收到上一个请求的响应之前就可以发出下一个请求，能够节省请求到达服务器的时间，降低通信延迟</li>
+<li>缺点：服务器要遵循 HTTP/1.1 协议，必须按照客户端发送的请求顺序返回响应，可能发生队头阻塞（HOL blocking）——若上一个请求的响应迟迟没有处理完毕，则后面的响应都会被阻塞</li>
+</ul>
+</li>
+<li>Host 头，允许不同域名配置在同一个 IP 地址上</li>
+</ul>
+<p>长连接、管线化都是为了让请求更短时间内结束。</p>
+<p><strong>问题：</strong><br><strong>队头阻塞（Head-of-Line Blocking）</strong><br>众所周知，客户端/浏览器花费大量时间等待每个资源。由于 HTTP/1 无法通过单个连接发出并发请求，因此浏览器通常会尝试通过打开多个连接来加快进程。</p>
+<p><strong>昂贵的连接（Expensive Connections）</strong><br>从计算机网络的角度来看，虽然多个连接是有帮助的，但每打开一个连接都非常昂贵。所以，现代浏览器将 HTTP/1.1 连接数限制为最多 6-8 个。由于许多网站现在需要 80 个或更多资源，因此这些限制会产生严重的性能瓶颈。</p>
+<p><strong>HTTP 管线化（HTTP Pipelining）</strong><br>HTTP/1.1 尝试使用 HTTP 管线化的技术来纠正性能瓶颈。然而，当有一个大的或慢的响应的时候，它仍然会阻塞随后的其他响应（也就是说，还是会出现线头阻塞的现象）。HTTP 管线化很难进行部署。没有现代浏览器支持 HTTP 管线化，因为许多中介和服务器无法正确处理它。</p>
+<h3 id="HTTP-2-0-为了更优异的表现"><a href="#HTTP-2-0-为了更优异的表现" class="headerlink" title="HTTP/2.0 - 为了更优异的表现"></a>HTTP/2.0 - 为了更优异的表现</h3><h4 id="Header-压缩"><a href="#Header-压缩" class="headerlink" title="Header 压缩"></a>Header 压缩</h4><p>HTTP/1.1 每次通信都会携带 Header 信息用于描述资源属性。但 headers 在一系列请求中常常是相似的。HTTP/2.0 中，对于 Header 中相同的数据，不会在每次通信中重新发送，而是采用追加或替换的方式。<br>具体实现上，HTTP/2.0 在客户端和服务端之间共同维护一个 Header 表，存储之前发送的 key-value 对。Header 表在 HTTP/2.0 的连接期间始终存在。<br>Header 压缩可以减少每次通信的数据量，提高传输速度。<br>​</p>
+<h4 id="服务端推送"><a href="#服务端推送" class="headerlink" title="服务端推送"></a>服务端推送</h4><p>服务器可以对一个客户端请求发送多个响应。服务器向客户端推送资源无需客户端明确的请求。<br>服务端根据客户端的请求，提前推送额外的资源给客户端。比如在发送页面 HTML 时主动推送其它 CSS/JS 资源，而不用等到浏览器解析到相应位置，发起请求再响应。<br>服务端推送可以减轻数据传输的冗余步骤，同时加快页面响应速度，提升用户体验。</p>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h4 id="二进制分帧"><a href="#二进制分帧" class="headerlink" title="二进制分帧"></a>二进制分帧</h4><p>HTTP/1.x 使用文本格式传输数据。HTTP/2.0 在将所有传输信息分割为若干个帧，采用<strong>二进制格式</strong>进行编码。<br>具体实现上，是在应用层（HTTP）和传输层（TCP）之间增加一个二进制分帧层。每个请求对应一个<strong>流</strong>，有一个唯一的整数标识符。HTTP/1.x 的报文会被拆分为一个或多个帧，每个帧有序列号，以及自己所述的流的标识符，接收端自行合并。<br>二进制分帧采用更高效的编码协议，提升了传输效率。同时，二进制分帧也为多路复用提供了基础。</p>
+<h4 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h4><p>HTTP/1.x 有<strong>顺序</strong>和<strong>阻塞</strong>约束：</p>
+<ul>
+<li>顺序：服务端必须按照客户端请求到来的顺序，串行返回数据<ul>
+<li>即使 HTTP/1.1 允许通过同一个连接发起多个请求，也无法真正并行传输</li>
+</ul>
+</li>
+<li>阻塞：浏览器会限制每个域名下最多同时发起的 6 个连接，超过该数量的连接会被阻塞，以下是常见的优化方法：<ul>
+<li>使用多个域名（比如 CDN）来提高浏览器的下载速度</li>
+<li>将多个 JS 文件、CSS 文件等打包成一个文件，将多个小图片合并为雪碧图，减少 HTTP 请求数</li>
+</ul>
+</li>
+</ul>
+<p>HTTP/2.0 引入了多路复用，通过同一个连接发起多个请求，服务端可以并行地传输数据。基于二进制分帧层，HTTP/2.0 可以<strong>同时交错发送多个消息中的帧</strong>，接收端可以根据帧中的流标识符和顺序标识，重新组装数据。<br>多路复用使用同一个 TCP 连接并发处理同一域名下的所有请求，可以减少 TCP 建立连接带来的时延。此外多路复用代替了 HTTP/1.x 中的顺序和阻塞机制，实现了真正的并行传输，可以避免 HTTP/1.x 中的队头阻塞问题，极大的提高传输效率。</p>
+<h4 id="切换"><a href="#切换" class="headerlink" title="切换"></a>切换</h4><p>支持 HTTP 2.0 的浏览器可以在 TLS 会话层自发完成和服务端的协议协商以确定是否使用 HTTP 2.0 通信。其原理是 TLS 1.2 中引入了扩展字段，以允许协议的扩展，其中 ALPN 协议（Application Layer Protocol Negotiation, 应用层协议协商, 前身是 NPN）用于客户端和服务端的协议协商过程。 服务端使用 ALPN，监听 443 端口默认提高 HTTP 1.1，并允许协商其他协议，比如 SPDY 和 HTTP 2.0。 比如，客户端在 TLS 握手 Client Hello 阶段表明自身支持 HTTP 2.0<br><img src="https://github.com/CatcherInSky/CatcherInSky.github.io/raw/source/source/images/20170406154122927.png#crop=0&crop=0&crop=1&crop=1&from=url&id=vCcuh&margin=%5Bobject%20Object%5D&originHeight=543&originWidth=701&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title="><br>服务端收到后，响应 Server Hello，表示自己也支持 HTTP 2.0。双方开始 HTTP 2.0 通信。<br><img src="https://github.com/CatcherInSky/CatcherInSky.github.io/raw/source/source/images/20170406154450854.png#crop=0&crop=0&crop=1&crop=1&from=url&id=rLmJp&margin=%5Bobject%20Object%5D&originHeight=563&originWidth=720&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title="></p>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>TCP 协议固有的问题，无论应用层的 HTTP/2 再怎么设计都无法摆脱。<br><strong>队头阻塞</strong><br>HTTP/2 多个请求是跑在一个 TCP 连接中的，那么当 TCP 丢包时，整个 TCP 都要等待重传，那么就会阻塞该 TCP 连接中的所有请求。<br>因为 TCP 是字节流协议，TCP 层必须保证收到的字节数据是完整且有序的，如果序列号较低的 TCP 段在网络传输中丢失了，即使序列号较高的 TCP 段已经被接收了，应用层也无法从内核中读取到这部分数据，从 HTTP 视角看，就是请求被阻塞了。<br>​</p>
+<p><strong>TCP 与 TLS 的握手延迟+拥塞控制慢启动</strong><br><strong>​</strong></p>
+<p>发起 HTTP 请求时，需要经过 TCP 三次握手和 TLS 四次握手（TLS 1.2）的过程，因此共需要 3 个 RTT 的时延才能发出请求数据。<br><strong>​</strong></p>
+<p><strong>网络迁移需要重新连接</strong><br>一个 TCP 连接是由四元组（源 IP 地址，源端口，目标 IP 地址，目标端口）确定的，这意味着如果 IP 地址或者端口变动了，就会导致需要 TCP 与 TLS 重新握手，这不利于移动设备切换网络的场景，比如 4G 网络环境切换成 WIFI。<br><strong>​</strong></p>
+<h3 id="HTTP-3-0-QUIC（Quick-UDP-Internet-Connection）"><a href="#HTTP-3-0-QUIC（Quick-UDP-Internet-Connection）" class="headerlink" title="HTTP/3.0 - QUIC（Quick UDP Internet Connection）"></a>HTTP/3.0 - QUIC（Quick UDP Internet Connection）</h3><p>UDP 是一个简单、不可靠的传输协议，而且是 UDP 包之间是无序的，也没有依赖关系。，UDP 是不需要连接的，也就不需要握手和挥手的过程，所以天然的就比 TCP 快。<br>QUIC 协议具有类似 TCP 的连接管理、拥塞窗口、流量控制的网络特性，相当于将不可靠传输的 UDP 协议变成“可靠”的。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629965824844-e7ab703c-97db-485a-9e1a-fb4f45a07c86.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ub66249ff&margin=%5Bobject%20Object%5D&name=image.png&originHeight=590&originWidth=1727&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=374351&status=done&style=none&taskId=u372bf66c-d9a6-4421-a0a9-ae5b1d7eec9&title=" alt="image.png"></p>
+<h4 id="无队头阻塞"><a href="#无队头阻塞" class="headerlink" title="无队头阻塞"></a>无队头阻塞</h4><p>QUIC 协议也有类似 HTTP/2 Stream 与多路复用的概念，也是可以在同一条连接上并发传输多个 Stream，Stream 可以认为就是一条 HTTP 请求。每个数据包都有一个序号唯一标识。当某个流中的一个数据包丢失了，即使该流的其他数据包到达了，数据也无法被 HTTP/3 读取，直到 QUIC 重传丢失的报文，数据才会交给 HTTP/3。<br>而其他流的数据报文只要被完整接收，HTTP/3 就可以读取到数据。QUIC 连接上的多个 Stream 之间并没有依赖，都是独立的，某个流发生丢包了，只会影响该流，其他流不受影响。<br>​</p>
+<h4 id="更快的连接建立"><a href="#更快的连接建立" class="headerlink" title="更快的连接建立"></a>更快的连接建立</h4><p>对于 HTTP/1 和 HTTP/2 协议，TCP 和 TLS 是分层的，分别属于内核实现的传输层、openssl 库实现的表示层，因此它们难以合并在一起，需要分批次来握手，先 TCP 握手，再 TLS 握手。<br>HTTP/3 在传输数据前虽然需要 QUIC 协议握手，这个握手过程只需要 1 RTT，握手的目的是为确认双方的「连接 ID」，连接迁移就是基于连接 ID 实现的。但是 HTTP/3 的 QUIC 协议并不是与 TLS 分层，而是<strong>QUIC 内部包含了 TLS</strong>，它在自己的帧会携带 TLS 里的“记录”，再加上 QUIC 使用的是 TLS1.3，因此仅需 1 个 RTT 就可以「同时」完成建立连接与密钥协商，甚至在第二次连接的时候，应用数据包可以和 QUIC 握手信息（连接信息 + TLS 信息）一起发送，达到 0-RTT 的效果。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629966358376-8c844f35-47a0-4545-b760-5a69883797fa.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=323&id=u836d382b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=323&originWidth=740&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=135064&status=done&style=none&taskId=ub6296883-36ed-45ca-814f-4e99f0abcca&title=&width=740" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629965882538-6ecca185-afec-40f6-b64b-8bdcaea639fc.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u18ebdbb6&margin=%5Bobject%20Object%5D&name=image.png&originHeight=349&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=113227&status=done&style=none&taskId=u8c933992-6a18-47e3-b254-39c09f115c0&title=" alt="image.png"><br>QUIC 实现 0 RTT 的一个技术细节是使用了 DH 密钥交换算法。结合下图 可以更好地理解上面的过程。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629966168164-16ad67cc-9fd8-4f5a-acc4-edd11072f542.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=302&id=ue7db7154&margin=%5Bobject%20Object%5D&name=image.png&originHeight=302&originWidth=474&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=54726&status=done&style=none&taskId=u91570a41-a819-413d-b049-925a0ce1303&title=&width=474" alt="image.png"><br>DH 算法的核心就是服务端生成 a、g、p 3 个随机数，a 自己持有，g 和 p 要传输给客户端，而客户端会生成 b 这 1 个随机数，通过 DH 算法客户端和服务端可以算出同样的密钥。在这过程中 a 和 b 并不参与网络传输，安全性大大提高。因为 p 和 g 是大数，所以即使在网络中传输的 p、g、A、B 都被劫持，那么靠现在的计算机算力也没法破解密钥。<br>​</p>
+<h4 id="连接迁移"><a href="#连接迁移" class="headerlink" title="连接迁移"></a>连接迁移</h4><p>QUIC 协议没有用四元组的方式来“绑定”连接，而是通过<strong>连接 ID</strong>来标记通信的两个端点，客户端和服务器可以各自选择一组 ID 来标记自己，因此即使移动设备的网络变化后，导致 IP 地址变化了，只要仍保有上下文信息（比如连接 ID、TLS 密钥等），就可以“无缝”地复用原连接，消除重连的成本，没有丝毫卡顿感，达到了连接迁移的功能。<br>​</p>
+<h4 id="头部压缩"><a href="#头部压缩" class="headerlink" title="头部压缩"></a>头部压缩</h4><p>HTTP/2 使用的 HPACK，HTTP/3 更换成了兼容 HPACK 的 QPACK 压缩方案。QPACK 优化了对乱序发送的支持，也优化了压缩率。</p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>类似滑动窗口的流量控制和拥塞控制策略<br>​</p>
+<h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h4><p>普及最大的挑战来自于互联网上现存的网络设备无法识别 QUIC。</p>
+<h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><p>HTTPS （HTTP Strict Transport Security）称为安全的超文本传输协议，在 HTTP 与 TCP 之间增加了一层安全链路 (SSL/TLS)，使用混合的加密机制，使用非对称密钥加密用于传输对称密钥来保证传输过程的安全性，之后使用对称密钥加密进行通信来保证通信过程的效率。<br>​</p>
+<h4 id="安全问题"><a href="#安全问题" class="headerlink" title="安全问题"></a>安全问题</h4><ul>
+<li>窃听风险（eavesdropping）使用明文进行通信，内容可能会被窃听； –&gt; 加密传播 –&gt; 对称密钥</li>
+<li>冒充风险（pretending）不验证通信方的身份，通信方的身份有可能遭遇伪装； –&gt;身份证书 –&gt; 数字证书</li>
+<li>篡改风险（tampering）无法证明报文的完整性，报文有可能遭篡改。 –&gt; 校验机制</li>
+</ul>
+<p><img src="https://github.com/CatcherInSky/CatcherInSky.github.io/raw/source/source/images/HTTPS-HTTP-TLS-SSL.png#crop=0&crop=0&crop=1&crop=1&from=url&id=KdwAi&margin=%5Bobject%20Object%5D&originHeight=302&originWidth=534&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title="></p>
+<h4 id="加密方式"><a href="#加密方式" class="headerlink" title="加密方式"></a>加密方式</h4><p>摘要算法是不可逆算法，无法用于数据传输<br>对称密钥加密运算快，但无法保证安全将密钥传输给对方<br>非对称加密算法有很高的安全性也是可逆的，但是由于计算非常的耗时<br>​</p>
+<h4 id="四次握手过程"><a href="#四次握手过程" class="headerlink" title="四次握手过程"></a>四次握手过程</h4><ul>
+<li>首先，客户端向服务器发出加密请求。</li>
+<li>服务器用自己的私钥加密网页以后，连同本身的数字证书，一起发送给客户端。</li>
+<li>客户端（浏览器）的”证书管理器”，有”受信任的根证书颁发机构”列表。客户端会根据这张列表，查看解开数字证书的公钥是否在列表之内。（<strong>可信机构颁布、域名一致、未过期</strong>）<ul>
+<li>如果数字证书记载的网址，与你正在浏览的网址不一致，就说明这张证书可能被冒用，浏览器会发出警告。</li>
+<li>如果这张数字证书不是由受信任的机构颁发的，浏览器会发出另一种警告。</li>
+</ul>
+</li>
+<li>如果数字证书是可靠的，客户端就可以使用证书中的服务器公钥，对**对称密钥(**session key)进行加密，然后与服务器交换加密信息。一次 session 一个 session key。</li>
+<li>整个握手阶段全部结束。接下来，客户端与服务器进入加密通信，就完全是使用普通的 HTTP 协议，只不过用”会话密钥”加密内容。</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629967185050-586d54af-3b37-47f2-98a5-377c7d00797e.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u93496a8b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1875&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=463575&status=done&style=none&taskId=u672de59f-4925-4fb9-a2ad-b266445e08f&title=" alt="image.png"><br>​</p>
+<p>​</p>
+<h2 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h2><p>socket 起源于 Unix，而 Unix/Linux 基本哲学之一就是“一切皆文件”，都可以用“打开 open –&gt; 读写 write/read –&gt; 关闭 close”模式来操作。我的理解就是 Socket 就是该模式的一个实现，socket 即是一种特殊的文件，一些 socket 函数就是对其进行的操作（读/写 IO、打开、关闭）。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629967818769-e1713f35-d637-417c-acaf-f3988f83738c.png#clientId=ucdf8c9fa-0386-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=oQJB9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=845&originWidth=577&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=109366&status=done&style=none&taskId=u4054a29b-8e02-4c57-a22e-30fef8d461d&title=" alt="image.png"><br>说白了 Socket 是应用层与 TCP/IP 协议族通信的中间软件抽象层，它是一组接口。在设计模式中，Socket 其实就是一个<strong>门面模式</strong>，它把复杂的 TCP/IP 协议族隐藏在 Socket 接口后面，对用户来说，一组简单的接口就是全部，让 Socket 去组织数据，以符合指定的协议<br>websocket 是一种全双工应用层协议，与之相反的 http 是半双工，在 http 通信的过程中，一次只能执行一种操作，发送和接受不能同时进行。websocket 握手需要议，建立连接后通信过程使用 websocket 协议。<img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630130902526-b2edbd2f-3c27-40ad-a536-be6d30acb739.png#clientId=u6550f194-680e-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ubb775e05&margin=%5Bobject%20Object%5D&name=image.png&originHeight=475&originWidth=644&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=83677&status=done&style=none&taskId=uc4b6dd4d-e094-4998-9d78-ce778c1ddd5&title=" alt="image.png">借助于 http 协<br>​</p>
+<p><strong>WebSocket 技术出现之前，Web 端实现即时通讯的方法有哪些</strong><br>​</p>
+<p><strong>定期轮询</strong><br>客户端按照某个时间间隔不断地向服务端发送请求，请求服务端的最新数据然后更新客户端显示。这种方式实际上浪费了大量流量并且对服务端造成了很大压力。<br>​</p>
+<p><strong>服务端推送事件 SSE（Server-Sent Event）</strong><br>允许服务端向客户端推送新数据的 HTML5 技术<br>​</p>
+<p><strong>Comet 技术</strong></p>
+<ul>
+<li><strong>基于长轮询的服务端推送技术</strong></li>
+</ul>
+<p>具体来讲，就是客户端首先给服务端发送一个请求，服务端收到该请求之后如果<strong>数据没有更新则并不立即返回，服务端阻塞请求的返回，直到数据发生了更新或者发生了连接超时</strong>，服务端返回数据之后客户端再次发送同样的请求。但保持连接会消耗资源。</p>
+<ul>
+<li><strong>基于流式数据传输的长连接</strong></li>
+</ul>
+<p>通常的做法是在页面中嵌入一个隐藏的 iframe,然后让这个 iframe 的 src 属性指向我们请求的一个服务端地址，并且为了数据更新，我们将页面上数据更新操作封装为一个 js 函数，将函数名当做参数传递到这个地址当中。<br>服务端收到请求后解析地址取出参数（客户端 js 函数调用名），每当有数据更新的时候，返回对客户端函数的调用，并且将要更新的数据以 js 函数的参数填入到返回内容当中，例如返回“<script type="text/javascript">update("data")</script>”这样一个字符串，意味着以 data 为参数调用客户端 update 函数进行客户端 view 更新。<br>可以看到 comet 技术是针对客户端请求服务器响应模型而模拟出的一个服务端推送数据实时更新技术。而且由于浏览器兼容性不能够广泛应用。<br>​</p>
+<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><p>​</p>
+<p>DNS 是一个分布式数据库，提供了主机名和 IP 地址之间相互转换的服务。这里的分布式数据库是指，每个站点只保留它自己的那部分数据。<br><img src="https://camo.githubusercontent.com/5a570852a0baf09c9592f0a08c8476cf3d653b8d673ca47d8f3e65342d5fd81c/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f62353465656231362d306230652d343834632d626536322d3330366635376334306437372e6a7067#crop=0&crop=0&crop=1&crop=1&from=url&id=mVkFx&margin=%5Bobject%20Object%5D&originHeight=286&originWidth=859&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title="><br>DNS 可以使用 UDP 或者 TCP 进行传输，使用的端口号都为 53。大多数情况下 DNS 使用 UDP 进行传输，这就要求域名解析器和域名服务器都必须自己处理超时和重传从而保证可靠性。在两种情况下会使用 TCP 进行传输：</p>
+<ol>
+<li>如果返回的响应超过的 512 字节（UDP 最大只支持 512 字节的数据）。</li>
+<li>区域传送（区域传送是主域名服务器向辅助域名服务器传送变化的那部分数据）。</li>
+</ol>
+<p>​</p>
+<p>整体流程：浏览器搜索自身的 DNS 缓存、搜索操作系统的 DNS 缓存、读取本地的 Host 文件和向本地 DNS 服务器进行查询等。</p>
+<p>DNS 查询共有两类：递归查询和迭代查询。</p>
+<ul>
+<li>递归查询是指，当 A 向 B 查询某个域名的 IP 地址时，如果 B 不知道被查询的域名的 IP 地址，那么 B 会替 A 向更上层的服务器发起查询，将查询结果返回 A。</li>
+<li>迭代查询是指，当 A 向 B 查询某个域名的 IP 地址时，如果 B 不知道被查询的域名的 IP 地址，B 会告诉 A 下一步应该向哪个服务器查询，由 A 自己去查。</li>
+</ul>
+<p>一般来说，主机（也就是我们的电脑）向本地域名服务器的查询是递归查询，而本地域名服务器向根域名服务器的查询是迭代查询。<br>​</p>
+<h2 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h2><p>CDN（Content delivery networks，内容分发网络），其目的是通过在源服务器和用户之间增加一层新的网络架构，将网站的内容分发到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提高用户访问网站的响应速度。<br>为了使用户和网站源服务器之间的“距离”最短，CDN 需要在不同的地理位置（PoPs，接入点）存储网站内容的缓存。一般来说，每个 PoP 都包含多个缓存服务器，它们的主要作用是使用户访问到最近的缓存服务器<br>常用的有：图片、视频、音乐、css、js 文件等静态资源</p>
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><ol>
+<li>检查本地缓存是否过期</li>
+<li>首先经过本地的 dns 解析，请求 cname 指向的那台 cdn 专用的 dns 服务器。</li>
+<li>dns 服务器返回<strong>全局负载均衡的服务器 ip</strong>给用户</li>
+<li>用户请求全局负载均衡服务器，服务器根据 ip 返回<strong>所在区域的负载均衡服务器 ip</strong>给用户</li>
+<li>用户请求区域负载均衡服务器，负载均衡服务器根据用户 ip<strong>选择距离近的，并且存在用户所需内容的，负载比较合适的一台缓存服务器 ip</strong>给用户。当没有对应内容的时候，会去上一级缓存服务器去找，直到找到资源所在的源站服务器，并且缓存在缓存服务器中。用户下一次在请求该资源，就可以就近拿缓存了。</li>
+</ol>
+<p>​</p>
+<p>​</p>
+<p>​</p>
+<h2 id="从输入一个-URL-到页面加载完成的过程"><a href="#从输入一个-URL-到页面加载完成的过程" class="headerlink" title="从输入一个 URL 到页面加载完成的过程"></a>从输入一个 URL 到页面加载完成的过程</h2><ul>
+<li><p>DNS 解析:将域名解析成 IP 地址</p>
+<ul>
+<li>浏览器缓存：浏览器会按照一定的频率缓存 DNS 记录。</li>
+<li>操作系统缓存：如果浏览器缓存中找不到需要的 DNS 记录，那就去操作系统中找。</li>
+<li>路由缓存：路由器也有 DNS 缓存。</li>
+<li>ISP 的 DNS 服务器：ISP 是互联网服务提供商(Internet Service Provider)的简称，ISP 有专门的 DNS 服务器应对 DNS 查询请求。</li>
+<li>根服务器：ISP 的 DNS 服务器还找不到的话，它就会向根服务器发出请求，进行递归查询（DNS 服务器先问根域名服务器.com 域名服务器的 IP 地址，然后再问.baidu 域名服务器，依次类推）</li>
+</ul>
+</li>
+<li><p>TCP 连接：TCP 三次握手</p>
+</li>
+<li><p>发送 HTTP 请求</p>
+</li>
+<li><p>服务器处理请求并返回 HTTP 报文</p>
+</li>
+<li><p>浏览器解析渲染页面</p>
+<ul>
+<li>根据 HTML 解析出 DOM 树<ul>
+<li>根据 HTML 的内容，将标签按照结构解析成为 DOM 树，DOM 树解析的过程是一个深度优先遍历。即先构建当前节点的所有子节点，再构建下一个兄弟节点。</li>
+<li>在读取 HTML 文档，构建 DOM 树的过程中，若遇到 script 标签，则 DOM 树的构建会暂停，直至脚本执行完毕。</li>
+</ul>
+</li>
+<li>根据 CSS 解析生成 CSS 规则树<ul>
+<li>解析 CSS 规则树时 js 执行将暂停，直至 CSS 规则树就绪。</li>
+<li>浏览器在 CSS 规则树生成之前不会进行渲染。</li>
+</ul>
+</li>
+<li>结合 DOM 树和 CSS 规则树，生成渲染树<ul>
+<li>DOM 树和 CSS 规则树全部准备好了以后，浏览器才会开始构建渲染树。</li>
+<li>精简 CSS 并可以加快 CSS 规则树的构建，从而加快页面相应速度。</li>
+</ul>
+</li>
+<li>根据渲染树计算每一个节点的布局<ul>
+<li>布局：通过渲染树中渲染对象的信息，计算出每一个渲染对象的位置和尺寸</li>
+<li>回流：在布局完成后，发现了某个部分发生了变化影响了布局，那就需要倒回去重新渲染。</li>
+</ul>
+</li>
+<li>根据计算好的信息绘制页面<ul>
+<li>绘制阶段，系统会遍历呈现树，并调用呈现器的“paint”方法，将呈现器的内容显示在屏幕上。</li>
+<li>重绘：某个元素的背景颜色，文字颜色等，不影响元素周围或内部布局的属性，将只会引起浏览器的重绘。</li>
+<li>回流：某个元素的尺寸发生了变化，则需重新计算渲染树，重新渲染。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629969999858-3f4b1e44-b21e-4fb9-8bb4-5b106a7b7458.png#clientId=ud0ba031e-b2e0-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u4cf06dbc&margin=%5Bobject%20Object%5D&name=image.png&originHeight=258&originWidth=752&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=93675&status=done&style=none&taskId=ua1a97f2c-41fb-42cc-8574-f51479b31b3&title=" alt="image.png"></p>
+<ul>
+<li>断开连接：TCP 四次挥手</li>
+</ul>
+<p>​</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://imageslr.com/2020/07/07/protocol-stack.html">https://imageslr.com/2020/07/07/protocol-stack.html</a><br><a target="_blank" rel="noopener" href="https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E7%9B%AE%E5%BD%95.md">https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E7%9B%AE%E5%BD%95.md</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/25028045">https://zhuanlan.zhihu.com/p/25028045</a><br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/28586791">https://www.zhihu.com/question/28586791</a><br><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tags/html_ref_httpmethods.asp">https://www.w3school.com.cn/tags/html_ref_httpmethods.asp</a><br><a target="_blank" rel="noopener" href="https://imageslr.com/2020/07/07/tcp-shake-wave.html">https://imageslr.com/2020/07/07/tcp-shake-wave.html</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/67858932">https://zhuanlan.zhihu.com/p/67858932</a><br><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html">http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/straight/articles/7660889.html">https://www.cnblogs.com/straight/articles/7660889.html</a><br><a target="_blank" rel="noopener" href="http://www.52im.net/thread-331-1-1.html">http://www.52im.net/thread-331-1-1.html</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/147571853">https://zhuanlan.zhihu.com/p/147571853</a><br>​</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/24/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="prev" title="操作系统">
+      <i class="fa fa-chevron-left"></i> 操作系统
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/26/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="next" title="正则表达式">
+      正则表达式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E7%BA%BF%E5%99%A8%E3%80%81%E7%BD%91%E6%A1%A5%E3%80%81%E4%BA%A4%E6%8D%A2%E6%9C%BA%E3%80%81%E8%B7%AF%E7%94%B1%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">集线器、网桥、交换机、路由器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E6%95%B0%E6%8D%AE%E5%8D%95%E5%85%83"><span class="nav-number">1.2.</span> <span class="nav-text">协议数据单元</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MSL%E3%80%81TTL%E3%80%81RTT"><span class="nav-number">1.3.</span> <span class="nav-text">MSL、TTL、RTT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E6%A0%88"><span class="nav-number">2.</span> <span class="nav-text">协议栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI-%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">OSI 参考模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP-%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">TCP&#x2F;IP 参考模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E5%90%8C"><span class="nav-number">2.3.</span> <span class="nav-text">异同</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B1%E5%90%8C%E7%82%B9"><span class="nav-number">2.3.1.</span> <span class="nav-text">共同点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%82%B9"><span class="nav-number">2.3.2.</span> <span class="nav-text">不同点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP"><span class="nav-number">3.</span> <span class="nav-text">IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-UDP"><span class="nav-number">4.</span> <span class="nav-text">TCP&#x2F;UDP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP"><span class="nav-number">4.1.</span> <span class="nav-text">TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">4.1.1.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A6%96%E9%83%A8%E6%A0%BC%E5%BC%8F"><span class="nav-number">4.2.</span> <span class="nav-text">首部格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E8%BF%87%E7%A8%8B"><span class="nav-number">4.3.</span> <span class="nav-text">连接过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-number">4.3.1.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="nav-number">4.3.2.</span> <span class="nav-text">四次挥手</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93"><span class="nav-number">4.4.</span> <span class="nav-text">可靠传输</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A3%80%E9%AA%8C%E5%92%8C"><span class="nav-number">4.4.1.</span> <span class="nav-text">检验和</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8F%B7-%E7%A1%AE%E8%AE%A4%E5%BA%94%E7%AD%94"><span class="nav-number">4.4.2.</span> <span class="nav-text">序列号&#x2F;确认应答</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B6%85%E6%97%B6%E9%87%8D%E4%BC%A0"><span class="nav-number">4.4.3.</span> <span class="nav-text">超时重传</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6%EF%BC%88Flow-Control%EF%BC%89"><span class="nav-number">4.5.</span> <span class="nav-text">流量控制（Flow Control）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%EF%BC%88Sliding-Window%EF%BC%89"><span class="nav-number">4.5.1.</span> <span class="nav-text">滑动窗口（Sliding Window）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%EF%BC%88Congestion-Handling%EF%BC%89"><span class="nav-number">4.6.</span> <span class="nav-text">拥塞控制（Congestion Handling）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%85%A2%E5%BC%80%E5%A7%8B%E4%B8%8E%E6%8B%A5%E5%A1%9E%E9%81%BF%E5%85%8D"><span class="nav-number">4.6.1.</span> <span class="nav-text">慢开始与拥塞避免</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%AB%E9%87%8D%E4%BC%A0%E4%B8%8E%E5%BF%AB%E6%81%A2%E5%A4%8D"><span class="nav-number">4.6.2.</span> <span class="nav-text">快重传与快恢复</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP"><span class="nav-number">4.7.</span> <span class="nav-text">UDP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-1"><span class="nav-number">4.7.1.</span> <span class="nav-text">特点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP"><span class="nav-number">5.</span> <span class="nav-text">HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text">请求方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GET"><span class="nav-number">5.1.1.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#POST"><span class="nav-number">5.1.2.</span> <span class="nav-text">POST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HEAD"><span class="nav-number">5.1.3.</span> <span class="nav-text">HEAD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PUT"><span class="nav-number">5.1.4.</span> <span class="nav-text">PUT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PATCH"><span class="nav-number">5.1.5.</span> <span class="nav-text">PATCH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DELETE"><span class="nav-number">5.1.6.</span> <span class="nav-text">DELETE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OPTIONS"><span class="nav-number">5.1.7.</span> <span class="nav-text">OPTIONS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CONNECT"><span class="nav-number">5.1.8.</span> <span class="nav-text">CONNECT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TRACE"><span class="nav-number">5.1.9.</span> <span class="nav-text">TRACE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E6%80%A7"><span class="nav-number">5.1.10.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GET-POST-%E5%8C%BA%E5%88%AB"><span class="nav-number">5.1.11.</span> <span class="nav-text">GET&#x2F;POST 区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-POST-%E5%BE%85-100-%E5%93%8D%E5%BA%94%E5%86%8D%E4%BC%A0-data"><span class="nav-number">5.1.12.</span> <span class="nav-text">关于 POST 待 100 响应再传 data</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">5.2.</span> <span class="nav-text">状态码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E5%93%8D%E5%BA%94%EF%BC%88100%E2%80%93199%EF%BC%89"><span class="nav-number">5.2.1.</span> <span class="nav-text">信息响应（100–199）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%88%90%E5%8A%9F%E5%93%8D%E5%BA%94%EF%BC%88200%E2%80%93299%EF%BC%89"><span class="nav-number">5.2.2.</span> <span class="nav-text">成功响应（200–299）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91%EF%BC%88300%E2%80%93399%EF%BC%89"><span class="nav-number">5.2.3.</span> <span class="nav-text">重定向（300–399）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%94%99%E8%AF%AF%EF%BC%88400%E2%80%93499%EF%BC%89"><span class="nav-number">5.2.4.</span> <span class="nav-text">客户端错误（400–499）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%94%99%E8%AF%AF-%EF%BC%88500%E2%80%93599%EF%BC%89"><span class="nav-number">5.2.5.</span> <span class="nav-text">服务器错误 （500–599）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#301%E3%80%81302%E3%80%81307-%E9%87%8D%E5%AE%9A%E5%90%91%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">5.2.6.</span> <span class="nav-text">301、302、307 重定向的原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#304-%E4%B8%8E%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6"><span class="nav-number">5.2.7.</span> <span class="nav-text">304 与缓存机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F"><span class="nav-number">5.3.</span> <span class="nav-text">报文格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87"><span class="nav-number">5.3.1.</span> <span class="nav-text">请求报文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87"><span class="nav-number">5.3.2.</span> <span class="nav-text">响应报文</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-0-9-%E6%9C%80%E5%88%9D%E7%89%88%E6%9C%AC"><span class="nav-number">5.4.</span> <span class="nav-text">HTTP 0.9 - 最初版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-1-0-%E6%9E%84%E5%BB%BA%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7"><span class="nav-number">5.5.</span> <span class="nav-text">HTTP&#x2F;1.0 - 构建可扩展性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-1-1-%E6%A0%87%E5%87%86%E5%8C%96%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="nav-number">5.6.</span> <span class="nav-text">HTTP&#x2F;1.1 - 标准化的协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-2-0-%E4%B8%BA%E4%BA%86%E6%9B%B4%E4%BC%98%E5%BC%82%E7%9A%84%E8%A1%A8%E7%8E%B0"><span class="nav-number">5.7.</span> <span class="nav-text">HTTP&#x2F;2.0 - 为了更优异的表现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Header-%E5%8E%8B%E7%BC%A9"><span class="nav-number">5.7.1.</span> <span class="nav-text">Header 压缩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%8E%A8%E9%80%81"><span class="nav-number">5.7.2.</span> <span class="nav-text">服务端推送</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">5.7.3.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%88%86%E5%B8%A7"><span class="nav-number">5.7.4.</span> <span class="nav-text">二进制分帧</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-number">5.7.5.</span> <span class="nav-text">多路复用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%87%E6%8D%A2"><span class="nav-number">5.7.6.</span> <span class="nav-text">切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">5.7.7.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-3-0-QUIC%EF%BC%88Quick-UDP-Internet-Connection%EF%BC%89"><span class="nav-number">5.8.</span> <span class="nav-text">HTTP&#x2F;3.0 - QUIC（Quick UDP Internet Connection）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E9%98%9F%E5%A4%B4%E9%98%BB%E5%A1%9E"><span class="nav-number">5.8.1.</span> <span class="nav-text">无队头阻塞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E5%BF%AB%E7%9A%84%E8%BF%9E%E6%8E%A5%E5%BB%BA%E7%AB%8B"><span class="nav-number">5.8.2.</span> <span class="nav-text">更快的连接建立</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E8%BF%81%E7%A7%BB"><span class="nav-number">5.8.3.</span> <span class="nav-text">连接迁移</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%B4%E9%83%A8%E5%8E%8B%E7%BC%A9"><span class="nav-number">5.8.4.</span> <span class="nav-text">头部压缩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">5.8.5.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-1"><span class="nav-number">5.8.6.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS"><span class="nav-number">5.9.</span> <span class="nav-text">HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="nav-number">5.9.1.</span> <span class="nav-text">安全问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F"><span class="nav-number">5.9.2.</span> <span class="nav-text">加密方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B"><span class="nav-number">5.9.3.</span> <span class="nav-text">四次握手过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebSocket"><span class="nav-number">6.</span> <span class="nav-text">WebSocket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS"><span class="nav-number">7.</span> <span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN"><span class="nav-number">8.</span> <span class="nav-text">CDN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#-1"><span class="nav-number">9.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B"><span class="nav-number">9.1.</span> <span class="nav-text">过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA-URL-%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%8A%A0%E8%BD%BD%E5%AE%8C%E6%88%90%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">10.</span> <span class="nav-text">从输入一个 URL 到页面加载完成的过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">11.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CatcherInSky"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">CatcherInSky</p>
+  <div class="site-description" itemprop="description">CatcherInSky的前端知识库</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CatcherInSky" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CatcherInSky" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangchunxiang98@outlook.com" title="E-Mail → mailto:zhangchunxiang98@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"catcherinsky.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="数组JS 的 Array 是一个万能的数据结构，为什么这么说呢？因为首先它可以当作一个普通的数组来使用，即通过下标找到数组的元素 然后它可以当作一个栈来使用，我们知道栈的特点是先进后出，栈的基本操作是出栈和入栈 同时它还可以当作一个队列，队列的特点是先进先出，基本操作是出队和入队 甚至它还可以当作一个哈希表来使用(但是不推荐这么用) 源码里面说，JSArray 有两种模式，一种是快速的，一种是慢速">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法">
+<meta property="og:url" content="http://catcherinsky.github.io/2021/08/27/%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="数组JS 的 Array 是一个万能的数据结构，为什么这么说呢？因为首先它可以当作一个普通的数组来使用，即通过下标找到数组的元素 然后它可以当作一个栈来使用，我们知道栈的特点是先进后出，栈的基本操作是出栈和入栈 同时它还可以当作一个队列，队列的特点是先进先出，基本操作是出队和入队 甚至它还可以当作一个哈希表来使用(但是不推荐这么用) 源码里面说，JSArray 有两种模式，一种是快速的，一种是慢速">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://catcherinsky.github.io/2021/08/27/images/v2-66fe051619d2c399a30bbcb5fbd0e9f4_hd.jpg#id=O6I15&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="http://catcherinsky.github.io/2021/08/27/images/v2-c725ef08bd202fba49713829c7f1fff5_hd.jpg#id=ZWj8u&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="http://catcherinsky.github.io/2021/08/27/images/v2-152d0fbe33e584f155d20bdafd5b8beb_hd.jpg#id=u2CY9&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="http://catcherinsky.github.io/2021/08/27/images/v2-3060dabcd5bf3d4fa428f7815a440c47_hd.jpg#id=ZnvpH&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="http://catcherinsky.github.io/2021/08/27/images/v2-c4867dcbbc78c06c435997f220ca165a_hd.jpg#id=qz67s&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="article:published_time" content="2021-08-27T02:46:20.000Z">
+<meta property="article:modified_time" content="2022-02-14T11:41:06.005Z">
+<meta property="article:author" content="CatcherInSky">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://catcherinsky.github.io/2021/08/27/images/v2-66fe051619d2c399a30bbcb5fbd0e9f4_hd.jpg#id=O6I15&originalType=binary%E2%88%B6=1&status=done&style=none">
+
+<link rel="canonical" href="http://catcherinsky.github.io/2021/08/27/%E7%AE%97%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>算法 | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+  <meta name="referrer" content="same-origin">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Knowlegde Bases of CatcherInSky</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CatcherInSky的前端知识库</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://catcherinsky.github.io/2021/08/27/%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content="CatcherInSky的前端知识库">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-27 10:46:20" itemprop="dateCreated datePublished" datetime="2021-08-27T10:46:20+08:00">2021-08-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-14 19:41:06" itemprop="dateModified" datetime="2022-02-14T19:41:06+08:00">2022-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>JS 的 Array 是一个万能的数据结构，为什么这么说呢？因为首先它可以当作一个普通的数组来使用，即通过下标找到数组的元素</p>
+<p>然后它可以当作一个栈来使用，我们知道栈的特点是先进后出，栈的基本操作是出栈和入栈</p>
+<p>同时它还可以当作一个队列，队列的特点是先进先出，基本操作是出队和入队</p>
+<p>甚至它还可以当作一个哈希表来使用(但是不推荐这么用)</p>
+<p>源码里面说，JSArray 有两种模式，一种是快速的，一种是慢速的，快速的用的是索引直接定位，慢速的使用用哈希查找</p>
+<p>JSArray 是继承于 JSObject</p>
+<h4 id="增"><a href="#增" class="headerlink" title="增"></a>增</h4><p>push unshift splice</p>
+<h4 id="删"><a href="#删" class="headerlink" title="删"></a>删</h4><p>pop shift splice</p>
+<h4 id="查"><a href="#查" class="headerlink" title="查"></a>查</h4><p>arr[i] indexOf lastIndexOf includes find findIndex</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">arr.find(callback(element,index,array)[, thisArg])</span><br><span class="line">find方法对数组中的每一项元素执行一次 callback 函数，直至有一个 callback 返回 true。当找到了这样一个元素后，该方法会立即返回这个元素的值，否则返回 undefined。注意 callback 函数会为数组中的每个索引调用即从 0 到 length - 1，而不仅仅是那些被赋值的索引，这意味着对于稀疏数组来说，该方法的效率要低于那些只遍历有值的索引的方法。</span><br><span class="line">find方法不会改变数组。</span><br><span class="line">callback函数带有3个参数：当前元素的值、当前元素的索引，以及数组本身。</span><br><span class="line">findIndex() 方法，它返回数组中找到的元素的索引，而不是其值。</span><br></pre></td></tr></table></figure>
+
+<h4 id="改"><a href="#改" class="headerlink" title="改"></a>改</h4><p>concat join reverse slice sort</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">arr.sort([compareFunction()])</span><br><span class="line">numbers.sort((a, b) =&gt; a - b); 从小到大</span><br><span class="line"></span><br><span class="line">sort方法用原地算法对数组的元素进行排序，并返回数组。排序算法现在是稳定的。默认排序顺序是根据字符串Unicode码点。</span><br><span class="line">快速排序和优化的归并排序</span><br><span class="line"></span><br><span class="line">快速排序主要是对哪些基本类型数据（int,short,long等）排序， 而合并排序用于对对象类型进行排序。使用不同类型的排序算法主要是由于快速排序是不稳定的，而合并排序是稳定的</span><br><span class="line"></span><br><span class="line">归并排序相对而言比较次数比快速排序少，移动（对象引用的移动）次数比快速排序多，而对于对象来说，比较一般比移动耗时。补充一点合并排序的时间复杂度是nlogn, 快速排序的平均时间复杂度也是nlogn，但是合并排序的需要额外的n个引用的空间。</span><br><span class="line"></span><br><span class="line">当待排序的数组中的元素个数较少时，源码中的阀值为7，采用的是插入排序。尽管插入排序的时间复杂度为0(n^2)，但是当数组元素较少时，插入排序优于快速排序，因为这时快速排序的递归操作影响性能。</span><br></pre></td></tr></table></figure>
+
+<h4 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h4><p>every somefilter reduce map forEach</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">every() 方法测试一个数组内的所有元素是否都能通过某个指定函数的测试。它返回一个布尔值。</span><br><span class="line">numbers.every((a) =&gt; a&gt;10)</span><br><span class="line"></span><br><span class="line">some() 方法测试是否至少有一个元素可以通过被提供的函数方法。该方法返回一个Boolean类型的值。</span><br><span class="line">arr.some(callback(element[, index[, array]])[, thisArg])</span><br><span class="line"></span><br><span class="line">filter() 方法创建一个新数组, 其包含通过所提供函数实现的测试的所有元素。</span><br><span class="line">var newArray = arr.filter(callback(element[, index[, array]])[, thisArg])</span><br><span class="line"></span><br><span class="line">reduce() 方法对数组中的每个元素执行一个由您提供的reducer函数(升序执行)，将其结果汇总为单个返回值。</span><br><span class="line">arr.reduce(callback(accumulator, currentValue[, index[, array]])[, initialValue])</span><br><span class="line">numbers.reduce(function(accumulator, currentValue, currentIndex, array)&#123;</span><br><span class="line">  return accumulator + currentValue;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">map() 方法创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。</span><br><span class="line">var new_array = arr.map(function callback(currentValue[, index[, array]]) &#123;</span><br><span class="line"> // Return element for new_array</span><br><span class="line">&#125;[, thisArg])</span><br><span class="line"></span><br><span class="line">forEach() 方法对数组的每个元素执行一次提供的函数。</span><br><span class="line">arr.forEach(callback[, thisArg]);</span><br></pre></td></tr></table></figure>
+
+<h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">function LinkedList()&#123;</span><br><span class="line"> let Node = function(element)&#123;</span><br><span class="line">  this.element = element;</span><br><span class="line">  this.next = null;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> let length = 0;</span><br><span class="line"> let head = null;</span><br><span class="line"></span><br><span class="line"> this.size = function()&#123;</span><br><span class="line">  return this.length</span><br><span class="line"> &#125;</span><br><span class="line"> this.isEmpty = function()&#123;</span><br><span class="line">  return this.length===0</span><br><span class="line"> &#125;</span><br><span class="line"> this.append = function(element)&#123;</span><br><span class="line">  let node = new Node(element),current;</span><br><span class="line">  if(head === null)&#123;</span><br><span class="line">   head = node;</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">   current = head;</span><br><span class="line">   while(current.next)&#123;</span><br><span class="line">    current = current.next</span><br><span class="line">   &#125;</span><br><span class="line">   current.next = node;</span><br><span class="line">  &#125;</span><br><span class="line">  length++;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> this.insert = function(position,element)&#123;</span><br><span class="line">    var node = new Node(element);</span><br><span class="line">    var currentNode = head;</span><br><span class="line">    var previousNode;</span><br><span class="line">    var currentIndex = 0;</span><br><span class="line"></span><br><span class="line">    if (position &gt; length) &#123;</span><br><span class="line">      return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (position === 0) &#123;</span><br><span class="line">      node.next = currentNode;</span><br><span class="line">      head = node;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      while (currentIndex &lt; position) &#123;</span><br><span class="line">        currentIndex++;</span><br><span class="line">        previousNode = currentNode;</span><br><span class="line">        currentNode = currentNode.next;</span><br><span class="line">      &#125;</span><br><span class="line">      node.next = currentNode;</span><br><span class="line">      previousNode.next = node;</span><br><span class="line">    &#125;</span><br><span class="line">    length++;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> this.removeAt = function(position)&#123;</span><br><span class="line">  if(position &gt; -1 &amp;&amp; position &lt; length)&#123;</span><br><span class="line">   let current = head,previous,index=0;</span><br><span class="line">   if(position === 0)&#123;</span><br><span class="line">    head = current.next;</span><br><span class="line">   &#125;else&#123;</span><br><span class="line">    while(index++&lt;position)&#123;</span><br><span class="line">     previous = current;</span><br><span class="line">     current = current.next;</span><br><span class="line">    &#125;</span><br><span class="line">    length--;</span><br><span class="line">    return current.element;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">   return null;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> this.indexOf = function (element) &#123;</span><br><span class="line">  var currentNode = head;</span><br><span class="line">  var index = -1;</span><br><span class="line">  while (currentNode) &#123;</span><br><span class="line">   index++;</span><br><span class="line">   if (currentNode.element === element) &#123;</span><br><span class="line">    return index;</span><br><span class="line">   &#125;</span><br><span class="line">   currentNode = currentNode.next;</span><br><span class="line">  &#125;</span><br><span class="line">  return -1;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> this.remove = function(element)&#123;&#125;</span><br><span class="line"> this.getHead = function()&#123;&#125;</span><br><span class="line"> this.toString = function()&#123;</span><br><span class="line">  let current = head,string=&quot;&quot;;</span><br><span class="line">  while(current)&#123;</span><br><span class="line">   string+=current.element+(current.next?&quot; &quot;:&quot;&quot;);</span><br><span class="line">   current=current.next</span><br><span class="line">  &#125;</span><br><span class="line">  return string</span><br><span class="line"> &#125;</span><br><span class="line"> this.print = function()&#123;</span><br><span class="line">  return head</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p>一组无序且唯一的项构成，键值相同</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">function Set()&#123;</span><br><span class="line"> let items = &#123;&#125;</span><br><span class="line"> this.has = function(value)&#123;</span><br><span class="line">  return items.hasOwnProperty(value);</span><br><span class="line"> &#125;</span><br><span class="line"> this.add = function(value)&#123;</span><br><span class="line">  if(!this.has(value))&#123;</span><br><span class="line">   items[value] = value;</span><br><span class="line">   return true;</span><br><span class="line">  &#125;</span><br><span class="line">  return false;</span><br><span class="line"> &#125;</span><br><span class="line"> this.remove = function(value)&#123;</span><br><span class="line">  if(this.has(value))&#123;</span><br><span class="line">   delete items[value];</span><br><span class="line">   return true</span><br><span class="line">  &#125;</span><br><span class="line">  return false;</span><br><span class="line"> &#125;</span><br><span class="line"> this.clear=function()&#123;</span><br><span class="line">  items = &#123;&#125;</span><br><span class="line"> &#125;</span><br><span class="line"> this.size = function()&#123;</span><br><span class="line">  return Object.keys(items).length;</span><br><span class="line"> &#125;</span><br><span class="line"> this.values = function()&#123;</span><br><span class="line">  let values = [];</span><br><span class="line">  for(let i = 0,keys=Object.keys(items);i&lt;keys.length;++i)&#123;</span><br><span class="line">   values.push(itmes[keys[i]]);</span><br><span class="line">  &#125;</span><br><span class="line">  return values;</span><br><span class="line"> &#125;</span><br><span class="line"> //并集</span><br><span class="line"> this.union = function(otherSet)&#123;</span><br><span class="line">  let unionSet = new Set()</span><br><span class="line">  let valuse = this.values();</span><br><span class="line">  for(let i = 0;i&lt;values.length;++i)&#123;</span><br><span class="line">   unionSet.add(values[i])</span><br><span class="line">  &#125;</span><br><span class="line">  valuse = otherSet.values();</span><br><span class="line">  for(let i = 0;i&lt;values.length;++i)&#123;</span><br><span class="line">   unionSet.add(values[i])</span><br><span class="line">  &#125;</span><br><span class="line">  return unionSet;</span><br><span class="line"> &#125;</span><br><span class="line"> //交集</span><br><span class="line"> this.intersection = function(otherSet)&#123;</span><br><span class="line">  let intersectionSet = new Set()</span><br><span class="line">  let values = this.values()</span><br><span class="line">  for(let i = 0;i&lt;values.length;++i)&#123;</span><br><span class="line">   if(otherSet.has(values[i]))&#123;</span><br><span class="line">    intersectionSet.add(values[i])</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return intersectionSet</span><br><span class="line"> &#125;</span><br><span class="line"> //差集</span><br><span class="line"> this.difference = function(otherSet)&#123;</span><br><span class="line">  let differenceSet = new Set()</span><br><span class="line">  let values = this.values()</span><br><span class="line">  for(let i = 0;i&lt;values.length;++i)&#123;</span><br><span class="line">   if(!otherSet.has(values[i]))&#123;</span><br><span class="line">    intersectionSet.add(values[i])</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return differenceSet</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Trie-字典-映射-未完"><a href="#Trie-字典-映射-未完" class="headerlink" title="Trie 字典/映射(未完)"></a>Trie 字典/映射(未完)</h3><p><img src="../images/v2-66fe051619d2c399a30bbcb5fbd0e9f4_hd.jpg#id=O6I15&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>Trie 也可以叫做 Prefix Tree（前缀树），也是一种搜索树。Trie 分步骤存储数据，树中的每个节点代表一个步骤，trie 常用于存储单词以便快速查找，比如实现单词的自动完成功能。 Trie 中的每个节点都包含一个单词的字母，跟着树的分支可以可以拼写出一个完整的单词，每个节点还包含一个布尔值表示该节点是否是单词的最后一个字母。</p>
+<p>Trie 一般有以下方法：</p>
+<ol>
+<li><code>add</code>：向字典树中增加一个单词</li>
+<li><code>isWord</code>：判断字典树中是否包含某个单词</li>
+<li><code>print</code>：返回字典树中的所有单词</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Trie的节点</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Node</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">keys</span> = <span class="keyword">new</span> <span class="title class_">Map</span>();</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">end</span> = <span class="literal">false</span>;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">setEnd</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">end</span> = <span class="literal">true</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">isEnd</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">end</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Trie</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">root</span> = <span class="keyword">new</span> <span class="title class_">Node</span>();</span><br><span class="line"></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">add</span> = <span class="keyword">function</span> (<span class="params">input, node = <span class="variable language_">this</span>.root</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (input.<span class="property">length</span> === <span class="number">0</span>) &#123;</span><br><span class="line">      node.<span class="title function_">setEnd</span>();</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!node.<span class="property">keys</span>.<span class="title function_">has</span>(input[<span class="number">0</span>])) &#123;</span><br><span class="line">      node.<span class="property">keys</span>.<span class="title function_">set</span>(input[<span class="number">0</span>], <span class="keyword">new</span> <span class="title class_">Node</span>());</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">add</span>(input.<span class="title function_">substr</span>(<span class="number">1</span>), node.<span class="property">keys</span>.<span class="title function_">get</span>(input[<span class="number">0</span>]));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">add</span>(input.<span class="title function_">substr</span>(<span class="number">1</span>), node.<span class="property">keys</span>.<span class="title function_">get</span>(input[<span class="number">0</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">isWord</span> = <span class="keyword">function</span> (<span class="params">word</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> node = <span class="variable language_">this</span>.<span class="property">root</span>;</span><br><span class="line">    <span class="keyword">while</span> (word.<span class="property">length</span> &gt; <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!node.<span class="property">keys</span>.<span class="title function_">has</span>(word[<span class="number">0</span>])) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        node = node.<span class="property">keys</span>.<span class="title function_">get</span>(word[<span class="number">0</span>]);</span><br><span class="line">        word = word.<span class="title function_">substr</span>(<span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> node.<span class="property">keys</span>.<span class="title function_">has</span>(word) &amp;&amp; node.<span class="property">keys</span>.<span class="title function_">get</span>(word).<span class="title function_">isEnd</span>() ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">print</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> words = <span class="keyword">new</span> <span class="title class_">Array</span>();</span><br><span class="line">    <span class="keyword">let</span> search = <span class="keyword">function</span> (<span class="params">node = <span class="variable language_">this</span>.root, string</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (node.<span class="property">keys</span>.<span class="property">size</span> != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> letter <span class="keyword">of</span> node.<span class="property">keys</span>.<span class="title function_">keys</span>()) &#123;</span><br><span class="line">          <span class="title function_">search</span>(node.<span class="property">keys</span>.<span class="title function_">get</span>(letter), string.<span class="title function_">concat</span>(letter));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (node.<span class="title function_">isEnd</span>()) &#123;</span><br><span class="line">          words.<span class="title function_">push</span>(string);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        string.<span class="property">length</span> &gt; <span class="number">0</span> ? words.<span class="title function_">push</span>(string) : <span class="literal">undefined</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="title function_">search</span>(<span class="variable language_">this</span>.<span class="property">root</span>, <span class="keyword">new</span> <span class="title class_">String</span>());</span><br><span class="line">    <span class="keyword">return</span> words.<span class="property">length</span> &gt; <span class="number">0</span> ? words : <span class="literal">null</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="散列表-MAP"><a href="#散列表-MAP" class="headerlink" title="散列表 MAP"></a>散列表 MAP</h3><p>通过一个特定散列函数处理值得到独一无二的键实现快速查找，但开的空间比较大</p>
+<h3 id="树"><a href="#树" class="headerlink" title="树"></a>树</h3><p>Tree 的数据结构和自然界中的树极其相似，有根、树枝、叶子，如上图所示。Tree 是一种多层数据结构，与 Array、Stack、Queue 相比是一种非线性的数据结构，在进行插入和搜索操作时很高效。在描述一个 Tree 时经常会用到下列概念：</p>
+<ol>
+<li>Root（根）：代表树的根节点，根节点没有父节点</li>
+<li>Parent Node（父节点）：一个节点的直接上级节点，只有一个</li>
+<li>Child Node（子节点）：一个节点的直接下级节点，可能有多个</li>
+<li>Siblings（兄弟节点）：具有相同父节点的节点</li>
+<li>Leaf（叶节点）：没有子节点的节点</li>
+<li>Edge（边）：两个节点之间的连接线</li>
+<li>Path（路径）：从源节点到目标节点的连续边</li>
+<li>Height of Node（节点的高度）：表示节点与叶节点之间的最长路径上边的个数</li>
+<li>Height of Tree（树的高度）：即根节点的高度</li>
+<li>Depth of Node（节点的深度）：表示从根节点到该节点的边的个数</li>
+<li>Degree of Node（节点的度）：表示子节点的个数</li>
+</ol>
+<p>我们以二叉查找树为例，展示树在 Javascript 中的实现。在二叉查找树中，即每个节点最多只有两个子节点，而左侧子节点小于当前节点，而右侧子节点大于当前节点，如图所示：</p>
+<p><img src="../images/v2-c725ef08bd202fba49713829c7f1fff5_hd.jpg#id=ZWj8u&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>一个二叉查找树应该具有以下常用方法：</p>
+<ol>
+<li>insert：向树中插入一个节点</li>
+<li><code>findMin</code>：查找树中最小的节点</li>
+<li><code>findMax</code>：查找树中最大的节点</li>
+<li><code>find</code>：查找树中的某个节点</li>
+<li><code>isPresent</code>：判断某个节点在树中是否存在</li>
+<li><code>remove</code>：移除树中的某个节点</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line">function BinarySearchTree()&#123;</span><br><span class="line"> let Node = function(key)&#123;</span><br><span class="line">  this.key = key;</span><br><span class="line">  this.left = null;</span><br><span class="line">  this.right = null;</span><br><span class="line"> &#125;</span><br><span class="line"> let root = null;</span><br><span class="line"> let insertNode = function(node,newNode)&#123;</span><br><span class="line">  if(newNode.key &lt; node.key)&#123;</span><br><span class="line">   if(node.left === null)&#123;</span><br><span class="line">    node.left = newNode</span><br><span class="line">   &#125;else&#123;</span><br><span class="line">    insertNode(node.left,newNode);</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">   if(node.right===null)&#123;</span><br><span class="line">    node.right = newNode;</span><br><span class="line">   &#125;else&#123;</span><br><span class="line">    insertNode(node.right,newNode);</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> this.insert = function(key)&#123;</span><br><span class="line">  let newNode = new Node(key);</span><br><span class="line">  if(root === null)&#123;</span><br><span class="line">   root = newNode;</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">   insertNode(root,newNode);</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> findMin() &#123;</span><br><span class="line">    let current = this.root;</span><br><span class="line">    while (current.left !== null) &#123;</span><br><span class="line">      current = current.left;</span><br><span class="line">    &#125;</span><br><span class="line">    return current.data;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  findMax() &#123;</span><br><span class="line">    let current = this.root;</span><br><span class="line">    while (current.right !== null) &#123;</span><br><span class="line">      current = current.right;</span><br><span class="line">    &#125;</span><br><span class="line">    return current.data;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  find(data) &#123;</span><br><span class="line">    let current = this.root;</span><br><span class="line">    while (current.data !== data) &#123;</span><br><span class="line">      if (data &lt; current.data) &#123;</span><br><span class="line">        current = current.left</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        current = current.right;</span><br><span class="line">      &#125;</span><br><span class="line">      if (current === null) &#123;</span><br><span class="line">        return null;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return current;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  isPresent(data) &#123;</span><br><span class="line">    let current = this.root;</span><br><span class="line">    while (current) &#123;</span><br><span class="line">      if (data === current.data) &#123;</span><br><span class="line">        return true;</span><br><span class="line">      &#125;</span><br><span class="line">      if (data &lt; current.data) &#123;</span><br><span class="line">        current = current.left;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        current = current.right;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  remove(data) &#123;</span><br><span class="line">    const removeNode = function (node, data) &#123;</span><br><span class="line">      if (node == null) &#123;</span><br><span class="line">        return null;</span><br><span class="line">      &#125;</span><br><span class="line">      if (data == node.data) &#123;</span><br><span class="line">        // node没有子节点</span><br><span class="line">        if (node.left == null &amp;&amp; node.right == null) &#123;</span><br><span class="line">          return null;</span><br><span class="line">        &#125;</span><br><span class="line">        // node没有左侧子节点</span><br><span class="line">        if (node.left == null) &#123;</span><br><span class="line">          return node.right;</span><br><span class="line">        &#125;</span><br><span class="line">        // node没有右侧子节点</span><br><span class="line">        if (node.right == null) &#123;</span><br><span class="line">          return node.left;</span><br><span class="line">        &#125;</span><br><span class="line">        // node有两个子节点</span><br><span class="line">        var tempNode = node.right;</span><br><span class="line">        while (tempNode.left !== null) &#123;</span><br><span class="line">          tempNode = tempNode.left;</span><br><span class="line">        &#125;</span><br><span class="line">        node.data = tempNode.data;</span><br><span class="line">        node.right = removeNode(node.right, tempNode.data);</span><br><span class="line">        return node;</span><br><span class="line">      &#125; else if (data &lt; node.data) &#123;</span><br><span class="line">        node.left = removeNode(node.left, data);</span><br><span class="line">        return node;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        node.right = removeNode(node.right, data);</span><br><span class="line">        return node;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    this.root = removeNode(this.root, data);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> this.inOrderTraverse = function(callback)&#123;</span><br><span class="line">  inOrderTraverseNode(root,callback);</span><br><span class="line"> &#125;</span><br><span class="line"> let inOrderTraverseNode = (node,callback)=&gt;&#123;</span><br><span class="line">  if(node!==null)&#123;</span><br><span class="line">   inOrderTraverseNode(node.left,callback);</span><br><span class="line">   callback(node.key)</span><br><span class="line">   inOrderTraverseNode(node.right,callback);</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> this.preOrderTraverse = function(callback)&#123;</span><br><span class="line">  preOrderTraverseNode(root,callback);</span><br><span class="line"> &#125;</span><br><span class="line"> let preOrderTraverseNode = (node,callback)=&gt;&#123;</span><br><span class="line">  if(node!==null)&#123;</span><br><span class="line">   callback(node.key)</span><br><span class="line">   preOrderTraverseNode(node.left,callback);</span><br><span class="line">   preOrderTraverseNode(node.right,callback);</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> this.postOrderTraverse = function(callback)&#123;</span><br><span class="line">  postOrderTraverseNode(root,callback);</span><br><span class="line"> &#125;</span><br><span class="line"> let postOrderTraverseNode = (node,callback)=&gt;&#123;</span><br><span class="line">  if(node!==null)&#123;</span><br><span class="line">   postOrderTraverseNode(node.left,callback);</span><br><span class="line">   postOrderTraverseNode(node.right,callback);</span><br><span class="line">   callback(node.key)</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> this.print = function()&#123;</span><br><span class="line">  return root;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="tu"><a href="#tu" class="headerlink" title="tu"></a>tu</h3><p><img src="../images/v2-152d0fbe33e584f155d20bdafd5b8beb_hd.jpg#id=u2CY9&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>Graph 是节点（或顶点）以及它们之间的连接（或边）的集合。Graph 也可以称为 Network（网络）。根据节点之间的连接是否有方向又可以分为 Directed Graph（有向图）和 Undrected Graph（无向图）。Graph 在实际生活中有很多用途，比如：导航软件计算最佳路径，社交软件进行好友推荐等等。</p>
+<p>Graph 通常有两种表达方式：</p>
+<p><strong>Adjaceny List（邻接列表）</strong>：</p>
+<p><img src="../images/v2-3060dabcd5bf3d4fa428f7815a440c47_hd.jpg#id=ZnvpH&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>邻接列表可以表示为左侧是节点的列表，右侧列出它所连接的所有其他节点。</p>
+<p>和 <strong>Adjacency Matrix（邻接矩阵）</strong>：</p>
+<p><img src="../images/v2-c4867dcbbc78c06c435997f220ca165a_hd.jpg#id=qz67s&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>邻接矩阵用矩阵来表示节点之间的连接关系，每行或者每列表示一个节点，行和列的交叉处的数字表示节点之间的关系：0 表示没用连接，1 表示有连接，大于 1 表示不同的权重。</p>
+<p>访问 Graph 中的节点需要使用遍历算法，遍历算法又分为广度优先和深度优先，主要用于确定目标节点和根节点之间的距离，</p>
+<p>在 Javascript 中，Graph 可以用一个矩阵（二维数组）表示，广度优先搜索算法可以实现如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">bfs</span>(<span class="params">graph, root</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> nodesLen = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; graph.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    nodesLen[i] = <span class="title class_">Infinity</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  nodesLen[root] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> queue = [root];</span><br><span class="line">  <span class="keyword">var</span> current;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (queue.<span class="property">length</span> != <span class="number">0</span>) &#123;</span><br><span class="line">    current = queue.<span class="title function_">shift</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> curConnected = graph[current];</span><br><span class="line">    <span class="keyword">var</span> neighborIdx = [];</span><br><span class="line">    <span class="keyword">var</span> idx = curConnected.<span class="title function_">indexOf</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">while</span> (idx != -<span class="number">1</span>) &#123;</span><br><span class="line">      neighborIdx.<span class="title function_">push</span>(idx);</span><br><span class="line">      idx = curConnected.<span class="title function_">indexOf</span>(<span class="number">1</span>, idx + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; neighborIdx.<span class="property">length</span>; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (nodesLen[neighborIdx[j]] == <span class="title class_">Infinity</span>) &#123;</span><br><span class="line">        nodesLen[neighborIdx[j]] = nodesLen[current] + <span class="number">1</span>;</span><br><span class="line">        queue.<span class="title function_">push</span>(neighborIdx[j]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> nodesLen;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line">//冒泡O(n^2)</span><br><span class="line">bbubbleSort = (arr) =&gt;&#123;</span><br><span class="line"> let length = arr.length;</span><br><span class="line"> for(1let i = 0;i&lt;length;++i)&#123;</span><br><span class="line">  for(let j = 0;j&lt;length-1-i;++j)&#123;</span><br><span class="line">   if(arr[j]&gt;arr[j+1])&#123;</span><br><span class="line">    let temp = arr[j];</span><br><span class="line">    arr[j]=arr[j+1];</span><br><span class="line">    arr[j+1]=temp;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">//选择O(n^2)</span><br><span class="line">selectionSort = (arr)=&gt;&#123;</span><br><span class="line"> let length = arr.length,indexMin;</span><br><span class="line"> for(let i = 0;i&lt;length-1;++i)&#123;</span><br><span class="line">  indexMin = i;</span><br><span class="line">  for(let j = i;j&lt;length;++j)&#123;</span><br><span class="line">   if(arr[indexMin]&gt;arr[j])&#123;</span><br><span class="line">    indexMin = j;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if(i!=indexMin)&#123;</span><br><span class="line">   let temp = arr[i];</span><br><span class="line">    arr[i]=arr[indexMin];</span><br><span class="line">    arr[indexMin]=temp;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">//插入O(n^2)，小数组比上面好</span><br><span class="line">insertionSort = (arr)=&gt;&#123;</span><br><span class="line"> let length = arr.length,j,temp;</span><br><span class="line"> for(let i = 1;i&lt;ength;++i)&#123;</span><br><span class="line">  j = i;</span><br><span class="line">  temp = arr[i]</span><br><span class="line">  while(j&gt;0&amp;&amp;arr[j-1]&gt;temp)&#123;</span><br><span class="line">   arr[j]= arr[j-1]</span><br><span class="line">   j--;</span><br><span class="line">  &#125;</span><br><span class="line">  arr[j]=temp</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">//归并O(nlogn)分治</span><br><span class="line">mergeSort = (arr) =&gt;&#123;</span><br><span class="line"> arr = mergeSortRec(arr)</span><br><span class="line">&#125;</span><br><span class="line">mergeSortRec = (arr) =&gt;&#123;</span><br><span class="line"> let length = arr.length;</span><br><span class="line"> if(length==1)&#123;</span><br><span class="line">  return arr</span><br><span class="line"> &#125;</span><br><span class="line"> let mid = Math.floor(length/2)</span><br><span class="line"> left = arr.slice(0,mid)</span><br><span class="line"> right = arr.slice(mid,length)</span><br><span class="line"> return merge(mergeSortRec(left),mergeSortRec(right))</span><br><span class="line">&#125;</span><br><span class="line">merge = (left,right) =&gt;&#123;</span><br><span class="line"> let result = [],</span><br><span class="line"> il = 0,</span><br><span class="line"> ir = 0;</span><br><span class="line"> while(il&lt;left.length&amp;&amp;ir&lt;right.length)&#123;</span><br><span class="line">  if(left[il]&lt;right[ir])&#123;</span><br><span class="line">   result.push(left[il++]);</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">   result.push(right[ir++])</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> while(il&lt;left.length)&#123;</span><br><span class="line">  result.push(left[il++]);</span><br><span class="line"> &#125;</span><br><span class="line"> while(ir&lt;right.length)&#123;</span><br><span class="line">  result.push(right[ir++])</span><br><span class="line"> &#125;</span><br><span class="line"> return result</span><br><span class="line">&#125;</span><br><span class="line">//快排O(nlogn)</span><br><span class="line">quickSort=(arr)=&gt;&#123;</span><br><span class="line"> quick(arr,0,arr.length-1)</span><br><span class="line">&#125;</span><br><span class="line">quick = (arr,left,right)&#123;</span><br><span class="line"> let index</span><br><span class="line"> if(arr.length&gt;1)&#123;</span><br><span class="line">  index = partition(arr,left,right)</span><br><span class="line">  if(left&lt;index-1)&#123;</span><br><span class="line">   quick(arr,left,index-1)</span><br><span class="line">  &#125;</span><br><span class="line">  if(index&lt;right)&#123;</span><br><span class="line">   quick(arr,index,right)</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">partition=(arr,left,right)=&gt;&#123;</span><br><span class="line"> let pivot = arr[Math.floor((right+left)/2)],</span><br><span class="line">  i=left,j=right;</span><br><span class="line"> while(i&lt;=j)&#123;</span><br><span class="line">  while(arr[i]&lt;pivot)&#123;</span><br><span class="line">   ++i;</span><br><span class="line">  &#125;</span><br><span class="line">  while(arr[j]&gt;pivot)&#123;</span><br><span class="line">   j--</span><br><span class="line">  &#125;</span><br><span class="line">  if(i&lt;=j)&#123;</span><br><span class="line">   let temp = arr[j]</span><br><span class="line">   arr[j]=arr[i]</span><br><span class="line">   arr[i] = temp</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> return i</span><br><span class="line">&#125;</span><br><span class="line">//堆排</span><br><span class="line"></span><br><span class="line">对一颗完全二叉树，作为数组，某节点i父节点为Math.floor((i-1)/2),子节点2i+1,2i+2</span><br><span class="line">let heapSort = (arr)=&gt;&#123;</span><br><span class="line"> let heapSize =arr.length;</span><br><span class="line"> buildHeap(arr)</span><br><span class="line"> while(heapSize&gt;1)&#123;</span><br><span class="line">  heapSize--;</span><br><span class="line">  [arr[0],arr[heapSize]]=[arr[heapSize],arr[0]]</span><br><span class="line">  heapify(arr,heapSize,0)</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">let buildHeap = (arr)=&gt;&#123;</span><br><span class="line"> heapSize = arr.length</span><br><span class="line"> for(let i = Math.floor(arr.length/2);i&gt;=0;i--)&#123;</span><br><span class="line">  heapify(arr,heapSize,i)</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">let heapify = (arr,heapSize,i)=&gt;&#123;</span><br><span class="line"> let left = 2*i+1,right = i*2+2,largest = i;</span><br><span class="line"> if(left&lt;heapSize &amp;&amp; arr[left]&gt;arr[largest])&#123;</span><br><span class="line">  largest = left;</span><br><span class="line"> &#125;</span><br><span class="line"> if(right&lt;heapSize &amp;&amp; arr[right]&gt;arr[largest])&#123;</span><br><span class="line">  largest = right;</span><br><span class="line"> &#125;</span><br><span class="line"> if(largest!=i)&#123;</span><br><span class="line">  [arr[i],arr[largest]]=[arr[largest],arr[i]]</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="搜索算法"><a href="#搜索算法" class="headerlink" title="搜索算法"></a>搜索算法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//顺序</span><br><span class="line"></span><br><span class="line">//二分</span><br><span class="line">binarySearch = (arr,item)=&gt;&#123;</span><br><span class="line"> let brr = quickSort(arr)</span><br><span class="line"> let low = 0,high = brr.length -1,mid,element;</span><br><span class="line"> while(low&lt;=high)&#123;</span><br><span class="line">  mid = Math.floor((low+high)/2);</span><br><span class="line">  element = brr[mid]</span><br><span class="line">  if(element &lt;item)&#123;</span><br><span class="line">   low = mid+1;</span><br><span class="line">  &#125;else if(element &gt;item)&#123;</span><br><span class="line">   high = mid -1;</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">   return mid</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> return -1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="算法模式"><a href="#算法模式" class="headerlink" title="算法模式"></a>算法模式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//递归 ES6有尾调用优化，递归并不更慢</span><br><span class="line">fibonacci = (num)=&gt;&#123;</span><br><span class="line"> if(num ===1||num===2)&#123;</span><br><span class="line">  return 1</span><br><span class="line"> &#125;</span><br><span class="line"> return fibonacci(num-1)+fibonacci(num-2)</span><br><span class="line">&#125;</span><br><span class="line">fib = (num)=&gt;&#123;</span><br><span class="line"> let n1 = 1,n2=1,n=1;</span><br><span class="line"> for(let i = 3;i&lt;num;++i)&#123;</span><br><span class="line">  n = n1+n2;</span><br><span class="line">  n1=n2;</span><br><span class="line">  n2=n;</span><br><span class="line"> &#125;</span><br><span class="line"> return n</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><h4 id="最少硬币"><a href="#最少硬币" class="headerlink" title="最少硬币"></a>最少硬币</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">let minCoin = (coins) =&gt;&#123;</span><br><span class="line"> let cache = &#123;&#125;;</span><br><span class="line"> this.makeChange = (amount)=&gt;&#123;</span><br><span class="line">  let me = this;</span><br><span class="line">  if(!amount)&#123;</span><br><span class="line">   return [];</span><br><span class="line">  &#125;</span><br><span class="line">  if(cache[amount])&#123;</span><br><span class="line">   return cache[amount]</span><br><span class="line">  &#125;</span><br><span class="line">  let min = [],newMin,newAmount;</span><br><span class="line">  for(let i = 0;i&lt;coins.length;++i)&#123;</span><br><span class="line">   let newAmount = amount -coin,coin = coins[i];</span><br><span class="line">   if(newAmount &gt;= 0)&#123;</span><br><span class="line">    newMin = me.makeChange(newAmount);</span><br><span class="line">   &#125;</span><br><span class="line">   if(</span><br><span class="line">    newAmount&gt;=0&amp;&amp;</span><br><span class="line">    (newMin.length&lt;min.length-1||!min.length)</span><br><span class="line">    &amp;&amp;(newMin.lengthh||!newAmount)</span><br><span class="line">   )&#123;</span><br><span class="line">    min = [coin].concat(newMin);</span><br><span class="line">    console.log(min+&#x27;for&#x27;+amount)</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return (cache[amount]=min)</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h3><h4 id="最少硬币-1"><a href="#最少硬币-1" class="headerlink" title="最少硬币"></a>最少硬币</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function minChange(coins,amount)&#123;</span><br><span class="line"> coins = quickSort(coins)</span><br><span class="line"> let l = coins.length-1,cache = [];</span><br><span class="line"> while(l&gt;=0&amp;&amp;amount&gt;=0)&#123;</span><br><span class="line">  if(amount&gt;=coins[l])&#123;</span><br><span class="line">   cache.push(coins[l])</span><br><span class="line">   amount -=coins[l]</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">   l--</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> return cache</span><br><span class="line">&#125;</span><br><span class="line">//问题，只在相邻级别中，前一级比后一级少一半以上才可以[1,2,5,10,20,50,100],如果是[1,3,4]这种不行</span><br><span class="line">第一种从较小的硬币集合开始算，只有[1],[1,3],[1,3,4]</span><br></pre></td></tr></table></figure>
+
+<h4 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h4><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/26388217">https://zhuanlan.zhihu.com/p/26388217</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.fundebug.com/2019/08/12/8-common-data-structure-and-javascript-implementation/">https://blog.fundebug.com/2019/08/12/8-common-data-structure-and-javascript-implementation/</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/26/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="prev" title="正则表达式">
+      <i class="fa fa-chevron-left"></i> 正则表达式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/27/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" rel="next" title="网络安全">
+      网络安全 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E"><span class="nav-number">1.1.</span> <span class="nav-text">增</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0"><span class="nav-number">1.2.</span> <span class="nav-text">删</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5"><span class="nav-number">1.3.</span> <span class="nav-text">查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B9"><span class="nav-number">1.4.</span> <span class="nav-text">改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">1.5.</span> <span class="nav-text">迭代器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8"><span class="nav-number">2.</span> <span class="nav-text">链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E5%90%88"><span class="nav-number">3.</span> <span class="nav-text">集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Trie-%E5%AD%97%E5%85%B8-%E6%98%A0%E5%B0%84-%E6%9C%AA%E5%AE%8C"><span class="nav-number">4.</span> <span class="nav-text">Trie 字典&#x2F;映射(未完)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%A3%E5%88%97%E8%A1%A8-MAP"><span class="nav-number">5.</span> <span class="nav-text">散列表 MAP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%91"><span class="nav-number">6.</span> <span class="nav-text">树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tu"><span class="nav-number">7.</span> <span class="nav-text">tu</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95"><span class="nav-number"></span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">排序算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">搜索算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">算法模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-number">4.</span> <span class="nav-text">动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E5%B0%91%E7%A1%AC%E5%B8%81"><span class="nav-number">4.1.</span> <span class="nav-text">最少硬币</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%AA%E5%BF%83"><span class="nav-number">5.</span> <span class="nav-text">贪心</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E5%B0%91%E7%A1%AC%E5%B8%81-1"><span class="nav-number">5.1.</span> <span class="nav-text">最少硬币</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D"><span class="nav-number">5.2.</span> <span class="nav-text">数组去重</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CatcherInSky"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">CatcherInSky</p>
+  <div class="site-description" itemprop="description">CatcherInSky的前端知识库</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CatcherInSky" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CatcherInSky" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangchunxiang98@outlook.com" title="E-Mail → mailto:zhangchunxiang98@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

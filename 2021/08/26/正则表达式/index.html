@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"catcherinsky.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="定义正则表达式，又称规则表达式。（英语：Regular Expression，在代码中常简写为 regex、RegExp 或 RE），计算机科学的一个概念。在编写处理字符串的程序或网页时，经常会有查找符合某些复杂规则的字符串的需要。正则表达式就是用于描述这些规则的工具。换句话说，正则表达式就是记录文本规则的代码。正则表达式通常被用来检索、替换那些符合某个模式(规则)的文本。正则表达式是对字符串操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式">
+<meta property="og:url" content="http://catcherinsky.github.io/2021/08/26/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="定义正则表达式，又称规则表达式。（英语：Regular Expression，在代码中常简写为 regex、RegExp 或 RE），计算机科学的一个概念。在编写处理字符串的程序或网页时，经常会有查找符合某些复杂规则的字符串的需要。正则表达式就是用于描述这些规则的工具。换句话说，正则表达式就是记录文本规则的代码。正则表达式通常被用来检索、替换那些符合某个模式(规则)的文本。正则表达式是对字符串操作">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630049384332-631e2c0e-df74-44be-9462-e8f64ba61e79.png#clientId=ud90bccad-2fcf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=667&id=u2148a1f3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=667&originWidth=869&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=81418&status=done&style=none&taskId=u45e581f4-fb22-4f91-b6d8-d6a9c9d46ba&title=&width=869">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630049461659-ea62565b-8835-4f95-9431-396548255078.png#clientId=ud90bccad-2fcf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=835&id=ubc26d698&margin=%5Bobject%20Object%5D&name=image.png&originHeight=835&originWidth=669&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=75919&status=done&style=none&taskId=u462da115-80ec-422e-ac3c-8d8056de2b7&title=&width=669">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630049573339-7077a704-7fe1-45ab-a978-2065dc711c49.png#clientId=ud90bccad-2fcf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=822&id=u852ddd40&margin=%5Bobject%20Object%5D&name=image.png&originHeight=822&originWidth=696&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=74412&status=done&style=none&taskId=u24cb7d7f-e559-4534-b137-e1469223e34&title=&width=696">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630049802074-20da1ad3-f976-4c61-b7fa-797e199de017.png#clientId=ud90bccad-2fcf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=555&id=u2f8af79a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=555&originWidth=686&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=70087&status=done&style=none&taskId=u2fda567a-d8db-46a2-81f7-7d5a8e9360e&title=&width=686">
+<meta property="article:published_time" content="2021-08-26T09:47:28.000Z">
+<meta property="article:modified_time" content="2022-02-14T11:41:06.245Z">
+<meta property="article:author" content="CatcherInSky">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630049384332-631e2c0e-df74-44be-9462-e8f64ba61e79.png#clientId=ud90bccad-2fcf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=667&id=u2148a1f3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=667&originWidth=869&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=81418&status=done&style=none&taskId=u45e581f4-fb22-4f91-b6d8-d6a9c9d46ba&title=&width=869">
+
+<link rel="canonical" href="http://catcherinsky.github.io/2021/08/26/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>正则表达式 | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+  <meta name="referrer" content="same-origin">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Knowlegde Bases of CatcherInSky</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CatcherInSky的前端知识库</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://catcherinsky.github.io/2021/08/26/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content="CatcherInSky的前端知识库">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          正则表达式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-26 17:47:28" itemprop="dateCreated datePublished" datetime="2021-08-26T17:47:28+08:00">2021-08-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-14 19:41:06" itemprop="dateModified" datetime="2022-02-14T19:41:06+08:00">2022-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>正则表达式，又称规则表达式。（英语：Regular Expression，在代码中常简写为 regex、RegExp 或 RE），计算机科学的一个概念。在编写处理字符串的程序或网页时，经常会有查找符合某些复杂规则的字符串的需要。正则表达式就是用于<strong>描述这些规则</strong>的工具。换句话说，正则表达式就是记录文本规则的代码。正则表达式通常被用来检索、替换那些符合某个模式(规则)的文本。<br>正则表达式是对字符串操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。<br>​</p>
+<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>在字符串操作中常用于：</p>
+<ol>
+<li> <strong>验证</strong>（给定的字符串是否符合正则表达式的过滤逻辑）</li>
+</ol>
+<ul>
+<li>验证输入是否符合规范</li>
+</ul>
+<ol start="2">
+<li> <strong>查找</strong>（可以通过正则表达式，从字符串中获取我们想要的特定部分）</li>
+</ol>
+<ul>
+<li>查找所需字符段落</li>
+<li>替换成自己想要的内容</li>
+<li>还有一些特殊的操作</li>
+</ul>
+<ol start="3">
+<li> 在 HTML 中可以这样使用</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">input</span><span class="selector-pseudo">:invalid</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">border-color</span>: red;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">input</span>,</span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">input</span><span class="selector-pseudo">:valid</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">border-color</span>: <span class="number">#ccc</span>;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;tel&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;tel&quot;</span> <span class="attr">pattern</span>=<span class="string">&quot;\d&#123;11&#125;&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> expression = <span class="regexp">/ pattern /</span> flags;</span><br><span class="line"><span class="keyword">var</span> expression = <span class="keyword">new</span> <span class="title class_">RegExp</span>(<span class="string">&quot; patterns &quot;</span> , <span class="string">&quot; flags &quot;</span>);</span><br><span class="line"><span class="comment">//patterns为pattern中每个元字符前加一个\组成或者由字符串加变量组成</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>expression：正则表达式的名称</li>
+<li>pattern：正则表达式的模式</li>
+<li>flags：标志，包括<ul>
+<li>g:global,应用于所有字符串，而非在发现第一个匹配项时立即停止</li>
+<li>i:case-insesitive,忽略大小写</li>
+<li>m:multiline,多行检测</li>
+<li>u:Unicode,用来正确处理大于\uFFFFd Unicode 字符<br>注意：点（.）字符在正则表达式中，含义是除了换行符以外的任意单个字符。对于码位大于 0xFFFF 的 Unicode 字符，点字符不能识别，必须加上 u 修饰符</li>
+<li>y:sticky,y 修饰符的作用与 g 修饰符类似，也是全局匹配，后一次匹配都从上一次匹配成功的下一个位置开始。不同之处在于，g 修饰符只要剩余位置中存在匹配就可，而 y 修饰符确保匹配必须从剩余的第一个位置开始，这也就是“粘连”的涵义。</li>
+</ul>
+</li>
+</ul>
+<h3 id="实例属性"><a href="#实例属性" class="headerlink" title="实例属性"></a>实例属性</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>数据类型</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>global</td>
+<td>boolean</td>
+<td>是否有 g 标志</td>
+</tr>
+<tr>
+<td>ignoreCase</td>
+<td>boolean</td>
+<td>是否有 i 标志</td>
+</tr>
+<tr>
+<td>multiline</td>
+<td>boolean</td>
+<td>是否有 m 标志</td>
+</tr>
+<tr>
+<td>lastIndex</td>
+<td>int</td>
+<td>从第几个字符开始匹配</td>
+</tr>
+<tr>
+<td>source</td>
+<td>str</td>
+<td>正则表达式的字符串表示</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>str</td>
+<td>正则表达式的修饰符</td>
+</tr>
+<tr>
+<td>sticky</td>
+<td>boolean</td>
+<td>是否有 y 标签</td>
+</tr>
+</tbody></table>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><h3 id="RegExp-实例方法"><a href="#RegExp-实例方法" class="headerlink" title="RegExp 实例方法"></a>RegExp 实例方法</h3><h4 id="regObj-test-strObj"><a href="#regObj-test-strObj" class="headerlink" title="regObj.test(strObj)*"></a>regObj.test(strObj)*</h4><p>用于测试字符串中是否存在符合正则表达式模式的部分，如果<strong>存在则返回 true，否则返回 false</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = (<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> <span class="title class_">PhoneNumber</span> = <span class="regexp">/^\d&#123;11&#125;$/</span>;</span><br><span class="line">  <span class="keyword">var</span> number1 = <span class="string">&quot;17802015408&quot;</span>;</span><br><span class="line">  <span class="keyword">var</span> number2 = <span class="string">&quot;1530775669&quot;</span>;</span><br><span class="line">  <span class="keyword">var</span> number3 = <span class="string">&quot;178020154080&quot;</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;number1 is a &quot;</span> + <span class="title class_">PhoneNumber</span>.<span class="title function_">test</span>(number1) + <span class="string">&quot; phone number.&quot;</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;number2 is a &quot;</span> + <span class="title class_">PhoneNumber</span>.<span class="title function_">test</span>(number2) + <span class="string">&quot; phone number.&quot;</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;number3 is a &quot;</span> + <span class="title class_">PhoneNumber</span>.<span class="title function_">test</span>(number3) + <span class="string">&quot; phone number.&quot;</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<h4 id="regObj-exec-strObj"><a href="#regObj-exec-strObj" class="headerlink" title="regObj.exec(strObj)"></a>regObj.exec(strObj)</h4><p>方法用于正则表达式模式在字符串中运行查找，如果 exec() 找到了匹配的文本，则返回一个结果<strong>数组</strong>。否则，返回 <strong>null</strong>。除了数组元素和 length 属性之外，exec() 方法还返回两个属性。<strong>index 属性</strong>声明的是匹配文本的第一个字符的位置。<strong>input 属性</strong>则存放的是被检索的字符串 string。<br>调用非全局的 RegExp 对象的 exec() 时，返回数组的第 0 个元素是与正则表达式相匹配的文本，第 1 个元素是与 RegExpObject 的第 1 个分组相匹配的文本（如果有的话），第 2 个元素是与 RegExp 对象的第 2 个分组相匹配的文本（如果有的话），以此类推。<br>调用全局的 RegExp 对象的 exec() 时，它会在 RegExp 实例的 lastIndex 属性指定的字符处开始检索字符串 string。当 exec() 找到了与表达式相匹配的文本时，在匹配后，它将把 RegExp 实例的 lastIndex 属性设置为匹配文本的最后一个字符的下一个位置。可以通过反复调用 exec() 方法来遍历字符串中的所有匹配文本。当 exec() 再也找不到匹配的文本时，它将返回 null，并把 lastIndex 属性重置为 0。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//无g标志</span></span><br><span class="line"><span class="keyword">var</span> execs = (<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> text = <span class="string">&quot;abababab&quot;</span>;</span><br><span class="line">  <span class="keyword">var</span> pattern = <span class="regexp">/ab(ab)/</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="title function_">exec</span>(text));</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="property">lastIndex</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="title function_">exec</span>(text));</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="property">lastIndex</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="title function_">exec</span>(text));</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="property">lastIndex</span>);</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="comment">//有g标志</span></span><br><span class="line"><span class="keyword">var</span> execg = (<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> text = <span class="string">&quot;AbAbBCAb&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> pattern = <span class="regexp">/Ab|BC/g</span>;</span><br><span class="line">  <span class="comment">//pattern.lastIndex = 1;    //改变lastIndex属性</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="property">lastIndex</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="title function_">exec</span>(text));</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="property">lastIndex</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="title function_">exec</span>(text));</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="property">lastIndex</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="title function_">exec</span>(text));</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="property">lastIndex</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="title function_">exec</span>(text));</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(pattern.<span class="property">lastIndex</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串方法"><a href="#字符串方法" class="headerlink" title="字符串方法"></a>字符串方法</h3><h4 id="strObj-search-RegObj"><a href="#strObj-search-RegObj" class="headerlink" title="strObj.search(RegObj)"></a>strObj.search(RegObj)</h4><p>search() 方法用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串。search() 方法不执行全局匹配，它将忽略标志 g。它同时忽略 regexp 的 lastIndex 属性，并且总是从字符串的开始进行检索，这意味着它总是返回 stringObject 的第一个匹配的位置。没有匹配则返回-1。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> search = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line"> <span class="keyword">var</span> text = <span class="string">&quot;asdfasAAAAAA&quot;</span>;</span><br><span class="line"> <span class="keyword">var</span> pattern = <span class="regexp">/AA/g</span>;</span><br><span class="line"> <span class="keyword">var</span> te = <span class="string">&quot;AA&quot;</span></span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(text.<span class="title function_">search</span>(pattern));</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(text.<span class="title function_">indexOf</span>(te));</span><br><span class="line"> <span class="keyword">var</span> example = <span class="string">&quot;adfasd9ad1s1f&quot;</span>;</span><br><span class="line"> <span class="keyword">var</span> pattern2 = <span class="regexp">/\d/g</span>;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(example.<span class="title function_">charAt</span>(example.<span class="title function_">search</span>(pattern2)))；</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<h4 id="strObj-match-RegObj"><a href="#strObj-match-RegObj" class="headerlink" title="strObj.match(RegObj)*"></a>strObj.match(RegObj)*</h4><p>字符串对象的 match 方法与正则对象的 exec 方法比较类似，但是如果正则表达式带有 g 修饰符，那么 match 方法就可以以数组的方式返回所有成功匹配的结果，但是 exec 方法只返回了一个。如果不带 g，则是返回其分组结果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> match = (<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> text = <span class="string">&quot;asdfasdasdfasdfadsf&quot;</span>;</span><br><span class="line">  <span class="keyword">var</span> pattern = <span class="regexp">/a(sd)/g</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(text.<span class="title function_">match</span>(pattern));</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<h4 id="strObj-replace-regObj-replaceStr-function"><a href="#strObj-replace-regObj-replaceStr-function" class="headerlink" title="strObj.replace(regObj,replaceStr|function(){})*"></a>strObj.replace(regObj,replaceStr|function(){})*</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stringObject.<span class="title function_">replace</span>(regexp / substr, replacement);</span><br></pre></td></tr></table></figure>
+
+<p>字符串 stringObject 的 replace() 方法执行的是查找并替换的操作。它将在 stringObject 中查找与 regexp 相匹配的子字符串，然后用 replacement 来替换这些子串。如果 regexp 具有全局标志 g，那么 replace() 方法将替换所有匹配的子串。否则，它只替换第一个匹配子串。<br>replacement 可以是字符串，也可以是函数。如果它是字符串，那么每个匹配都将由字符串替换。但是 replacement 中的 $ 字符具有特定的含义。如下表所示，它说明从模式匹配得到的字符串将用于替换。</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>替换文本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$1、$2、…、$99</td>
+<td>与 regexp 中的第 1 到第 99 个子表达式相匹配的文本。</td>
+</tr>
+<tr>
+<td>$&amp;</td>
+<td>与 regexp 相匹配的子串。</td>
+</tr>
+<tr>
+<td>$`</td>
+<td>位于匹配子串左侧的文本。</td>
+</tr>
+<tr>
+<td>$’</td>
+<td>位于匹配子串右侧的文本。</td>
+</tr>
+<tr>
+<td>$$</td>
+<td>直接量符号。</td>
+</tr>
+</tbody></table>
+<p><strong>注意</strong>：ECMAScript v3 规定，replace() 方法的参数 replacement 可以是函数而不是字符串。在这种情况下，每个匹配都调用该函数，它返回的字符串将作为替换文本使用。该函数的第一个参数是匹配模式的字符串。接下来的参数是与模式中的子表达式匹配的字符串，可以有 0 个或多个这样的参数。接下来的参数是一个整数，声明了匹配在 stringObject 中出现的位置。最后一个参数是 stringObject 本身。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不使用正则</span></span><br><span class="line"><span class="keyword">var</span> replace = (<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> text = <span class="string">&quot;1&lt;%2%&gt;34&lt;%567%&gt;89&quot;</span>;</span><br><span class="line">  text = text.<span class="title function_">replace</span>(<span class="string">&quot;&lt;&quot;</span>, <span class="string">&quot;@&quot;</span>);</span><br><span class="line">  text = text.<span class="title function_">replace</span>(<span class="string">&quot;%&quot;</span>, <span class="string">&quot;#&quot;</span>);</span><br><span class="line">  text = text.<span class="title function_">replace</span>(<span class="string">&quot;&gt;&quot;</span>, <span class="string">&quot;@&quot;</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(text);</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="comment">//使用正则</span></span><br><span class="line"><span class="keyword">var</span> replace = (<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> text = <span class="string">&quot;1&lt;%2%&gt;34&lt;%567%&gt;89&quot;</span>;</span><br><span class="line">  text = text.<span class="title function_">replace</span>(<span class="regexp">/&lt;%(\d+)%&gt;/g</span>, <span class="string">&quot;@#$1#@&quot;</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(text);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<h4 id="strObj-split-regObj"><a href="#strObj-split-regObj" class="headerlink" title="strObj.split(regObj)"></a>strObj.split(regObj)</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stringObject.<span class="title function_">split</span>(separator, howmany);</span><br></pre></td></tr></table></figure>
+
+<p>一个字符串数组。该数组是通过在 separator 指定的边界处将字符串 stringObject 分割成子串创建的。返回的数组中的字串不包括 separator 自身。<br>但是，如果 separator 是包含子表达式的正则表达式，那么返回的数组中包括与这些子表达式匹配的字串（但不包括与整个正则表达式匹配的文本）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> split = (<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  text = <span class="string">&quot;a1b2c3d&quot;</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(text.<span class="title function_">split</span>(<span class="regexp">/\d/</span>));</span><br><span class="line">  name = <span class="string">&quot;asfasdf,fadf./asdf.asdf[asdf&quot;</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(name.<span class="title function_">split</span>(<span class="regexp">/\W/</span>));</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><h3 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">( [ &#123; \ ^ $ | ) ? * + .</span><br></pre></td></tr></table></figure>
+
+<h3 id="预定义的特殊字符"><a href="#预定义的特殊字符" class="headerlink" title="预定义的特殊字符"></a>预定义的特殊字符</h3><table>
+<thead>
+<tr>
+<th>字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\t</td>
+<td>制表符</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>换行符</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>回车符</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>换页符</td>
+</tr>
+<tr>
+<td>\a</td>
+<td>alert 字符</td>
+</tr>
+<tr>
+<td>\e</td>
+<td>escape 字符</td>
+</tr>
+<tr>
+<td>\cX /</td>
+<td>与 X 相对应的控制字符</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>与回退字符</td>
+</tr>
+<tr>
+<td>\v</td>
+<td>垂直制表符</td>
+</tr>
+<tr>
+<td>\0</td>
+<td>空字符</td>
+</tr>
+</tbody></table>
+<h3 id="分枝条件"><a href="#分枝条件" class="headerlink" title="分枝条件"></a>分枝条件</h3><p>继续在分组上做文章。在分组中插入管道符（“|”），把它划分为两个或多个候多项。是懒惰的，假如不带 g，匹配前面成功不会尝试后面。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/(red|black|yellow)!!/</span>;</span><br><span class="line"><span class="title function_">alert</span>(reg.<span class="title function_">test</span>(<span class="string">&quot;red!!&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(reg.<span class="title function_">test</span>(<span class="string">&quot;black!!&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(reg.<span class="title function_">test</span>(<span class="string">&quot;yellow!!&quot;</span>)); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="边界"><a href="#边界" class="headerlink" title="边界"></a>边界</h3><p>一个要与字符类合用的东西。 <strong>不占位</strong></p>
+<table>
+<thead>
+<tr>
+<th>正则</th>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>^</td>
+<td>开头</td>
+<td>注意不能紧跟于左中括号的后面</td>
+</tr>
+<tr>
+<td>$</td>
+<td>结尾</td>
+<td></td>
+</tr>
+<tr>
+<td>\b</td>
+<td>单词边界</td>
+<td>指[a-zA-Z_0-9]之外的字符</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>非单词边界</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>单词边界举例。要匹配的东西的前端或未端不能为英文字母阿拉伯字数字或下横线。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;12w-eefd&amp;efrew&quot;</span>;</span><br><span class="line"><span class="title function_">alert</span>(str.<span class="title function_">match</span>(<span class="regexp">/\b\w+\b/g</span>)); <span class="comment">//12w,eefd,efrew</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h3><h4 id="简单类"><a href="#简单类" class="headerlink" title="简单类"></a>简单类</h4><p>原则上正则的一个字符对应一个字符，我们可以用[]把它们括起来，让[]这个整体对应一个字符。如</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">alert</span>(<span class="regexp">/abc/</span>.<span class="title function_">test</span>(<span class="string">&quot;abc&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[abc]/</span>.<span class="title function_">test</span>(<span class="string">&quot;a&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[abc]/</span>.<span class="title function_">test</span>(<span class="string">&quot;b&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[abc]/</span>.<span class="title function_">test</span>(<span class="string">&quot;c&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="string">&quot;a bat ,a Cat,a fAt bat ,a faT cat&quot;</span>.<span class="title function_">match</span>(<span class="regexp">/[bcf]at/gi</span>)); <span class="comment">//bat,Cat,fAt,bat,faT,cat</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="负向类"><a href="#负向类" class="headerlink" title="负向类"></a>负向类</h4><p>在[]前面加个元字符^进行取反，表示匹配不能为括号里面的字符。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[^abc]/</span>.<span class="title function_">test</span>(<span class="string">&quot;a&quot;</span>)); <span class="comment">//false</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[^abc]/</span>.<span class="title function_">test</span>(<span class="string">&quot;b&quot;</span>)); <span class="comment">//false</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[^abc]/</span>.<span class="title function_">test</span>(<span class="string">&quot;6&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[^abc]/</span>.<span class="title function_">test</span>(<span class="string">&quot;gg&quot;</span>)); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="范围类"><a href="#范围类" class="headerlink" title="范围类"></a>范围类</h4><p>还是在那个中括号里面做文章。有时匹配的东西过多，而且类型又相同，全部输入太麻烦，我们可以用它。特征就是在中间加了个横线。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[a-f]/</span>.<span class="title function_">test</span>(<span class="string">&quot;b&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[a-f]/</span>.<span class="title function_">test</span>(<span class="string">&quot;g&quot;</span>)); <span class="comment">//false</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[a-z]/</span>.<span class="title function_">test</span>(<span class="string">&quot;h&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[0-9]/</span>.<span class="title function_">test</span>(<span class="string">&quot;8&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[0-9]/</span>.<span class="title function_">test</span>(<span class="string">&quot;a&quot;</span>)); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="组合类"><a href="#组合类" class="headerlink" title="组合类"></a>组合类</h4><p>中括号内可以组合使用不同类型的单个字符。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[^H-Y]/</span>.<span class="title function_">test</span>(<span class="string">&quot;G&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[^7-9]/</span>.<span class="title function_">test</span>(<span class="string">&quot;6&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[a-m1-5\n]/</span>.<span class="title function_">test</span>(<span class="string">&quot;a&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[a-m1-5\n]/</span>.<span class="title function_">test</span>(<span class="string">&quot;3&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[a-m1-5\n]/</span>.<span class="title function_">test</span>(<span class="string">&quot;\n&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[a-m1-5\n]/</span>.<span class="title function_">test</span>(<span class="string">&quot;r&quot;</span>)); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="预定义类"><a href="#预定义类" class="headerlink" title="预定义类"></a>预定义类</h4><p>使用反义字符代替某些常用的组合集</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>等同于</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.</td>
+<td>[^\n\r]</td>
+<td>除了换行和回车之外的任意字符</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>[0-9]</td>
+<td>数字字符</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>[^0-9]</td>
+<td>非数字字符</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>[ \t\n\x0B\f\r]</td>
+<td>空白字符</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>[^ \t\n\x0B\f\r]</td>
+<td>非空白字符</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>[a-zA-Z_0-9]</td>
+<td>单词字符(所有的字母)</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>[^a-za-z_0-9]</td>
+<td>非单词字符</td>
+</tr>
+</tbody></table>
+<h4 id="量词（限定符）"><a href="#量词（限定符）" class="headerlink" title="量词（限定符）"></a>量词（限定符）</h4><table>
+<thead>
+<tr>
+<th>代码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>?</td>
+<td>出现零次或一次</td>
+</tr>
+<tr>
+<td>*</td>
+<td>出现零次或多次(任意次)</td>
+</tr>
+<tr>
+<td>+</td>
+<td>出现一次或多次（至少一次）</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>对应零次或者 n 次</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>至少出现 n 次但不超过 m 次</td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>至少出现 n 次(+的升级版)</td>
+</tr>
+</tbody></table>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">alert</span>(<span class="regexp">/...../</span>.<span class="title function_">test</span>(<span class="string">&quot;正则表达式&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/正则表达式/</span>.<span class="title function_">test</span>(<span class="string">&quot;正则表达式&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[\u4e00-\u9fa5]&#123;5&#125;/</span>.<span class="title function_">test</span>(<span class="string">&quot;正则表达式&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[\u4e00-\u9fa5]&#123;4&#125;/</span>.<span class="title function_">test</span>(<span class="string">&quot;正则表达式55&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/^[\u4e00-\u9fa5]+$/</span>.<span class="title function_">test</span>(<span class="string">&quot;正则表达式&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/^[\u4e00-\u9fa5]+$/</span>.<span class="title function_">test</span>(<span class="string">&quot;正则表达式#&quot;</span>)); <span class="comment">//false</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/\d&#123;6&#125;/</span>.<span class="title function_">test</span>(<span class="string">&quot;123456&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[regx]&#123;2&#125;/</span>.<span class="title function_">test</span>(<span class="string">&quot;ee&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[regx]&#123;2&#125;/</span>.<span class="title function_">test</span>(<span class="string">&quot;ex&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/[regx]&#123;2&#125;/</span>.<span class="title function_">test</span>(<span class="string">&quot;xx&quot;</span>)); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="贪婪量词，懒惰量词与独占-支配性量词"><a href="#贪婪量词，懒惰量词与独占-支配性量词" class="headerlink" title="贪婪量词，懒惰量词与独占/支配性量词"></a>贪婪量词，懒惰量词与独占/支配性量词</h4><p>贪婪量词: 当正则表达式中包含能接受重复量词时，默认的行为是（在使整个表达式能得到匹配的前提下）匹配尽可能多的字符。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">alert</span>(<span class="string">&quot;aabab&quot;</span>.<span class="title function_">match</span>(<span class="regexp">/a.*b/g</span>)); <span class="comment">//aabab</span></span><br></pre></td></tr></table></figure>
+
+<p>懒惰量词:在量词后加？，也就是匹配尽可能少的字符。其工作方式与贪婪量词相反。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">alert</span>(<span class="string">&quot;abaab&quot;</span>.<span class="title function_">match</span>(<span class="regexp">/a.*?b/g</span>));</span><br></pre></td></tr></table></figure>
+
+<p>懒惰限定符</p>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>*?</td>
+<td>重复任意次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>+?</td>
+<td>重复 1 次或更多次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>??</td>
+<td>重复 0 次或 1 次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>{n,m}?</td>
+<td>重复 n 到 m 次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>{n,}?</td>
+<td>重复 n 次以上，但尽可能少重复</td>
+</tr>
+</tbody></table>
+<p>独占量词，在简单量词前加+。独占量词只尝试一次。但是 javascript 不支持。<br>​</p>
+<h3 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h3><p>回溯法也称试探法，它的基本思想是：从问题的某一种状态（初始状态）出发，搜索从这种状态出发<br>所能达到的所有“状态”，当一条路走到“尽头”的时候（不能再前进），再后退一步或若干步，从<br>另一种可能“状态”出发，继续搜索，直到所有的“路径”（状态）都试探过。这种不断“前进”、<br>不断“回溯”寻找解的方法，就称作“回溯法”。本质上就是深度优先搜索算法。<br><strong>贪婪优先回溯</strong><br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630049384332-631e2c0e-df74-44be-9462-e8f64ba61e79.png#clientId=ud90bccad-2fcf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=667&id=u2148a1f3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=667&originWidth=869&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=81418&status=done&style=none&taskId=u45e581f4-fb22-4f91-b6d8-d6a9c9d46ba&title=&width=869" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630049461659-ea62565b-8835-4f95-9431-396548255078.png#clientId=ud90bccad-2fcf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=835&id=ubc26d698&margin=%5Bobject%20Object%5D&name=image.png&originHeight=835&originWidth=669&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=75919&status=done&style=none&taskId=u462da115-80ec-422e-ac3c-8d8056de2b7&title=&width=669" alt="image.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630049573339-7077a704-7fe1-45ab-a978-2065dc711c49.png#clientId=ud90bccad-2fcf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=822&id=u852ddd40&margin=%5Bobject%20Object%5D&name=image.png&originHeight=822&originWidth=696&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=74412&status=done&style=none&taskId=u24cb7d7f-e559-4534-b137-e1469223e34&title=&width=696" alt="image.png"><br>图中省略了尝试匹配双引号失败的过程。可以看出 ._ 是非常影响效率的。<br>为了减少一些不必要的回溯，可以把正则修改为 /“[^”]_”/。<br>​</p>
+<p><strong>懒惰优先回溯</strong><br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630049802074-20da1ad3-f976-4c61-b7fa-797e199de017.png#clientId=ud90bccad-2fcf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=555&id=u2f8af79a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=555&originWidth=686&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=70087&status=done&style=none&taskId=u2fda567a-d8db-46a2-81f7-7d5a8e9360e&title=&width=686" alt="image.png"></p>
+<h3 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h3><p>到目前为止，我们接触到中括号表示范围内选择，大括号表示重复。小括号就可以表示分组，用作多字符的重复。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//分组+量词</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/(dog)&#123;2&#125;/</span>.<span class="title function_">test</span>(<span class="string">&quot;dogdog&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//分组+范围</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="string">&quot;baddad&quot;</span>.<span class="title function_">match</span>(<span class="regexp">/([bd]ad?)*?/g</span>)); <span class="comment">//baddad,dad</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//分组+分组</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="string">&quot;mon and dad&quot;</span>.<span class="title function_">match</span>(<span class="regexp">/(mon( and dad)?)/</span>)); <span class="comment">//mon and dad,mon and dad, and dad</span></span><br><span class="line"><span class="comment">//man and dad 是符合正则模式的，而 and dad 是正则的一个分组]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="捕获性分组"><a href="#捕获性分组" class="headerlink" title="捕获性分组"></a>捕获性分组</h4><p>所有分组默认都是捕获性分组，当使用 match 或者 exec 方法不带全局属性的时候，就可以在返回数组的第 1 位开始捕获到符合分组的内容。同时，也可以使用构造函数的全局属性 $1 至 $9 来获取。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/test(\d+)/</span>;</span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;test001 test002&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">match</span>(reg));</span><br><span class="line"><span class="comment">//[&quot;test001&quot;, &quot;001&quot;, index: 0, input: &quot;test001&quot;]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/test(\d+)/g</span>;</span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;test001 test002&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">match</span>(reg));</span><br><span class="line"><span class="comment">//[&quot;test001&quot;, &quot;test002&quot;]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/test(\d)+/</span>;</span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;test001 test002&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">match</span>(reg));</span><br><span class="line"><span class="comment">//[&quot;test001&quot;, &quot;1&quot;, index: 0, input: &quot;test001&quot;]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/test(\d)+/</span>;</span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;test001 test002&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">match</span>(reg));</span><br><span class="line"><span class="comment">//[&quot;test001&quot;, &quot;1&quot;, index: 0, input: &quot;test001&quot;]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/test(\d)+?/</span>;</span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;test001 test002&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">match</span>(reg));</span><br><span class="line"><span class="comment">//[&quot;test0&quot;, &quot;0&quot;, index: 0, input: &quot;test001&quot;]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="反向引用"><a href="#反向引用" class="headerlink" title="反向引用"></a>反向引用</h4><p><strong>捕获会返回一个捕获组，这个分组是保存在内存中，不仅可以在正则表达式外部通过程序进行引用，也可以在正则表达式内部进行引用，这种引用方式就是反向引用</strong>。<br>反向引用标识由正则表达式中的匹配组捕获性分组。每个反向引用都由一个编号或名称来标识，并通过“\编号”表示法进行引用。（MDN 不推荐使用）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> color = <span class="string">&quot;#990000&quot;</span>;</span><br><span class="line"><span class="regexp">/#(\d+)/</span>.<span class="title function_">test</span>(color);</span><br><span class="line"><span class="title function_">alert</span>(<span class="title class_">RegExp</span>.<span class="property">$1</span>); <span class="comment">//990000</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">alert</span>(<span class="regexp">/(dog)\1/</span>.<span class="title function_">test</span>(<span class="string">&quot;dogdog&quot;</span>)); <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> num = <span class="string">&quot;1234 5678&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> newNum = num.<span class="title function_">replace</span>(<span class="regexp">/(\d&#123;4&#125;) (\d&#123;4&#125;)/</span>, <span class="string">&quot;$2 $1&quot;</span>);</span><br><span class="line"><span class="title function_">alert</span>(newNum);</span><br></pre></td></tr></table></figure>
+
+<p>你也可以自己指定分组的组名。要指定一个分组的组名，请使用这样的语法：(?&lt; name &gt;exp)这样就把这部分表达式的组名指定为 Word 了。要反向引用这个分组捕获的内容，你可以使用${name}来调用匹配到的内容</p>
+<p>引用不存在的分组会直接转义数字</p>
+<p>使用小括号的时候，还有很多特定用途的语法。下面列出了最常用的一些：</p>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(exp)</td>
+<td>匹配 exp,并捕获文本到自动命名的组里</td>
+</tr>
+<tr>
+<td>(?&lt; name &gt;exp)</td>
+<td>匹配 exp,并捕获文本到名称为 name 的组里，也可以写成(?’name’exp)</td>
+</tr>
+<tr>
+<td>(?:exp)</td>
+<td>匹配 exp,不捕获匹配的文本，也不给此分组分配组号</td>
+</tr>
+</tbody></table>
+<h4 id="非捕获性分组"><a href="#非捕获性分组" class="headerlink" title="非捕获性分组"></a>非捕获性分组</h4><p>并不是所有分组都能创建反向引用，有一种特别的分组称之为非捕获性分组，它是不会创建反向引用。反之，就是捕获性分组。要创建一个非捕获性分组，只要在分组的左括号的后面紧跟一个问号与冒号就行了。使用 match、exec 方法的时候就不会捕获到分组的内容。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var reg = /test(?:\d)+/;</span><br><span class="line"> var str = &#x27;test001&#x27;;</span><br><span class="line"> console.log(str.match(reg));</span><br><span class="line">//[&quot;test001&quot;, index: 0, input: &quot;test001&quot;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="零宽断言"><a href="#零宽断言" class="headerlink" title="零宽断言"></a>零宽断言</h3><p>最大的作用是判断位置。</p>
+<ol>
+<li>断言：俗话的断言就是“我断定什么什么”，而正则中的断言，就是说正则可以指明在指定的内容的前面或后面会出现满足指定规则的内容.<br>意思正则也可以像人类那样断定什么什么，比如”ss1aa2bb3”,正则可以用断言找出 aa2 前面有 bb3，也可以找出 aa2 后面有 ss1.</li>
+<li>零宽：就是没有宽度，在正则中，断言只是匹配位置，不占字符，也就是说，匹配结果里是不会返回断言本身。<table>
+<thead>
+<tr>
+<th>正则</th>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(?=exp)</td>
+<td>正向前瞻 positive lookahead</td>
+<td>匹配后面是 exp 位置</td>
+</tr>
+<tr>
+<td>(?!exp)</td>
+<td>负向前瞻 negative lookahead</td>
+<td>匹配后面不是 exp 的位置</td>
+</tr>
+<tr>
+<td>(?&lt;=exp)</td>
+<td>正向后瞻 positive lookbehind</td>
+<td>匹配前面是 exp 的位置</td>
+</tr>
+<tr>
+<td>(?&lt;!exp)</td>
+<td>负向后瞻 negative lookbehind</td>
+<td>匹配前面不是 exp 的位置</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<p>正向前瞻用来检查接下来的出现的是不是某个特定的字符集。而负向前瞻则是检查接下来的不应该出现的特定字符串集。零宽断言是不会被捕获的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str1 = <span class="string">&quot;bedroom&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> str2 = <span class="string">&quot;bedding&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> reBed = <span class="regexp">/(bed(?=room))/</span>; <span class="comment">//在我们捕获bed这个字符串时，抢先去看接下来的字符串是不是room</span></span><br><span class="line"><span class="title function_">alert</span>(reBed.<span class="title function_">test</span>(str1)); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="title class_">RegExp</span>.<span class="property">$1</span>); <span class="comment">//bed</span></span><br><span class="line"><span class="title function_">alert</span>(<span class="title class_">RegExp</span>.<span class="property">$2</span> === <span class="string">&quot;&quot;</span>); <span class="comment">//true</span></span><br><span class="line"><span class="title function_">alert</span>(reBed.<span class="title function_">test</span>(str2)); <span class="comment">//false</span></span><br><span class="line"><span class="keyword">var</span> str1 = <span class="string">&quot;bedroom&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> str2 = <span class="string">&quot;bedding&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> reBed = <span class="regexp">/(bed(?!room))/</span>; <span class="comment">//要来它后面不能是room</span></span><br><span class="line"><span class="title function_">alert</span>(reBed.<span class="title function_">test</span>(str1)); <span class="comment">//false</span></span><br><span class="line"><span class="title function_">alert</span>(reBed.<span class="title function_">test</span>(str2)); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>小括号还有一种用途，就是通过语法 (?#comment) 来包含注释</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span>[<span class="number">0</span>-<span class="number">4</span>]\<span class="title function_">d</span>(?#<span class="number">200</span>-<span class="number">249</span>)|<span class="number">25</span>[<span class="number">0</span>-<span class="number">5</span>](?#<span class="number">250</span>-<span class="number">255</span>)|[<span class="number">01</span>]?\d\d?(?#<span class="number">0</span>-<span class="number">199</span>)</span><br><span class="line"><span class="comment">// 注释表明每个分组范围</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="小练习"><a href="#小练习" class="headerlink" title="小练习"></a>小练习</h2><h2 id="检验"><a href="#检验" class="headerlink" title="检验"></a>检验</h2><h3 id="常用类型"><a href="#常用类型" class="headerlink" title="常用类型"></a>常用类型</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// QQ号码</span></span><br><span class="line">[<span class="number">1</span>-<span class="number">9</span>][<span class="number">0</span>-<span class="number">9</span>]&#123;<span class="number">4</span>,<span class="number">14</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 手机号码</span></span><br><span class="line">^(<span class="number">13</span>[<span class="number">0</span>-<span class="number">9</span>]|<span class="number">14</span>[<span class="number">57</span>]|<span class="number">15</span>[<span class="number">0</span>-<span class="number">35</span>-<span class="number">9</span>]|<span class="number">18</span>[<span class="number">0</span>-<span class="number">35</span>-<span class="number">9</span>])\d&#123;<span class="number">8</span>&#125;$</span><br><span class="line"></span><br><span class="line"><span class="comment">// 身份证</span></span><br><span class="line">^([<span class="number">0</span>-<span class="number">9</span>])&#123;<span class="number">7</span>,<span class="number">18</span>&#125;(x|X)?$</span><br><span class="line">^[<span class="number">1</span>-<span class="number">9</span>]\\d&#123;<span class="number">5</span>&#125;[<span class="number">1</span>-<span class="number">9</span>]\\d&#123;<span class="number">3</span>&#125;((<span class="number">0</span>\\d)|(<span class="number">1</span>[<span class="number">0</span>-<span class="number">2</span>]))(([<span class="number">0</span>|<span class="number">1</span>|<span class="number">2</span>]\\d)|<span class="number">3</span>[<span class="number">0</span>-<span class="number">1</span>])\\d&#123;<span class="number">3</span>&#125;([<span class="number">0</span>-<span class="number">9</span>]|X)$</span><br><span class="line"></span><br><span class="line"><span class="comment">// IP地址</span></span><br><span class="line"><span class="comment">// v4</span></span><br><span class="line">\\<span class="title function_">b</span>(<span class="params">?:(?:<span class="number">25</span>[<span class="number">0</span>-<span class="number">5</span>]|<span class="number">2</span>[<span class="number">0</span>-<span class="number">4</span>][<span class="number">0</span>-<span class="number">9</span>]|[<span class="number">01</span>]?[<span class="number">0</span>-<span class="number">9</span>][<span class="number">0</span>-<span class="number">9</span>]?)\\.</span>)&#123;<span class="number">3</span>&#125;(?:<span class="number">25</span>[<span class="number">0</span>-<span class="number">5</span>]|<span class="number">2</span>[<span class="number">0</span>-<span class="number">4</span>][<span class="number">0</span>-<span class="number">9</span>]|[<span class="number">01</span>]?[<span class="number">0</span>-<span class="number">9</span>][<span class="number">0</span>-<span class="number">9</span>]?)\\b</span><br><span class="line"><span class="comment">// v6</span></span><br><span class="line">(([<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:)&#123;<span class="number">7</span>,<span class="number">7</span>&#125;[<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;|([<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:)&#123;<span class="number">1</span>,<span class="number">7</span>&#125;:|([<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:)&#123;<span class="number">1</span>,<span class="number">6</span>&#125;:[<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;|([<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:)&#123;<span class="number">1</span>,<span class="number">5</span>&#125;(:[<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;)&#123;<span class="number">1</span>,<span class="number">2</span>&#125;|([<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:)&#123;<span class="number">1</span>,<span class="number">4</span>&#125;(:[<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;)&#123;<span class="number">1</span>,<span class="number">3</span>&#125;|([<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:)&#123;<span class="number">1</span>,<span class="number">3</span>&#125;(:[<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;)&#123;<span class="number">1</span>,<span class="number">4</span>&#125;|([<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:)&#123;<span class="number">1</span>,<span class="number">2</span>&#125;(:[<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;)&#123;<span class="number">1</span>,<span class="number">5</span>&#125;|[<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:((:[<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;)&#123;<span class="number">1</span>,<span class="number">6</span>&#125;)|:((:[<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;)&#123;<span class="number">1</span>,<span class="number">7</span>&#125;|:)|<span class="attr">fe80</span>:(:[<span class="number">0</span>-9a-fA-F]&#123;<span class="number">0</span>,<span class="number">4</span>&#125;)&#123;<span class="number">0</span>,<span class="number">4</span>&#125;%[<span class="number">0</span>-9a-zA-Z]&#123;<span class="number">1</span>,&#125;|::(<span class="title function_">ffff</span>(<span class="params">:<span class="number">0</span>&#123;<span class="number">1</span>,<span class="number">4</span>&#125;</span>)&#123;<span class="number">0</span>,<span class="number">1</span>&#125;:)&#123;<span class="number">0</span>,<span class="number">1</span>&#125;((<span class="number">25</span>[<span class="number">0</span>-<span class="number">5</span>]|(<span class="number">2</span>[<span class="number">0</span>-<span class="number">4</span>]|<span class="number">1</span>&#123;<span class="number">0</span>,<span class="number">1</span>&#125;[<span class="number">0</span>-<span class="number">9</span>])&#123;<span class="number">0</span>,<span class="number">1</span>&#125;[<span class="number">0</span>-<span class="number">9</span>])\\.)&#123;<span class="number">3</span>,<span class="number">3</span>&#125;(<span class="number">25</span>[<span class="number">0</span>-<span class="number">5</span>]|(<span class="number">2</span>[<span class="number">0</span>-<span class="number">4</span>]|<span class="number">1</span>&#123;<span class="number">0</span>,<span class="number">1</span>&#125;[<span class="number">0</span>-<span class="number">9</span>])&#123;<span class="number">0</span>,<span class="number">1</span>&#125;[<span class="number">0</span>-<span class="number">9</span>])|([<span class="number">0</span>-9a-fA-F]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:)&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:((<span class="number">25</span>[<span class="number">0</span>-<span class="number">5</span>]|(<span class="number">2</span>[<span class="number">0</span>-<span class="number">4</span>]|<span class="number">1</span>&#123;<span class="number">0</span>,<span class="number">1</span>&#125;[<span class="number">0</span>-<span class="number">9</span>])&#123;<span class="number">0</span>,<span class="number">1</span>&#125;[<span class="number">0</span>-<span class="number">9</span>])\\.)&#123;<span class="number">3</span>,<span class="number">3</span>&#125;(<span class="number">25</span>[<span class="number">0</span>-<span class="number">5</span>]|(<span class="number">2</span>[<span class="number">0</span>-<span class="number">4</span>]|<span class="number">1</span>&#123;<span class="number">0</span>,<span class="number">1</span>&#125;[<span class="number">0</span>-<span class="number">9</span>])&#123;<span class="number">0</span>,<span class="number">1</span>&#125;[<span class="number">0</span>-<span class="number">9</span>]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 中文</span></span><br><span class="line">^[\\u4e00-\\u9fa5]&#123;<span class="number">0</span>,&#125;$</span><br><span class="line">/[\u4e00-\u9fa5]/</span><br><span class="line"><span class="comment">//用于匹配单个汉字。这两个unicode值正好是Unicode表中的汉字的头和尾。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// html</span></span><br><span class="line">&lt;\\/?\\w+((\\s+\\w+(\\s*=\\s*(?:&quot;.*?&quot;|&#x27;.*?&#x27;|[\\^&#x27;&quot;&gt;\\s]+))?)+\\s*|\\s*)\\/?&gt;</span><br><span class="line">&lt;(?[\w]+)[^&gt;]*?&gt;((?&lt;Nested&gt;&lt;\k[^&gt;]*&gt;)|&lt;/\k&gt;(?&lt;-Nested&gt;)|.*?)*&lt;/\k&gt;</span><br><span class="line"></span><br><span class="line">// 十六进制颜色值匹配</span><br><span class="line"></span><br><span class="line">/#[0-9a-fA-F]&#123;6&#125;|#[0-9a-fA-F]&#123;3&#125;/g</span><br><span class="line"></span><br><span class="line">// Windows操作系统文件路径匹配</span><br><span class="line">盘符使用 [a-zA-Z]:\\ ，这里需要注意 \ 字符需要转义，并且盘符不区分大小写；</span><br><span class="line">文件名或文件夹名，不能包含特殊字符，使用 [^\\:*&lt;&gt;|&quot;?\r\n/] 表示合法字符；</span><br><span class="line">并且至少有一个字符，还有可以出现任意次，就可以使用 ([^\\:*&lt;&gt;|&quot;?\r\n/]+\\)* 匹配任意个 文件夹\；</span><br><span class="line">还有路径最后一部分可以是 文件夹 ，即没有 \ 于是表示成 ([^\\:*&lt;&gt;|&quot;?\r\n/]+)?</span><br><span class="line"> /^[a-zA-Z]:\\([^\\:*&lt;&gt;|&quot;?\r\n/]+\\)*([^\\:*&lt;&gt;|&quot;?\r\n/]+)?$/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 密码\w&#123;5,17&#125;$ 字母开头，长度在6~18之间，只能包含字母、数字和下划线</span><br><span class="line"></span><br><span class="line">// 强密码：^(?=.\d)(?=.[a-z])(?=.*[A-Z]).&#123;8,10&#125;$ 包含大小写字母和数字的组合，不能使用特殊字符，长度在8-10之间</span><br><span class="line">电话号码</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 邮箱</span><br><span class="line"></span><br><span class="line">[\\w!#$%&amp;&#x27;*+/=?^_`&#123;|&#125;~-]+(?:\\.[\\w!#$%&amp;&#x27;*+/=?^_`&#123;|&#125;~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?</span><br><span class="line"></span><br><span class="line">// yyyy-MM-dd  平闰年</span><br><span class="line">  ^(?:(?!0000)[0-9]&#123;4&#125;-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]&#123;2&#125;(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$</span><br></pre></td></tr></table></figure>
+
+<p>​</p>
+<p>​</p>
+<p>​</p>
+<p>验证码/<a href="#fn2">[2]</a>{4}$]/</p>
+<p>网址<br>​</p>
+<p>千分位格式化</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">numFormat</span>(<span class="params">num</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> res = num</span><br><span class="line">    .<span class="title function_">toString</span>()</span><br><span class="line">    .<span class="title function_">replace</span>(<span class="regexp">/\d+/</span>, <span class="function">(<span class="params">n</span>) =&gt;</span> n.<span class="title function_">replace</span>(<span class="regexp">/\B(?=(\d&#123;3&#125;)+\b)/g</span>, <span class="string">&quot;,&quot;</span>));</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1234567894532</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">673439.4542</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">numFormat</span>(a)); <span class="comment">// &quot;1,234,567,894,532&quot;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">numFormat</span>(b)); <span class="comment">// &quot;673,439.4542&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>单词首字母大写</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var a = &quot;asdf&quot;;</span><br><span class="line"> String.prototype.capitalize =  function () &#123;</span><br><span class="line">     return this.replace(/^\w/, function (s) &#123;</span><br><span class="line">         return s.toUpperCase();</span><br><span class="line">     &#125;);</span><br><span class="line"> &#125;</span><br><span class="line">alert(a.capitalize())//Asdf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var replace = function()&#123;</span><br><span class="line">    var text = &quot;javascript Tutorial&quot;;</span><br><span class="line">    console.log(text.replace(/\S/ig, &#x27;($&amp;)&#x27;));</span><br><span class="line">&#125;()</span><br><span class="line">var replace = function()&#123;</span><br><span class="line">    var name = &quot;Doe, John&quot;;</span><br><span class="line">    console.log(name.replace(/(\w+)\s*, \s*(\w+)/, &quot;$2 $1&quot;));</span><br><span class="line">    var str = &#x27;aaa bbb ccc&#x27;;</span><br><span class="line">    console.log(str.replace(/\b\w+\b/g, function(word)&#123;</span><br><span class="line"> return word.substring(0,1).toUpperCase()+word.substring(1);&#125;</span><br><span class="line"> ))</span><br><span class="line"></span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<p>月日年变日月年</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;04-22-2018&quot;.replace(/(?&lt;month&gt;\d&#123;2&#125;)-(?&lt;day&gt;\d&#123;2&#125;)-(?&lt;year&gt;\d&#123;4&#125;)/, (...args) =&gt; &#123;</span><br><span class="line">  const groups = args.slice(-1)[0]</span><br><span class="line">  const &#123;day, month, year&#125; = groups</span><br><span class="line">  return `$&#123;day&#125;-$&#123;month&#125;-$&#123;year&#125;`</span><br><span class="line">&#125;) // &quot;25-04-2017&quot;</span><br></pre></td></tr></table></figure>
+
+<p>题目，移除所有标签，只留下 innerText!</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var html = &quot;&lt;p&gt;&lt;a href=&#x27;http://www.cnblogs.com/rubylouvre/&#x27;&gt;Ruby Louvre&lt;/a&gt;by &lt;em&gt;正则表达式&lt;/em&gt;&lt;/p&gt;&quot;;</span><br><span class="line">var text = html.replace(/&lt;(.|\s)*?&gt;/g, &quot;&quot;);</span><br><span class="line">alert(text)//Ruby Louvreby 正则表达式</span><br></pre></td></tr></table></figure>
+
+<h2 id="官方教程"><a href="#官方教程" class="headerlink" title="官方教程"></a>官方教程</h2><p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expression-language-quick-reference">微软：.NET 正则表达式</a><br><a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-cn/library/system.text.regularexpressions.regex.aspx">MSDN</a><br><a target="_blank" rel="noopener" href="https://www.w3cschool.cn/regexp/zoxa1pq7.html">W3CSCHOOL 正则表达式基本语法</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/deerchao/archive/2006/08/24/zhengzhe30fengzhongjiaocheng.html">正则表达式 30 分钟入门教程</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/dolphinX/p/3486214.html">JavaScript 正则表达式上——基本语法</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/dolphinX/p/3486136.html">JavaScript 正则表达式下——相关方法</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/xbfengyu/article/details/53150773">js 正则表达式/replace 替换变量方法</a><br><a target="_blank" rel="noopener" href="http://www.jb51.net/article/77687.htm">65 条最常用正则表达式 你要的都在这里了</a><br><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/jsref/jsref_replace.asp">JavaScript replace() 方法</a><br><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/jsref/jsref_split.asp">JavaScript split() 方法</a>、<br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/rubylouvre/archive/2010/03/09/1681222.html">javascript 正则表达式</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ziyunfei/p/6761413.html">JS 正则中的命名捕获分组</a><br><a target="_blank" rel="noopener" href="http://www.jb51.net/article/88742.htm">javascript 正则表达式中分组详解</a><br><a target="_blank" rel="noopener" href="https://www.w3cplus.com/html5/html5-form-validation-with-the-pattern-attribute.html">pattern–HTML5 的表单验证属性</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/83876910?utm_source=qq&utm_medium=social&utm_oi=549346247203553280">https://zhuanlan.zhihu.com/p/83876910?utm_source=qq&amp;utm_medium=social&amp;utm_oi=549346247203553280</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7021672733213720613?utm_source=gold_browser_extension">https://juejin.cn/post/7021672733213720613?utm_source=gold_browser_extension</a><br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expression-language-quick-reference?redirectedfrom=MSDN">https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expression-language-quick-reference?redirectedfrom=MSDN</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="prev" title="计算机网络">
+      <i class="fa fa-chevron-left"></i> 计算机网络
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/27/%E7%AE%97%E6%B3%95/" rel="next" title="算法">
+      算法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E"><span class="nav-number">3.</span> <span class="nav-text">声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%B1%9E%E6%80%A7"><span class="nav-number">3.1.</span> <span class="nav-text">实例属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RegExp-%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95"><span class="nav-number">4.1.</span> <span class="nav-text">RegExp 实例方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#regObj-test-strObj"><span class="nav-number">4.1.1.</span> <span class="nav-text">regObj.test(strObj)*</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#regObj-exec-strObj"><span class="nav-number">4.1.2.</span> <span class="nav-text">regObj.exec(strObj)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%96%B9%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">字符串方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#strObj-search-RegObj"><span class="nav-number">4.2.1.</span> <span class="nav-text">strObj.search(RegObj)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#strObj-match-RegObj"><span class="nav-number">4.2.2.</span> <span class="nav-text">strObj.match(RegObj)*</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#strObj-replace-regObj-replaceStr-function"><span class="nav-number">4.2.3.</span> <span class="nav-text">strObj.replace(regObj,replaceStr|function(){})*</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#strObj-split-regObj"><span class="nav-number">4.2.4.</span> <span class="nav-text">strObj.split(regObj)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E5%AD%97%E7%AC%A6"><span class="nav-number">5.1.</span> <span class="nav-text">元字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E5%AE%9A%E4%B9%89%E7%9A%84%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6"><span class="nav-number">5.2.</span> <span class="nav-text">预定义的特殊字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%9D%E6%9D%A1%E4%BB%B6"><span class="nav-number">5.3.</span> <span class="nav-text">分枝条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C"><span class="nav-number">5.4.</span> <span class="nav-text">边界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E7%B1%BB"><span class="nav-number">5.5.</span> <span class="nav-text">字符类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%B1%BB"><span class="nav-number">5.5.1.</span> <span class="nav-text">简单类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%9F%E5%90%91%E7%B1%BB"><span class="nav-number">5.5.2.</span> <span class="nav-text">负向类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8C%83%E5%9B%B4%E7%B1%BB"><span class="nav-number">5.5.3.</span> <span class="nav-text">范围类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E7%B1%BB"><span class="nav-number">5.5.4.</span> <span class="nav-text">组合类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%84%E5%AE%9A%E4%B9%89%E7%B1%BB"><span class="nav-number">5.5.5.</span> <span class="nav-text">预定义类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8F%E8%AF%8D%EF%BC%88%E9%99%90%E5%AE%9A%E7%AC%A6%EF%BC%89"><span class="nav-number">5.5.6.</span> <span class="nav-text">量词（限定符）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%AA%E5%A9%AA%E9%87%8F%E8%AF%8D%EF%BC%8C%E6%87%92%E6%83%B0%E9%87%8F%E8%AF%8D%E4%B8%8E%E7%8B%AC%E5%8D%A0-%E6%94%AF%E9%85%8D%E6%80%A7%E9%87%8F%E8%AF%8D"><span class="nav-number">5.5.7.</span> <span class="nav-text">贪婪量词，懒惰量词与独占&#x2F;支配性量词</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E6%BA%AF"><span class="nav-number">5.6.</span> <span class="nav-text">回溯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%BB%84"><span class="nav-number">5.7.</span> <span class="nav-text">分组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8D%95%E8%8E%B7%E6%80%A7%E5%88%86%E7%BB%84"><span class="nav-number">5.7.1.</span> <span class="nav-text">捕获性分组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E5%BC%95%E7%94%A8"><span class="nav-number">5.7.2.</span> <span class="nav-text">反向引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E6%8D%95%E8%8E%B7%E6%80%A7%E5%88%86%E7%BB%84"><span class="nav-number">5.7.3.</span> <span class="nav-text">非捕获性分组</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%B6%E5%AE%BD%E6%96%AD%E8%A8%80"><span class="nav-number">5.8.</span> <span class="nav-text">零宽断言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-number">5.9.</span> <span class="nav-text">注释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%83%E4%B9%A0"><span class="nav-number">6.</span> <span class="nav-text">小练习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E9%AA%8C"><span class="nav-number">7.</span> <span class="nav-text">检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.1.</span> <span class="nav-text">常用类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E6%95%99%E7%A8%8B"><span class="nav-number">8.</span> <span class="nav-text">官方教程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">9.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CatcherInSky"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">CatcherInSky</p>
+  <div class="site-description" itemprop="description">CatcherInSky的前端知识库</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CatcherInSky" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CatcherInSky" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangchunxiang98@outlook.com" title="E-Mail → mailto:zhangchunxiang98@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

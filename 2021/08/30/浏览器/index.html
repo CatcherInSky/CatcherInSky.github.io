@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"catcherinsky.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="浏览器组成主流浏览器：Internet Explorer、Firefox、Safari、Chrome 浏览器和 Opera 浏览器的主要组件为：  用户界面 - 除了浏览器主窗口显示的页面外，其他的部分，包括地址栏、前进&#x2F;后退按钮、书签菜单等。 浏览器引擎 - 在用户界面和渲染引擎之间传送指令。 渲染引擎 - 负责显示请求的内容，负责解析 HTML 和 CSS，并将解析后的内容显示在屏幕上。Fir">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器">
+<meta property="og:url" content="http://catcherinsky.github.io/2021/08/30/%E6%B5%8F%E8%A7%88%E5%99%A8/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="浏览器组成主流浏览器：Internet Explorer、Firefox、Safari、Chrome 浏览器和 Opera 浏览器的主要组件为：  用户界面 - 除了浏览器主窗口显示的页面外，其他的部分，包括地址栏、前进&#x2F;后退按钮、书签菜单等。 浏览器引擎 - 在用户界面和渲染引擎之间传送指令。 渲染引擎 - 负责显示请求的内容，负责解析 HTML 和 CSS，并将解析后的内容显示在屏幕上。Fir">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630294117788-8320e9a5-642d-435f-b248-30034b8c3166.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u4e093d10&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1018&originWidth=1500&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=154611&status=done&style=none&taskId=u07f81b7b-484c-40fe-aeef-eb04b738ddf&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630294751637-f86dde3f-1d63-4fba-8f20-c2f9122911c8.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=hMqNr&margin=%5Bobject%20Object%5D&name=image.png&originHeight=737&originWidth=1500&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=53372&status=done&style=none&taskId=uc1209169-ae9c-48d5-88c5-06fdb653fe0&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630294792434-60b77353-8e91-4c81-b793-839697616dbe.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=udb1baa48&margin=%5Bobject%20Object%5D&name=image.png&originHeight=526&originWidth=1398&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=32481&status=done&style=none&taskId=ud5ac341f-35b9-4d63-a71d-84b28ae6195&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630294880224-c90c9dba-8160-4882-a861-e81d78206812.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u45731a7a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=642&originWidth=686&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=34360&status=done&style=none&taskId=u95824653-0939-412f-90b2-7bb04198119&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630294880148-b2bb01d9-2e64-4eb2-98a1-1ce4cc9e2943.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u5e82d610&margin=%5Bobject%20Object%5D&name=image.png&originHeight=642&originWidth=1162&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=48401&status=done&style=none&taskId=u7b15b72c-077f-4cc5-aa51-35b1190aed7&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630304291937-e93b9c53-d62c-49ef-956c-e9b652bec6c3.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u218f4c16&margin=%5Bobject%20Object%5D&name=image.png&originHeight=289&originWidth=624&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=46679&status=done&style=none&taskId=u34bfc237-0683-441d-96ef-1e75e244626&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630304456196-15f8bc8e-69b4-42f8-9dd3-b8de01140700.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u4c4065f6&margin=%5Bobject%20Object%5D&name=image.png&originHeight=290&originWidth=624&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=115588&status=done&style=none&taskId=u4cf4ad66-f68e-4186-9b01-689f31834d3&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630305124219-98055709-7dd3-42f0-b013-a9fbdfdabcc3.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u55c5877d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=219&originWidth=400&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=40228&status=done&style=none&taskId=uff1ceb45-23f1-4c4c-bb5b-7d5c1fef675&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630305328199-f219c807-afa0-43eb-a38d-235cd1cab7a9.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u420a0dae&margin=%5Bobject%20Object%5D&name=image.png&originHeight=400&originWidth=308&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=37534&status=done&style=none&taskId=u74337022-d7eb-4499-80ce-25acefc0591&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630310902652-3d765e48-5336-456b-ba2e-d76666762190.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u35dad29e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=110&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=15741&status=done&style=none&taskId=u4aeb399e-62c3-47b5-a2df-7403e375312&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630310894281-23ca087d-40fd-4c31-b6cb-0a8bb37afb07.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=uc66c086f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=110&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=16661&status=done&style=none&taskId=uc0b9a8d7-5d68-4969-9181-254677f3fd4&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630305851661-8b5f30ea-e15d-4e27-9731-7bae014f5332.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ub2ab0451&margin=%5Bobject%20Object%5D&name=image.png&originHeight=393&originWidth=500&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=53400&status=done&style=none&taskId=u8ca6f449-afe9-41df-9203-fd9ed35cb2d&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630309064394-10cacbb6-04ef-49d7-bdd8-bfad43ec48c3.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u29aad16a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=984&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=359335&status=done&style=none&taskId=u9c34dde4-70ed-4410-999f-73093f338bd&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630309179897-6110c31c-637e-44fe-8fd3-ca723516456f.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ub20ba489&margin=%5Bobject%20Object%5D&name=image.png&originHeight=674&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=155520&status=done&style=none&taskId=u56a6f2b1-2e47-4a18-ab40-d29becf9afa&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630309265731-be3b9686-569d-40c5-819f-fde291865a55.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=Sj1fI&margin=%5Bobject%20Object%5D&name=image.png&originHeight=601&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=55305&status=done&style=none&taskId=uc22ea8bf-33a6-4071-be8d-a4a3c86f59a&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630309334488-30ebbc07-d6c1-435f-a733-f0a32d870e80.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=TW7sj&margin=%5Bobject%20Object%5D&name=image.png&originHeight=403&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=91673&status=done&style=none&taskId=u8fe12870-29d1-457f-995c-40626b78ef9&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630310549810-550f520d-3d7b-4eae-befb-8885a8be5b5d.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ua78bec85&margin=%5Bobject%20Object%5D&name=image.png&originHeight=603&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=119331&status=done&style=none&taskId=ua5fa50e2-2d8f-4108-9beb-74d177cd636&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630309465809-f7e74b91-fb99-4a14-8bf1-a19de4c46fb2.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ud18f5ca7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=745&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=171553&status=done&style=none&taskId=u1bbe33ac-8a5e-40a5-88c2-6fd8b771faf&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630311146170-8b21f1de-877b-45ea-aea5-e81ae2eef053.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u49cb6d0b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=318&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=104562&status=done&style=none&taskId=u0b887072-72ea-4c74-8acb-a4df1540415&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630311150220-e6c4edf7-dde7-438b-bc5c-c7ec5fc89f10.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u3ecf8261&margin=%5Bobject%20Object%5D&name=image.png&originHeight=286&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=109134&status=done&style=none&taskId=uf8b62f34-f71a-4b32-bd70-36d58016d01&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630311129504-00f54247-cd11-494b-9d54-eef29a7c7961.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u8d3555cf&margin=%5Bobject%20Object%5D&name=image.png&originHeight=270&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=101949&status=done&style=none&taskId=u58cb7208-c641-415a-a70b-60764fcdba9&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630313082573-8393bc9c-ea8b-4a85-b090-706d8eae8749.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=405&id=u54d75a3c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=405&originWidth=672&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=105100&status=done&style=none&taskId=u505fe992-363f-4063-a525-597a4cf88bd&title=&width=672">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/106384/1641960014677-21ffab35-a065-4e66-bbc4-53f7ff16251e.png#clientId=udba9285f-e51a-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u15c8a029&margin=%5Bobject%20Object%5D&name=image.png&originHeight=380&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=110713&status=done&style=none&taskId=uf6e9d28d-6c4e-4aa4-8f89-32653adb0d0&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630315213711-0a38be24-ba65-4a56-9741-4022c66b214f.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u20c1284f&margin=%5Bobject%20Object%5D&originHeight=486&originWidth=540&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u80ac06f6-3c25-4ed2-ae78-06734ccd5ae&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630293794681-2144b7ad-3be5-4044-9a60-48936c26ff93.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ua8743b4b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=241&originWidth=992&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=43821&status=done&style=none&taskId=ud5c2019b-ae92-4b0d-aeb9-02c282ebd05&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630293799028-18e8ec06-8628-42e4-95e8-29ce5a60fd50.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u34871593&margin=%5Bobject%20Object%5D&name=image.png&originHeight=292&originWidth=992&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=51417&status=done&style=none&taskId=u109afd44-9fe6-495b-b4d6-53d96fa4e16&title=">
+<meta property="article:published_time" content="2021-08-30T01:48:58.000Z">
+<meta property="article:modified_time" content="2022-02-14T11:41:05.197Z">
+<meta property="article:author" content="CatcherInSky">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630294117788-8320e9a5-642d-435f-b248-30034b8c3166.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u4e093d10&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1018&originWidth=1500&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=154611&status=done&style=none&taskId=u07f81b7b-484c-40fe-aeef-eb04b738ddf&title=">
+
+<link rel="canonical" href="http://catcherinsky.github.io/2021/08/30/%E6%B5%8F%E8%A7%88%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>浏览器 | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+  <meta name="referrer" content="same-origin">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Knowlegde Bases of CatcherInSky</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CatcherInSky的前端知识库</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://catcherinsky.github.io/2021/08/30/%E6%B5%8F%E8%A7%88%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content="CatcherInSky的前端知识库">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          浏览器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-30 09:48:58" itemprop="dateCreated datePublished" datetime="2021-08-30T09:48:58+08:00">2021-08-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-14 19:41:05" itemprop="dateModified" datetime="2022-02-14T19:41:05+08:00">2022-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="浏览器组成"><a href="#浏览器组成" class="headerlink" title="浏览器组成"></a>浏览器组成</h2><p>主流浏览器：Internet Explorer、Firefox、Safari、Chrome 浏览器和 Opera 浏览器的主要组件为：</p>
+<ul>
+<li><strong>用户界面</strong> - 除了浏览器主窗口显示的页面外，其他的部分，包括地址栏、前进/后退按钮、书签菜单等。</li>
+<li><strong>浏览器引擎</strong> - 在用户界面和渲染引擎之间传送指令。</li>
+<li><strong>渲染引擎</strong> - 负责显示请求的内容，负责解析 HTML 和 CSS，并将解析后的内容显示在屏幕上。Firefox-Gecko，Safari 和 Chrome-WebKit</li>
+<li><strong>网络</strong> - 用于网络调用，比如 HTTP 请求。其接口与平台无关，并为所有平台提供底层实现。</li>
+<li><strong>用户界面后端</strong> - 用于绘制基本的窗口小部件。其公开了与平台无关的通用接口，而在底层使用操作系统的用户界面方法。</li>
+<li><strong>JavaScript 解释器/JS 引擎</strong>。用于解析和执行 JavaScript 代码。</li>
+<li><strong>数据存储</strong>。这是持久层。浏览器需要在硬盘上保存各种数据，例如 Cookie。新的 HTML 规范 (HTML5) 定义了“网络数据库”，这是一个完整（但是轻便）的浏览器内数据库。</li>
+</ul>
+<p>​</p>
+<p>​</p>
+<h2 id="浏览器多进程架构"><a href="#浏览器多进程架构" class="headerlink" title="浏览器多进程架构"></a>浏览器多进程架构</h2><p><strong>优点</strong></p>
+<ul>
+<li>稳定流畅：当我们访问一个站点时，渲染进程会负责运行站点的代码，渲染站点的页面，同时响应用户的交互动作，当我们在 Chrome 中打开三个页签同时访问三个站点时，如果其中一个没有响应，我们可以关闭它然后使用其他的页签，这是因为 Chrome 为每个站点创建一个<strong>独立的渲染进程</strong>，专门处理当前站点的渲染工作。如果所有的页面运行在同一个进程中，当有一个页面没有响应时，所有的页面就都卡住了。<strong>避免一个页面崩溃导致其他页面无法浏览。</strong></li>
+<li>安全：借助操作系统对进程安全的控制，浏览器可以将页面放置在<strong>沙箱</strong>中，站点的代码可以运行在<strong>隔离</strong>的环境中（Site Isolation），<strong>保证核心进程的安全</strong>。</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>高资源占用：相同的功能占据每个进程的内存，造成浪费。为了节省内存，Chrome 限制了最大进程数，最大进程数取决于硬件的能力，同时当使用多个页签访问相同的站点时浏览器不会创建新的渲染进程。</li>
+<li>复杂体系架构：浏览器各模块之间耦合性高、扩展性差等问题，会导致现在的架构已经很难适应新的需求了</li>
+</ul>
+<p>​</p>
+<h3 id="浏览器进程（Browser-process）"><a href="#浏览器进程（Browser-process）" class="headerlink" title="浏览器进程（Browser process）"></a>浏览器进程（Browser process）</h3><p>浏览器进程负责管理 Chrome 应用本身，包括地址栏、书签、前进和后退按钮。同时也负责可不见的功能，比如网络请求、文件按访问等，也负责其他进程的调度。<br>浏览器进程负责处理除了渲染外的大部分工作，浏览器进程包括几个线程：</p>
+<ul>
+<li>UI 线程负责绘制工具栏中的按钮、地址栏等。</li>
+<li>网络线程负责从网络中获取数据。</li>
+<li>存储线程负责文件等功能。</li>
+</ul>
+<pre><code>当我们在地址栏中输入一个地址时，浏览器进程中的 UI 线程最先得知这个动作，并开始处理。
+</code></pre>
+<h3 id="渲染进程（Renderer-process）"><a href="#渲染进程（Renderer-process）" class="headerlink" title="渲染进程（Renderer process）"></a>渲染进程（Renderer process）</h3><p>渲染进程负责站点的渲染，是浏览器内核，主要作用是：页面渲染、JavaScript 代码执行、事件处理、web worker 的管理等。不同的渲染进程负责不同的标签页渲染工作，渲染进程间彼此独立。<br>渲染进程在渲染页面的过程中会通过浏览器进程获取站点资源，只有安全的资源才会被渲染进程接收到。<br>渲染进程中主线程负责除了图像生成外绝大多数工作，如何减少主线程上代码的运行是交互性能优化的关键。<br>渲染进程中的合成线程和栅格线程负责图像生成，利用分层技术可以优化图像生成的效率。</p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><h4 id="GUI-渲染线程-有且只有一个"><a href="#GUI-渲染线程-有且只有一个" class="headerlink" title="GUI 渲染线程(有且只有一个)"></a>GUI 渲染线程(有且只有一个)</h4><p>负责渲染浏览器界面，解析 HTML，CSS，构建 DOM 树和 RenderObject 树，布局和绘制等<br>当界面需要重绘（repain）时或者回流（reflow），该线程就会执行<br>​</p>
+<h4 id="JS-引擎线程"><a href="#JS-引擎线程" class="headerlink" title="JS 引擎线程"></a>JS 引擎线程</h4><p><strong>GUI 线程和 JS 引擎线程互斥</strong>！因为 js 会操作 dom，为了避免冲突，只会执行一个<br>JS 引擎线程也称为 JS 内核，负责处理 Javascript 脚本程序，解析 Javascript 脚本，运行代码；<br>JS 引擎一直等待着任务队列中任务的到来，然后加以处理，一个 Tab 页（renderer 进程）中无论什么时候都只有一个 JS 线程在运行 JS 程序；<br>​</p>
+<h4 id="事件触发线程"><a href="#事件触发线程" class="headerlink" title="事件触发线程"></a>事件触发线程</h4><p><strong>事件触发线程归属于浏览器</strong>，而不是属于 JS 引擎，JS 引擎处理的事务过多，需要浏览器另开线程来进行协助<br>JS 是采用事件驱动(event-driven)机制，来响应用户操作的，事件触发线程通过维护事件循环和事件队列等的方式，来响应和处理事件<br>当处理一些不能立即执行的函数或者其他的代码时，会将对应的任务在其可以触发的时机，<strong>添加到事件队列的末端</strong><br><strong>事件循环机制会在 JS 引擎线程空闲时，循环访问事件队列的头部，如果有函数，则会将该函数推到执行栈中并立即执行。</strong><br>​</p>
+<h4 id="定时器触发线程-多个"><a href="#定时器触发线程-多个" class="headerlink" title="定时器触发线程(多个)"></a>定时器触发线程(多个)</h4><p>即 setInterval 与 setTimeout 所在线程；<br>浏览器定时计数器并不是由 JS 引擎计数的，因为 JS 引擎是单线程的, 如果处于阻塞线程状态就会影响记计时的准确性；<br>因此使用单独线程来计时并触发定时器，计时完毕后，添加到事件队列中，等待 JS 引擎空闲后执行，所以定时器中的任务在设定的时间点不一定能够准时执行，定时器只是在指定时间点将任务添加到事件队列中；<br>注意：W3C 在 HTML 标准中规定，定时器的定时时间不能小于 4ms，如果是小于 4ms，则默认为 4ms。<br>​</p>
+<h4 id="异步-http-请求线程（多个）"><a href="#异步-http-请求线程（多个）" class="headerlink" title="异步 http 请求线程（多个）"></a>异步 http 请求线程（多个）</h4><p>XMLHttpRequest 连接后通过浏览器新开一个线程请求；<br>检测到状态变更时，如果设置有回调函数，异步线程就产生状态变更事件，将回调函数放入事件队列中，等待 JS 引擎空闲后执行；<br>​</p>
+<h3 id="浏览器引擎"><a href="#浏览器引擎" class="headerlink" title="浏览器引擎"></a>浏览器引擎</h3><table>
+<thead>
+<tr>
+<th><strong>浏览器</strong></th>
+<th><strong>浏览器引擎</strong></th>
+<th><strong>JS 解释器</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Chrome</td>
+<td>WebKit-&gt;Blink(2013)、</td>
+<td>V8</td>
+</tr>
+<tr>
+<td>Firefox</td>
+<td>Gecko</td>
+<td>SpiderMonkey</td>
+</tr>
+<tr>
+<td>Safari</td>
+<td>Webkit</td>
+<td>Nitro</td>
+</tr>
+<tr>
+<td>Edge</td>
+<td>EdgeHTML-&gt;Chromium(Blink)</td>
+<td>Chakra</td>
+</tr>
+<tr>
+<td>Opera</td>
+<td>Presto-&gt;Blink</td>
+<td>V8</td>
+</tr>
+<tr>
+<td>IE</td>
+<td>Trident</td>
+<td>Chakra</td>
+</tr>
+</tbody></table>
+<ul>
+<li>360 浏览器、猎豹浏览器内核：IE+Chrome 双内核；</li>
+<li>搜狗、遨游、QQ 浏览器内核：Trident（兼容模式）+Webkit（高速模式）；</li>
+<li>百度浏览器、世界之窗内核：IE 内核；</li>
+<li>2345 浏览器内核：好像以前是 IE 内核，现在也是 IE+Chrome 双内核了；</li>
+<li>UC 浏览器内核：这个众口不一，UC 说是他们自己研发的 U3 内核，但好像还是基于 Webkit 和 Trident，还有说是基于火狐内核。</li>
+</ul>
+<p>​</p>
+<h3 id="插件进程（Plugin-process）"><a href="#插件进程（Plugin-process）" class="headerlink" title="插件进程（Plugin process）"></a>插件进程（Plugin process）</h3><p>插件进程负责为浏览器提供各种额外的插件功能，例如 flash。主要是负责插件的运行，因插件易崩溃，所以需要通过插件进程来隔离，以保证插件进程崩溃不会对浏览器和页面造成影响</p>
+<h3 id="GPU-进程（GPU-process）"><a href="#GPU-进程（GPU-process）" class="headerlink" title="GPU 进程（GPU process）"></a>GPU 进程（GPU process）</h3><p>GPU 进程负责提供成像的功能。其实，Chrome 刚开始发布的时候是没有 GPU 进程的。而 GPU 的使用初衷是为了实现 3D CSS 的效果，只是随后网页、Chrome 的 UI 界面都选择采用 GPU 来绘制，这使得 GPU 成为浏览器普遍的需求。最后，Chrome 在其多进程架构上也引入了 GPU 进程。</p>
+<h3 id="网络进程（NetWork-process）"><a href="#网络进程（NetWork-process）" class="headerlink" title="网络进程（NetWork process）"></a>网络进程（NetWork process）</h3><p>主要负责页面的网络资源加载，之前是作为一个模块运行在浏览器进程里面的，直至最近才独立出来，成为一个单独的进程。<br>​</p>
+<p>​</p>
+<p>​</p>
+<p>​</p>
+<h2 id="JavaScript-引擎"><a href="#JavaScript-引擎" class="headerlink" title="JavaScript 引擎"></a>JavaScript 引擎</h2><p>V8 是 Google 打造的开源的，高性能的 JavaScript 和 WebAssembly 引擎，使用 C++语言实现。V8 引擎被应用在 Chrome、Nodejs 和其他应用中。V8 引擎可以独立运行，也可以运行在任何的 C++程序中。<br>一个 V8 的实例被称作 Isolate，每一个 isolate 都有<strong>独立 GC 的堆栈空间</strong>。这就意味着一个 Isolate 中的 JavaScript 对象不能直接访问另一个 Isolate 中的对象。<br>在 Chrome 中，每个渲染进程都有一个 V8 Isolate，所有被同一个渲染进程处理的站点的 JavaScript 代码在同一个 Isolate 中运行。但对于 Web worker，每一个 worker 则拥有自己的 Isolate。<br>在 Isolate 中，<strong>存在一个或多个 JavaScript 上下文环境</strong>（JavaScript content）。Chrome 为每个 iframe 创建一个 JavaScript 环境。此外，每个 Chrome extension 对于一个 iframe 都有自己的 JavaScript 环境。</p>
+<h3 id="执行流水线"><a href="#执行流水线" class="headerlink" title="执行流水线"></a>执行流水线</h3><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630294117788-8320e9a5-642d-435f-b248-30034b8c3166.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u4e093d10&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1018&originWidth=1500&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=154611&status=done&style=none&taskId=u07f81b7b-484c-40fe-aeef-eb04b738ddf&title=" alt="image.png"></p>
+<ol>
+<li>要运行的 JavaScript 脚本会从网络或缓存中被<strong>加载</strong>。</li>
+<li>通过对 JavaScript 脚本文本的分析可以生成用于描述源代码结构化的数据，<strong>抽象语法树（AST）</strong>。</li>
+<li>接下来 Ignition 解释器会将 AST 转化成生成体积更小的<strong>字节码</strong>，字节码中的每行指令代表着对寄存器的操作，当字节码生后以后 AST 将会被废弃以节省空间，后续的执行和优化都基于字节码。</li>
+<li>在解释器<strong>执行</strong>字节码时，Object Shapes 会试图将代码中对象的类型<strong>缓存</strong>下来生成 Type Feedback，当访问这些对象时会尝试从缓存中获取，如果找不到再遍历原型链查找并更新缓存。</li>
+<li>TurboFan 是 V8 中的代码优化编译器，以 Ignition 生成的字节码作为数据源。它会评估函数是否需要被进一步<strong>优化成机器码</strong>以提高性能，需要被优化的函数被编译成 Optimized Code。</li>
+<li>但当编译后的函数被发现函数中变量的数据类型与之前缓存的类型不同时，则需要放弃优化的代码回到字节码重新解释执行。</li>
+</ol>
+<p>​</p>
+<h3 id="内存管理-垃圾回收"><a href="#内存管理-垃圾回收" class="headerlink" title="内存管理/垃圾回收"></a>内存管理/垃圾回收</h3><p>V8 的垃圾回收器被称作 Orinoco。在一次垃圾回收过程中，Orinoco 通过对象的引用访问程序中的所有对象，那些回收器无法访问的对象所占用的内存会被回收掉。<br>Orinoco 将存放对象的堆空间分成新、老两个生代。新创建的对象被放在新生代中，存活时间较长的对象则被存放在老生代中。新生代的存储空间最大可以达到 32M，而老生代可以达到 2G。<br>除了对象的存储空间，还需要为用于执行的代码分配独立的内存空间。<br>V8 有着不同的垃圾回收策略：</p>
+<ul>
+<li>Minor GC（Scavenge）用于新生代</li>
+<li>Major GC（Full Mark-Compact）用于整个堆空间</li>
+</ul>
+<h4 id=""><a href="#" class="headerlink" title=""></a><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630294751637-f86dde3f-1d63-4fba-8f20-c2f9122911c8.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=hMqNr&margin=%5Bobject%20Object%5D&name=image.png&originHeight=737&originWidth=1500&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=53372&status=done&style=none&taskId=uc1209169-ae9c-48d5-88c5-06fdb653fe0&title=" alt="image.png"></h4><h4 id="Minor-GC"><a href="#Minor-GC" class="headerlink" title="Minor GC"></a>Minor GC</h4><p>新生代中的内存空间被分成两个同样大的空间，一个用于放新创建的对象，另一个则是空的。<br>当 Minor GC 触发时会将对象区中可以被访问的对象复制到空闲区中，然后形成新的对象区和空闲区。<img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630294792434-60b77353-8e91-4c81-b793-839697616dbe.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=udb1baa48&margin=%5Bobject%20Object%5D&name=image.png&originHeight=526&originWidth=1398&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=32481&status=done&style=none&taskId=ud5ac341f-35b9-4d63-a71d-84b28ae6195&title=" alt="image.png"><br>如果一个对象经历了两次 Minor GC 后依然存活则会被复制到老生代中。</p>
+<h4 id="Major-GC"><a href="#Major-GC" class="headerlink" title="Major GC"></a>Major GC</h4><p><strong>标记（Marking）</strong><br>这个阶段 V8 会尝试访问所有的对象以标记那些<strong>可访问</strong>和<strong>不可访问</strong>的对象。<br><strong>压实（Compaction）</strong><br>压实是碎片整理的过程，由于复制对象是一种高成本的操作，所以 V8 只会压实那些高度碎片化的页（Page）<img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630294880224-c90c9dba-8160-4882-a861-e81d78206812.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u45731a7a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=642&originWidth=686&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=34360&status=done&style=none&taskId=u95824653-0939-412f-90b2-7bb04198119&title=" alt="image.png"><br>在压实过程中，会将原本已经碎片化的页中的对象复制到新的页中。<br><strong>清除（Sweep）</strong><br>清除这个阶段会将页中无法访问的对象内存清空，同时在 Free List 中更新这些空白的区域。这个过程与压实过程基本上是同时开始的，对于那些不需要压实的页的不可访问对象的内存空间会直接清除掉。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630294880148-b2bb01d9-2e64-4eb2-98a1-1ce4cc9e2943.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u5e82d610&margin=%5Bobject%20Object%5D&name=image.png&originHeight=642&originWidth=1162&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=48401&status=done&style=none&taskId=u7b15b72c-077f-4cc5-aa51-35b1190aed7&title=" alt="image.png"><br>如果 GC 工作完全在主线程上进行，则可能会对用户体验产生影响。<br>通常让垃圾回收兼顾低延迟和高吞吐是困难的，为了让垃圾回收过程不会阻塞主线程上其他的工作，V8 将整个垃圾回收过程以增量的方式拆分成多个阶段，这些不同阶段的回收过程可以穿插在主线程上其他的工作间隙处。与此同时，用多线程并行的方式让垃圾回收工作在非主线程上进行。</p>
+<h2 id="渲染引擎"><a href="#渲染引擎" class="headerlink" title="渲染引擎"></a>渲染引擎</h2><h3 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h3><ol>
+<li>解析 HTML 文本并构建 DOM 树</li>
+<li>解析 CSS 文件并构建 StyleSheet 对象</li>
+<li>样式计算并构建布局树</li>
+<li>进行绘制</li>
+</ol>
+<h4 id="Webkit"><a href="#Webkit" class="headerlink" title="Webkit"></a>Webkit</h4><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630304291937-e93b9c53-d62c-49ef-956c-e9b652bec6c3.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u218f4c16&margin=%5Bobject%20Object%5D&name=image.png&originHeight=289&originWidth=624&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=46679&status=done&style=none&taskId=u34bfc237-0683-441d-96ef-1e75e244626&title=" alt="image.png"></p>
+<h4 id="Gecko"><a href="#Gecko" class="headerlink" title="Gecko"></a>Gecko</h4><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630304456196-15f8bc8e-69b4-42f8-9dd3-b8de01140700.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u4c4065f6&margin=%5Bobject%20Object%5D&name=image.png&originHeight=290&originWidth=624&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=115588&status=done&style=none&taskId=u4cf4ad66-f68e-4186-9b01-689f31834d3&title=" alt="image.png"></p>
+<h3 id="解析-HTML-并构建-DOM-树"><a href="#解析-HTML-并构建-DOM-树" class="headerlink" title="解析 HTML 并构建 DOM 树"></a>解析 HTML 并构建 DOM 树</h3><p>通过词法分析和语法分析，将 HTML 文本输出成有 ODM 元素和属性节点构成的树结构。根节点是 document。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630305124219-98055709-7dd3-42f0-b013-a9fbdfdabcc3.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u55c5877d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=219&originWidth=400&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=40228&status=done&style=none&taskId=uff1ceb45-23f1-4c4c-bb5b-7d5c1fef675&title=" alt="image.png"></p>
+<p>HTML 无法用常规的自上而下或自下而上的解析器进行解析。原因在于：</p>
+<ol>
+<li> 语言的宽容本质。</li>
+<li> 浏览器历来对一些常见的无效 HTML 用法采取包容态度。</li>
+<li> 解析过程需要不断地反复。源内容在解析过程中通常不会改变，但是在 HTML 中，脚本标记如果包含 document.write，就会添加额外的标记，这样解析过程实际上就更改了输入内容。</li>
+</ol>
+<p>所以浏览器自定义解析器来解析 HTML，解析算法由两个阶段组成：标记化和树构建。</p>
+<ol>
+<li> 标记化是词法分析过程，将输入内容解析成多个标记。HTML 标记包括起始标记、结束标记、属性名称和属性值。</li>
+<li> 标记生成器识别标记，传递给树构造器，然后接受下一个字符以识别下一个标记；如此反复直到输入的结束。</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630305328199-f219c807-afa0-43eb-a38d-235cd1cab7a9.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u420a0dae&margin=%5Bobject%20Object%5D&name=image.png&originHeight=400&originWidth=308&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=37534&status=done&style=none&taskId=u74337022-d7eb-4499-80ce-25acefc0591&title=" alt="image.png"></p>
+<h4 id="脚本延迟解析"><a href="#脚本延迟解析" class="headerlink" title="脚本延迟解析"></a>脚本延迟解析</h4><p>DOM 解析器遇到 <script> 标记时立即解析并执行脚本。文档的解析将停止，直到脚本执行完毕。如果脚本是外部的，那么解析过程会停止，直到从网络同步抓取资源完成后再继续。<br><strong>defer</strong><br>defer 属性的 script 的下载不会阻塞 html 解析，而且其会在解析完成后才执行<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630310902652-3d765e48-5336-456b-ba2e-d76666762190.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u35dad29e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=110&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=15741&status=done&style=none&taskId=u4aeb399e-62c3-47b5-a2df-7403e375312&title=" alt="image.png"><br><strong>async</strong><br>async 属性则是下载不会阻塞 html 解析，但是执行还是会阻塞。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630310894281-23ca087d-40fd-4c31-b6cb-0a8bb37afb07.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=uc66c086f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=110&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=16661&status=done&style=none&taskId=uc0b9a8d7-5d68-4969-9181-254677f3fd4&title=" alt="image.png"></p>
+<h4 id="加载网络资源"><a href="#加载网络资源" class="headerlink" title="加载网络资源"></a>加载网络资源</h4><p>网页中常常包含诸如图片，CSS，JS 等额外的资源，这些资源需要从网络上或者 cache 中获取。主进程可以在构建 DOM 的过程中会逐一请求它们，为了加速 preload scanner （预加载）会同时运行，如果在 html 中存在 <img> <link> 等标签，preload scanner 会把这些请求传递给 Browser process 中的 network thread 进行相关资源的下载。<br>​</p>
+<h3 id="解析-CSS-并构建-StyleSheet-对象"><a href="#解析-CSS-并构建-StyleSheet-对象" class="headerlink" title="解析 CSS 并构建 StyleSheet 对象"></a>解析 CSS 并构建 StyleSheet 对象</h3><p>根据 CSS 规则，CSS 解析器将 CSS 文件解析成 StyleSheet 对象，且每个对象都包含 CSS 规则。CSS 规则对象则包含选择器和声明对象，以及其他与 CSS 语法对应的对象。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630305851661-8b5f30ea-e15d-4e27-9731-7bae014f5332.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ub2ab0451&margin=%5Bobject%20Object%5D&name=image.png&originHeight=393&originWidth=500&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=53400&status=done&style=none&taskId=u8ca6f449-afe9-41df-9203-fd9ed35cb2d&title=" alt="image.png"></p>
+<h4 id="处理脚本和样式表的顺序"><a href="#处理脚本和样式表的顺序" class="headerlink" title="处理脚本和样式表的顺序"></a>处理脚本和样式表的顺序</h4><p>样式表有着不同的表现。理论上，应用样式表不会更改 DOM 树，因此似乎没有必要等待样式表并停止文档解析。但这涉及到一个问题，假如脚本在文档解析阶段查询样式信息。（Window.getComputedStyle()、Element.getBoundingClientRect()）如果当时还没有加载和解析样式，脚本就会获得错误的答案。Firefox 在样式表加载和解析的过程中，会禁止所有脚本。而对于 WebKit 而言，仅当脚本尝试访问的样式属性可能受尚未加载的样式表影响时，它才会禁止该脚本。</p>
+<h3 id="样式计算并构建布局树"><a href="#样式计算并构建布局树" class="headerlink" title="样式计算并构建布局树"></a>样式计算并构建布局树</h3><p>渲染引擎利用 DOM 树，以插入 DOM 节点的方式构建布局树。而布局树节点的视觉属性是通过计算每个节点的样式属性（内联样式、CSS 文件等）构建规则树来完成。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630309064394-10cacbb6-04ef-49d7-bdd8-bfad43ec48c3.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u29aad16a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=984&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=359335&status=done&style=none&taskId=u9c34dde4-70ed-4410-999f-73093f338bd&title=" alt="image.png"><br>渲染节点和 DOM 元素是相对应的，但并非一一对应，因为不可见的元素不会插入布局树中，如 head 元素和 display: none;的元素（visibility: hidden 会显示）。另外一些复杂的 DOM 元素对应多个渲染节点，如 select 对应显示区域、下拉列表、按钮。<br>​</p>
+<h4 id="共享样式上下文"><a href="#共享样式上下文" class="headerlink" title="共享样式上下文"></a>共享样式上下文</h4><p>在计算某个特定元素的样式上下文时，我们首先<strong>计算规则树中的对应路径</strong>，或者使用现有的路径。然后我们沿此路径应用规则，在新的样式上下文中填充结构。我们从路径中拥有最高优先级的底层节点（通常也是最特殊的选择器）开始，并向上遍历规则树，直到结构填充完毕。如果在那个规则节点没有定义所需的结构规则，则沿着路径向上，直到找到该结构规则。<br>　如果最终没有找到该结构的任何规则定义，那么如果这个结构是继承型的，则找到其在内容树中的 parent 的结构，这种情况下，我们也成功的共享了结构；如果这个结构是 reset 型的，则使用默认的值。如果特定的节点添加了值，那么需要做一些额外的计算以将其转换为实际值，然后在树上的节点缓存该值，使它的 children 可以使用。这是最好的优化方法，因为整个结构都能共享，可以减少计算量并节约内存。<br>​</p>
+<h4 id="布局计算"><a href="#布局计算" class="headerlink" title="布局计算"></a>布局计算</h4><p>布局树节点创建完成并加入布局树时，并不包括位置和大小信息，计算这些坐标位置的过程称为布局或重排。<br>HTML 才有基于流的布局模型，大多数情况下一次遍历就能计算出几何信息。由于流中后面元素通常不影响前面元素的几何属性，布局时可以从 HTML 元素开始，从左到右、从上到下递归遍历文档。<br>布局流程通常如下：</p>
+<ol>
+<li> 父元素确定自己的宽度</li>
+<li>父元素依次处理子元素<ol>
+<li>设置子元素的 x,y 坐标</li>
+<li>递归布局子元素，并确定子元素高度</li>
+</ol>
+</li>
+<li> 父元素根据子元素高度和边距设置自己高度，提供给自己的父元素</li>
+<li> 完成布局</li>
+</ol>
+<p>​</p>
+<h3 id="绘制"><a href="#绘制" class="headerlink" title="绘制"></a>绘制</h3><p>遍历布局树节点并调用 paint 方法，将内容渲染在屏幕上。绘制工作是使用用户界面基础组件完成的。</p>
+<h4 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h4><p>完成布局树后页面中还有很多复杂的效果，如一些复杂的 3D 变换、页面滚动，或者使用 z-indexing 做 z 轴排序等，为了更加方便地实现这些效果，渲染引擎还需要为特定的节点生成专用的图层，并生成一棵对应的图层树（LayerTree）<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630309179897-6110c31c-637e-44fe-8fd3-ca723516456f.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ub20ba489&margin=%5Bobject%20Object%5D&name=image.png&originHeight=674&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=155520&status=done&style=none&taskId=u56a6f2b1-2e47-4a18-ab40-d29becf9afa&title=" alt="image.png"><br>以下条件会单独提升为一个图层：</p>
+<ol>
+<li>拥有层叠上下文属性的元素会被提升为单独的一层（明确定位属性的元素、定义透明属性的元素、使用 CSS 滤镜的元素等，都拥有层叠上下文属性）</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630309265731-be3b9686-569d-40c5-819f-fde291865a55.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=Sj1fI&margin=%5Bobject%20Object%5D&name=image.png&originHeight=601&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=55305&status=done&style=none&taskId=uc22ea8bf-33a6-4071-be8d-a4a3c86f59a&title=" alt="image.png"></p>
+<ol start="2">
+<li>需要剪裁的地方（出现这种时，渲染引擎会为文字部分单独创建一个层，如果出现滚动条，滚动条也会被提升为单独的层）</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630309334488-30ebbc07-d6c1-435f-a733-f0a32d870e80.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=TW7sj&margin=%5Bobject%20Object%5D&name=image.png&originHeight=403&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=91673&status=done&style=none&taskId=u8fe12870-29d1-457f-995c-40626b78ef9&title=" alt="image.png"><br>渲染引擎在绘制图层是，会把一个图层的绘制拆分成很多小的绘制指令，并按顺序组成绘制列表<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630310549810-550f520d-3d7b-4eae-befb-8885a8be5b5d.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ua78bec85&margin=%5Bobject%20Object%5D&name=image.png&originHeight=603&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=119331&status=done&style=none&taskId=ua5fa50e2-2d8f-4108-9beb-74d177cd636&title=" alt="image.png"></p>
+<h4 id="栅格化（raster"><a href="#栅格化（raster" class="headerlink" title="栅格化（raster)"></a>栅格化（raster)</h4><p>得到绘制列表后，实际进行绘制的是渲染引擎中的合成线程。合成线程会把图层划分为稍大于 viewport 的图块，栅格化生成优先显示的位图。通常，栅格化过程都会使用 GPU 来加速生成，使用 GPU 生成位图的过程叫快速栅格化，或者 GPU 栅格化，生成的位图被保存在 GPU 内存中。</p>
+<h4 id="合成和显示"><a href="#合成和显示" class="headerlink" title="合成和显示"></a>合成和显示</h4><p>一旦所有图块都被光栅化，合成线程就会生成一个绘制图块的命令——“DrawQuad”，然后将该命令提交给浏览器进程。<br>浏览器进程里面有一个叫 viz 的组件，用来接收合成线程发过来的 DrawQuad 命令，然后根据 DrawQuad 命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>从 HTML 到 DOM、样式计算、布局、图层、绘制、光栅化、合成和显示<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630309465809-f7e74b91-fb99-4a14-8bf1-a19de4c46fb2.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ud18f5ca7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=745&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=171553&status=done&style=none&taskId=u1bbe33ac-8a5e-40a5-88c2-6fd8b771faf&title=" alt="image.png"></p>
+<h3 id="重排-重绘-合成"><a href="#重排-重绘-合成" class="headerlink" title="重排/重绘/合成"></a>重排/重绘/合成</h3><h4 id="重排"><a href="#重排" class="headerlink" title="重排"></a>重排</h4><p>如果你通过 JavaScript 或者 CSS 修改元素的几何位置属性，例如改变元素的宽度、高度等，那么浏览器会触发重新布局，解析之后的一系列子阶段，这个过程就叫重排。无疑，重排需要更新完整的渲染流水线，所以开销也是最大的<img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630311146170-8b21f1de-877b-45ea-aea5-e81ae2eef053.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u49cb6d0b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=318&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=104562&status=done&style=none&taskId=u0b887072-72ea-4c74-8acb-a4df1540415&title=" alt="image.png"></p>
+<h4 id="重绘"><a href="#重绘" class="headerlink" title="重绘"></a>重绘</h4><p>通过 JavaScript 更改某些元素的背景颜色，没有引发几何位置变化，会跳过布局阶段和分层进行绘制，效率要更高一点<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630311150220-e6c4edf7-dde7-438b-bc5c-c7ec5fc89f10.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u3ecf8261&margin=%5Bobject%20Object%5D&name=image.png&originHeight=286&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=109134&status=done&style=none&taskId=uf8b62f34-f71a-4b32-bd70-36d58016d01&title=" alt="image.png"></p>
+<h4 id="合成"><a href="#合成" class="headerlink" title="合成"></a>合成</h4><p>使用了 CSS 的 transform 来实现动画效果，这可以避开重排和重绘阶段，直接在非主线程上执行合成动画操作。这样的效率是最高的，因为是在非主线程上合成，并没有占用主线程的资源，另外也避开了布局和绘制两个子阶段，所以相对于重绘和重排，合成能大大提升绘制效率<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630311129504-00f54247-cd11-494b-9d54-eef29a7c7961.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u8d3555cf&margin=%5Bobject%20Object%5D&name=image.png&originHeight=270&originWidth=1142&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=101949&status=done&style=none&taskId=u58cb7208-c641-415a-a70b-60764fcdba9&title=" alt="image.png"></p>
+<h2 id="消息队列-事件循环"><a href="#消息队列-事件循环" class="headerlink" title="消息队列/事件循环"></a>消息队列/事件循环</h2><p>​</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630313082573-8393bc9c-ea8b-4a85-b090-706d8eae8749.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=405&id=u54d75a3c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=405&originWidth=672&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=105100&status=done&style=none&taskId=u505fe992-363f-4063-a525-597a4cf88bd&title=&width=672" alt="image.png"><br>添加一个消息队列；<br>IO 线程中产生的新任务添加进消息队列尾部；<br>渲染主线程会循环地从消息队列头部中读取任务，执行任务。<br>​</p>
+<h3 id="宏微任务"><a href="#宏微任务" class="headerlink" title="宏微任务"></a>宏微任务</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/106384/1641960014677-21ffab35-a065-4e66-bbc4-53f7ff16251e.png#clientId=udba9285f-e51a-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u15c8a029&margin=%5Bobject%20Object%5D&name=image.png&originHeight=380&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=110713&status=done&style=none&taskId=uf6e9d28d-6c4e-4aa4-8f89-32653adb0d0&title=" alt="image.png"><br>通常我们把消息队列中的任务称为宏任务，每个宏任务中都包含了一个微任务队列，等宏任务中的任务完成之后，这时候，渲染引擎并不执行下一个宏任务，而是执行当前宏任务的微任务队列中的所有任务。</p>
+<ul>
+<li>微任务和宏任务是绑定的，每个宏任务在执行时，会创建自己的微任务队列。</li>
+<li>微任务的执行时长会影响到当前宏任务的时长。</li>
+<li>在一个宏任务中，分别创建一个用于回调的宏任务和微任务，无论什么情况下，微任务都早于回调宏任务执行（setTimeout Promise.then()）</li>
+</ul>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><ul>
+<li>宏任务：页面的渲染事件、各种 IO 的完成事件、执行 JavaScript 脚本的事件、用户交互的事件、setTimeout 的回调函数</li>
+<li>微任务：MutationObserver、Promise</li>
+</ul>
+<p>​</p>
+<h3 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h3><p>渲染进程中所有运行在主线程上的任务都需要先添加到消息队列，然后事件循环系统再按照顺序执行消息队列中的任务。<br>所以说要执行一段异步任务，需要先将任务添加到消息队列中。不过通过定时器设置回调函数有点特别，它们需要在指定的时间间隔内被调用，但消息队列中的任务是按照顺序执行的，所以为了保证回调函数能在指定时间内执行，你不能将定时器的回调函数直接添加到消息队列中。<br>在 Chrome 中除了正常使用的消息队列之外，还有另外一个消息队列，这个队列中维护了需要延迟执行的任务列表，包括了定时器和 Chromium 内部一些需要延迟执行的任务。所以当通过 JavaScript 创建一个定时器时，渲染进程会将该定时器的回调任务添加到延迟队列中<br>当通过 JavaScript 调用 setTimeout 设置回调函数的时候，渲染进程将会创建一个回调任务，包含了回调函数、当前发起时间、延迟执行时间。创建好回调任务之后，再将该任务添加到延迟执行队列中。这时已经完成一个宏任务。<br>每个宏任务处理完之后，其所属微任务队列执行之前，会调用专门函数根据发起时间和延迟时间计算出到期的任务，并依次执行。所以如果当前任务执行时间过久，会影延迟到期定时器任务的执行。<br>​</p>
+<p>​</p>
+<h3 id="同步回调和异步回调"><a href="#同步回调和异步回调" class="headerlink" title="同步回调和异步回调"></a>同步回调和异步回调</h3><p>同步回调就是在当前主函数的上下文中执行回调函数<br>​</p>
+<p>异步回调一般有两种方式：</p>
+<ol>
+<li> 把异步回调当做一个宏任务，添加到消息队列尾部</li>
+</ol>
+<p>new XMHttpRequest().onreadystatechange()</p>
+<ol start="2">
+<li> 把异步函数添加到微任务队列中，就可以在当前任务末尾执行微回调</li>
+</ol>
+<p>Promise.then()?<br>​</p>
+<h2 id="事件模型"><a href="#事件模型" class="headerlink" title="事件模型"></a>事件模型</h2><p>​</p>
+<p>当用户与页面发生交互时，浏览器进程首先接收到事件，然而，浏览器进程只关心事件发生时是在哪个页签中，所以<strong>浏览器进程</strong>会将事件类型和位置信息等发送给负责当前页签的<strong>渲染进程</strong>的<strong>合成线程</strong>，再根据事件监听的区域决定是否要传递给渲染进程的<strong>主线程</strong>处理。当渲染线程将事件发送给主线程后，第一件事就是找到事件触发的目标。通过在渲染过程中生成的绘制信息，可以根据坐标找到目标元素并且触发事件监听器。<br>​</p>
+<h3 id="事件流"><a href="#事件流" class="headerlink" title="事件流"></a>事件流</h3><pre><code>DOM结构是一个树型结构，当一个HTML元素产生一个事件时，该事件会在元素结点与根结点之间的路径传播，路径所经过的结点都会收到该事件，这个传播过程可称为DOM事件流。IE最开始实现实现事件流的方式：冒泡事件(event bubbling)，Netscape提出了另外一种事件流方式：事件捕获(event capturing)。W3C制定的&quot;DOM2级事件addEventListener&quot;，&quot;DOM2级事件&quot;把事件流分为三个阶段：捕获阶段、目标阶段、冒泡阶段：
+</code></pre>
+<ol>
+<li>事件捕获阶段。即由最顶层元素，逐次进入 dom 内部，最后到达目标元素，依次执行绑定在其上的事件。</li>
+<li>处于目标阶段。检测机制到达目标元素，按事件注册顺序执行绑定在目标元素上的事件。</li>
+<li>事件冒泡阶段。从目标元素出发，向外层元素冒泡，最后到达顶层（window 或 document），依次执行绑定再其上的事件。（addEventListener 默认）</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630315213711-0a38be24-ba65-4a56-9741-4022c66b214f.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u20c1284f&margin=%5Bobject%20Object%5D&originHeight=486&originWidth=540&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u80ac06f6-3c25-4ed2-ae78-06734ccd5ae&title="></p>
+<h3 id="事件代理-委托"><a href="#事件代理-委托" class="headerlink" title="事件代理/委托"></a>事件代理/委托</h3><p>给祖先元素绑定事件，操作后代元素时，会利用事件流的原理触发祖先元素的事件，并根据 target 属性进行具体元素的区分。 事件代理是基于<strong>事件冒泡</strong>。避免给过多的子元素添加同一事件，影响性能。后期新添加的子元素也能触发事件。<br>并但不是说把事件委托给的元素越靠近顶层就越好。事件冒泡的过程也需要耗时，越靠近顶层，事件的”事件传播链”越长，也就越耗时。如果 DOM 嵌套结构很深，事件冒泡通过大量祖先元素会导致性能损失。<br>​</p>
+<h3 id="减少发送给主线程的事件数量"><a href="#减少发送给主线程的事件数量" class="headerlink" title="减少发送给主线程的事件数量"></a>减少发送给主线程的事件数量</h3><p>为了保证动画的顺畅，需要显示器在每秒刷新 60 次。对于典型的触摸事件由合成线程提交给主线程的事件频率可以达到每秒 60-120 次，对于典型的鼠标事件每秒会发送 100 次。事件发送的频率通常比屏幕刷新频率要高。<br>如果类似 touchmove 这样的事件每秒向主线程发送 120 次可能会造成主线程执行时间过长而影响性能。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630293794681-2144b7ad-3be5-4044-9a60-48936c26ff93.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ua8743b4b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=241&originWidth=992&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=43821&status=done&style=none&taskId=ud5c2019b-ae92-4b0d-aeb9-02c282ebd05&title=" alt="image.png"><br>为了减少发送给主线程的事件数量，Chrome 合并了连续的事件。类似 wheel，mousewheel，mousemove，pointermove，touchmove 这样的事件会被延迟到下一次 requestAnimationFrame 前触发.<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630293799028-18e8ec06-8628-42e4-95e8-29ce5a60fd50.png#clientId=u113a7264-6512-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u34871593&margin=%5Bobject%20Object%5D&name=image.png&originHeight=292&originWidth=992&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=51417&status=done&style=none&taskId=u109afd44-9fe6-495b-b4d6-53d96fa4e16&title=" alt="image.png"><br>而任何的离散事件，类似 keydown, keyup, mouseup, mousedown, touchstart 和 touchend 都会立即被发送给主线程处理。</p>
+<h3 id="相关方法"><a href="#相关方法" class="headerlink" title="相关方法"></a>相关方法</h3><h4 id="EventTarget-addEventListener"><a href="#EventTarget-addEventListener" class="headerlink" title="EventTarget.addEventListener()"></a>EventTarget.addEventListener()</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">target.<span class="title function_">addEventListener</span>(</span><br><span class="line">  type,</span><br><span class="line">  listener,</span><br><span class="line">  (options = &#123; <span class="attr">capture</span>: <span class="literal">false</span>, <span class="attr">once</span>: <span class="literal">false</span>, <span class="attr">passive</span>: <span class="literal">false</span> &#125;)</span><br><span class="line">);</span><br><span class="line">target.<span class="title function_">addEventListener</span>(type, listener, (useCapture = <span class="literal">false</span>));</span><br></pre></td></tr></table></figure>
+
+<p>addEventListener() 是 W3C DOM 规范中提供的注册事件监听器的方法。<br><strong>优点</strong></p>
+<ul>
+<li>它允许给一个事件注册多个监听器。 特别是在使用 AJAX 库，JavaScript 模块，或其他需要第三方库/插件的代码。</li>
+<li>它提供了一种更精细的手段控制 listener 的触发阶段。（即可以选择捕获或者冒泡）。</li>
+<li>它对任何 DOM 元素都是有效的，而不仅仅只对 HTML 元素有效。</li>
+</ul>
+<p><strong>passive</strong><br>设置为 true 时，表示 listener 永远不会调用 preventDefault()，可以有效处理默认行为阻塞主线程的行为，提升移动端等场景下性能。<br>​</p>
+<h4 id="new-Event"><a href="#new-Event" class="headerlink" title="new Event()"></a>new Event()</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自定义事件</span></span><br><span class="line"><span class="keyword">let</span> event = <span class="keyword">new</span> <span class="title class_">Event</span>(</span><br><span class="line">  typeArg,</span><br><span class="line">  (eventInit = &#123; <span class="attr">bubbles</span>: <span class="literal">false</span>, <span class="attr">cancelable</span>: <span class="literal">false</span>, <span class="attr">composed</span>: <span class="literal">false</span> &#125;)</span><br><span class="line">);</span><br><span class="line"><span class="comment">// 监听事件</span></span><br><span class="line"><span class="title class_">EventTarget</span>.<span class="title function_">addEventListener</span>(typeArg, <span class="function">() =&gt;</span> &#123;&#125;, <span class="literal">false</span>);</span><br><span class="line"><span class="comment">// 触发事件</span></span><br><span class="line"><span class="title class_">EventTarget</span>.<span class="title function_">dispatchEvent</span>(event);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>bubbles 表示该事件是否冒泡。</li>
+<li>cancelable 表示该事件能否被取消。</li>
+<li>composed 指示事件是否会在影子 DOM 根节点之外触发侦听器。</li>
+</ul>
+<p>用于自定义事件和触发事件<br>​</p>
+<h4 id="MutationObserver"><a href="#MutationObserver" class="headerlink" title="MutationObserver()"></a>MutationObserver()</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建观察器实例</span></span><br><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">MutationObserver</span>(</span><br><span class="line">  (callback = <span class="function">(<span class="params">mutationsList, observer</span>) =&gt;</span> &#123;&#125;)</span><br><span class="line">);</span><br><span class="line"><span class="comment">// 以一定配置观察目标节点</span></span><br><span class="line">observer.<span class="title function_">observe</span>(targetNode, &#123;</span><br><span class="line">  <span class="attr">childList</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">subtree</span>: tree,</span><br><span class="line">  <span class="attr">attributes</span>: <span class="literal">false</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 停止观察</span></span><br><span class="line">observer.<span class="title function_">disconnet</span>();</span><br></pre></td></tr></table></figure>
+
+<p>监控 DOM 树变化</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://xie.infoq.cn/article/5d36d123bfd1c56688e125ad3">https://xie.infoq.cn/article/5d36d123bfd1c56688e125ad3</a><br><a target="_blank" rel="noopener" href="https://xie.infoq.cn/article/9cf7bd9dfca63acb2e4aaabf8">https://xie.infoq.cn/article/9cf7bd9dfca63acb2e4aaabf8</a><br><a target="_blank" rel="noopener" href="https://blog.poetries.top/browser-working-principle/">https://blog.poetries.top/browser-working-principle/</a><br><a target="_blank" rel="noopener" href="https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/#The_main_flow">https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/#The_main_flow</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/27/TypeScript/" rel="prev" title="TypeScript">
+      <i class="fa fa-chevron-left"></i> TypeScript
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/31/Webpack/" rel="next" title="Webpack">
+      Webpack <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BB%84%E6%88%90"><span class="nav-number">1.</span> <span class="nav-text">浏览器组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A4%9A%E8%BF%9B%E7%A8%8B%E6%9E%B6%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">浏览器多进程架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BF%9B%E7%A8%8B%EF%BC%88Browser-process%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">浏览器进程（Browser process）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%EF%BC%88Renderer-process%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">渲染进程（Renderer process）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GUI-%E6%B8%B2%E6%9F%93%E7%BA%BF%E7%A8%8B-%E6%9C%89%E4%B8%94%E5%8F%AA%E6%9C%89%E4%B8%80%E4%B8%AA"><span class="nav-number">2.3.1.</span> <span class="nav-text">GUI 渲染线程(有且只有一个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JS-%E5%BC%95%E6%93%8E%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.3.2.</span> <span class="nav-text">JS 引擎线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.3.3.</span> <span class="nav-text">事件触发线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E8%A7%A6%E5%8F%91%E7%BA%BF%E7%A8%8B-%E5%A4%9A%E4%B8%AA"><span class="nav-number">2.3.4.</span> <span class="nav-text">定时器触发线程(多个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5-http-%E8%AF%B7%E6%B1%82%E7%BA%BF%E7%A8%8B%EF%BC%88%E5%A4%9A%E4%B8%AA%EF%BC%89"><span class="nav-number">2.3.5.</span> <span class="nav-text">异步 http 请求线程（多个）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%95%E6%93%8E"><span class="nav-number">2.4.</span> <span class="nav-text">浏览器引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E8%BF%9B%E7%A8%8B%EF%BC%88Plugin-process%EF%BC%89"><span class="nav-number">2.5.</span> <span class="nav-text">插件进程（Plugin process）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPU-%E8%BF%9B%E7%A8%8B%EF%BC%88GPU-process%EF%BC%89"><span class="nav-number">2.6.</span> <span class="nav-text">GPU 进程（GPU process）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%BF%9B%E7%A8%8B%EF%BC%88NetWork-process%EF%BC%89"><span class="nav-number">2.7.</span> <span class="nav-text">网络进程（NetWork process）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript-%E5%BC%95%E6%93%8E"><span class="nav-number">3.</span> <span class="nav-text">JavaScript 引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%B5%81%E6%B0%B4%E7%BA%BF"><span class="nav-number">3.1.</span> <span class="nav-text">执行流水线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">3.2.</span> <span class="nav-text">内存管理&#x2F;垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.2.1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Minor-GC"><span class="nav-number">3.2.2.</span> <span class="nav-text">Minor GC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Major-GC"><span class="nav-number">3.2.3.</span> <span class="nav-text">Major GC</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E5%BC%95%E6%93%8E"><span class="nav-number">4.</span> <span class="nav-text">渲染引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="nav-number">4.1.</span> <span class="nav-text">基本流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Webkit"><span class="nav-number">4.1.1.</span> <span class="nav-text">Webkit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gecko"><span class="nav-number">4.1.2.</span> <span class="nav-text">Gecko</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90-HTML-%E5%B9%B6%E6%9E%84%E5%BB%BA-DOM-%E6%A0%91"><span class="nav-number">4.2.</span> <span class="nav-text">解析 HTML 并构建 DOM 树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC%E5%BB%B6%E8%BF%9F%E8%A7%A3%E6%9E%90"><span class="nav-number">4.2.1.</span> <span class="nav-text">脚本延迟解析</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CatcherInSky"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">CatcherInSky</p>
+  <div class="site-description" itemprop="description">CatcherInSky的前端知识库</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CatcherInSky" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CatcherInSky" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangchunxiang98@outlook.com" title="E-Mail → mailto:zhangchunxiang98@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

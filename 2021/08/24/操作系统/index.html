@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"catcherinsky.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="进程&#x2F;线程进程（Process） 是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。每个进程的内存是相互独立的，但文件&#x2F;网络句柄是所有进程共有的。进程是线程的容器。程序是指令、数据及其组织形式的描述，进程是程序的实体。是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。​ 线程（threa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统">
+<meta property="og:url" content="http://catcherinsky.github.io/2021/08/24/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="进程&#x2F;线程进程（Process） 是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。每个进程的内存是相互独立的，但文件&#x2F;网络句柄是所有进程共有的。进程是线程的容器。程序是指令、数据及其组织形式的描述，进程是程序的实体。是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。​ 线程（threa">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629859130531-0890a717-8c44-4e45-9505-0c501ddbd26d.png#clientId=u5c884a3d-6958-4&from=paste&id=ucacb7707&margin=%5Bobject%20Object%5D&name=image.png&originHeight=845&originWidth=577&originalType=url%E2%88%B6=1&size=109366&status=done&style=none&taskId=uf02f4556-b10a-40eb-85eb-5df469ea9e8">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629858343000-443f5854-004e-4bff-8e41-fed54037a992.png#clientId=u5c884a3d-6958-4&from=paste&id=u3f0738d4&margin=%5Bobject%20Object%5D&originHeight=109&originWidth=905&originalType=url%E2%88%B6=1&status=done&style=none&taskId=uaf6d04cc-da75-4bf8-94ab-6180b31ea2f">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629858539503-dab0fd00-1bb2-45f8-b8ef-ea32cae5b0fd.png#clientId=u5c884a3d-6958-4&from=paste&id=u7d4f645e&margin=%5Bobject%20Object%5D&originHeight=415&originWidth=777&originalType=url%E2%88%B6=1&status=done&style=none&taskId=ub766c3e8-12b6-46a5-8d79-48547f2cb30">
+<meta property="article:published_time" content="2021-08-24T09:06:58.000Z">
+<meta property="article:modified_time" content="2022-02-14T11:41:06.925Z">
+<meta property="article:author" content="CatcherInSky">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1629859130531-0890a717-8c44-4e45-9505-0c501ddbd26d.png#clientId=u5c884a3d-6958-4&from=paste&id=ucacb7707&margin=%5Bobject%20Object%5D&name=image.png&originHeight=845&originWidth=577&originalType=url%E2%88%B6=1&size=109366&status=done&style=none&taskId=uf02f4556-b10a-40eb-85eb-5df469ea9e8">
+
+<link rel="canonical" href="http://catcherinsky.github.io/2021/08/24/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>操作系统 | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+  <meta name="referrer" content="same-origin">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Knowlegde Bases of CatcherInSky</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CatcherInSky的前端知识库</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://catcherinsky.github.io/2021/08/24/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content="CatcherInSky的前端知识库">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-24 17:06:58" itemprop="dateCreated datePublished" datetime="2021-08-24T17:06:58+08:00">2021-08-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-14 19:41:06" itemprop="dateModified" datetime="2022-02-14T19:41:06+08:00">2022-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="进程-线程"><a href="#进程-线程" class="headerlink" title="进程/线程"></a>进程/线程</h2><p><strong>进程（Process）</strong> 是计算机中的程序关于某数据集合上的一次运行活动，是系统进行<strong>资源分配和调度的基本单位</strong>，是操作系统结构的基础。每个进程的内存是相互独立的，但文件/网络句柄是所有进程共有的。<br>进程是线程的容器。程序是指令、数据及其组织形式的描述，进程是程序的实体。是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。<br>​</p>
+<p><strong>线程（thread）</strong> 是操作系统能够进行<strong>运算调度的最小单位</strong>。它被包含在进程之中，是进程中的实际运作单位。一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。<br>栈（Stack）主线程的入口 main 函数，会不断的进行函数调用， 每次调用的时候，会把所有的参数和返回地址压入到栈中<br>程序计数器（Program Counter）PC 就是指向当前的指令，而这个指令是放在内存中。 每个线程都有一串自己的指针，去指向自己当前所在内存的指针<br>线程本地存储（Thread Local Storage）线程呗独立内存<br>​</p>
+<ul>
+<li>进程要分配一大部分的内存，而线程只需要分配一部分栈就可以了。</li>
+<li>一个程序至少有一个进程,一个进程至少有一个线程。</li>
+<li>进程是资源分配的最小单位，线程是程序执行的最小单位。</li>
+<li>一个线程可以创建和撤销另一个线程，同一个进程中的多个线程之间可以并发执行。</li>
+<li>线程的改变只代表了 CPU 执行过程的改变，而没有发生进程所拥有的资源变化。</li>
+<li>进程拥有一个完整的虚拟地址空间，不依赖于线程而独立存在；反之，线程是进程的一部分，没有自己的地址空间，与进程内的其他线程一起共享分配给该进程的所有资源。</li>
+<li>线程中执行时一般都要进行同步和互斥，因为他们共享同一进程的所有资源。</li>
+</ul>
+<p>​</p>
+<p><strong>协程</strong><br>协程是一个用户态的线程，用户在堆上模拟出协程的栈空间。当需要进行协程上下文切换的时候，主线程只需要交换栈空间和恢复协程的一些相关的寄存器的状态，就可以实现上下文切换。没有了从用户态转换到内核态的切换成本，协程的执行也就更加高效。<br>协程的实现重点在于：</p>
+<ul>
+<li>在堆上模拟栈，从而实现一个用户态的线程</li>
+<li>调度器，负责协程的调度与上下文切换</li>
+</ul>
+<h2 id="进程通信-IPC-InterProcess-Communication"><a href="#进程通信-IPC-InterProcess-Communication" class="headerlink" title="进程通信 IPC (InterProcess Communication)"></a>进程通信 IPC (InterProcess Communication)</h2><p>每个进程各自有不同的用户地址空间，任何一个进程的全局变量在另一个进程中都看不到，所以进程之间要交换数据必须通过内核，在内核中开辟一块缓冲区，进程 1 把数据从用户空间拷到内核缓冲区，进程 2 再从内核缓冲区把数据读走，内核提供的这种机制称为<strong>进程间通信</strong><br>​</p>
+<h3 id="匿名管道（pipe）"><a href="#匿名管道（pipe）" class="headerlink" title="匿名管道（pipe）"></a>匿名管道（pipe）</h3><ul>
+<li>管道是半双工的，<strong>单向数据流</strong>；需要双方通信时，需要建立起两个管道。</li>
+<li>只能用于父子进程或者兄弟进程之间(具有<strong>亲缘关系的进程</strong>);</li>
+<li>单独构成一种独立的文件系统：管道对于管道两端的进程而言，就是一个文件，但它不是普通的文件，它不属于某种文件系统，而是自立门户，单独构成一种文件系统，并且只存在与内存中。</li>
+<li>数据的读出和写入：进程以先进先出的方式从缓冲区存取数据，管道一端的进程顺序的将数据写入缓冲区，另一端的进程则顺序的读出数据</li>
+<li>可以看做是一个循环队列，读和写的位置都是自动增长的，不能随意改变，一个数据只能被读一次，读出来以后在缓冲区就不复存在了</li>
+<li>当缓冲区读空或者写满时，有一定的规则控制相应的读进程或者写进程进入等待队列，当空的缓冲区有新数据写入或者满的缓冲区有数据读出来时，就唤醒等待队列中的进程继续读写</li>
+</ul>
+<p>​</p>
+<h3 id="有名管道-FIFO"><a href="#有名管道-FIFO" class="headerlink" title="有名管道(FIFO)"></a>有名管道(FIFO)</h3><p>匿名管道，由于没有名字，只能用于亲缘关系的进程间通信。为了克服这个缺点，提出了有名管道。提供了一个路径名与之关联，以有名管道的文件形式存在于文件系统中，这样，即使与有名管道的创建进程不存在亲缘关系的进程，只要可以访问该路径，就能够彼此通过有名管道相互通信<br><strong>​</strong></p>
+<h3 id="信号-Signal"><a href="#信号-Signal" class="headerlink" title="信号(Signal)"></a>信号(Signal)</h3><ul>
+<li>信号是 Linux 系统中用于进程间互相通信或者操作的一种机制，信号可以在任何时候发给某一进程，而无需知道该进程的状态。</li>
+<li>如果该进程当前并未处于执行状态，则该信号就有内核保存起来，知道该进程回复执行并传递给它为止。</li>
+<li>如果一个信号被进程设置为阻塞，则该信号的传递被延迟，直到其阻塞被取消是才被传递给进程。</li>
+</ul>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>消息队列(Message)</p>
+<ul>
+<li>消息队列是存放在内核中的消息链表，每个消息队列由消息队列标识符表示。</li>
+<li>与管道（无名管道：只存在于内存中的文件；命名管道：存在于实际的磁盘介质或者文件系统）不同的是消息队列存放在内核中，只有在内核重启(即，操作系统重启)或者显示地删除一个消息队列时，该消息队列才会被真正的删除。</li>
+<li>另外与管道不同的是，消息队列在某个进程往一个队列写入消息之前，并不需要另外某个进程在该队列上等待消息的到达。</li>
+</ul>
+<p>​</p>
+<h3 id="共享内存-share-memory"><a href="#共享内存-share-memory" class="headerlink" title="共享内存(share memory)"></a>共享内存(share memory)</h3><ul>
+<li>使得多个进程可以可以直接读写同一块内存空间，是最快的可用 IPC 形式。是针对其他通信机制运行效率较低而设计的。</li>
+<li>为了在多个进程间交换信息，内核专门留出了一块内存区，可以由需要访问的进程将其映射到自己的私有地址空间。进程就可以直接读写这一块内存而不需要进行数据的拷贝，从而大大提高效率。</li>
+<li>由于多个进程共享一段内存，因此需要依靠某种同步机制（如信号量）来达到进程间的同步及互斥。</li>
+</ul>
+<p>​</p>
+<h3 id="信号量-semaphore"><a href="#信号量-semaphore" class="headerlink" title="信号量(semaphore)"></a>信号量(semaphore)</h3><p>信号量是一个计数器，用于多进程对共享数据的访问，信号量的意图在于进程间同步。<br>为了获得共享资源，进程需要执行下列操作：</p>
+<ol>
+<li><strong>创建一个信号量</strong>：这要求调用者指定初始值，对于二值信号量来说，它通常是 1，也可是 0。</li>
+<li><strong>等待一个信号量</strong>：该操作会测试这个信号量的值，如果小于 0，就阻塞。也称为 P 操作。</li>
+<li><strong>挂出一个信号量</strong>：该操作将信号量的值加 1，也称为 V 操作。</li>
+</ol>
+<p>​</p>
+<h3 id="套接字-socket"><a href="#套接字-socket" class="headerlink" title="套接字(socket)"></a>套接字(socket)</h3><p>Socket 的英文原义是“插座”。套接字是一种通信机制，凭借这种机制，客户/服务器（即要进行通信的进程）系统的开发工作既可以在本地单机上进行，也可以跨网络进行。也就是说它可以让不在同一台计算机但通过网络连接计算机上的进程进行通信。<br>套接字是支持 TCP/IP 的网络通信的基本操作单元，可以看做是不同主机之间的进程进行双向通信的端点，简单的说就是通信的两方的一种约定，用套接字中的相关函数来完成通信过程。<br><strong>服务器端</strong></p>
+<ol>
+<li>首先服务器应用程序用系统调用 socket 来创建一个套接字，它是系统分配给该服务器进程的类似文件描述符的资源，它不能与其他的进程共享。</li>
+<li>然后，服务器进程会给套接字起个名字，我们使用系统调用 bind 来给套接字命名。然后服务器进程就开始等待客户连接到这个套接字。</li>
+<li>接下来，系统调用 listen 来创建一个队列并将其用于存放来自客户的进入连接。</li>
+<li>最后，服务器通过系统调用 accept 来接受客户的连接。它会创建一个与原有的命名套接不同的新套接字，这个套接字只用于与这个特定客户端进行通信，而命名套接字（即原先的套接字）则被保留下来继续处理来自其他客户的连接（建立客户端和服务端的用于通信的流，进行通信）。</li>
+</ol>
+<p><strong>客户端</strong>​</p>
+<ol>
+<li>客户应用程序首先调用 socket 来创建一个未命名的套接字，然后将服务器的命名套接字作为一个地址来调用 connect 与服务器建立连接。</li>
+<li>一旦连接建立，我们就可以像使用底层的文件描述符那样用套接字来实现双向数据的通信（通过流进行数据传输）。</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629859130531-0890a717-8c44-4e45-9505-0c501ddbd26d.png#clientId=u5c884a3d-6958-4&from=paste&id=ucacb7707&margin=%5Bobject%20Object%5D&name=image.png&originHeight=845&originWidth=577&originalType=url%E2%88%B6=1&size=109366&status=done&style=none&taskId=uf02f4556-b10a-40eb-85eb-5df469ea9e8" alt="image.png"></p>
+<h2 id="进程调度策略"><a href="#进程调度策略" class="headerlink" title="进程调度策略"></a>进程调度策略</h2><h3 id="先来先服务调度算法-FCFS"><a href="#先来先服务调度算法-FCFS" class="headerlink" title="先来先服务调度算法(FCFS)"></a>先来先服务调度算法(FCFS)</h3><p>最简单的调度算法，该算法既可用于作业调度，也可用于进程调度。当在作业调度中采用该算法时，每次调度都是从后备作业队列中选择一个或多个最先进入该队列的作业，将它们调入内存，为它们分配资源、创建进程，然后放入就绪队列。在进程调度中采用 FCFS 算法时，则每次调度是从就绪队列中选择一个最先进入该队列的进程，为之分配处理机，使之投入运行。该进程一直运行到完成或发生某事件而阻塞后才放弃处理机。</p>
+<h3 id="短作业-进程-优先调度算法-SJF-SPF"><a href="#短作业-进程-优先调度算法-SJF-SPF" class="headerlink" title="短作业(进程)优先调度算法(SJF/SPF)"></a>短作业(进程)优先调度算法(SJF/SPF)</h3><p>对短作业或短进程优先调度的算法。它们可以分别用于作业调度和进程调度。短作业优先(SJF)的调度算法是从后备队列中选择一个或若干个估计运行时间最短的作业，将它们调入内存运行。而短进程优先(SPF)调度算法则是从就绪队列中选出一个估计运行时间最短的进程，将处理机分配给它，使它立即执行并一直执行到完成，或发生某事件而被阻塞放弃处理机时再重新调度。</p>
+<h3 id="高优先权优先调度算法"><a href="#高优先权优先调度算法" class="headerlink" title="高优先权优先调度算法"></a>高优先权优先调度算法</h3><p>为了照顾紧迫型作业，使之在进入系统后便获得优先处理，引入了最高优先权优先(FPF)调度算法。此算法常被用于批处理系统中，作为作业调度算法，也作为多种操作系统中的进程调度算法，还可用于实时系统中。当把该算法用于作业调度时，系统将从后备队列中选择若干个优先权最高的作业装入内存。当用于进程调度时，该算法是把处理机分配给就绪队列中优先权最高的进程，这时，又可进一步把该算法分成如下两种。</p>
+<h4 id="非抢占式优先权算法"><a href="#非抢占式优先权算法" class="headerlink" title="非抢占式优先权算法"></a>非抢占式优先权算法</h4><p>在这种方式下，系统一旦把处理机分配给就绪队列中优先权最高的进程后，该进程便一直执行下去，直至完成；或因发生某事件使该进程放弃处理机时，系统方可再将处理机重新分配给另一优先权最高的进程。这种调度算法主要用于批处理系统中；也可用于某些对实时性要求不严的实时系统中。</p>
+<h4 id="抢占式优先权调度算法"><a href="#抢占式优先权调度算法" class="headerlink" title="抢占式优先权调度算法"></a>抢占式优先权调度算法</h4><p>在这种方式下，系统同样是把处理机分配给优先权最高的进程，使之执行。但在其执行期间，只要又出现了另一个其优先权更高的进程，进程调度程序就立即停止当前进程(原优先权最高的进程)的执行，重新将处理机分配给新到的优先权最高的进程。因此，在采用这种调度算法时，是每当系统中出现一个新的就绪进程 i 时，就将其优先权 Pi 与正在执行的进程 j 的优先权 Pj 进行比较。如果 Pi≤Pj，原进程 Pj 便继续执行；但如果是 Pi&gt;Pj，则立即停止 Pj 的执行，做进程切换，使 i 进程投入执行。显然，这种抢占式的优先权调度算法能更好地满足紧迫作业的要求，故而常用于要求比较严格的实时系统中，以及对性能要求较高的批处理和分时系统中。</p>
+<h4 id="优先级倒置"><a href="#优先级倒置" class="headerlink" title="优先级倒置"></a>优先级倒置</h4><p><strong>定义</strong>：一个低优先级的任务持有一个被高优先级任务所需要的共享资源。高优先任务由于因资源缺乏而处于受阻状态，一直等到低优先级任务释放资源为止。而低优先级获得的 CPU 时间少，如果此时有优先级处于两者之间的任务，并且不需要那个共享资源，则该中优先级的任务反而超过这两个任务而获得 CPU 时间。如果高优先级等待资源时不是阻塞等待，而是忙循环，则可能永远无法获得资源，因为此时低优先级进程无法与高优先级进程争夺 CPU 时间，从而无法执行，进而无法释放资源，造成的后果就是高优先级任务无法获得资源而继续推进。<br><strong>案例</strong>：不同优先级线程对共享资源的访问的同步机制。优先级为高和低的线程 tall 和线程 low 需要访问共享资源，优先级为中等的线程 mid 不访问该共享资源。当 low 正在访问共享资源时，tall 等待该共享资源的互斥锁，但是此时 low 被 mid 抢先了，导致 mid 运行 tall 阻塞。即优先级低的线程 mid 运行，优先级高的 tall 被阻塞。<br><strong>解决方案</strong>：</p>
+<ol>
+<li>设置优先级上限，给临界区一个高优先级，进入临界区的进程都将获得这个高优先级，如果其他试图进入临界区的进程的优先级都低于这个高优先级，那么优先级反转就不会发生。</li>
+<li>优先级继承，当一个高优先级进程等待一个低优先级进程持有的资源时，低优先级进程将暂时获得高优先级进程的优先级别，在释放共享资源后，低优先级进程回到原来的优先级别。嵌入式系统 VxWorks 就是采用这种策略。</li>
+<li>临界区禁止中断，通过禁止中断来保护临界区，采用此种策略的系统只有两种优先级：可抢占优先级和中断禁止优先级。前者为一般进程运行时的优先级，后者为运行于临界区的优先级。火星探路者正是由于在临界区中运行的气象任务被中断发生的通信任务所抢占才导致故障，如果有临界区的禁止中断保护，此一问题也不会发生。</li>
+</ol>
+<h3 id="高响应比优先调度算法"><a href="#高响应比优先调度算法" class="headerlink" title="高响应比优先调度算法"></a>高响应比优先调度算法</h3><p>在批处理系统中，短作业优先算法是一种比较好的算法，其主要的不足之处是长作业的运行得不到保证。如果我们能为每个作业引入前面所述的动态优先权，并使作业的优先级随着等待时间的增加而以速率 a 提高，则长作业在等待一定的时间后，必然有机会分配到处理机。在利用该算法时，每要进行调度之前，都须先做响应比的计算，这会增加系统开销。该优先权的变化规律可描述为<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629858343000-443f5854-004e-4bff-8e41-fed54037a992.png#clientId=u5c884a3d-6958-4&from=paste&id=u3f0738d4&margin=%5Bobject%20Object%5D&originHeight=109&originWidth=905&originalType=url%E2%88%B6=1&status=done&style=none&taskId=uaf6d04cc-da75-4bf8-94ab-6180b31ea2f"></p>
+<h3 id="时间片轮转法"><a href="#时间片轮转法" class="headerlink" title="时间片轮转法"></a>时间片轮转法</h3><p>在早期的时间片轮转法中，系统将所有的就绪进程按先来先服务的原则排成一个队列，每次调度时，把 CPU 分配给队首进程，并令其执行一个时间片。时间片的大小从几 ms 到几百 ms。当执行的时间片用完时，由一个计时器发出时钟中断请求，调度程序便据此信号来停止该进程的执行，并将它送往就绪队列的末尾；然后，再把处理机分配给就绪队列中新的队首进程，同时也让它执行一个时间片。这样就可以保证就绪队列中的所有进程在一给定的时间内均能获得一时间片的处理机执行时间。换言之，系统能在给定的时间内响应所有用户的请求。<br>[</p>
+<p>](<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35642036/article/details/82809812">https://blog.csdn.net/qq_35642036/article/details/82809812</a>)</p>
+<h3 id="多级反馈队列调度算法"><a href="#多级反馈队列调度算法" class="headerlink" title="多级反馈队列调度算法"></a>多级反馈队列调度算法</h3><p>面介绍的各种用作进程调度的算法都有一定的局限性。如短进程优先的调度算法，仅照顾了短进程而忽略了长进程，而且如果并未指明进程的长度，则短进程优先和基于进程长度的抢占式调度算法都将无法使用。而多级反馈队列调度算法则不必事先知道各种进程所需的执行时间，而且还可以满足各种类型进程的需要，因而它是目前被公认的一种较好的进程调度算法。在采用多级反馈队列调度算法的系统中，调度算法的实施过程如下所述：</p>
+<ol>
+<li>应设置多个就绪队列，并为各个队列赋予不同的优先级。第一个队列的优先级最高，第二个队列次之，其余各队列的优先权逐个降低。该算法赋予各个队列中进程执行时间片的大小也各不相同，在优先权愈高的队列中，为每个进程所规定的执行时间片就愈小。例如，第二个队列的时间片要比第一个队列的时间片长一倍，……，第 i+1 个队列的时间片要比第 i 个队列的时间片长一倍。</li>
+<li>当一个新进程进入内存后，首先将它放入第一队列的末尾，按 FCFS 原则排队等待调度。当轮到该进程执行时，如它能在该时间片内完成，便可准备撤离系统；如果它在一个时间片结束时尚未完成，调度程序便将该进程转入第二队列的末尾，再同样地按 FCFS 原则等待调度执行；如果它在第二队列中运行一个时间片后仍未完成，再依次将它放入第三队列，……，如此下去，当一个长作业(进程)从第一队列依次降到第 n 队列后，在第 n 队列便采取按时间片轮转的方式运行。</li>
+<li>仅当第一队列空闲时，调度程序才调度第二队列中的进程运行；仅当第 1 ～(i-1)队列均空时，才会调度第 i 队列中的进程运行。如果处理机正在第 i 队列中为某进程服务时，又有新进程进入优先权较高的队列(第 1 ～(i-1)中的任何一个队列)，则此时新进程将抢占正在运行进程的处理机，即由调度程序把正在运行的进程放回到第 i 队列的末尾，把处理机分配给新到的高优先权进程。</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1629858539503-dab0fd00-1bb2-45f8-b8ef-ea32cae5b0fd.png#clientId=u5c884a3d-6958-4&from=paste&id=u7d4f645e&margin=%5Bobject%20Object%5D&originHeight=415&originWidth=777&originalType=url%E2%88%B6=1&status=done&style=none&taskId=ub766c3e8-12b6-46a5-8d79-48547f2cb30"></p>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><h4 id="批处理系统常用调度算法"><a href="#批处理系统常用调度算法" class="headerlink" title="批处理系统常用调度算法"></a>批处理系统常用调度算法</h4><ol>
+<li>先来先服务</li>
+<li>最短作业优先</li>
+<li>最短剩余时间优先</li>
+<li>响应比最高者优先</li>
+</ol>
+<h4 id="分时系统调度算法"><a href="#分时系统调度算法" class="headerlink" title="分时系统调度算法"></a>分时系统调度算法</h4><ol>
+<li>轮转调度</li>
+<li>优先级调度</li>
+<li>多级队列调度</li>
+<li>彩票调度</li>
+</ol>
+<h4 id="实时系统调度算法"><a href="#实时系统调度算法" class="headerlink" title="实时系统调度算法"></a>实时系统调度算法</h4><ol>
+<li>单比率调度</li>
+<li>限期调度</li>
+<li>最少裕度法</li>
+</ol>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p>当线程 A 持有独占锁 a，并尝试去获取独占锁 b 的同时，线程 B 持有独占锁 b，并尝试获取独占锁 a 的情况下，就会发生 AB 两个线程由于互相持有对方需要的锁，而发生的阻塞现象，我们称为死锁。</p>
+<h3 id="充要条件"><a href="#充要条件" class="headerlink" title="充要条件"></a>充要条件</h3><ul>
+<li>互斥条件：一个资源每次只能被一个线程使用。—&gt; 独占锁的特点之一</li>
+<li>请求与保持条件：一个线程因请求资源而阻塞时，对已获得的资源保持不放。—&gt; 独占锁的特点之一，尝试获取锁时并不会释放已经持有的锁</li>
+<li>不剥夺条件：线程已获得的资源，在未使用完之前，不能强行剥夺。—&gt; 独占锁的特点之一</li>
+<li>循环等待条件：若干线程之间形成一种头尾相接的循环等待资源关系。—&gt; 唯一需要记忆的造成死锁的条件</li>
+</ul>
+<h3 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h3><h4 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h4><p>在并发程序中，避免了逻辑中出现复数个线程互相持有对方线程所需要的独占锁的的情况，就可以<strong>避免死锁</strong><br>允许系统中同时存在四个必要条件，但是每当进程提出资源申请时，系统要分析满足该资源请求后，系统是否会发生死锁，若不会发生则实施分配，否则拒绝分配。银行家算法实现了这个过程。</p>
+<h4 id="预防死锁"><a href="#预防死锁" class="headerlink" title="预防死锁"></a>预防死锁</h4><p>破坏上面四个条件任意一个：</p>
+<ul>
+<li>破坏互斥条件：允许某些资源同时被多个进程访问。但是有些资源本身并不具有这种属性，因此这种方案实用性有限</li>
+<li>破坏占有并等待条件：实行资源预先分配策略（当一个进程开始运行之前，必须一次性向系统申请它所需要的全部资源，否则不运行）；或者只允许进程在没有占用资源的时候才能申请资源（申请资源前先释放占有的资源）</li>
+</ul>
+<p>缺点：很多时候无法预知一个进程所需的全部资源；同时，会降低资源利用率，降低系统的并发性</p>
+<ul>
+<li>破坏非抢占条件：允许进程强行抢占被其它进程占有的资源。会降低系统性能</li>
+<li>破坏循环等待条件：对所有资源统一编号，所有进程对资源的请求必须按照序号递增的顺序提出，即只有占有了编号较小的资源才能申请编号较大的资源。这样避免了占有大号资源的进程去申请小号资源，各个进程申请资源的顺序都是从小到大，就不会有环了</li>
+</ul>
+<h4 id="解除死锁"><a href="#解除死锁" class="headerlink" title="解除死锁"></a>解除死锁</h4><p>破坏除了“互斥条件”之外的其他三个条件：</p>
+<ul>
+<li>回退执行：系统定期对各个进程进行检查，将检查点的有关信息写入文件。死锁时，让某占有必要资源的进程回退到取得资源之前的一个检查点，释放的资源分配给一个死锁进程（破坏“占有且等待”）</li>
+<li>抢占资源：剥夺占有进程的资源，分配给另外某些进程，直至死锁环路被打破（破坏“不可抢占”）</li>
+<li>杀掉进程：一次终止一个进程，直至消除死锁环路（破坏“循环等待”）</li>
+</ul>
+<p>​</p>
+<h2 id="IO-多路复用"><a href="#IO-多路复用" class="headerlink" title="IO 多路复用"></a>IO 多路复用</h2><p>阻塞 I/O，是指进程发起调用后，会被挂起（阻塞），直到收到数据再返回。如果调用一直不返回，进程就会一直被挂起。因此，当使用阻塞 I/O 时，需要使用<strong>多线程</strong>来处理多个文件描述符。<br>多线程切换有一定的开销，因此引入非阻塞 I/O。非阻塞 I/O 不会将进程挂起，调用时会立即返回成功或错误，因此可以在<strong>一个线程</strong>里<em>轮询</em>多个文件描述符是否就绪。<br>但是非阻塞 I/O 的缺点是：每次发起系统调用，只能检查<strong>一个</strong>文件描述符是否就绪。当文件描述符很多时，系统调用的成本很高。<br>因此引入了 I/O 多路复用，可以<strong>通过一次系统调用，检查多个文件描述符的状态</strong>。这是 I/O 多路复用的主要优点，相比于非阻塞 I/O，在文件描述符较多的场景下，避免了频繁的用户态和内核态的切换，减少了系统调用的开销。</p>
+<blockquote>
+<p>I/O 多路复用相当于将「遍历所有文件描述符、通过非阻塞 I/O 查看其是否就绪」的过程从用户线程移到了内核中，由内核来负责轮询。</p>
+</blockquote>
+<p>进程可以通过 select、poll、epoll 发起 I/O 多路复用的系统调用，这些系统调用都是同步阻塞的：<strong>如果传入的多个文件描述符中，有描述符就绪，则返回就绪的描述符；否则如果所有文件描述符都未就绪，就阻塞调用进程，直到某个描述符就绪，或者阻塞时长超过设置的 timeout 后，再返回</strong>。使用非阻塞 I/O 检查每个描述符的就绪状态。<br>I/O 多路复用引入了一些额外的操作和开销，性能更差。但是好处是用户可以在一个线程内同时处理多个 I/O 请求。如果不采用 I/O 多路复用，则必须通过多线程的方式，每个线程处理一个 I/O 请求。后者线程切换也是有一定的开销的。<br>​</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://imageslr.com/2020/07/08/tech-interview.html">https://imageslr.com/2020/07/08/tech-interview.html</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/60558136">https://zhuanlan.zhihu.com/p/60558136</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c1015f5ffa74">https://www.jianshu.com/p/c1015f5ffa74</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35642036/article/details/82809812">https://blog.csdn.net/qq_35642036/article/details/82809812</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/zwz2011303359/article/details/81809910">https://blog.csdn.net/zwz2011303359/article/details/81809910</a><br>​</p>
+<p>​</p>
+<p>​</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/11/babel/" rel="prev" title="babel">
+      <i class="fa fa-chevron-left"></i> babel
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="next" title="计算机网络">
+      计算机网络 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B-%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">进程&#x2F;线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1-IPC-InterProcess-Communication"><span class="nav-number">2.</span> <span class="nav-text">进程通信 IPC (InterProcess Communication)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E7%AE%A1%E9%81%93%EF%BC%88pipe%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">匿名管道（pipe）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E5%90%8D%E7%AE%A1%E9%81%93-FIFO"><span class="nav-number">2.2.</span> <span class="nav-text">有名管道(FIFO)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7-Signal"><span class="nav-number">2.3.</span> <span class="nav-text">信号(Signal)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.4.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98-share-memory"><span class="nav-number">2.5.</span> <span class="nav-text">共享内存(share memory)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F-semaphore"><span class="nav-number">2.6.</span> <span class="nav-text">信号量(semaphore)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A5%97%E6%8E%A5%E5%AD%97-socket"><span class="nav-number">2.7.</span> <span class="nav-text">套接字(socket)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5"><span class="nav-number">3.</span> <span class="nav-text">进程调度策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%88%E6%9D%A5%E5%85%88%E6%9C%8D%E5%8A%A1%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95-FCFS"><span class="nav-number">3.1.</span> <span class="nav-text">先来先服务调度算法(FCFS)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%AD%E4%BD%9C%E4%B8%9A-%E8%BF%9B%E7%A8%8B-%E4%BC%98%E5%85%88%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95-SJF-SPF"><span class="nav-number">3.2.</span> <span class="nav-text">短作业(进程)优先调度算法(SJF&#x2F;SPF)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E4%BC%98%E5%85%88%E6%9D%83%E4%BC%98%E5%85%88%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">高优先权优先调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E6%8A%A2%E5%8D%A0%E5%BC%8F%E4%BC%98%E5%85%88%E6%9D%83%E7%AE%97%E6%B3%95"><span class="nav-number">3.3.1.</span> <span class="nav-text">非抢占式优先权算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%A2%E5%8D%A0%E5%BC%8F%E4%BC%98%E5%85%88%E6%9D%83%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">3.3.2.</span> <span class="nav-text">抢占式优先权调度算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7%E5%80%92%E7%BD%AE"><span class="nav-number">3.3.3.</span> <span class="nav-text">优先级倒置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E5%93%8D%E5%BA%94%E6%AF%94%E4%BC%98%E5%85%88%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">3.4.</span> <span class="nav-text">高响应比优先调度算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E7%89%87%E8%BD%AE%E8%BD%AC%E6%B3%95"><span class="nav-number">3.5.</span> <span class="nav-text">时间片轮转法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7%E5%8F%8D%E9%A6%88%E9%98%9F%E5%88%97%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">3.6.</span> <span class="nav-text">多级反馈队列调度算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">3.7.</span> <span class="nav-text">应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">3.7.1.</span> <span class="nav-text">批处理系统常用调度算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%97%B6%E7%B3%BB%E7%BB%9F%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">3.7.2.</span> <span class="nav-text">分时系统调度算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E6%97%B6%E7%B3%BB%E7%BB%9F%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">3.7.3.</span> <span class="nav-text">实时系统调度算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%BB%E9%94%81"><span class="nav-number">4.</span> <span class="nav-text">死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%85%E8%A6%81%E6%9D%A1%E4%BB%B6"><span class="nav-number">4.1.</span> <span class="nav-text">充要条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">处理方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81"><span class="nav-number">4.2.1.</span> <span class="nav-text">避免死锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%84%E9%98%B2%E6%AD%BB%E9%94%81"><span class="nav-number">4.2.2.</span> <span class="nav-text">预防死锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E9%99%A4%E6%AD%BB%E9%94%81"><span class="nav-number">4.2.3.</span> <span class="nav-text">解除死锁</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO-%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">IO 多路复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CatcherInSky"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">CatcherInSky</p>
+  <div class="site-description" itemprop="description">CatcherInSky的前端知识库</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CatcherInSky" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CatcherInSky" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangchunxiang98@outlook.com" title="E-Mail → mailto:zhangchunxiang98@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

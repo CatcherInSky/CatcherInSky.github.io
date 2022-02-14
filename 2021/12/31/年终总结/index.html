@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"catcherinsky.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="思考点讲究可维护性、可扩展性，对于复杂场景，具有创造性思维，创造解决方案；并能从业务中沉淀通用解决方案，造出轮子（工具、插件等），对于工具设计也有规范，保证易用性，帮助团队降本提效选这个技术栈是出于什么原因，能解决什么痛点？能给业务带来什么收益？ STAR 4399推广核心功能跨账户 跨渠道 跨层级 的广告管理面板。满足投手在日常投放过程中的实时看数、对数、批量操作、简单数据分析的痛点。打通渠道数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="年终总结">
+<meta property="og:url" content="http://catcherinsky.github.io/2021/12/31/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="思考点讲究可维护性、可扩展性，对于复杂场景，具有创造性思维，创造解决方案；并能从业务中沉淀通用解决方案，造出轮子（工具、插件等），对于工具设计也有规范，保证易用性，帮助团队降本提效选这个技术栈是出于什么原因，能解决什么痛点？能给业务带来什么收益？ STAR 4399推广核心功能跨账户 跨渠道 跨层级 的广告管理面板。满足投手在日常投放过程中的实时看数、对数、批量操作、简单数据分析的痛点。打通渠道数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/webp/106384/1640933860192-5ccba376-c7e0-4fa0-8683-a9558a7bbbb8.webp#clientId=u7fed9d90-58dd-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ucfad475f&margin=%5Bobject%20Object%5D&originHeight=326&originWidth=2026&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u58ce5f1f-8fcb-4608-9aa2-010f5faeb91&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/106384/1641114933319-ed74f3e5-c310-4721-a40b-7acb340e0ed6.png#clientId=u2e4903fd-0f95-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=403&id=u2e31ca11&margin=%5Bobject%20Object%5D&name=image.png&originHeight=805&originWidth=402&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=23075&status=done&style=none&taskId=ua0c87945-4e75-4261-9673-2e1532334a3&title=&width=201">
+<meta property="article:published_time" content="2021-12-31T03:18:01.000Z">
+<meta property="article:modified_time" content="2022-02-14T11:41:01.945Z">
+<meta property="article:author" content="CatcherInSky">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/webp/106384/1640933860192-5ccba376-c7e0-4fa0-8683-a9558a7bbbb8.webp#clientId=u7fed9d90-58dd-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ucfad475f&margin=%5Bobject%20Object%5D&originHeight=326&originWidth=2026&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u58ce5f1f-8fcb-4608-9aa2-010f5faeb91&title=">
+
+<link rel="canonical" href="http://catcherinsky.github.io/2021/12/31/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>年终总结 | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+  <meta name="referrer" content="same-origin">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Knowlegde Bases of CatcherInSky</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CatcherInSky的前端知识库</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://catcherinsky.github.io/2021/12/31/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content="CatcherInSky的前端知识库">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          年终总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-31 11:18:01" itemprop="dateCreated datePublished" datetime="2021-12-31T11:18:01+08:00">2021-12-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-14 19:41:01" itemprop="dateModified" datetime="2022-02-14T19:41:01+08:00">2022-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="思考点"><a href="#思考点" class="headerlink" title="思考点"></a>思考点</h2><p>讲究可维护性、可扩展性，对于复杂场景，具有创造性思维，创造解决方案；<br>并能从业务中沉淀通用解决方案，造出轮子（工具、插件等），对于工具设计也有规范，保证易用性，帮助团队降本提效<br>选这个技术栈是出于什么原因，能解决什么痛点？能给业务带来什么收益？</p>
+<h3 id="STAR"><a href="#STAR" class="headerlink" title="STAR"></a>STAR</h3><p><img src="https://cdn.nlark.com/yuque/0/2021/webp/106384/1640933860192-5ccba376-c7e0-4fa0-8683-a9558a7bbbb8.webp#clientId=u7fed9d90-58dd-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ucfad475f&margin=%5Bobject%20Object%5D&originHeight=326&originWidth=2026&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u58ce5f1f-8fcb-4608-9aa2-010f5faeb91&title="></p>
+<h2 id="4399"><a href="#4399" class="headerlink" title="4399"></a>4399</h2><h3 id="推广"><a href="#推广" class="headerlink" title="推广"></a>推广</h3><h4 id="核心功能"><a href="#核心功能" class="headerlink" title="核心功能"></a>核心功能</h4><p>跨账户 跨渠道 跨层级 的广告管理面板。满足投手在日常投放过程中的实时看数、对数、批量操作、简单数据分析的痛点。打通渠道数据和游戏后台数据。</p>
+<h4 id="技术架构"><a href="#技术架构" class="headerlink" title="技术架构"></a>技术架构</h4><p>vue 全家桶+element<br>​</p>
+<h4 id="技术亮点"><a href="#技术亮点" class="headerlink" title="技术亮点"></a>技术亮点</h4><h5 id="虚拟列表"><a href="#虚拟列表" class="headerlink" title="虚拟列表"></a>虚拟列表</h5><p><a target="_blank" rel="noopener" href="https://www.yuque.com/catcherinsky/notes/yti9rs#A5WBB">https://www.yuque.com/catcherinsky/notes/yti9rs#A5WBB</a><br>​</p>
+<h5 id="树形表格"><a href="#树形表格" class="headerlink" title="树形表格"></a>树形表格</h5><p>广告平台一般分账户-广告组-广告三个层级。头条一般的投放模式是堆量，跑一段时间之后再根据实际情况关停效果不好的广告。每个投手所属都有大量广告账户，数千条计划。树形表格可以展示计划归属，方便调整计划以及账户预算。<br>​</p>
+<p>流程：树先序遍历扁平化成数组，数组里保存着指向树节点的引用。渲染表格时判断哪些节点有共同父节点，存在父节点的 children 里面，折叠起来。点击按钮展开时，将 children 里面的数据插入数组。</p>
+<h5 id="web-worker"><a href="#web-worker" class="headerlink" title="web-worker"></a>web-worker</h5><p>使用 web-worker 创建一个新线程，并在新线程中清洗、计算数据，不阻塞浏览器的渲染。并且封装了一个可以调用的工具。输入函数，参数和环境就可以了。<br>难点：新线程里面没有 window 等对象，许多常用方法都没法用。开启新线程需要传入 js 文件的地址。而许多时候没有专门的 js 文件，只是一些函数<br>流程：</p>
+<ol>
+<li>将函数，环境，参数转化为字符串，跟线程通信方法 onmessage 一起被包进立即执行匿名函数的字符串里面，转成 blob，createObjectURL，生成新线程</li>
+<li>使用 promise 封装 worker，使得可以异步执行</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 创建一个新的worker线程</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">String</span>&#125; string web worker 内部使用的方法的字面值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">createWorker</span> = (<span class="params">string</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">var</span> blob = <span class="keyword">new</span> <span class="title class_">Blob</span>([<span class="string">`(() =&gt; &#123;<span class="subst">$&#123;string&#125;</span>&#125;)()`</span>]);</span><br><span class="line">  <span class="keyword">var</span> url = <span class="variable language_">window</span>.<span class="property">URL</span>.<span class="title function_">createObjectURL</span>(blob);</span><br><span class="line">  <span class="keyword">var</span> worker = <span class="keyword">new</span> <span class="title class_">Worker</span>(url);</span><br><span class="line">  <span class="comment">// 释放 URL.createObjectURL() 创建的 URL 对象，通知浏览器不再保持对该 URL 对象的引用</span></span><br><span class="line">  <span class="variable constant_">URL</span>.<span class="title function_">revokeObjectURL</span>(blob);</span><br><span class="line">  <span class="keyword">return</span> worker;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 在创建web worker，并完成计算工作，异步返回计算结果</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Function</span>&#125; fn 计算函数，返回计算结果</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">any</span>&#125; params 计算函数的参数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Object</span>&#125; env 作为web worker的全局变量，属性的键为变量名， 值为常量或函数，</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">computeWorker</span> = (<span class="params">fn = () =&gt; &#123;&#125;, params, env = &#123;&#125;</span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">window</span>.<span class="property">console</span>.<span class="title function_">time</span>(<span class="string">`Web Worker <span class="subst">$&#123;fn.name&#125;</span>`</span>);</span><br><span class="line">  <span class="comment">// 将参数，方法转换成字面值，传入web worker</span></span><br><span class="line">  <span class="keyword">const</span> handler = <span class="string">`const func = <span class="subst">$&#123;fn&#125;</span>;`</span>;</span><br><span class="line">  <span class="keyword">const</span> environments = <span class="title class_">Object</span>.<span class="title function_">keys</span>(env).<span class="title function_">reduce</span>(<span class="function">(<span class="params">total, key</span>) =&gt;</span> &#123;</span><br><span class="line">    total += <span class="string">`const <span class="subst">$&#123;key&#125;</span> = <span class="subst">$&#123;env[key].toString()&#125;</span>;`</span>;</span><br><span class="line">    <span class="keyword">return</span> total;</span><br><span class="line">  &#125;, <span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> message = <span class="string">`</span></span><br><span class="line"><span class="string">        self.onmessage = (&#123; data: &#123; params &#125; &#125;) =&gt; &#123;</span></span><br><span class="line"><span class="string">            try &#123;</span></span><br><span class="line"><span class="string">                let data = func(params);</span></span><br><span class="line"><span class="string">                self.postMessage(&#123;code: 0, data&#125;);</span></span><br><span class="line"><span class="string">            &#125; catch(e) &#123;</span></span><br><span class="line"><span class="string">                self.postMessage(&#123;code: -1, err: e&#125;);</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    `</span>;</span><br><span class="line">  <span class="keyword">let</span> worker = <span class="title function_">createWorker</span>(<span class="string">`<span class="subst">$&#123;environments&#125;</span><span class="subst">$&#123;handler&#125;</span><span class="subst">$&#123;message&#125;</span>`</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    worker.<span class="title function_">postMessage</span>(&#123; params &#125;);</span><br><span class="line">    worker.<span class="property">onmessage</span> = <span class="function">(<span class="params">&#123; data: &#123; code, data, err &#125; &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">window</span>.<span class="property">console</span>.<span class="title function_">timeEnd</span>(<span class="string">`Web Worker <span class="subst">$&#123;fn.name&#125;</span>`</span>);</span><br><span class="line">      <span class="keyword">if</span> (code == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="title function_">resolve</span>(data);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="title function_">reject</span>(err);</span><br><span class="line">      &#125;</span><br><span class="line">      worker.<span class="title function_">terminate</span>();</span><br><span class="line">    &#125;;</span><br><span class="line">    worker.<span class="property">onerror</span> = <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">window</span>.<span class="property">console</span>.<span class="title function_">timeEnd</span>(<span class="string">`Web Worker <span class="subst">$&#123;fn.name&#125;</span>`</span>);</span><br><span class="line">      <span class="title function_">reject</span>(err);</span><br><span class="line">      worker.<span class="title function_">terminate</span>();</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>​</p>
+<h5 id="分段批量请求"><a href="#分段批量请求" class="headerlink" title="分段批量请求"></a>分段批量请求</h5><p>待发送请求塞进一个队列里面，在微任务里切割队列，Promise.allSettled 来分批发送。在队列的时候添加 id 标识符，等 allSettled 执行完毕后，分成成功请求和失败请求两部分。通过 id 来将返回结果匹配到原函数里面去。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">batch</span> = <span class="keyword">async</span> (<span class="params">&#123;</span></span><br><span class="line"><span class="params">  fn,</span></span><br><span class="line"><span class="params">  params,</span></span><br><span class="line"><span class="params">  size = <span class="number">5</span>,</span></span><br><span class="line"><span class="params">  before = () =&gt; &#123;&#125;,</span></span><br><span class="line"><span class="params">  steps = () =&gt; &#123;&#125;,</span></span><br><span class="line"><span class="params">  success = () =&gt; &#123;&#125;,</span></span><br><span class="line"><span class="params">  fail = () =&gt; &#123;&#125;,</span></span><br><span class="line"><span class="params">  last = () =&gt; &#123;&#125;,</span></span><br><span class="line"><span class="params">&#125;</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> successArr = [],</span><br><span class="line">    failArr = [],</span><br><span class="line">    index = <span class="number">0</span>;</span><br><span class="line">  <span class="title function_">before</span>(params, size);</span><br><span class="line">  <span class="comment">// 同一批请求设置微小时间差</span></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">request</span> = (<span class="params">fn, param, index, gap</span>) =&gt;</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 每条请求间隔10 ms</span></span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="title function_">fn</span>(param, index)</span><br><span class="line">          .<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> <span class="title function_">resolve</span>(res))</span><br><span class="line">          .<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> <span class="title function_">reject</span>(err));</span><br><span class="line">      &#125;, gap * <span class="number">10</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, times = <span class="title class_">Math</span>.<span class="title function_">ceil</span>(params.<span class="property">length</span> / size); i &lt; times; i++) &#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">allSettled</span>(</span><br><span class="line">      params</span><br><span class="line">        .<span class="title function_">slice</span>(i * size, (i + <span class="number">1</span>) * size)</span><br><span class="line">        .<span class="title function_">map</span>(<span class="function">(<span class="params">param, gap</span>) =&gt;</span> <span class="title function_">request</span>(fn, param, index++, gap))</span><br><span class="line">    ).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 分成成功和失败两个队列</span></span><br><span class="line">      <span class="comment">// 成功改变row，并从队列中移除</span></span><br><span class="line">      <span class="comment">// 失败报错，并保留</span></span><br><span class="line">      res.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (item.<span class="property">status</span> === <span class="string">&quot;fulfilled&quot;</span>) &#123;</span><br><span class="line">          successArr.<span class="title function_">push</span>(item.<span class="property">value</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          failArr.<span class="title function_">push</span>(item.<span class="property">reason</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      <span class="title function_">steps</span>((i + <span class="number">1</span>) * size);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">success</span>(successArr);</span><br><span class="line">  <span class="title function_">fail</span>(failArr);</span><br><span class="line">  <span class="title function_">last</span>(successArr, failArr);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="伪类元素-data-属性"><a href="#伪类元素-data-属性" class="headerlink" title="伪类元素+data 属性"></a>伪类元素+data 属性</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">setTitle</span>(<span class="params"></span>) &#123;</span><br><span class="line">  targetDOM.<span class="title function_">attr</span>(<span class="string">&quot;class&quot;</span>, target);</span><br><span class="line">  targetDOM.<span class="title function_">attr</span>(<span class="string">&quot;data-content&quot;</span>, content);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.target</span><span class="selector-pseudo">:hover</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="built_in">attr</span>(data-content);</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">14px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#ddd</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">2</span>;</span><br><span class="line">  <span class="attribute">white-space</span>: nowrap;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0px</span>;</span><br><span class="line">  <span class="attribute">left</span>: -<span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">2px</span> <span class="number">2px</span> <span class="number">2px</span> <span class="number">#eee</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h4><h5 id="滚动错位"><a href="#滚动错位" class="headerlink" title="滚动错位"></a>滚动错位</h5><p>有固定列存在时，两个通过 onscroll 事件进行滚动的同步，在 Chrome 中默认开启 smooth scrolling，导致了 onscroll 时间有延迟。固定列和主列滚动有时间差，造成滚动错位。<br><strong>解决方法</strong>：监听滚动 wheel 事件，阻止默认行为后，手动来设置 scrollTop 和 scrollLeft 滚动</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">wheel</span> = (<span class="params">e</span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 关闭默认事件</span></span><br><span class="line">  e.<span class="title function_">preventDefault</span>();</span><br><span class="line">  <span class="keyword">const</span> &#123; deltaY, deltaX &#125; = e;</span><br><span class="line">  <span class="comment">// 限制只能进行竖或横滚动之一</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="title class_">Math</span>.<span class="title function_">abs</span>(deltaX) &gt; <span class="title class_">Math</span>.<span class="title function_">abs</span>(deltaY)) &#123;</span><br><span class="line">    <span class="title function_">setX</span>(deltaX);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_">setY</span>(deltaY);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="滚动卡顿"><a href="#滚动卡顿" class="headerlink" title="滚动卡顿"></a>滚动卡顿</h5><p>计划显示后加载额外数据，请求成功后会修改表格数据，更新 DOM。频繁更新会不断进行渲染过程、对滚动等操作造成卡顿<br>​</p>
+<p>请求分片<br>通过监听滚动事件，结合 DOM 元素信息，计算出需要获取的数据，使用 Promise.allSettled，等请求全部完成之后，再一次性进行数据的修改。</p>
+<h3 id="移动端"><a href="#移动端" class="headerlink" title="移动端"></a>移动端</h3><p>对照巨量引擎 APP，还有不需要的模块 巨量大学等、数据源只有渠道数据、维度按组-计划-创意、最重要的卡片形式展示数据，同屏数据密度过少，没有批量操作，不能跨账户对比<br>计划管理的移动端版本，方便投手随时随地进行操作，减轻投手假期工作负担。<br>为后续其他功能迁移打基础</p>
+<h4 id="vue3-vant-vue-cli"><a href="#vue3-vant-vue-cli" class="headerlink" title="vue3+vant+vue-cli"></a>vue3+vant+vue-cli</h4><p>vue-cli 4.5<br>​</p>
+<p>vue3 刚出 20/09 的时候，进行过技术分享，当时在考虑进行前端的重构计划，所以我用新技术进行试水 20/12。</p>
+<ol>
+<li>移动端 vue3 参考 PC 端的 vue2，许多方法和工具都有参考，移植难度低</li>
+<li>vue3 性能更好 <strong>compositionAPI 更符合开发风格</strong> 体积更小， 对 TS 支持更高，方便以后转型</li>
+<li>当时 vant element-plus 等都跟进支持了 vue3</li>
+<li>试水也带有踩坑的性质</li>
+</ol>
+<p>​</p>
+<h4 id="webpack-优化"><a href="#webpack-优化" class="headerlink" title="webpack 优化"></a>webpack 优化</h4><p>版本 4.44.2<br><a target="_blank" rel="noopener" href="https://www.yuque.com/catcherinsky/notes/wgruiy">https://www.yuque.com/catcherinsky/notes/wgruiy</a></p>
+<h4 id="适配"><a href="#适配" class="headerlink" title="适配"></a>适配</h4><p><a target="_blank" rel="noopener" href="https://www.yuque.com/catcherinsky/notes/qw2a1x">https://www.yuque.com/catcherinsky/notes/qw2a1x</a></p>
+<h5 id="异形屏"><a href="#异形屏" class="headerlink" title="异形屏"></a>异形屏</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ios</span></span><br><span class="line">&lt;meta name=<span class="string">&quot;viewport&quot;</span> content=<span class="string">&quot;viewport-fit=cover&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">body.<span class="property">safe</span>-area &#123;</span><br><span class="line">  padding-<span class="attr">top</span>: <span class="title function_">env</span>(safe-area-inset-top);</span><br><span class="line">  padding-<span class="attr">left</span>: <span class="title function_">env</span>(safe-area-inset-left);</span><br><span class="line">  padding-<span class="attr">right</span>: <span class="title function_">env</span>(safe-area-inset-right);</span><br><span class="line">  padding-<span class="attr">bottom</span>: <span class="title function_">env</span>(safe-area-inset-bottom);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// android</span></span><br><span class="line"><span class="comment">// 监听WebView JS bridge，初始化就绪的时候获取statusbar height</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">WebViewJavascriptBridge</span>;</span><br><span class="line"><span class="comment">//JS注册事件监听</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">connectWebViewJavascriptBridge</span>(<span class="params">callback</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">WebViewJavascriptBridge</span>) &#123;</span><br><span class="line">    <span class="title function_">callback</span>(<span class="title class_">WebViewJavascriptBridge</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(</span><br><span class="line">      <span class="string">&quot;WebViewJavascriptBridgeReady&quot;</span>,</span><br><span class="line">      <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="title function_">callback</span>(<span class="title class_">WebViewJavascriptBridge</span>);</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="literal">false</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">connectWebViewJavascriptBridge</span>(<span class="function">(<span class="params">bridge</span>) =&gt;</span> &#123;</span><br><span class="line">  bridge.<span class="title function_">getStatusBarHeight</span>(<span class="function">(<span class="params">&#123; height &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> h = height / <span class="variable language_">window</span>.<span class="property">devicePixelRatio</span>; <span class="comment">// 根据需要转换成 CSS 中的 px 高度</span></span><br><span class="line">    <span class="keyword">const</span> root = <span class="variable language_">document</span>.<span class="property">documentElement</span>;</span><br><span class="line">    root.<span class="property">style</span>.<span class="title function_">setProperty</span>(<span class="string">&quot;--safe-top&quot;</span>, <span class="string">`<span class="subst">$&#123;h&#125;</span>px`</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// windowscreen.availHeight</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="手势"><a href="#手势" class="headerlink" title="手势"></a>手势</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 多指</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;touchstart&quot;</span>, <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (event.<span class="property">touches</span>.<span class="property">length</span> &gt; <span class="number">1</span>) &#123;</span><br><span class="line">    event.<span class="title function_">preventDefault</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 手势</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;gesturestart&quot;</span>, <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">  event.<span class="title function_">preventDefault</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连点</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> lastTouchEnd = <span class="number">0</span>;</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(</span><br><span class="line">  <span class="string">&quot;touchend&quot;</span>,</span><br><span class="line">  <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>();</span><br><span class="line">    <span class="keyword">if</span> (now - lastTouchEnd &lt;= <span class="number">300</span>) &#123;</span><br><span class="line">      event.<span class="title function_">preventDefault</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    lastTouchEnd = now;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="literal">false</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 长按</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;contextmenu&quot;</span>, <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`禁用长按菜单`</span>);</span><br><span class="line">  e.<span class="title function_">preventDefault</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h5 id="拖拽"><a href="#拖拽" class="headerlink" title="拖拽"></a>拖拽</h5><h5 id="横屏"><a href="#横屏" class="headerlink" title="横屏"></a>横屏</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// window.orientation</span></span><br><span class="line"><span class="comment">// 180 || 0 竖屏</span></span><br><span class="line"><span class="comment">// 90 || -90 横屏</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(</span><br><span class="line">  <span class="string">&quot;onorientationchange&quot;</span> <span class="keyword">in</span> <span class="variable language_">window</span> ? <span class="string">&quot;orientationchange&quot;</span> : <span class="string">&quot;resize&quot;</span>,</span><br><span class="line">  screenChange,</span><br><span class="line">  <span class="literal">false</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h4 id="虚拟表格"><a href="#虚拟表格" class="headerlink" title="虚拟表格"></a>虚拟表格</h4><p><a target="_blank" rel="noopener" href="https://www.yuque.com/catcherinsky/notes/yti9rs#A5WBB">https://www.yuque.com/catcherinsky/notes/yti9rs#A5WBB</a><br>​</p>
+<h4 id="hybrid"><a href="#hybrid" class="headerlink" title="hybrid"></a>hybrid</h4><p>对比 hybrid 原生 web 方案优劣，当前方案原因?<br>安卓+IOS 套壳浏览器<br>一次开发，双端通用<br>缓存问题： Nginx 配置不缓存 index.html<br>​</p>
+<p>hybrid app 允许开发者仅使用一套网页语言代码（HTML5+CSS+JavaScript），即可开发能够在不同平台上部署的类原生应用 。由于 hybrid app 结合了 native app 良好用户交互体验和 web app 跨平台开发的优势，能够显著节省移动应用开发的时间和成本。<strong>应用主体是 web view</strong>，穿插 native 功能，主要以网页语言编写。整体开发难度低，基本可以实现跨平台<br>​</p>
+<p>初始化时获取 jsbridge 数据，有就是 app 访问，没有就是网页访问。<br>​</p>
+<h4 id="为什么不-Web-APP？"><a href="#为什么不-Web-APP？" class="headerlink" title="为什么不 Web APP？"></a>为什么不 Web APP？</h4><p>手机浏览器兼容太繁琐，指定内核的 Hybrid 更容易<br>​</p>
+<h5 id="为什么不用-PWA？"><a href="#为什么不用-PWA？" class="headerlink" title="为什么不用 PWA？"></a>为什么不用 PWA？</h5><p>需要快速上线，存在开发门槛<br>ios11.3 才支持，只能在 safari 分享到主屏幕。<br>安全问题和保密问题，水印等等</p>
+<h5 id="为什么不小程序？"><a href="#为什么不小程序？" class="headerlink" title="为什么不小程序？"></a>为什么不小程序？</h5><p>安全考虑，发版需要找腾讯<br>​</p>
+<h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><p>快速方便开发<br>一次开发，双端通用<br>​</p>
+<h4 id="bug-1"><a href="#bug-1" class="headerlink" title="bug"></a><del>bug</del></h4><h5 id="跳转后在浏览器看的高度问题"><a href="#跳转后在浏览器看的高度问题" class="headerlink" title="跳转后在浏览器看的高度问题"></a>跳转后在浏览器看的高度问题</h5><p>跳转后设置 scrollTop 为 0 后，在实机不复现，不管。</p>
+<h5 id="sticky"><a href="#sticky" class="headerlink" title="sticky"></a>sticky</h5><p>一般的 ui 表格用多个表格叠加，隐去若干部分来实现固定列和固定表头效果，假如固定列 sticky； left 0 表头 sticky；top 0。在表格所有元素都在同一个 scrolling box 的前提下，会导致固定列的表头定位出现问题<br><img src="https://cdn.nlark.com/yuque/0/2022/png/106384/1641114933319-ed74f3e5-c310-4721-a40b-7acb340e0ed6.png#clientId=u2e4903fd-0f95-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=403&id=u2e31ca11&margin=%5Bobject%20Object%5D&name=image.png&originHeight=805&originWidth=402&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=23075&status=done&style=none&taskId=ua0c87945-4e75-4261-9673-2e1532334a3&title=&width=201" alt="image.png"></p>
+<h5 id="固定表头方案"><a href="#固定表头方案" class="headerlink" title="固定表头方案"></a>固定表头方案</h5><p>position: absolute + 动态 top<br>​</p>
+<p>不用 sticky？<br>一般而言只要往父级查找，遇到的第一个 overflow 不是 visible 的元素就是最近滚动祖先(scrollport)<br>表格设置了 overflow，所以最近滚动祖先是表格而不是视口。而表格是超长的，不会发生滚动，滚动的是 HTML，无法触发 sticky 的效果。<br>​</p>
+<p>A: sticky top: 0<br>B: A 的父元素<br>C: HTML<br>视口 viewport: 最近滚动祖先<br>​</p>
+<p>待优化<br>把虚拟表格的 page 模式改成窗口模式</p>
+<h5 id="固定列方案"><a href="#固定列方案" class="headerlink" title="固定列方案"></a>固定列方案</h5><p>position: sticky + 指定 left<br>​</p>
+<p>position: sticky<br>表格父元素，宽度为可视视口宽度， overflow-x: scroll。<br>之前是父元素的父元素可滚动，父元素 overflow: visible, 当横向滚动使父元素超出浏览器可视区域，sticky 元素也会跟着滚出窗口</p>
+<h5 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h5><p>​</p>
+<p>​</p>
+<p>​</p>
+<p>​</p>
+<h3 id="通用报表系统"><a href="#通用报表系统" class="headerlink" title="通用报表系统"></a>通用报表系统</h3><p>后端即配即用，提高效率，使用 render 和插槽增强报表功能。<br>​</p>
+<p>和配置化表单联用，后端输出筛选项，根据筛选项请求表格数据，渲染表格。<br>​</p>
+<p>插槽中包含下拉功能<br>​</p>
+<p>render 函数开发，可配置性更强<br>​</p>
+<p>某些需要自定义的列，写一个匹配函数，遍历 column 的时候匹配成功就替换 render 函数。</p>
+<p>通用报表数据存在后端的，数量稳定，用分页方案。</p>
+<p>​</p>
+<h3 id="配置化表单组件库"><a href="#配置化表单组件库" class="headerlink" title="配置化表单组件库"></a>配置化表单组件库</h3><p>项目涉及到大量的表单开发，而且表单不易复用，基于 element 进行二次封装。<br>配置项书写方式类 schema<br>​</p>
+<p>需要同时协调后端和产品配合，流程文档化、规范化。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">component</span> <span class="attr">:is</span>=<span class="string">&quot;&quot;</span> <span class="attr">v-bind</span>=<span class="string">&quot;&quot;</span> <span class="attr">v-on</span>=<span class="string">&quot;&quot;</span> $<span class="attr">attrs</span>=<span class="string">&quot;&quot;</span> $<span class="attr">listeners</span>=<span class="string">&quot;&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​</p>
+<p>​</p>
+<h3 id="可视化广告策略分析"><a href="#可视化广告策略分析" class="headerlink" title="可视化广告策略分析"></a>可视化广告策略分析</h3><h4 id="可视化思想"><a href="#可视化思想" class="headerlink" title="可视化思想"></a>可视化思想</h4><p>借助图形化的数段，清晰有效的传递和沟通信息，以视觉的方式展现数据，便于用户的认知，偏于图表的样式，相对于文字说明更加直观</p>
+<h5 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h5><p>分析出数据的趋势<br>进行精准的广告投放</p>
+<h4 id="echart"><a href="#echart" class="headerlink" title="echart"></a>echart</h4><p>生态比较好，应用比较广泛，基于配置化。拓展容易。<br>没啥必要再封装组件，除了某些重复使用的。chart 本来就是配置化的，基于配置化再次配置化有些冗余。大部分都是独特的组件<br>​</p>
+<h5 id="卡顿"><a href="#卡顿" class="headerlink" title="卡顿"></a>卡顿</h5><p>每一个图例在没有数据的时候它会创建一个定时器去渲染气泡，页面切换后，echarts 图例是销毁了，但是这个 echarts 的实例还在内存当中，同时它的气泡渲染定时器还在运行。这就导致 Echarts 占用 CPU 高，导致浏览器卡顿，当数据量比较大时甚至浏览器崩溃<br>​</p>
+<p>在 mounted()方法和 destroy()方法之间加一个 beforeDestroy()方法释放该页面的 chart 资源，clear()方法则是清空图例数据，不影响图例的 resize，而且能够释放内存，切换的时候就很顺畅了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">clear</span>() <span class="title function_">destroy</span>()</span><br><span class="line"><span class="title function_">dispose</span>()</span><br></pre></td></tr></table></figure>
+
+<h5 id="nextTick"><a href="#nextTick" class="headerlink" title="nextTick"></a>nextTick</h5><p>vue 更新 dom 之后需要 nextTick 才能获取更新后 dom 元素，用来重新绘制 echart</p>
+<h5 id="resize-响应式"><a href="#resize-响应式" class="headerlink" title="resize 响应式"></a>resize 响应式</h5><p>用于当 div 发生 resize 事件的时候，让其触发 echart 的 resize 事件，重绘 canvas。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;.chart&quot;</span>).<span class="title function_">resize</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  myChartx.<span class="title function_">resize</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h4><p>​</p>
+<p>​</p>
+<h4 id="webworker"><a href="#webworker" class="headerlink" title="webworker"></a>webworker</h4><p>同上<br>​</p>
+<p>​</p>
+<p>​</p>
+<h4 id="vue3-需要-unwrap"><a href="#vue3-需要-unwrap" class="headerlink" title="vue3 需要 unwrap"></a>vue3 需要 unwrap</h4><p>vue3 中使用了 Proxy 对象代理，但 echarts 中使用大量的 === 造成对比失败</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">unwarp</span> = (<span class="params">obj</span>) =&gt; obj &amp;&amp; (obj.<span class="property">__v_raw</span> || obj.<span class="title function_">valueOf</span>() || obj);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">chart</span> = <span class="title function_">unwrap</span>(echarts.<span class="title function_">init</span>(dom));</span><br></pre></td></tr></table></figure>
+
+<h4 id="按需加载-echart"><a href="#按需加载-echart" class="headerlink" title="按需加载 echart"></a>按需加载 echart</h4><p>使用 babel-plugin-equire 插件实现按需加载</p>
+<h3 id="超级投放"><a href="#超级投放" class="headerlink" title="超级投放"></a>超级投放</h3><p>配置化表单的方向发展。一些字段之间的相互影响比较复杂。而且许多影响都是异步的，涉及请求。<br>trigger 之后清空相关字段并禁选，等请求完成再接着处理</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  watch: &#123;</span><br><span class="line">    `$&#123;key&#125;`: fn</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​</p>
+<p>​</p>
+<p>​</p>
+<p>​</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/31/%E6%9D%82%E8%B0%88/" rel="prev" title="杂谈">
+      <i class="fa fa-chevron-left"></i> 杂谈
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/03/%E6%A8%A1%E5%9D%97%E5%8C%96/" rel="next" title="模块化">
+      模块化 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">思考点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#STAR"><span class="nav-number">1.1.</span> <span class="nav-text">STAR</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4399"><span class="nav-number">2.</span> <span class="nav-text">4399</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E5%B9%BF"><span class="nav-number">2.1.</span> <span class="nav-text">推广</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="nav-number">2.1.1.</span> <span class="nav-text">核心功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84"><span class="nav-number">2.1.2.</span> <span class="nav-text">技术架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E4%BA%AE%E7%82%B9"><span class="nav-number">2.1.3.</span> <span class="nav-text">技术亮点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%88%97%E8%A1%A8"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">虚拟列表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%91%E5%BD%A2%E8%A1%A8%E6%A0%BC"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">树形表格</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#web-worker"><span class="nav-number">2.1.3.3.</span> <span class="nav-text">web-worker</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E6%AE%B5%E6%89%B9%E9%87%8F%E8%AF%B7%E6%B1%82"><span class="nav-number">2.1.3.4.</span> <span class="nav-text">分段批量请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%AA%E7%B1%BB%E5%85%83%E7%B4%A0-data-%E5%B1%9E%E6%80%A7"><span class="nav-number">2.1.3.5.</span> <span class="nav-text">伪类元素+data 属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bug"><span class="nav-number">2.1.4.</span> <span class="nav-text">bug</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%BB%9A%E5%8A%A8%E9%94%99%E4%BD%8D"><span class="nav-number">2.1.4.1.</span> <span class="nav-text">滚动错位</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%BB%9A%E5%8A%A8%E5%8D%A1%E9%A1%BF"><span class="nav-number">2.1.4.2.</span> <span class="nav-text">滚动卡顿</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E7%AB%AF"><span class="nav-number">2.2.</span> <span class="nav-text">移动端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vue3-vant-vue-cli"><span class="nav-number">2.2.1.</span> <span class="nav-text">vue3+vant+vue-cli</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack-%E4%BC%98%E5%8C%96"><span class="nav-number">2.2.2.</span> <span class="nav-text">webpack 优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E9%85%8D"><span class="nav-number">2.2.3.</span> <span class="nav-text">适配</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%82%E5%BD%A2%E5%B1%8F"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">异形屏</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%8B%E5%8A%BF"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">手势</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8B%96%E6%8B%BD"><span class="nav-number">2.2.3.3.</span> <span class="nav-text">拖拽</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A8%AA%E5%B1%8F"><span class="nav-number">2.2.3.4.</span> <span class="nav-text">横屏</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E8%A1%A8%E6%A0%BC"><span class="nav-number">2.2.4.</span> <span class="nav-text">虚拟表格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hybrid"><span class="nav-number">2.2.5.</span> <span class="nav-text">hybrid</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D-Web-APP%EF%BC%9F"><span class="nav-number">2.2.6.</span> <span class="nav-text">为什么不 Web APP？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8-PWA%EF%BC%9F"><span class="nav-number">2.2.6.1.</span> <span class="nav-text">为什么不用 PWA？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%B0%8F%E7%A8%8B%E5%BA%8F%EF%BC%9F"><span class="nav-number">2.2.6.2.</span> <span class="nav-text">为什么不小程序？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.2.6.3.</span> <span class="nav-text">优点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bug-1"><span class="nav-number">2.2.7.</span> <span class="nav-text">bug</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B7%B3%E8%BD%AC%E5%90%8E%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9C%8B%E7%9A%84%E9%AB%98%E5%BA%A6%E9%97%AE%E9%A2%98"><span class="nav-number">2.2.7.1.</span> <span class="nav-text">跳转后在浏览器看的高度问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sticky"><span class="nav-number">2.2.7.2.</span> <span class="nav-text">sticky</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E8%A1%A8%E5%A4%B4%E6%96%B9%E6%A1%88"><span class="nav-number">2.2.7.3.</span> <span class="nav-text">固定表头方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E5%88%97%E6%96%B9%E6%A1%88"><span class="nav-number">2.2.7.4.</span> <span class="nav-text">固定列方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E5%8C%96"><span class="nav-number">2.2.7.5.</span> <span class="nav-text">优化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E6%8A%A5%E8%A1%A8%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.3.</span> <span class="nav-text">通用报表系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%8C%96%E8%A1%A8%E5%8D%95%E7%BB%84%E4%BB%B6%E5%BA%93"><span class="nav-number">2.4.</span> <span class="nav-text">配置化表单组件库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B9%BF%E5%91%8A%E7%AD%96%E7%95%A5%E5%88%86%E6%9E%90"><span class="nav-number">2.5.</span> <span class="nav-text">可视化广告策略分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%9D%E6%83%B3"><span class="nav-number">2.5.1.</span> <span class="nav-text">可视化思想</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-1"><span class="nav-number">2.5.1.1.</span> <span class="nav-text">优点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#echart"><span class="nav-number">2.5.2.</span> <span class="nav-text">echart</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%A1%E9%A1%BF"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">卡顿</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#nextTick"><span class="nav-number">2.5.2.2.</span> <span class="nav-text">nextTick</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#resize-%E5%93%8D%E5%BA%94%E5%BC%8F"><span class="nav-number">2.5.2.3.</span> <span class="nav-text">resize 响应式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97"><span class="nav-number">2.5.3.</span> <span class="nav-text">数据清洗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#webworker"><span class="nav-number">2.5.4.</span> <span class="nav-text">webworker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vue3-%E9%9C%80%E8%A6%81-unwrap"><span class="nav-number">2.5.5.</span> <span class="nav-text">vue3 需要 unwrap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD-echart"><span class="nav-number">2.5.6.</span> <span class="nav-text">按需加载 echart</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B6%85%E7%BA%A7%E6%8A%95%E6%94%BE"><span class="nav-number">2.6.</span> <span class="nav-text">超级投放</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CatcherInSky"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">CatcherInSky</p>
+  <div class="site-description" itemprop="description">CatcherInSky的前端知识库</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CatcherInSky" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CatcherInSky" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangchunxiang98@outlook.com" title="E-Mail → mailto:zhangchunxiang98@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

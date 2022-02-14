@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"catcherinsky.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="window 是浏览器内置中的全局对象，我们所学习的所有 Web APIs 的知识内容都是基于 window 对象实现的 screen​ document​ location​ history​ navigator尺寸screenwidth&#x2F;height用户的屏幕的完整大小，不会因为缩放而改变 windowinnerWidth&#x2F;Height包含滚动条尺寸的浏览器完整尺寸，它定义了当前用户有多大区域">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript BOM">
+<meta property="og:url" content="http://catcherinsky.github.io/2021/12/21/JavaScript%20BOM/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="window 是浏览器内置中的全局对象，我们所学习的所有 Web APIs 的知识内容都是基于 window 对象实现的 screen​ document​ location​ history​ navigator尺寸screenwidth&#x2F;height用户的屏幕的完整大小，不会因为缩放而改变 windowinnerWidth&#x2F;Height包含滚动条尺寸的浏览器完整尺寸，它定义了当前用户有多大区域">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/webp/106384/1639121848270-45cb5d0c-cbd3-49f6-9657-5ba99a221cc7.webp#clientId=u2ad08625-7070-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u9c366f40&margin=%5Bobject%20Object%5D&originHeight=318&originWidth=1188&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=uba76d70a-ede9-497f-92fe-c9ecfa40ea5&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1634636437580-6d4aa2bb-da92-4000-8a2c-3ac13da7be6f.png#clientId=uba9ebd18-1e21-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u345c7c3e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=313&originWidth=603&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=215019&status=done&style=none&taskId=u047cc083-5832-4f06-b840-8b21af0f9fa&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1634636442376-8af98547-1c6a-4836-9009-f5e3bdaf68d5.png#clientId=uba9ebd18-1e21-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u9d8d4d72&margin=%5Bobject%20Object%5D&name=image.png&originHeight=312&originWidth=602&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=213469&status=done&style=none&taskId=udac5fb8a-ac4e-416b-a729-208a88e04cd&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1634636681711-9a255e6b-7fa9-4e06-b88b-f7a7ce8f29f8.png#clientId=uba9ebd18-1e21-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ued24cfbf&margin=%5Bobject%20Object%5D&name=image.png&originHeight=429&originWidth=607&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=282148&status=done&style=none&taskId=u12c2db48-1797-4429-b42c-4529cbcd05b&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1635852073231-dba1ef6b-0667-409e-b8e2-71893a744ae8.png#clientId=ud91eb7d9-d015-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ua9b8baf7&margin=%5Bobject%20Object%5D&originHeight=577&originWidth=756&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=ub809c965-a3dc-4e5d-b40a-0642dc9cd9a&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1635845922684-5001b8f2-3b12-4d5a-9a52-782cf77a445c.png#clientId=ud91eb7d9-d015-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u381cae73&margin=%5Bobject%20Object%5D&originHeight=247&originWidth=411&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u8f0d9d85-ca16-4df9-ae31-01b3daed57f&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/webp/106384/1635910851820-5dd7a611-7318-4154-9f53-d8256d4e6857.webp#clientId=ud91eb7d9-d015-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=uf1250d68&margin=%5Bobject%20Object%5D&originHeight=984&originWidth=1672&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u4c0a3892-b100-4355-9582-6d2b6d8db8b&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/webp/106384/1639985568191-c8d9fe57-ca0e-4c9c-ac0f-81dbcf7c6856.webp#clientId=u2b0d4a1d-4a40-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ub34573c7&margin=%5Bobject%20Object%5D&originHeight=434&originWidth=762&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=uf2777551-21bf-4ff3-b267-a38a7f4ed9c&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/webp/106384/1635910695386-ca7006bd-1c50-4cf8-9adc-7442d2a002be.webp#clientId=ud91eb7d9-d015-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u2b7b4500&margin=%5Bobject%20Object%5D&originHeight=2100&originWidth=3360&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=uff931cf8-203b-4d3b-95a6-df0bce4130d&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/webp/106384/1643277010078-c5544b46-2f54-4cb8-b4d8-2af36a78cc52.webp#clientId=ufe664e9f-f360-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u2725d18d&margin=%5Bobject%20Object%5D&originHeight=876&originWidth=1440&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=ub3e54b98-f51d-437c-bfd5-3823cd79224&title=">
+<meta property="article:published_time" content="2021-12-21T09:17:49.000Z">
+<meta property="article:modified_time" content="2022-02-14T11:41:02.977Z">
+<meta property="article:author" content="CatcherInSky">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/webp/106384/1639121848270-45cb5d0c-cbd3-49f6-9657-5ba99a221cc7.webp#clientId=u2ad08625-7070-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u9c366f40&margin=%5Bobject%20Object%5D&originHeight=318&originWidth=1188&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=uba76d70a-ede9-497f-92fe-c9ecfa40ea5&title=">
+
+<link rel="canonical" href="http://catcherinsky.github.io/2021/12/21/JavaScript%20BOM/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>JavaScript BOM | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+  <meta name="referrer" content="same-origin">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Knowlegde Bases of CatcherInSky</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CatcherInSky的前端知识库</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://catcherinsky.github.io/2021/12/21/JavaScript%20BOM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content="CatcherInSky的前端知识库">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript BOM
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-21 17:17:49" itemprop="dateCreated datePublished" datetime="2021-12-21T17:17:49+08:00">2021-12-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-14 19:41:02" itemprop="dateModified" datetime="2022-02-14T19:41:02+08:00">2022-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>window 是浏览器内置中的全局对象，我们所学习的所有 Web APIs 的知识内容都是基于 window 对象实现的<br><img src="https://cdn.nlark.com/yuque/0/2021/webp/106384/1639121848270-45cb5d0c-cbd3-49f6-9657-5ba99a221cc7.webp#clientId=u2ad08625-7070-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u9c366f40&margin=%5Bobject%20Object%5D&originHeight=318&originWidth=1188&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=uba76d70a-ede9-497f-92fe-c9ecfa40ea5&title="></p>
+<h2 id="screen"><a href="#screen" class="headerlink" title="screen"></a>screen</h2><p>​</p>
+<h2 id="document"><a href="#document" class="headerlink" title="document"></a>document</h2><p>​</p>
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><p>​</p>
+<h2 id="history"><a href="#history" class="headerlink" title="history"></a>history</h2><p>​</p>
+<h2 id="navigator"><a href="#navigator" class="headerlink" title="navigator"></a>navigator</h2><h2 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h2><h3 id="screen-1"><a href="#screen-1" class="headerlink" title="screen"></a>screen</h3><h4 id="width-height"><a href="#width-height" class="headerlink" title="width/height"></a>width/height</h4><p>用户的屏幕的完整大小，不会因为缩放而改变<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1634636437580-6d4aa2bb-da92-4000-8a2c-3ac13da7be6f.png#clientId=uba9ebd18-1e21-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u345c7c3e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=313&originWidth=603&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=215019&status=done&style=none&taskId=u047cc083-5832-4f06-b840-8b21af0f9fa&title=" alt="image.png"></p>
+<h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><h4 id="innerWidth-Height"><a href="#innerWidth-Height" class="headerlink" title="innerWidth/Height"></a>innerWidth/Height</h4><p>包含滚动条尺寸的浏览器完整尺寸，它定义了当前用户有多大区域，可供你的 CSS 布局占用。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1634636442376-8af98547-1c6a-4836-9009-f5e3bdaf68d5.png#clientId=uba9ebd18-1e21-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u9d8d4d72&margin=%5Bobject%20Object%5D&name=image.png&originHeight=312&originWidth=602&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=213469&status=done&style=none&taskId=udac5fb8a-ac4e-416b-a729-208a88e04cd&title=" alt="image.png"></p>
+<h4 id="pageXOffset-pageYOffset"><a href="#pageXOffset-pageYOffset" class="headerlink" title="pageXOffset/pageYOffset"></a>pageXOffset/pageYOffset</h4><p>定义了页面(document)的相对于窗口原点的水平、垂直位移。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">pageXOffset</span> === <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">scrollLeft</span>;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">pageYOffset</span> === <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">scrollTop</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1634636681711-9a255e6b-7fa9-4e06-b88b-f7a7ce8f29f8.png#clientId=uba9ebd18-1e21-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ued24cfbf&margin=%5Bobject%20Object%5D&name=image.png&originHeight=429&originWidth=607&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=282148&status=done&style=none&taskId=u12c2db48-1797-4429-b42c-4529cbcd05b&title=" alt="image.png"><br>​</p>
+<h4 id="scrollX-Y"><a href="#scrollX-Y" class="headerlink" title="scrollX/Y"></a>scrollX/Y</h4><p>文档水平/竖直方向滚动的像素值，等价于 pageXOffset/pageYOffset<br>​</p>
+<h4 id="getComputedStyle"><a href="#getComputedStyle" class="headerlink" title="getComputedStyle()"></a>getComputedStyle()</h4><p>返回一个对象，该对象在应用活动样式表并解析这些值可能包含的任何基本计算后报告元素的所有 CSS 属性的值。 私有的 CSS 属性值可以通过对象提供的 API 或通过简单地使用 CSS 属性名称进行索引来访问。<br>​</p>
+<h3 id="Element"><a href="#Element" class="headerlink" title="Element"></a>Element</h3><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1635852073231-dba1ef6b-0667-409e-b8e2-71893a744ae8.png#clientId=ud91eb7d9-d015-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ua9b8baf7&margin=%5Bobject%20Object%5D&originHeight=577&originWidth=756&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=ub809c965-a3dc-4e5d-b40a-0642dc9cd9a&title="></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">document.documentElement实际上就是</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  元素：HTML文档的根元素著作权归作者所有</span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="clientWidth-Height"><a href="#clientWidth-Height" class="headerlink" title="clientWidth/Height"></a>clientWidth/Height</h4><p>对于没有定义 CSS 或者内联布局盒子的元素为 0，否则，它是元素内部的宽/高度，包含内边距，但不包括滚动条、边框和外边距。</p>
+<p>​</p>
+<h4 id="clientLeft-Top"><a href="#clientLeft-Top" class="headerlink" title="clientLeft/Top"></a>clientLeft/Top</h4><p>表示一个元素的左边框（border）+滚动条（文本方向从右到左）的宽度，不包括左外边距和左内边距<br>一个元素顶部边框的宽度。不包括顶部外边距或内边距<br>​</p>
+<h4 id="offsetWidth-Height"><a href="#offsetWidth-Height" class="headerlink" title="offsetWidth/Height"></a>offsetWidth/Height</h4><p>元素的像素宽/高度，高度包含该元素的边框、内边距和元素的水平滚动条（如果存在且渲染的话），不包含:before 或:after 等伪类元素的高度。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">element.<span class="property">offsetWidth</span> === element.<span class="property">clientWidth</span> + border * <span class="number">2</span>;</span><br><span class="line">element.<span class="property">offsetHeight</span> === element.<span class="property">clientHeight</span> + border * <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1635845922684-5001b8f2-3b12-4d5a-9a52-782cf77a445c.png#clientId=ud91eb7d9-d015-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u381cae73&margin=%5Bobject%20Object%5D&originHeight=247&originWidth=411&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u8f0d9d85-ca16-4df9-ae31-01b3daed57f&title="></p>
+<h4 id="offsetLeft-Top"><a href="#offsetLeft-Top" class="headerlink" title="offsetLeft/Top"></a>offsetLeft/Top</h4><p>元素左上角相对于 <strong>HTMLElement.offsetParent</strong> (position 为非 static 且距离自己最近的祖先元素)节点的左/上边界偏移的像素值，不随滚动条滚动变化。<br><img src="https://cdn.nlark.com/yuque/0/2021/webp/106384/1635910851820-5dd7a611-7318-4154-9f53-d8256d4e6857.webp#clientId=ud91eb7d9-d015-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=uf1250d68&margin=%5Bobject%20Object%5D&originHeight=984&originWidth=1672&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u4c0a3892-b100-4355-9582-6d2b6d8db8b&title="><br>​</p>
+<h4 id="scrollWidth-Height"><a href="#scrollWidth-Height" class="headerlink" title="scrollWidth/Height"></a>scrollWidth/Height</h4><p>元素内容宽/高度的度量，包括由于溢出导致的视图中不可见内容。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">element.<span class="property">scrollHeight</span> === element.<span class="property">clientHeight</span> + element.<span class="property">scrollTop</span>;</span><br><span class="line">element.<span class="property">scrollWidth</span> === element.<span class="property">clientWidth</span> + element.<span class="property">scrollLeft</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="scrollLeft-Top"><a href="#scrollLeft-Top" class="headerlink" title="scrollLeft/Top"></a>scrollLeft/Top</h4><p>元素的内容滚动的距离，是这个元素的内容顶部（卷起来的）到它的<strong>视口</strong>可见内容（的顶部）的距离的度量。<br>​</p>
+<h4 id="getBoundingClientRect"><a href="#getBoundingClientRect" class="headerlink" title="getBoundingClientRect()"></a>getBoundingClientRect()</h4><p>返回元素的大小及其相对于<strong>视口</strong>的位置，与其他属性不同，这些值可以是浮点数<br><img src="https://cdn.nlark.com/yuque/0/2021/webp/106384/1639985568191-c8d9fe57-ca0e-4c9c-ac0f-81dbcf7c6856.webp#clientId=u2b0d4a1d-4a40-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ub34573c7&margin=%5Bobject%20Object%5D&originHeight=434&originWidth=762&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=uf2777551-21bf-4ff3-b267-a38a7f4ed9c&title="></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; x, y, width, height, top, left, right, bottom &#125; =</span><br><span class="line">  element.<span class="title function_">getBoundingClientRect</span>();</span><br><span class="line">x === left + element.<span class="property">scrollLeft</span>;</span><br><span class="line">y === top + element.<span class="property">scrollTop</span>;</span><br><span class="line">width === element.<span class="property">offsetWidth</span>;</span><br><span class="line">height === element.<span class="property">offsetHeight</span>;</span><br><span class="line">top === element.<span class="property">clientTop</span>;</span><br><span class="line">left === element.<span class="property">clientLeft</span>;</span><br><span class="line">right === left + width;</span><br><span class="line">bottom === top + height;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断元素是否在可视区域</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">checkInView</span>(<span class="params">dom</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; top, left, bottom, right &#125; = dom.<span class="title function_">getBoundingClientRect</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(top, left, bottom, right);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">window</span>.<span class="property">innerHeight</span>, <span class="variable language_">window</span>.<span class="property">innerWidth</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    top &gt;= <span class="number">0</span> &amp;&amp;</span><br><span class="line">    left &gt;= <span class="number">0</span> &amp;&amp;</span><br><span class="line">    bottom &lt;= (<span class="variable language_">window</span>.<span class="property">innerHeight</span> || <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">clientHeight</span>) &amp;&amp;</span><br><span class="line">    right &lt;= (<span class="variable language_">window</span>.<span class="property">innerWidth</span> || <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">clientWidth</span>)</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Event"><a href="#Event" class="headerlink" title="Event"></a>Event</h3><p><img src="https://cdn.nlark.com/yuque/0/2021/webp/106384/1635910695386-ca7006bd-1c50-4cf8-9adc-7442d2a002be.webp#clientId=ud91eb7d9-d015-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u2b7b4500&margin=%5Bobject%20Object%5D&originHeight=2100&originWidth=3360&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=uff931cf8-203b-4d3b-95a6-df0bce4130d&title="></p>
+<h4 id="pageX-Y"><a href="#pageX-Y" class="headerlink" title="pageX/Y"></a>pageX/Y</h4><p>以 doument 对象左上角为原点的偏移量</p>
+<h4 id="clientX-Y"><a href="#clientX-Y" class="headerlink" title="clientX/Y"></a>clientX/Y</h4><p>以浏览器可视窗口左上角为原点的偏移量</p>
+<h4 id="screenX-Y"><a href="#screenX-Y" class="headerlink" title="screenX/Y"></a>screenX/Y</h4><p>以计算机屏幕左上顶角为原点的偏移量</p>
+<h4 id="offsetX-Y"><a href="#offsetX-Y" class="headerlink" title="offsetX/Y"></a>offsetX/Y</h4><p>事件对象与目标节点的内填充边（padding edge）在 X/Y 轴方向上的偏移量，是相对于父元素的左边/上方的偏移量。</p>
+<h4 id="layerX-Y"><a href="#layerX-Y" class="headerlink" title="layerX/Y"></a>layerX/Y</h4><p>最近的绝对定位的父元素（如果没有，则为 document 对象）左上顶角的偏移量<br>​</p>
+<p>​</p>
+<p>​</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/webp/106384/1643277010078-c5544b46-2f54-4cb8-b4d8-2af36a78cc52.webp#clientId=ufe664e9f-f360-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u2725d18d&margin=%5Bobject%20Object%5D&originHeight=876&originWidth=1440&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=ub3e54b98-f51d-437c-bfd5-3823cd79224&title=">可利用 performance.timing 看各个步骤的耗时： 白屏时间：performance.timing.responseStart - performance.timing.navigationStart</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/15/vue-config%E4%BC%98%E5%8C%96/" rel="prev" title="vue-config优化">
+      <i class="fa fa-chevron-left"></i> vue-config优化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/21/JavaScript%20DOM/" rel="next" title="JavaScript DOM">
+      JavaScript DOM <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#screen"><span class="nav-number">1.</span> <span class="nav-text">screen</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#document"><span class="nav-number">2.</span> <span class="nav-text">document</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#location"><span class="nav-number">3.</span> <span class="nav-text">location</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#history"><span class="nav-number">4.</span> <span class="nav-text">history</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#navigator"><span class="nav-number">5.</span> <span class="nav-text">navigator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%BA%E5%AF%B8"><span class="nav-number">6.</span> <span class="nav-text">尺寸</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#screen-1"><span class="nav-number">6.1.</span> <span class="nav-text">screen</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#width-height"><span class="nav-number">6.1.1.</span> <span class="nav-text">width&#x2F;height</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#window"><span class="nav-number">6.2.</span> <span class="nav-text">window</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#innerWidth-Height"><span class="nav-number">6.2.1.</span> <span class="nav-text">innerWidth&#x2F;Height</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pageXOffset-pageYOffset"><span class="nav-number">6.2.2.</span> <span class="nav-text">pageXOffset&#x2F;pageYOffset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrollX-Y"><span class="nav-number">6.2.3.</span> <span class="nav-text">scrollX&#x2F;Y</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getComputedStyle"><span class="nav-number">6.2.4.</span> <span class="nav-text">getComputedStyle()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Element"><span class="nav-number">6.3.</span> <span class="nav-text">Element</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#clientWidth-Height"><span class="nav-number">6.3.1.</span> <span class="nav-text">clientWidth&#x2F;Height</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#clientLeft-Top"><span class="nav-number">6.3.2.</span> <span class="nav-text">clientLeft&#x2F;Top</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#offsetWidth-Height"><span class="nav-number">6.3.3.</span> <span class="nav-text">offsetWidth&#x2F;Height</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#offsetLeft-Top"><span class="nav-number">6.3.4.</span> <span class="nav-text">offsetLeft&#x2F;Top</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrollWidth-Height"><span class="nav-number">6.3.5.</span> <span class="nav-text">scrollWidth&#x2F;Height</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrollLeft-Top"><span class="nav-number">6.3.6.</span> <span class="nav-text">scrollLeft&#x2F;Top</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getBoundingClientRect"><span class="nav-number">6.3.7.</span> <span class="nav-text">getBoundingClientRect()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Event"><span class="nav-number">6.4.</span> <span class="nav-text">Event</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pageX-Y"><span class="nav-number">6.4.1.</span> <span class="nav-text">pageX&#x2F;Y</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#clientX-Y"><span class="nav-number">6.4.2.</span> <span class="nav-text">clientX&#x2F;Y</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#screenX-Y"><span class="nav-number">6.4.3.</span> <span class="nav-text">screenX&#x2F;Y</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#offsetX-Y"><span class="nav-number">6.4.4.</span> <span class="nav-text">offsetX&#x2F;Y</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#layerX-Y"><span class="nav-number">6.4.5.</span> <span class="nav-text">layerX&#x2F;Y</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CatcherInSky"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">CatcherInSky</p>
+  <div class="site-description" itemprop="description">CatcherInSky的前端知识库</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CatcherInSky" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CatcherInSky" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangchunxiang98@outlook.com" title="E-Mail → mailto:zhangchunxiang98@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

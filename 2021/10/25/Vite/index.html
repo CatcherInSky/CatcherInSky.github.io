@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"catcherinsky.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Vite 基于 ECMAScript 标准原生模块系统 ES Module 实现，利用浏览器去解析 imports，在服务器端按需编译返回，完全跳过了打包这个概念，所以启动速度特别快。解决了 webpack 冷启动时间过长、Webpack HMR 热更新反应速度慢的问题。Vite 会在本地启动服务，当浏览器读取到整个 html 文件之后，会执行到 import 的时候才去向服务端发送对应模块的请求">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vite">
+<meta property="og:url" content="http://catcherinsky.github.io/2021/10/25/Vite/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="Vite 基于 ECMAScript 标准原生模块系统 ES Module 实现，利用浏览器去解析 imports，在服务器端按需编译返回，完全跳过了打包这个概念，所以启动速度特别快。解决了 webpack 冷启动时间过长、Webpack HMR 热更新反应速度慢的问题。Vite 会在本地启动服务，当浏览器读取到整个 html 文件之后，会执行到 import 的时候才去向服务端发送对应模块的请求">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-25T08:10:53.000Z">
+<meta property="article:modified_time" content="2022-02-14T11:41:03.861Z">
+<meta property="article:author" content="CatcherInSky">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://catcherinsky.github.io/2021/10/25/Vite/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Vite | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+  <meta name="referrer" content="same-origin">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Knowlegde Bases of CatcherInSky</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CatcherInSky的前端知识库</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://catcherinsky.github.io/2021/10/25/Vite/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content="CatcherInSky的前端知识库">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vite
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-25 16:10:53" itemprop="dateCreated datePublished" datetime="2021-10-25T16:10:53+08:00">2021-10-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-14 19:41:03" itemprop="dateModified" datetime="2022-02-14T19:41:03+08:00">2022-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Vite 基于 ECMAScript 标准原生模块系统 ES Module 实现，利用浏览器去解析 imports，在服务器端按需编译返回，完全跳过了打包这个概念，所以启动速度特别快。解决了 webpack 冷启动时间过长、Webpack HMR 热更新反应速度慢的问题。<br>Vite 会在<strong>本地启动服务</strong>，当浏览器读取到整个 html 文件之后，会<strong>执行到 import 的时候</strong>才去向服务端发送对应模块的请求，Vite 内部进行<strong>模板解析</strong>，<strong>代码编译</strong>等解析成浏览器可以执行的 JS 文件返回到浏览器端，这里就是真正的按需加载，并且不会因为模块增多而变慢。</p>
+<p>在生产环境打包和 webpack 类似会将所有文件进行编译打包到一起。对于代码切割的需求 Vite 采用的是原生的动态导入来实现的，所以打包结果只能支持现代浏览器，如果老版本浏览器需要使用可以引入 Polyfill。使用 Webpack 打包是因为浏览器环境并不支持模块化，还有就是模块文件会产生大量的 http 请求。在现代浏览器模块化已经被支持了，<strong>http2</strong>也解决了多文件请求的问题。<br>Vite 带来的好处是提升开发者在开发过程中的体验，web 开发服务器不需要等待可以立即启动，模块热更新几乎是实时的，所需的文件按需编译，避免编译用不到的文件，开箱即用，避免 loader 及 plugins 的配置。<br>Vite 的核心功能包括开启一个静态的 web 服务器，并且能够编译单文件组件，并且提供 HMR 功能。<br>当启动 vite 的时候首先会将当前项目目录作为静态服务器的根目录，静态服务器会拦截部分请求，当请求单文件的时候会实时编译，以及处理其他浏览器不能识别的模块，通过 websocket 实现 hmr。<br>​</p>
+<p>缺点：<br>Vite 只对 npm 依赖进行预构建，对于用户编写的文件不进行预处理，而是通过浏览器支持的 ES Module 来进行按需读取，所以如果用户文件过多，且没有进行一定的 Code Spliting 等操作，首屏是非常慢的。<br>​</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="搭建静态测试服务器"><a href="#搭建静态测试服务器" class="headerlink" title="搭建静态测试服务器"></a>搭建静态测试服务器</h3><p>vite 内部使用的是 KOA 来实现静态服务器，vite2 改为 http 模块</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env node</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Koa</span> = <span class="built_in">require</span>(<span class="string">&#x27;koa&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> send = <span class="built_in">require</span>(<span class="string">&#x27;koa-send&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title class_">Koa</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改第三方模块路径</span></span><br><span class="line">app.<span class="title function_">use</span>(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (ctx.<span class="property">type</span> === <span class="string">&#x27;application/javascript&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> contents = <span class="keyword">await</span> <span class="title function_">stream2string</span>(ctx.<span class="property">body</span>);</span><br><span class="line">        <span class="comment">// 将body中导入的路径修改一下，重新赋值给body返回给浏览器</span></span><br><span class="line">        <span class="comment">// import vue from &#x27;vue&#x27;, 匹配到from &#x27;修改为from &#x27;@modules/</span></span><br><span class="line">        ctx.<span class="property">body</span> = contents.<span class="title function_">replace</span>(<span class="regexp">/(from\s+[&#x27;&quot;])(?![\.\/])/g</span>, <span class="string">&#x27;$1/@modules/&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 加载第三方模块</span></span><br><span class="line">app.<span class="title function_">use</span>(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (ctx.<span class="property">path</span>.<span class="title function_">startsWith</span>(<span class="string">&#x27;/@modules/&#x27;</span>)) &#123;</span><br><span class="line">        <span class="comment">// 截取模块名称</span></span><br><span class="line">        <span class="keyword">const</span> moduleName = ctx.<span class="property">path</span>.<span class="title function_">substr</span>(<span class="number">10</span>);</span><br><span class="line">        <span class="comment">// 找到模块路径</span></span><br><span class="line">        <span class="keyword">const</span> pkgPath = path.<span class="title function_">join</span>(process.<span class="title function_">pwd</span>(), <span class="string">&#x27;node_modules&#x27;</span>, moduleName, <span class="string">&#x27;package.json&#x27;</span>);</span><br><span class="line">        <span class="keyword">const</span> pkg = <span class="built_in">require</span>(pkgPath);</span><br><span class="line">        <span class="comment">// 重新给ctx.path赋值，需要重新设置一个存在的路径，因为之前的路径是不存在的</span></span><br><span class="line">        ctx.<span class="property">path</span> = path.<span class="title function_">join</span>(<span class="string">&#x27;/node_modules&#x27;</span>, moduleName, pkg.<span class="property">module</span>);</span><br><span class="line">        <span class="comment">// 执行下一个中间件</span></span><br><span class="line">        awiat <span class="title function_">next</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 开启静态文件服务器</span></span><br><span class="line">app.<span class="title function_">use</span>(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="comment">// 加载静态文件</span></span><br><span class="line">    <span class="keyword">await</span> <span class="title function_">send</span>(ctx, ctx.<span class="property">path</span>, &#123; <span class="attr">root</span>: process.<span class="title function_">cwd</span>(), <span class="attr">index</span>: <span class="string">&#x27;index.html&#x27;</span>&#125;)</span><br><span class="line">    <span class="keyword">await</span> <span class="title function_">next</span>()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">5000</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;服务器已经启动 http://localhost:5000&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="处理第三方模块"><a href="#处理第三方模块" class="headerlink" title="处理第三方模块"></a>处理第三方模块</h3><p>当代码中使用了第三方模块，可以通过修改第三方模块的路径，给他一个标识<code>@modules</code>，然后再服务器中拿到这个标识来处理这个模块。<br>代码见上</p>
+<h3 id="单文件组件处理"><a href="#单文件组件处理" class="headerlink" title="单文件组件处理"></a>单文件组件处理</h3><p>浏览器只能识别 js,css 等常用资源，所以其他类型的资源都需要在服务端处理。当请求单文件组件的时候需要在服务器将单文件组件编译成 js 模块返回给浏览器。当浏览器第一次请求文件(App.vue)的时候，服务器会把单文件组件编译成一个对象，先加载这个组件，然后再创建一个对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Hello</span> <span class="keyword">from</span> <span class="string">&quot;./src/components/Hello.vue&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> __script = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;App&quot;</span>,</span><br><span class="line">  <span class="attr">components</span>: &#123;</span><br><span class="line">    <span class="title class_">Hello</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>接着再去加载入口文件，这次会告诉服务器编译一下这个单文件组件的模板，返回一个 render 函数。然后将 render 函数挂载到刚创建的组件选项对象上，最后导出选项对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; render <span class="keyword">as</span> __render &#125; <span class="keyword">from</span> <span class="string">&quot;/src/App.vue?type=template&quot;</span>;</span><br><span class="line">__script.<span class="property">rener</span> = __render;</span><br><span class="line">__script.<span class="property">__hmrId</span> = <span class="string">&quot;/src/App.vue&quot;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> __script;</span><br></pre></td></tr></table></figure>
+
+<p>也就是说 vite 会发送两次请求（两个 import，一个导入组件，一个导入入口 vue），第一次请求会编译单文件文件，第二次请求是编译单文件模板返回一个 render 函数。</p>
+<h4 id="编译单文件选项"><a href="#编译单文件选项" class="headerlink" title="编译单文件选项"></a>编译单文件选项</h4><p>把单文件组件编译成一个选项，这里用中间件来实现。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 处理单文件组件</span></span><br><span class="line">app.<span class="title function_">use</span>(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (ctx.<span class="property">path</span>.<span class="title function_">endsWith</span>(<span class="string">&quot;.vue&quot;</span>)) &#123;</span><br><span class="line">    <span class="comment">// 获取响应文件内容，转换成字符串</span></span><br><span class="line">    <span class="keyword">const</span> contents = <span class="keyword">await</span> <span class="title function_">streamToString</span>(ctx.<span class="property">body</span>);</span><br><span class="line">    <span class="comment">// 编译文件内容</span></span><br><span class="line">    <span class="keyword">const</span> &#123; descriptor &#125; = compilerSFC.<span class="title function_">parse</span>(contents);</span><br><span class="line">    <span class="comment">// 定义状态码</span></span><br><span class="line">    <span class="keyword">let</span> code;</span><br><span class="line">    <span class="comment">// 不存在type就是第一次请求</span></span><br><span class="line">    <span class="keyword">if</span> (!ctx.<span class="property">query</span>.<span class="property">type</span>) &#123;</span><br><span class="line">      code = descriptor.<span class="property">script</span>.<span class="property">content</span>;</span><br><span class="line">      <span class="comment">// 这里的code格式是, 需要改造成我们前面贴出来的vite中的样子</span></span><br><span class="line">      <span class="comment">// import Hello from &#x27;./components/Hello.vue&#x27;</span></span><br><span class="line">      <span class="comment">// export default &#123;</span></span><br><span class="line">      <span class="comment">//      name: &#x27;App&#x27;,</span></span><br><span class="line">      <span class="comment">//      components: &#123;</span></span><br><span class="line">      <span class="comment">//          Hello</span></span><br><span class="line">      <span class="comment">//      &#125;</span></span><br><span class="line">      <span class="comment">//  &#125;</span></span><br><span class="line">      <span class="comment">// 改造code的格式，将export default 替换为const __script =</span></span><br><span class="line">      code = code.<span class="title function_">relace</span>(<span class="regexp">/export\s+default\s+/g</span>, <span class="string">&quot;const __script = &quot;</span>);</span><br><span class="line">      code += <span class="string">`</span></span><br><span class="line"><span class="string">                import &#123; render as __render &#125; from &#x27;<span class="subst">$&#123;ctx.path&#125;</span>?type=template&#x27;</span></span><br><span class="line"><span class="string">                __script.rener = __render</span></span><br><span class="line"><span class="string">                export default __script</span></span><br><span class="line"><span class="string">            `</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 设置浏览器响应头为js</span></span><br><span class="line">    ctx.<span class="property">type</span> = <span class="string">&quot;application/javascript&quot;</span>;</span><br><span class="line">    <span class="comment">// 将字符串转换成数据流传给下一个中间件。</span></span><br><span class="line">    ctx.<span class="property">body</span> = <span class="title function_">stringToStream</span>(code);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">await</span> <span class="title function_">next</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">stringToStream</span> = (<span class="params">text</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> stream = <span class="keyword">new</span> <span class="title class_">Readable</span>();</span><br><span class="line">  stream.<span class="title function_">push</span>(text);</span><br><span class="line">  stream.<span class="title function_">push</span>(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">return</span> stream;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="单文件组件模板编译成-render-函数"><a href="#单文件组件模板编译成-render-函数" class="headerlink" title="单文件组件模板编译成 render 函数"></a>单文件组件模板编译成 render 函数</h4><p>第二次请求 url 会带上 type=template 参数，我们需要将单文件组件模板编译成 render 函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!ctx.<span class="property">query</span>.<span class="property">type</span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (ctx.<span class="property">query</span>.<span class="property">type</span> === <span class="string">&#x27;template&#x27;</span>) &#123;</span><br><span class="line">    <span class="comment">// 获取编译后的对象 code就是render函数</span></span><br><span class="line">    <span class="keyword">const</span> templateRender = compilerSFC.<span class="title function_">compileTemplate</span>(&#123; <span class="attr">source</span>: descriptor.<span class="property">template</span>.<span class="property">content</span> &#125;)</span><br><span class="line">    <span class="comment">// 将render函数赋值给code返回给浏览器</span></span><br><span class="line">    code = templateRender.<span class="property">code</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="全部"><a href="#全部" class="headerlink" title="全部"></a>全部</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env node</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> &#123; <span class="title class_">Readable</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;stream)</span></span><br><span class="line"><span class="string">const Koa = require(&#x27;</span>koa<span class="string">&#x27;)</span></span><br><span class="line"><span class="string">const send = require(&#x27;</span>koa-send<span class="string">&#x27;)</span></span><br><span class="line"><span class="string">const compilerSFC = require(&#x27;</span>@vue/compiler-sfc<span class="string">&#x27;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">const app = new Koa()</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">const stream2string = (stream) =&gt; &#123;</span></span><br><span class="line"><span class="string">    return new Promise((resolve, reject) =&gt; &#123;</span></span><br><span class="line"><span class="string">        const chunks = [];</span></span><br><span class="line"><span class="string">        stream.on(&#x27;</span>data<span class="string">&#x27;, chunk =&gt; &#123;chunks.push(chunk)&#125;)</span></span><br><span class="line"><span class="string">        stream.on(&#x27;</span>end<span class="string">&#x27;, () =&gt; &#123; resolve(Buffer.concat(chunks).toString(&#x27;</span>utf-<span class="number">8</span><span class="string">&#x27;))&#125;)</span></span><br><span class="line"><span class="string">        stream.on(&#x27;</span>error<span class="string">&#x27;, reject)</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">const stringToStream = text =&gt; &#123;</span></span><br><span class="line"><span class="string">    const stream = new Readable();</span></span><br><span class="line"><span class="string">    stream.push(text);</span></span><br><span class="line"><span class="string">    stream.push(null);</span></span><br><span class="line"><span class="string">    return stream;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// 加载第三方模块</span></span><br><span class="line"><span class="string">app.use(async (ctx, next) =&gt; &#123;</span></span><br><span class="line"><span class="string">    if (ctx.path.startsWith(&#x27;</span>/@modules/<span class="string">&#x27;)) &#123;</span></span><br><span class="line"><span class="string">        // 截取模块名称</span></span><br><span class="line"><span class="string">        const moduleName = ctx.path.substr(10);</span></span><br><span class="line"><span class="string">        // 找到模块路径</span></span><br><span class="line"><span class="string">        const pkgPath = path.join(process.pwd(), &#x27;</span>node_modules<span class="string">&#x27;, moduleName, &#x27;</span>package.<span class="property">json</span><span class="string">&#x27;);</span></span><br><span class="line"><span class="string">        const pkg = require(pkgPath);</span></span><br><span class="line"><span class="string">        // 重新给ctx.path赋值，需要重新设置一个存在的路径，因为之前的路径是不存在的</span></span><br><span class="line"><span class="string">        ctx.path = path.join(&#x27;</span>/node_modules<span class="string">&#x27;, moduleName, pkg.module);</span></span><br><span class="line"><span class="string">        // 执行下一个中间件</span></span><br><span class="line"><span class="string">        awiat next();</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// 开启静态文件服务器</span></span><br><span class="line"><span class="string">app.use(async (ctx, next) =&gt; &#123;</span></span><br><span class="line"><span class="string">    // 加载静态文件</span></span><br><span class="line"><span class="string">    await send(ctx, ctx.path, &#123; root: process.cwd(), index: &#x27;</span>index.<span class="property">html</span><span class="string">&#x27;&#125;)</span></span><br><span class="line"><span class="string">    await next()</span></span><br><span class="line"><span class="string">&#125;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// 处理单文件组件</span></span><br><span class="line"><span class="string">app.use(async (ctx, next) =&gt; &#123;</span></span><br><span class="line"><span class="string">    if (ctx.path.endsWith(&#x27;</span>.<span class="property">vue</span><span class="string">&#x27;)) &#123;</span></span><br><span class="line"><span class="string">        // 获取响应文件内容，转换成字符串</span></span><br><span class="line"><span class="string">        const contents = await streamToString(ctx.body);</span></span><br><span class="line"><span class="string">        // 编译文件内容</span></span><br><span class="line"><span class="string">        const &#123; descriptor &#125; = compilerSFC.parse(contents);</span></span><br><span class="line"><span class="string">        // 定义状态码</span></span><br><span class="line"><span class="string">        let code;</span></span><br><span class="line"><span class="string">        // 不存在type就是第一次请求</span></span><br><span class="line"><span class="string">        if (!ctx.query.type) &#123;</span></span><br><span class="line"><span class="string">            code = descriptor.script.content;</span></span><br><span class="line"><span class="string">            // 这里的code格式是, 需要改造成我们前面贴出来的vite中的样子</span></span><br><span class="line"><span class="string">            // import Hello from &#x27;</span>./components/<span class="title class_">Hello</span>.<span class="property">vue</span><span class="string">&#x27;</span></span><br><span class="line"><span class="string">            // export default &#123;</span></span><br><span class="line"><span class="string">            //      name: &#x27;</span><span class="title class_">App</span><span class="string">&#x27;,</span></span><br><span class="line"><span class="string">            //      components: &#123;</span></span><br><span class="line"><span class="string">            //          Hello</span></span><br><span class="line"><span class="string">            //      &#125;</span></span><br><span class="line"><span class="string">            //  &#125;</span></span><br><span class="line"><span class="string">            // 改造code的格式，将export default 替换为const __script =</span></span><br><span class="line"><span class="string">            code = code.relace(/export\s+default\s+/g, &#x27;</span><span class="keyword">const</span> __script = <span class="string">&#x27;)</span></span><br><span class="line"><span class="string">            code += `</span></span><br><span class="line"><span class="string">                import &#123; render as __render &#125; from &#x27;</span>$&#123;ctx.<span class="property">path</span>&#125;?type=template<span class="string">&#x27;</span></span><br><span class="line"><span class="string">                __script.rener = __render</span></span><br><span class="line"><span class="string">                export default __script</span></span><br><span class="line"><span class="string">            `</span></span><br><span class="line"><span class="string">        &#125; else if (ctx.query.type === &#x27;</span>template<span class="string">&#x27;) &#123;</span></span><br><span class="line"><span class="string">            // 获取编译后的对象 code就是render函数</span></span><br><span class="line"><span class="string">            const templateRender = compilerSFC.compileTemplate(&#123; source: descriptor.template.content &#125;)</span></span><br><span class="line"><span class="string">            // 将render函数赋值给code返回给浏览器</span></span><br><span class="line"><span class="string">            code = templateRender.code</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        // 设置浏览器响应头为js</span></span><br><span class="line"><span class="string">        ctx.type = &#x27;</span>application/javascript<span class="string">&#x27;</span></span><br><span class="line"><span class="string">        // 将字符串转换成数据流传给下一个中间件。</span></span><br><span class="line"><span class="string">        ctx.body = stringToStream(code);</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    await next()</span></span><br><span class="line"><span class="string">&#125;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// 修改第三方模块路径</span></span><br><span class="line"><span class="string">app.use(async (ctx, next) =&gt; &#123;</span></span><br><span class="line"><span class="string">    if (ctx.type === &#x27;</span>application/javascript<span class="string">&#x27;) &#123;</span></span><br><span class="line"><span class="string">        const contents = await stream2string(ctx.body);</span></span><br><span class="line"><span class="string">        // 将body中导入的路径修改一下，重新赋值给body返回给浏览器</span></span><br><span class="line"><span class="string">        // import vue from &#x27;</span>vue<span class="string">&#x27;, 匹配到from &#x27;</span>修改为<span class="keyword">from</span> <span class="string">&#x27;@modules/</span></span><br><span class="line"><span class="string">        ctx.body = contents.replace(/(from\s+[&#x27;</span><span class="string">&quot;])(?![\.\/])/g, &#x27;$1/@modules/&#x27;).replace(/process\.env\.NODE_ENV/g, &#x27;&quot;</span>development<span class="string">&quot;&#x27;);</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">app.listen(5000)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">console.log(&#x27;服务器已经启动 http://localhost:5000&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://github.com/lxchuan12/vue-dev-server-analysis">https://github.com/lxchuan12/vue-dev-server-analysis</a><br><a target="_blank" rel="noopener" href="https://github.com/vuejs/vue-dev-server">https://github.com/vuejs/vue-dev-server</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6972369882469892127">https://juejin.cn/post/6972369882469892127</a><br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Modules">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Modules</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/09/27/%E7%A7%BB%E5%8A%A8%E7%AB%AF/" rel="prev" title="移动端">
+      <i class="fa fa-chevron-left"></i> 移动端
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/28/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" rel="next" title="函数式编程">
+      函数式编程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E6%B5%8B%E8%AF%95%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">搭建静态测试服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97"><span class="nav-number">1.2.</span> <span class="nav-text">处理第三方模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E5%A4%84%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">单文件组件处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%8D%95%E6%96%87%E4%BB%B6%E9%80%89%E9%A1%B9"><span class="nav-number">1.3.1.</span> <span class="nav-text">编译单文件选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E6%88%90-render-%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.2.</span> <span class="nav-text">单文件组件模板编译成 render 函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E9%83%A8"><span class="nav-number">1.4.</span> <span class="nav-text">全部</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">2.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CatcherInSky"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">CatcherInSky</p>
+  <div class="site-description" itemprop="description">CatcherInSky的前端知识库</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CatcherInSky" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CatcherInSky" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangchunxiang98@outlook.com" title="E-Mail → mailto:zhangchunxiang98@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

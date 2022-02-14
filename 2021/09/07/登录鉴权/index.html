@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"catcherinsky.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="注册HASH 加盐，防止脱库​ session-cookie 流程 客户端带着用户名和密码去访问 &#x2F;login 接口，服务器端收到后校验用户名和密码，校验正确就会在服务器端存储一个 sessionId 和 session 的映射关系    服务器端返回 response，并且将 sessionId 以 set-cookie 的方式存在了客户端 客户端发起非登录请求时，服务端通过 cookie 中的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="登录鉴权">
+<meta property="og:url" content="http://catcherinsky.github.io/2021/09/07/%E7%99%BB%E5%BD%95%E9%89%B4%E6%9D%83/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="注册HASH 加盐，防止脱库​ session-cookie 流程 客户端带着用户名和密码去访问 &#x2F;login 接口，服务器端收到后校验用户名和密码，校验正确就会在服务器端存储一个 sessionId 和 session 的映射关系    服务器端返回 response，并且将 sessionId 以 set-cookie 的方式存在了客户端 客户端发起非登录请求时，服务端通过 cookie 中的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1631008228603-e8490bb9-d8c4-4a19-9eda-acdc346f17ff.png#clientId=u35155496-a643-4&from=paste&id=u9f0126be&margin=%5Bobject%20Object%5D&name=image.png&originHeight=555&originWidth=784&originalType=url%E2%88%B6=1&size=45655&status=done&style=none&taskId=u786911ba-ac84-42c7-88d4-edf3bb36164">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1631583981905-815103d3-dccb-445a-a998-b623531c3fe8.png#clientId=u60fdaa12-1e32-4&from=paste&id=u9d08525d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=331&originWidth=639&originalType=url%E2%88%B6=1&size=19845&status=done&style=none&taskId=u35150456-7083-46f7-82eb-6e15c8a8fca">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1631526715996-ebac69c8-0b71-4513-bf1a-e717514627cb.png#clientId=u60fdaa12-1e32-4&from=paste&id=u6ddb9c9a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1100&originWidth=1600&originalType=url%E2%88%B6=1&size=453992&status=done&style=none&taskId=uaf7d5c66-cda4-4c5a-a41f-677b4947515">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/webp/106384/1631523645721-6bbfd2c4-1ab9-4ef5-95bc-d7513eb077bc.webp#clientId=u60fdaa12-1e32-4&from=paste&id=u92d2812a&margin=%5Bobject%20Object%5D&originHeight=141&originWidth=645&originalType=url%E2%88%B6=1&status=done&style=none&taskId=uccd197f8-6be7-40b6-9bdb-09d743a01cc">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/webp/106384/1631591536339-c8a770a6-af21-421a-b91c-76e1873e42d9.webp#clientId=u60fdaa12-1e32-4&from=paste&id=u9f488259&margin=%5Bobject%20Object%5D&originHeight=936&originWidth=1691&originalType=url%E2%88%B6=1&status=done&style=none&taskId=uf9ddd834-fa29-4b16-b7fe-46fe5648dda">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1631592145339-49130b5f-eb04-4cf1-bcfe-b6ef4c6354b9.png#clientId=u60fdaa12-1e32-4&from=paste&id=u48beed68&margin=%5Bobject%20Object%5D&name=image.png&originHeight=418&originWidth=720&originalType=url%E2%88%B6=1&size=173123&status=done&style=none&taskId=u8d25cb71-8e6f-46a3-b524-77bbba1f0a6">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1631592124219-62ff4e59-1c5a-421b-97df-92d1e343bd97.png#clientId=u60fdaa12-1e32-4&from=paste&id=u490440a7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=324&originWidth=720&originalType=url%E2%88%B6=1&size=166774&status=done&style=none&taskId=uc723f026-4e96-4753-8d4b-9d0a618f85e">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1631592099638-f5645a17-3808-4886-80f3-173e5e063e70.png#clientId=u60fdaa12-1e32-4&from=paste&id=u6a1db672&margin=%5Bobject%20Object%5D&name=image.png&originHeight=372&originWidth=720&originalType=url%E2%88%B6=1&size=191771&status=done&style=none&taskId=u78f8538d-cf7b-4aa8-b679-be06bb6684d">
+<meta property="article:published_time" content="2021-09-07T09:33:09.000Z">
+<meta property="article:modified_time" content="2022-02-14T11:41:04.557Z">
+<meta property="article:author" content="CatcherInSky">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1631008228603-e8490bb9-d8c4-4a19-9eda-acdc346f17ff.png#clientId=u35155496-a643-4&from=paste&id=u9f0126be&margin=%5Bobject%20Object%5D&name=image.png&originHeight=555&originWidth=784&originalType=url%E2%88%B6=1&size=45655&status=done&style=none&taskId=u786911ba-ac84-42c7-88d4-edf3bb36164">
+
+<link rel="canonical" href="http://catcherinsky.github.io/2021/09/07/%E7%99%BB%E5%BD%95%E9%89%B4%E6%9D%83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>登录鉴权 | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+  <meta name="referrer" content="same-origin">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Knowlegde Bases of CatcherInSky</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CatcherInSky的前端知识库</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://catcherinsky.github.io/2021/09/07/%E7%99%BB%E5%BD%95%E9%89%B4%E6%9D%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content="CatcherInSky的前端知识库">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          登录鉴权
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-07 17:33:09" itemprop="dateCreated datePublished" datetime="2021-09-07T17:33:09+08:00">2021-09-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-14 19:41:04" itemprop="dateModified" datetime="2022-02-14T19:41:04+08:00">2022-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h2><p>HASH 加盐，防止脱库<br>​</p>
+<h2 id="session-cookie"><a href="#session-cookie" class="headerlink" title="session-cookie"></a>session-cookie</h2><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1631008228603-e8490bb9-d8c4-4a19-9eda-acdc346f17ff.png#clientId=u35155496-a643-4&from=paste&id=u9f0126be&margin=%5Bobject%20Object%5D&name=image.png&originHeight=555&originWidth=784&originalType=url%E2%88%B6=1&size=45655&status=done&style=none&taskId=u786911ba-ac84-42c7-88d4-edf3bb36164" alt="image.png"></p>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ol>
+<li>客户端带着用户名和密码去访问 /login 接口，服务器端收到后校验用户名和密码，校验正确就会在服务器端存储一个 sessionId 和 session 的映射关系</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1631583981905-815103d3-dccb-445a-a998-b623531c3fe8.png#clientId=u60fdaa12-1e32-4&from=paste&id=u9d08525d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=331&originWidth=639&originalType=url%E2%88%B6=1&size=19845&status=done&style=none&taskId=u35150456-7083-46f7-82eb-6e15c8a8fca" alt="image.png"></p>
+<ol start="2">
+<li>服务器端返回 response，并且将 sessionId 以 set-cookie 的方式存在了客户端</li>
+<li>客户端发起非登录请求时，服务端通过 cookie 中的 sessionId 找到对应的 session</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li>服务器保存 session，访问量大有压力，可被 CSRF 攻击。</li>
+<li>跨域时不特殊处理不发传递 cookie</li>
+<li>对分布式扩展、微服务模式等扩展的时候，不将验证鉴权独立出来无法做好单点登录、用户风控之类的体</li>
+</ol>
+<h2 id="token-JWT"><a href="#token-JWT" class="headerlink" title="token-JWT"></a>token-JWT</h2><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1631526715996-ebac69c8-0b71-4513-bf1a-e717514627cb.png#clientId=u60fdaa12-1e32-4&from=paste&id=u6ddb9c9a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1100&originWidth=1600&originalType=url%E2%88%B6=1&size=453992&status=done&style=none&taskId=uaf7d5c66-cda4-4c5a-a41f-677b4947515" alt="image.png"><br>通过解析 token 的计算时间换取了 session 的存储空间，将用户状态信息生成 token 存在客户端，每次发请求时带上并解析<br>​</p>
+<h3 id="流程-1"><a href="#流程-1" class="headerlink" title="流程"></a>流程</h3><ol>
+<li>客户端使用用户名跟密码请求登录</li>
+<li>服务端收到请求，去验证用户名与密码</li>
+<li>验证成功后，服务端会签发一个令牌(Token)，再把这个 Token 发送给客户端</li>
+<li>客户端收到 Token 以后可以把它存储起来， Cookie / Local Storag</li>
+<li>客户端每次向服务端请求资源的时候需要带着服务端签发的 Token</li>
+<li>服务端收到请求，然后去验证客户端请求带着的 Token，如果验证成功，就向客户端返回请求的数据 token 会有过期时间，客户端登出的时候也会废弃 token，但是服务端不不需要任何操作</li>
+</ol>
+<h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><p>JWT 只是一个 token 生成标准，一个 JWT token 是一个字符串，它由三部分组成，令牌头、载荷（payload）与签名（Signature），用<code>.</code>分割,用 Base64Url 编码<br><img src="https://cdn.nlark.com/yuque/0/2021/webp/106384/1631523645721-6bbfd2c4-1ab9-4ef5-95bc-d7513eb077bc.webp#clientId=u60fdaa12-1e32-4&from=paste&id=u92d2812a&margin=%5Bobject%20Object%5D&originHeight=141&originWidth=645&originalType=url%E2%88%B6=1&status=done&style=none&taskId=uccd197f8-6be7-40b6-9bdb-09d743a01cc"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">jwt =</span><br><span class="line">  <span class="title function_">base64url</span>(header) +</span><br><span class="line">  <span class="string">&quot;.&quot;</span> +</span><br><span class="line">  <span class="title function_">base64url</span>(payload) +</span><br><span class="line">  <span class="string">&quot;.&quot;</span> +</span><br><span class="line">  <span class="title class_">HMACSHA256</span>(<span class="title function_">base64UrlEncode</span>(header) + <span class="string">&quot;.&quot;</span> + <span class="title function_">base64UrlEncode</span>(payload), secret);</span><br><span class="line"><span class="comment">// header payload是明文编码，signature是由header、payload和服务器信息加密得来，密码不能出现在jwt中</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h4><p>包括 token 类型<code>typ</code>，签名算法名称<code>alg</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;alg&quot;</span><span class="punctuation">:</span> <span class="string">&quot;HS256&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="comment">// HS256 SHA-256 的 HMAC 对称算法 注意确保密钥不被泄密 密钥由服务端持有</span></span><br><span class="line">  <span class="comment">// RS256 采用SHA-256 的 RSA 签名 非对称算法 JWT 的使用方获取公钥以验证签名, 比如一个元数据URL</span></span><br><span class="line">  <span class="attr">&quot;typ&quot;</span><span class="punctuation">:</span> <span class="string">&quot;JWT&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后用 Base64Url 编码得到头部</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ewogICJhbGciOiAiSFMyNTYiLAogICJ0eXAiOiAiSldUIgp9</span><br></pre></td></tr></table></figure>
+
+<h4 id="Payload"><a href="#Payload" class="headerlink" title="Payload"></a>Payload</h4><p>包括预定义（Registered）、公有（Public）、私有（Private）<br><strong>Registered</strong><br>前 7 个字段都是由官方所预定义（Registered claims）的，并不都是必需的</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;sub&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1&quot;</span><span class="punctuation">,</span> <span class="comment">//主题</span></span><br><span class="line">  <span class="attr">&quot;iss&quot;</span><span class="punctuation">:</span> <span class="string">&quot;http://localhost:8000/auth/login&quot;</span><span class="punctuation">,</span> <span class="comment">//该JWT的签发者</span></span><br><span class="line">  <span class="attr">&quot;iat&quot;</span><span class="punctuation">:</span> <span class="number">1451888119</span><span class="punctuation">,</span> <span class="comment">//issued at在什么时候签发的</span></span><br><span class="line">  <span class="attr">&quot;exp&quot;</span><span class="punctuation">:</span> <span class="number">1454516119</span><span class="punctuation">,</span> <span class="comment">// 什么时候过期，这里是一个Unix时间戳</span></span><br><span class="line">  <span class="attr">&quot;nbf&quot;</span><span class="punctuation">:</span> <span class="number">1451888119</span><span class="punctuation">,</span> <span class="comment">//生效时间，在此之前是无效的</span></span><br><span class="line">  <span class="attr">&quot;jti&quot;</span><span class="punctuation">:</span> <span class="string">&quot;37c107e4609ddbcc9c096ea5ee76c667&quot;</span><span class="punctuation">,</span> <span class="comment">//编号</span></span><br><span class="line">  <span class="attr">&quot;aud&quot;</span><span class="punctuation">:</span> <span class="string">&quot;dev&quot;</span> <span class="comment">//受众</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Public</strong><br>公共的声明可以添加任何的信息，一般添加用户的相关信息或其他业务需要的必要信息.但不建议添加敏感信息，因为该部分在客户端可解密.<br><strong>Private</strong><br>私有声明是提供者和消费者所共同定义的声明，一般不建议存放敏感信息，因为 base64 是对称解密的，意味着该部分信息可以归类为明文信息。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;sub&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1234567890&quot;</span><span class="punctuation">,</span> <span class="comment">// 预定义</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hore_brother&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;admin&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span></span><br><span class="line">  <span class="comment">// 用户名 等session信息</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Signature"><a href="#Signature" class="headerlink" title="Signature"></a>Signature</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">HMACSHA256</span>(<span class="title function_">base64UrlEncode</span>(header) + <span class="string">&quot;.&quot;</span> + <span class="title function_">base64UrlEncode</span>(payload), secret);</span><br></pre></td></tr></table></figure>
+
+<p>将 Header 和 Payload 加一段密钥通过 HMAC 加密而来， 防止篡改信息<br>HMAC 算法是不可逆算法，类似 MD5 和 hash ，但多一个密钥，密钥（即上面的 secret）由服务端持有，客户端把 token 发给服务端后，服务端可以把其中的头部和载荷再加上事先共享的 secret 再进行一次 HMAC 加密，得到的结果和 token 的第三段进行对比，如果一样则表明数据没有被篡改</p>
+<p>​</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>支持跨域访问: Cookie 是不允许垮域访问的，token 支持</li>
+<li>无状态： token 无状态，session 有状态的</li>
+<li>去耦: 不需要绑定到一个特定的身份验证方案。Token 可以在任何地方生成，只要在你的 API 被调用的时候， 你可 以进行 Token 生成调用即可</li>
+<li>更适用于移动应用: Cookie 不支持手机端访问的</li>
+<li>性能: 在网络传输的过程中，性能更好</li>
+<li>基于标准化: 你的 API 可以采用标准化的 JSON Web Token (JWT). 这个标准已经存在 多个后端库（.NET, Ruby, Java,Python, PHP）和多家公司的支持（如： Firebase,Google, Microsoft）</li>
+</ul>
+<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><ul>
+<li>session 要求服务端存储信息，并且根据 id 能够检索，而 token 不不需要（因为信息就在 token 中，这样实现了服务端无状态化）。在大规模系统中，对每个请求都检索会话信息可能是一个复杂和耗时的过程。但另一方面服务端要通过 token 来解析用户身份也需要定义好相应的协议（比如 JWT）。</li>
+<li>session 一般通过 cookie 来交互，而 token 可以是 cookie，也可以是 header，也可以放在请求的内容中。不使用 cookie 可以带来跨域上的便利性。</li>
+<li>token 的生成方式更更加多样化，可以由第三方模块来提供。</li>
+<li>token 若被盗用，服务端无法感知，cookie 信息存储在用户电脑中，被盗用风险非常小。</li>
+</ul>
+<p>​</p>
+<h3 id="保存"><a href="#保存" class="headerlink" title="保存"></a>保存</h3><p>存 localstorage 会被 xss 攻击，建议不放在 js 可读的地方<br>存 cookie+httpOnly，加 csrf token 防止 CSRF 攻击<br>​</p>
+<h3 id="登录状态保持"><a href="#登录状态保持" class="headerlink" title="登录状态保持"></a>登录状态保持</h3><p>假如我们想要活跃的用户能一直保持登录状态的话，就需要快到 15 分钟的时候，去重新颁发一个 token 来延长登录有效期。而这时就会对同一个用户同时存在两个有效的 token，所以我们在重新颁发一个 token 的同时，还需要将快要过期的 token 拉黑，使其失效。<br>主动让一个 jwt 失效就很好实现了，把这个用户的密钥从缓存中删除就可以了</p>
+<p>​</p>
+<h3 id="多端登录"><a href="#多端登录" class="headerlink" title="多端登录"></a>多端登录</h3><p>不允许多端登录，一边登录就要把另一边挤下线，意思就是一个账号只有允许一个 Token，然后其他地方登录，就会生成新的 Token 再存到数据库，就把之前的给替换掉了，那么用之前的 Token 登录的地方就会下线了</p>
+<h2 id="OAuth"><a href="#OAuth" class="headerlink" title="OAuth"></a>OAuth</h2><p>OAuth 鉴权本质就是两个协商的过程，从而确定网站以及用户的一一对应关系，并且获取用户的意向（同意还是不同意）</p>
+<ul>
+<li>网站和第三方之间的协商</li>
+<li>用户和第三方之间的协商</li>
+</ul>
+<p>再根据协商结果去做进一步操作，从而确定访问权限<br>​</p>
+<h3 id="网站和第三方之间的协商"><a href="#网站和第三方之间的协商" class="headerlink" title="网站和第三方之间的协商"></a>网站和第三方之间的协商</h3><p>需要提前在第三方网站注册登记网站域名、需要获取的用户信息和权限等必要信息，申请审核通过后进入第三方网站的白名单。获得密钥等下一步协商需要的信息。</p>
+<h3 id="用户和第三方之间的协商"><a href="#用户和第三方之间的协商" class="headerlink" title="用户和第三方之间的协商"></a>用户和第三方之间的协商</h3><p>登录时，跳转到第三方，跳转地址上拼接后端加密过的签名、登录成功的 redirect_uri 等信息。用户在新的页面中完成和第三方网站的协商，验证通过后，把验证参数加进 redirect_uri 里面再跳转回去。后端再次请求第三方接口验证上一步获得的验证参数和获取用户名、头像等信息，进一步判断是否登录成功。</p>
+<h2 id="其他登录"><a href="#其他登录" class="headerlink" title="其他登录"></a>其他登录</h2><h3 id="手机-邮箱验证码登录"><a href="#手机-邮箱验证码登录" class="headerlink" title="手机/邮箱验证码登录"></a>手机/邮箱验证码登录</h3><p>后端收到手机号后生成随机数，拼接短信发送到第三方短信平台。用户验证登录，后端和数据库对比，成功返回用户信息。<br>假如短信内容不合规/短信平台没钱/异常等应记录在日志上。<br>邮箱逻辑一样。<br>​</p>
+<h3 id="APP-扫码"><a href="#APP-扫码" class="headerlink" title="APP 扫码"></a>APP 扫码</h3><ul>
+<li>进入页面首先获取生成二维码所需要的信息，调接口</li>
+<li>然后后端生成比如 uuid 等，并设置设置过期时间存到缓存中，然后把信息 uuid 等返回给前端</li>
+<li>前端拿到信息后，用这些信息作为上述代码中的 url，生成二维码，接着调用另一个接口把 uuid 传过去，并开启<strong>轮循</strong>、<strong>或者长连接</strong>，或者不调接口直接用 <strong>WebSocket</strong> 监听。具体使用哪一个看自己的业务需求或者和后端商量</li>
+<li>然后手机端这边肯定是处于登录状态的，不然也没法扫码登录，然后 App 扫码，就会获取到二维码中的 uuid</li>
+<li>接着手机端点登录之后，就把 uuid 和这个登录了手机端的用户账号信息，发送给后端</li>
+<li>后端拿到登录的这个帐号信息，通过 WebSocket 发送给前端，就登录成功了。或者修改缓存中的值，比如把 uuid 存起来的时候是把 uuid 作为 key，但是没有值，然后轮询接口就是获取这个 uuid 的值，没登录之前获取的就是个空的，App 点登录之后，后端把拿到的用户信息等作为值赋给对应的 uuid，前端这边轮询查到的数据就不是空的了，就说明登录成功，然后后端再清掉这个缓存</li>
+</ul>
+<p>​</p>
+<h3 id="指纹-刷脸登录-本机号码免密登录"><a href="#指纹-刷脸登录-本机号码免密登录" class="headerlink" title="指纹/刷脸登录/本机号码免密登录"></a>指纹/刷脸登录/本机号码免密登录</h3><p>接入 SDK，用户授权后，SDK 与运营商通信来获得用户手机号码，然后用户点击一键登录授权，通过网关取号对比，并返回对比结果实现一键登录</p>
+<h2 id="单点登录-SSO"><a href="#单点登录-SSO" class="headerlink" title="单点登录 SSO"></a>单点登录 SSO</h2><p>单点登录就是在多个系统中，用户只需一次登录，各个系统即可感知该用户已经登录。<br>单系统登录假如用 session 保存用户信息，不同系统之间的 session 是<strong>不共享</strong>的。几个方案：</p>
+<ol>
+<li> session 全局复制（影响集群性能）</li>
+<li> 将请求 IP 进行 Hash 映射到对应机器上（服务器宕机会丢失大部分 session 数据）</li>
+<li> Redis</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/webp/106384/1631591536339-c8a770a6-af21-421a-b91c-76e1873e42d9.webp#clientId=u60fdaa12-1e32-4&from=paste&id=u9f488259&margin=%5Bobject%20Object%5D&originHeight=936&originWidth=1691&originalType=url%E2%88%B6=1&status=done&style=none&taskId=uf9ddd834-fa29-4b16-b7fe-46fe5648dda"><br>SSO：将登录单独抽取出来做成子系统，登录系统登录后返回 token 写到 cookie，登录其他子系统是带上 cookie</p>
+<h3 id="流程-2"><a href="#流程-2" class="headerlink" title="流程"></a>流程</h3><p>首先，用户想要访问系统 A<a href="http://www.java3y.com受限的资源(比如说购物车功能，购物车功能需要登录后才能访问)，系统Awww.java3y.com发现用户并没有登录，于是重定向到sso认证中心，并将自己的地址作为参数。请求的地址如下：">www.java3y.com受限的资源(比如说购物车功能，购物车功能需要登录后才能访问)，系统Awww.java3y.com发现用户并没有登录，于是重定向到sso认证中心，并将自己的地址作为参数。请求的地址如下：</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">www.<span class="property">sso</span>.<span class="property">com</span>?service=www.<span class="property">java3y</span>.<span class="property">com</span></span><br></pre></td></tr></table></figure>
+
+<p>sso 认证中心发现用户未登录，将用户引导至登录页面，用户进行输入用户名和密码进行登录，用户与认证中心建立全局会话（生成一份 Token，写到 Cookie 中，保存在浏览器上）<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1631592145339-49130b5f-eb04-4cf1-bcfe-b6ef4c6354b9.png#clientId=u60fdaa12-1e32-4&from=paste&id=u48beed68&margin=%5Bobject%20Object%5D&name=image.png&originHeight=418&originWidth=720&originalType=url%E2%88%B6=1&size=173123&status=done&style=none&taskId=u8d25cb71-8e6f-46a3-b524-77bbba1f0a6" alt="image.png"><br>随后，认证中心重定向回系统 A，并把 Token 携带过去给系统 A，重定向的地址如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">www.<span class="property">java3y</span>.<span class="property">com</span>?token=xxxxxxx</span><br></pre></td></tr></table></figure>
+
+<p>接着，系统 A 去 sso 认证中心验证这个 Token 是否正确，如果正确，则系统 A 和用户建立局部会话（创建 Session）。到此，系统 A 和用户已经是登录状态了。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1631592124219-62ff4e59-1c5a-421b-97df-92d1e343bd97.png#clientId=u60fdaa12-1e32-4&from=paste&id=u490440a7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=324&originWidth=720&originalType=url%E2%88%B6=1&size=166774&status=done&style=none&taskId=uc723f026-4e96-4753-8d4b-9d0a618f85e" alt="image.png"><br>此时，用户想要访问系统 B<a href="http://www.java4y.com受限的资源(比如说订单功能，订单功能需要登录后才能访问)，系统Bwww.java4y.com发现用户并没有登录，于是重定向到sso认证中心，并将自己的地址作为参数。请求的地址如下：">www.java4y.com受限的资源(比如说订单功能，订单功能需要登录后才能访问)，系统Bwww.java4y.com发现用户并没有登录，于是重定向到sso认证中心，并将自己的地址作为参数。请求的地址如下：</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">www.<span class="property">sso</span>.<span class="property">com</span>?service=www.<span class="property">java4y</span>.<span class="property">com</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，因为之前用户与认证中心<a target="_blank" rel="noopener" href="http://www.sso.com已经建立了全局会话(当时已经把cookie保存到浏览器上了),所以这次系统b重定向到认证中心www.sso.com是可以带上cookie的./">www.sso.com已经建立了全局会话（当时已经把Cookie保存到浏览器上了），所以这次系统B重定向到认证中心www.sso.com是可以带上Cookie的。</a></p>
+<p>认证中心根据带过来的 Cookie 发现已经与用户建立了全局会话了，认证中心重定向回系统 B，并把 Token 携带过去给系统 B，重定向的地址如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">www.<span class="property">java4y</span>.<span class="property">com</span>?token=xxxxxxx</span><br></pre></td></tr></table></figure>
+
+<p>接着，系统 B 去 sso 认证中心验证这个 Token 是否正确，如果正确，则系统 B 和用户建立局部会话（创建 Session）。到此，系统 B 和用户已经是登录状态了。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1631592099638-f5645a17-3808-4886-80f3-173e5e063e70.png#clientId=u60fdaa12-1e32-4&from=paste&id=u6a1db672&margin=%5Bobject%20Object%5D&name=image.png&originHeight=372&originWidth=720&originalType=url%E2%88%B6=1&size=191771&status=done&style=none&taskId=u78f8538d-cf7b-4aa8-b679-be06bb6684d" alt="image.png"><br>​</p>
+<h3 id="cookie-跨域问题"><a href="#cookie-跨域问题" class="headerlink" title="cookie 跨域问题"></a>cookie 跨域问题</h3><ul>
+<li>绕开同源策略</li>
+<li>子网站使用同一个一级域名，把 cookie 设置给顶级域</li>
+<li>强制推送 cookie</li>
+<li>token 保存在 sessionstorage</li>
+</ul>
+<p>​</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/62336927">https://zhuanlan.zhihu.com/p/62336927</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/66037342">https://zhuanlan.zhihu.com/p/66037342</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6958832703106433061">https://juejin.cn/post/6958832703106433061</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7005725809822416909">https://juejin.cn/post/7005725809822416909</a><br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/301253397/answer/548334082">https://www.zhihu.com/question/301253397/answer/548334082</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/31/Webpack/" rel="prev" title="Webpack">
+      <i class="fa fa-chevron-left"></i> Webpack
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/09/14/%E8%B7%A8%E5%9F%9F/" rel="next" title="跨域">
+      跨域 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C"><span class="nav-number">1.</span> <span class="nav-text">注册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#session-cookie"><span class="nav-number">2.</span> <span class="nav-text">session-cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#token-JWT"><span class="nav-number">3.</span> <span class="nav-text">token-JWT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B-1"><span class="nav-number">3.1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E6%88%90"><span class="nav-number">3.2.</span> <span class="nav-text">组成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Header"><span class="nav-number">3.2.1.</span> <span class="nav-text">Header</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Payload"><span class="nav-number">3.2.2.</span> <span class="nav-text">Payload</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Signature"><span class="nav-number">3.2.3.</span> <span class="nav-text">Signature</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">3.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94"><span class="nav-number">3.4.</span> <span class="nav-text">对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98"><span class="nav-number">3.5.</span> <span class="nav-text">保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E7%8A%B6%E6%80%81%E4%BF%9D%E6%8C%81"><span class="nav-number">3.6.</span> <span class="nav-text">登录状态保持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%AB%AF%E7%99%BB%E5%BD%95"><span class="nav-number">3.7.</span> <span class="nav-text">多端登录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OAuth"><span class="nav-number">4.</span> <span class="nav-text">OAuth</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%AB%99%E5%92%8C%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8D%8F%E5%95%86"><span class="nav-number">4.1.</span> <span class="nav-text">网站和第三方之间的协商</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8D%8F%E5%95%86"><span class="nav-number">4.2.</span> <span class="nav-text">用户和第三方之间的协商</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%99%BB%E5%BD%95"><span class="nav-number">5.</span> <span class="nav-text">其他登录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%8B%E6%9C%BA-%E9%82%AE%E7%AE%B1%E9%AA%8C%E8%AF%81%E7%A0%81%E7%99%BB%E5%BD%95"><span class="nav-number">5.1.</span> <span class="nav-text">手机&#x2F;邮箱验证码登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#APP-%E6%89%AB%E7%A0%81"><span class="nav-number">5.2.</span> <span class="nav-text">APP 扫码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E7%BA%B9-%E5%88%B7%E8%84%B8%E7%99%BB%E5%BD%95-%E6%9C%AC%E6%9C%BA%E5%8F%B7%E7%A0%81%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="nav-number">5.3.</span> <span class="nav-text">指纹&#x2F;刷脸登录&#x2F;本机号码免密登录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95-SSO"><span class="nav-number">6.</span> <span class="nav-text">单点登录 SSO</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B-2"><span class="nav-number">6.1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="nav-number">6.2.</span> <span class="nav-text">cookie 跨域问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CatcherInSky"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">CatcherInSky</p>
+  <div class="site-description" itemprop="description">CatcherInSky的前端知识库</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CatcherInSky" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CatcherInSky" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangchunxiang98@outlook.com" title="E-Mail → mailto:zhangchunxiang98@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

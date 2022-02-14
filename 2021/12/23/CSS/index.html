@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"catcherinsky.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="块级格式化上下文块级格式化上下文 BFC(Block Formatting Context)具有 BFC 特性的元素可以看作是隔离了的独立容器，容器里面的元素不会在布局上影响到外面的元素，并且 BFC 具有普通容器所没有的一些特性。​ BFC 的原理（渲染规则）​  BFC 元素垂直方向的边距会发生重叠。属于不同 BFC 外边距不会发生重叠 BFC 的区域不会与浮动元素的布局重叠。 BFC 元素是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS">
+<meta property="og:url" content="http://catcherinsky.github.io/2021/12/23/CSS/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="块级格式化上下文块级格式化上下文 BFC(Block Formatting Context)具有 BFC 特性的元素可以看作是隔离了的独立容器，容器里面的元素不会在布局上影响到外面的元素，并且 BFC 具有普通容器所没有的一些特性。​ BFC 的原理（渲染规则）​  BFC 元素垂直方向的边距会发生重叠。属于不同 BFC 外边距不会发生重叠 BFC 的区域不会与浮动元素的布局重叠。 BFC 元素是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1640270028427-7580c58a-7cfd-4b69-a038-67a45dfc417c.png#clientId=u1b9924a7-a403-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u1758426f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=440&originWidth=432&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=42253&status=done&style=none&taskId=u663f5a86-e8c2-415b-bda6-5d87039583f&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1640270030888-1e014bbe-71b5-4dc6-8ac3-bd4e32fc520b.png#clientId=u1b9924a7-a403-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u0f7fdb68&margin=%5Bobject%20Object%5D&name=image.png&originHeight=446&originWidth=640&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=42569&status=done&style=none&taskId=uf14d12f3-1707-4892-a523-e2938d5f2e7&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1640220169492-141bdd91-0330-4848-a86b-95c1ec89402f.png#clientId=u26bd14bc-f11d-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u384e7bef&margin=%5Bobject%20Object%5D&name=image.png&originHeight=244&originWidth=492&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=3367&status=done&style=none&taskId=u35c3d9a5-1bd5-4c7c-8d98-f37b7e5947d&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1640220174423-cfc4c564-9601-4f85-8080-4915d404a66d.png#clientId=u26bd14bc-f11d-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=uc1b291a4&margin=%5Bobject%20Object%5D&name=image.png&originHeight=252&originWidth=416&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=3114&status=done&style=none&taskId=ufb50657a-4437-45b2-9a23-b0306f332b6&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1640271024924-ca0947ea-0703-4a50-91c3-996e4f460adb.png#clientId=u240cd04a-bfea-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u4983ea57&margin=%5Bobject%20Object%5D&originHeight=371&originWidth=605&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=uf63f5a70-44bb-4940-8e45-d2e263bd06a&title=">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1640271091347-eea7fb81-fdcb-489e-b6a5-907a4391300c.png#clientId=u240cd04a-bfea-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u5ff3705b&margin=%5Bobject%20Object%5D&originHeight=375&originWidth=599&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u6ddffbb5-e8ef-4e5f-b77b-86f341e770d&title=">
+<meta property="article:published_time" content="2021-12-23T00:35:35.000Z">
+<meta property="article:modified_time" content="2022-02-14T11:41:02.685Z">
+<meta property="article:author" content="CatcherInSky">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1640270028427-7580c58a-7cfd-4b69-a038-67a45dfc417c.png#clientId=u1b9924a7-a403-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u1758426f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=440&originWidth=432&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=42253&status=done&style=none&taskId=u663f5a86-e8c2-415b-bda6-5d87039583f&title=">
+
+<link rel="canonical" href="http://catcherinsky.github.io/2021/12/23/CSS/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>CSS | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+  <meta name="referrer" content="same-origin">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Knowlegde Bases of CatcherInSky</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CatcherInSky的前端知识库</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://catcherinsky.github.io/2021/12/23/CSS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content="CatcherInSky的前端知识库">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSS
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-23 08:35:35" itemprop="dateCreated datePublished" datetime="2021-12-23T08:35:35+08:00">2021-12-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-14 19:41:02" itemprop="dateModified" datetime="2022-02-14T19:41:02+08:00">2022-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="块级格式化上下文"><a href="#块级格式化上下文" class="headerlink" title="块级格式化上下文"></a>块级格式化上下文</h2><p>块级格式化上下文 BFC(Block Formatting Context)<br>具有 BFC 特性的元素可以看作是隔离了的独立容器，容器里面的元素不会在布局上影响到外面的元素，并且 BFC 具有普通容器所没有的一些特性。<br>​</p>
+<h3 id="BFC-的原理（渲染规则）"><a href="#BFC-的原理（渲染规则）" class="headerlink" title="BFC 的原理（渲染规则）"></a>BFC 的原理（渲染规则）</h3><p>​</p>
+<ol>
+<li>BFC 元素垂直方向的边距会发生重叠。属于不同 BFC 外边距不会发生重叠</li>
+<li>BFC 的区域不会与浮动元素的布局重叠。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1640270028427-7580c58a-7cfd-4b69-a038-67a45dfc417c.png#clientId=u1b9924a7-a403-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u1758426f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=440&originWidth=432&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=42253&status=done&style=none&taskId=u663f5a86-e8c2-415b-bda6-5d87039583f&title=" alt="image.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1640270030888-1e014bbe-71b5-4dc6-8ac3-bd4e32fc520b.png#clientId=u1b9924a7-a403-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u0f7fdb68&margin=%5Bobject%20Object%5D&name=image.png&originHeight=446&originWidth=640&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=42569&status=done&style=none&taskId=uf14d12f3-1707-4892-a523-e2938d5f2e7&title=" alt="image.png"></li>
+<li>BFC 元素是一个独立的容器，外面的元素不会影响里面的元素。里面的元素也不会影响外面的元素。</li>
+<li>计算 BFC 高度的时候，浮动元素也会参与计算(清除浮动)</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1640220169492-141bdd91-0330-4848-a86b-95c1ec89402f.png#clientId=u26bd14bc-f11d-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u384e7bef&margin=%5Bobject%20Object%5D&name=image.png&originHeight=244&originWidth=492&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=3367&status=done&style=none&taskId=u35c3d9a5-1bd5-4c7c-8d98-f37b7e5947d&title=" alt="image.png"><br>非 BFC<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1640220174423-cfc4c564-9601-4f85-8080-4915d404a66d.png#clientId=u26bd14bc-f11d-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=uc1b291a4&margin=%5Bobject%20Object%5D&name=image.png&originHeight=252&originWidth=416&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=3114&status=done&style=none&taskId=ufb50657a-4437-45b2-9a23-b0306f332b6&title=" alt="image.png"><br>BFC<br>​</p>
+<h3 id="如何创建-BFC"><a href="#如何创建-BFC" class="headerlink" title="如何创建 BFC"></a>如何创建 BFC</h3><p>​</p>
+<ol>
+<li>overflow 不为 visible; (hidden、auto、scroll)</li>
+<li>float 的值不为 none；</li>
+<li>position 的值不为 static 或 relative；(absolute、fixed)</li>
+<li>display 属性为 inline-blocks,table,table-cell,table-caption,flex,inline-flex;</li>
+<li>body 根元素</li>
+</ol>
+<h2 id="层叠上下文-​"><a href="#层叠上下文-​" class="headerlink" title="层叠上下文 ​"></a>层叠上下文 ​</h2><p>层叠上下文 Stacking Context</p>
+<h3 id="层叠水平"><a href="#层叠水平" class="headerlink" title="层叠水平"></a>层叠水平</h3><p>“层叠水平”英文称作”stacking level”，决定了同一个层叠上下文中元素在 z 轴上的显示顺序.普通元素的层叠水平优先由层叠上下文决定，因此，层叠水平的比较只有在当前层叠上下文元素中才有意义。</p>
+<h3 id="层叠顺序"><a href="#层叠顺序" class="headerlink" title="层叠顺序"></a>层叠顺序</h3><p>“层叠顺序”英文称作”stacking order”. 表示元素发生层叠时候有着特定的垂直显示顺序，注意，这里跟上面两个不一样，上面的层叠上下文和层叠水平是概念，而这里的层叠顺序是规则。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1640271024924-ca0947ea-0703-4a50-91c3-996e4f460adb.png#clientId=u240cd04a-bfea-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u4983ea57&margin=%5Bobject%20Object%5D&originHeight=371&originWidth=605&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=uf63f5a70-44bb-4940-8e45-d2e263bd06a&title="><br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1640271091347-eea7fb81-fdcb-489e-b6a5-907a4391300c.png#clientId=u240cd04a-bfea-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u5ff3705b&margin=%5Bobject%20Object%5D&originHeight=375&originWidth=599&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u6ddffbb5-e8ef-4e5f-b77b-86f341e770d&title="></p>
+<p>诸如 border/background 一般为装饰属性，而浮动和块状元素一般用作布局，而内联元素都是内容。因此，一定要让内容的层叠顺序相当高，当发生层叠是很好，重要的文字啊图片内容可以优先暴露在屏幕上。<br>两个是层叠领域的黄金准则。当元素发生层叠的时候，其覆盖关系遵循下面 2 个准则：</p>
+<ol>
+<li>谁大谁上：当具有明显的层叠水平标示的时候，如识别的 z-indx 值，在同一个层叠上下文领域，层叠水平值大的那一个覆盖小的那一个。通俗讲就是官大的压死官小的。</li>
+<li>后来居上：当元素的层叠水平一致、层叠顺序相同的时候，在 DOM 流中处于后面的元素会覆盖前面的元素。</li>
+</ol>
+<p>​</p>
+<h3 id="层叠上下文元素有如下特性："><a href="#层叠上下文元素有如下特性：" class="headerlink" title="层叠上下文元素有如下特性："></a>层叠上下文元素有如下特性：</h3><p>​</p>
+<p>层叠上下文的层叠水平要比普通元素高<br>层叠上下文可以阻断元素的混合模式<br>层叠上下文可以嵌套，内部层叠上下文及其所有子元素均受制于外部的层叠上下文。<br>每个层叠上下文和兄弟元素独立，也就是当进行层叠变化或渲染的时候，只需要考虑后代元素。<br>每个层叠上下文是<strong>自成体系的，当元素发生层叠的时候，整个元素被认为是在父层叠上下文的层叠顺序中</strong>。(比较排查的时候需要对比父元素)<br>​</p>
+<h3 id="层叠上下文的创建"><a href="#层叠上下文的创建" class="headerlink" title="层叠上下文的创建"></a>层叠上下文的创建</h3><p>①. 根层叠上下文<br>指的是页面根元素，也就是滚动条的默认的始作俑者<html>元素。这就是为什么，绝对定位元素在 left/top 等值定位的时候，如果没有其他定位元素限制，会相对浏览器窗口定位的原因。<br>②. 定位元素与传统层叠上下文<br>对于包含有<strong>position:relative/position:absolute</strong>的定位元素，以及 FireFox/IE 浏览器（不包括 Chrome 等 webkit 内核浏览器）（目前，也就是 2016 年初是这样）下含有<strong>position:fixed</strong>声明的定位元素，当其<strong>z-index 值不是 auto</strong>的时候，会创建层叠上下文。</p>
+<ol>
+<li>z-index 值不为 auto 的 flex 项(父元素 display:flex|inline-flex).</li>
+<li>元素的 opacity 值不是 1.</li>
+<li>元素的 transform 值不是 none.</li>
+<li>元素 mix-blend-mode 值不是 normal.</li>
+<li>元素的 filter 值不是 none.</li>
+<li>元素的 isolation 值是 isolate.</li>
+<li>will-change 指定的属性值为上面任意一个。</li>
+<li>元素的-webkit-overflow-scrolling 设为 touch.</li>
+</ol>
+<p>​</p>
+<p>​</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>可以<br>color<br>font<br>text-align<br>visibility<br>cursor<br>​</p>
+<p>不可以<br>margin padiding border<br>display<br>width height<br>float<br>position<br>​</p>
+<h2 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h2><p>伪类<br>:focus :hover<br>伪元素<br>::after ::before<br>属性<br>[target]<br>子<br>:nth-child<br>占位符<br>::placeholder<br>后代<br><del>所有相同的父元素中位于 p 元素之后的<strong>后续兄弟</strong>所有 ul 元素 `p</del>ul<code> +选择 &lt;div&gt; 元素之后紧跟的**相邻兄弟**每个 &lt;p&gt; 元素</code>div+p`</p>
+<blockquote>
+<p>选取父元素是 <div> 元素的每个 <strong>直接后代</strong><p> 元素 <code>div&gt;p</code></p>
+</blockquote>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/css_selectors.asp">https://www.w3school.com.cn/cssref/css_selectors.asp</a><br><a target="_blank" rel="noopener" href="https://ruanyifeng.com/blog/2009/03/css_selectors.html">https://ruanyifeng.com/blog/2009/03/css_selectors.html</a><br><a target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2016/01/understand-css-stacking-context-order-z-index/">https://www.zhangxinxu.com/wordpress/2016/01/understand-css-stacking-context-order-z-index/</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/21/JavaScript%20ES+/" rel="prev" title="JavaScript ES+">
+      <i class="fa fa-chevron-left"></i> JavaScript ES+
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/25/JavaScript%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="next" title="JavaScript 设计模式">
+      JavaScript 设计模式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9D%97%E7%BA%A7%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">1.</span> <span class="nav-text">块级格式化上下文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BFC-%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%88%E6%B8%B2%E6%9F%93%E8%A7%84%E5%88%99%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">BFC 的原理（渲染规则）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA-BFC"><span class="nav-number">1.2.</span> <span class="nav-text">如何创建 BFC</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87-%E2%80%8B"><span class="nav-number">2.</span> <span class="nav-text">层叠上下文 ​</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%82%E5%8F%A0%E6%B0%B4%E5%B9%B3"><span class="nav-number">2.1.</span> <span class="nav-text">层叠水平</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%82%E5%8F%A0%E9%A1%BA%E5%BA%8F"><span class="nav-number">2.2.</span> <span class="nav-text">层叠顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87%E5%85%83%E7%B4%A0%E6%9C%89%E5%A6%82%E4%B8%8B%E7%89%B9%E6%80%A7%EF%BC%9A"><span class="nav-number">2.3.</span> <span class="nav-text">层叠上下文元素有如下特性：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">2.4.</span> <span class="nav-text">层叠上下文的创建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF"><span class="nav-number">3.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">4.</span> <span class="nav-text">选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CatcherInSky"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">CatcherInSky</p>
+  <div class="site-description" itemprop="description">CatcherInSky的前端知识库</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CatcherInSky" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CatcherInSky" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangchunxiang98@outlook.com" title="E-Mail → mailto:zhangchunxiang98@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

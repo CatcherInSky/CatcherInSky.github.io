@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"catcherinsky.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="babel 的用途 转译 esnext、typescript、flow 等到目标环境支持的 js + polyfill 一些特定用途的代码转换（埋点代码、自动国际化、default import 转 named import ） 代码的静态分析（linter 工具、type checker、压缩混淆工具 、js 解释器）  ​ babel 的编译流程babel 是 source to source">
+<meta property="og:type" content="article">
+<meta property="og:title" content="babel">
+<meta property="og:url" content="http://catcherinsky.github.io/2021/08/11/babel/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="babel 的用途 转译 esnext、typescript、flow 等到目标环境支持的 js + polyfill 一些特定用途的代码转换（埋点代码、自动国际化、default import 转 named import ） 代码的静态分析（linter 工具、type checker、压缩混淆工具 、js 解释器）  ​ babel 的编译流程babel 是 source to source">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628666417364-3e2c64a4-cebb-4d8f-8776-1cb14913b924.png#clientId=u8cb24b9e-87a2-4&from=paste&id=u2498869c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=666&originWidth=2386&originalType=url%E2%88%B6=1&size=219185&status=done&style=none&taskId=u3ee49ca3-e657-4b31-b751-71cb914d8e8">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628666573082-71faffa0-e804-44b5-9a37-eaafcdf10759.png#clientId=u8cb24b9e-87a2-4&from=paste&id=u9f0550bc&margin=%5Bobject%20Object%5D&name=image.png&originHeight=918&originWidth=2706&originalType=url%E2%88%B6=1&size=345543&status=done&style=none&taskId=u9cc30fbe-d4ab-44f6-8198-76602d44c53">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628666594178-ff8de73b-02f3-4b35-b395-84a9e2b2a861.png#clientId=u8cb24b9e-87a2-4&from=paste&id=uaed01600&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1004&originWidth=2046&originalType=url%E2%88%B6=1&size=231367&status=done&style=none&taskId=u48d2730e-2efc-4d73-8349-f26a24ccebb">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628666608408-34709c1b-4b01-4631-bd06-315f7507bba9.png#clientId=u8cb24b9e-87a2-4&from=paste&id=A585o&margin=%5Bobject%20Object%5D&name=image.png&originHeight=700&originWidth=2218&originalType=url%E2%88%B6=1&size=252341&status=done&style=none&taskId=uf8c6a425-30df-4904-b48d-d9a7baa5196">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628666969909-099fad6e-636f-4d11-b3d7-b4545cf6e65f.png#clientId=u8cb24b9e-87a2-4&from=paste&id=dj0bF&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1432&originWidth=1770&originalType=url%E2%88%B6=1&size=485958&status=done&style=none&taskId=ud468ae44-b2d6-49b8-b8b1-b41ee9e9cf8">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628667036162-c4daa9e9-ec9c-45e6-a365-46024e9292e2.png#clientId=u8cb24b9e-87a2-4&from=paste&id=HMNzX&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1102&originWidth=2238&originalType=url%E2%88%B6=1&size=777328&status=done&style=none&taskId=u145da9f0-6eda-412b-b6ee-e0fa0d7e0de">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628667088592-8085c018-e805-4b6d-8514-69dbbccc7de5.png#clientId=u8cb24b9e-87a2-4&from=paste&id=iafv8&margin=%5Bobject%20Object%5D&name=image.png&originHeight=960&originWidth=1664&originalType=url%E2%88%B6=1&size=512633&status=done&style=none&taskId=ud2442ed8-3269-42d7-aad8-c82e144c794">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628667180025-6a8e7097-5c63-48c5-b9e2-c595a7ea60b5.png#clientId=u8cb24b9e-87a2-4&from=paste&id=FBG7P&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1372&originWidth=2104&originalType=url%E2%88%B6=1&size=796528&status=done&style=none&taskId=u4a9b71db-7ed8-4873-b864-e4093ff4472">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628667287059-725f3ebb-99c8-470c-8236-d3c148f33948.png#clientId=u8cb24b9e-87a2-4&from=paste&id=shUiY&margin=%5Bobject%20Object%5D&name=image.png&originHeight=578&originWidth=1610&originalType=url%E2%88%B6=1&size=161710&status=done&style=none&taskId=u96869206-5234-402f-bb24-c7cc7e96dbb">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628667318072-afedb11a-ebb9-4f2a-9c86-4837f7b552fc.png#clientId=u8cb24b9e-87a2-4&from=paste&id=YH4aG&margin=%5Bobject%20Object%5D&name=image.png&originHeight=982&originWidth=2462&originalType=url%E2%88%B6=1&size=340642&status=done&style=none&taskId=u00802e37-8b8b-4536-a243-6f15668d120">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628668040282-1b065c19-fdc1-4d18-bf86-52ec7616ca0e.png#clientId=uc1cb803f-8f0c-4&from=paste&id=C8xiw&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1006&originWidth=2352&originalType=url%E2%88%B6=1&size=387833&status=done&style=none&taskId=u2eba2896-ec0e-4708-b678-877c0aaad01">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628668077422-1e181298-63bd-4ca7-ad31-6212fc17f623.png#clientId=uc1cb803f-8f0c-4&from=paste&id=Gwv3r&margin=%5Bobject%20Object%5D&name=image.png&originHeight=932&originWidth=2328&originalType=url%E2%88%B6=1&size=297737&status=done&style=none&taskId=ufb0888a1-157d-4fd1-b46a-3c566112a95">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628668193720-929b5b8c-cddf-49a6-9a87-0ed2587bc151.png#clientId=uc1cb803f-8f0c-4&from=paste&id=h9aw4&margin=%5Bobject%20Object%5D&name=image.png&originHeight=800&originWidth=2306&originalType=url%E2%88%B6=1&size=249328&status=done&style=none&taskId=u228dd71f-eb42-4600-899b-b1f0f6347d0">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628668226796-a5001477-26e8-4414-8277-96b55a783572.png#clientId=uc1cb803f-8f0c-4&from=paste&id=BbHv1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=472&originWidth=1532&originalType=url%E2%88%B6=1&size=122220&status=done&style=none&taskId=u372f6f78-5bad-41ae-8d89-496f388df50">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628671912176-52ef919b-7010-4c90-afde-77e9213136cf.png#clientId=uc1cb803f-8f0c-4&from=paste&id=ub522ea47&margin=%5Bobject%20Object%5D&name=image.png&originHeight=680&originWidth=1308&originalType=url%E2%88%B6=1&size=129031&status=done&style=none&taskId=u40d811f4-c0d6-4bd3-b781-0e9ba85f4a5">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628675883412-cd418d85-b3fa-4cfa-81a3-3fac6a834450.png#clientId=uc1cb803f-8f0c-4&from=paste&id=u55b690b1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1102&originWidth=2498&originalType=url%E2%88%B6=1&size=384065&status=done&style=none&taskId=ue08a72f9-f4c1-4884-8bfd-34110a5e649">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1630483053616-68e84289-a8e0-4f84-8dbb-c3c98c62e791.png#clientId=u05b5077a-e81d-4&from=paste&id=u73df997c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=938&originWidth=842&originalType=url%E2%88%B6=1&size=143028&status=done&style=none&taskId=u58bda3a6-cb2c-48c1-8125-5a4ad704c43">
+<meta property="article:published_time" content="2021-08-11T07:08:26.000Z">
+<meta property="article:modified_time" content="2022-02-14T11:41:07.009Z">
+<meta property="article:author" content="CatcherInSky">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/106384/1628666417364-3e2c64a4-cebb-4d8f-8776-1cb14913b924.png#clientId=u8cb24b9e-87a2-4&from=paste&id=u2498869c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=666&originWidth=2386&originalType=url%E2%88%B6=1&size=219185&status=done&style=none&taskId=u3ee49ca3-e657-4b31-b751-71cb914d8e8">
+
+<link rel="canonical" href="http://catcherinsky.github.io/2021/08/11/babel/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>babel | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+  <meta name="referrer" content="same-origin">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Knowlegde Bases of CatcherInSky</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CatcherInSky的前端知识库</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://catcherinsky.github.io/2021/08/11/babel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content="CatcherInSky的前端知识库">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          babel
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-11 15:08:26" itemprop="dateCreated datePublished" datetime="2021-08-11T15:08:26+08:00">2021-08-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-14 19:41:07" itemprop="dateModified" datetime="2022-02-14T19:41:07+08:00">2022-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="babel-的用途"><a href="#babel-的用途" class="headerlink" title="babel 的用途"></a>babel 的用途</h2><ul>
+<li>转译 esnext、typescript、flow 等到目标环境支持的 js + polyfill</li>
+<li>一些特定用途的代码转换（埋点代码、自动国际化、default import 转 named import ）</li>
+<li>代码的静态分析（linter 工具、type checker、压缩混淆工具 、js 解释器）</li>
+</ul>
+<p>​</p>
+<h2 id="babel-的编译流程"><a href="#babel-的编译流程" class="headerlink" title="babel 的编译流程"></a>babel 的编译流程</h2><p>babel 是 source to source 的转换，整体编译流程分为三步：</p>
+<ul>
+<li>parse：通过 parser 把源码转成抽象语法树（Abstract Syntax Tree）</li>
+<li>transform：遍历 AST，调用各种 transform 插件对 AST 进行增删改</li>
+<li>generate：把转换后的 AST 打印成目标代码，并生成 sourcemap</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628666417364-3e2c64a4-cebb-4d8f-8776-1cb14913b924.png#clientId=u8cb24b9e-87a2-4&from=paste&id=u2498869c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=666&originWidth=2386&originalType=url%E2%88%B6=1&size=219185&status=done&style=none&taskId=u3ee49ca3-e657-4b31-b751-71cb914d8e8" alt="image.png"></p>
+<h3 id="parse"><a href="#parse" class="headerlink" title="parse"></a>parse</h3><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628666573082-71faffa0-e804-44b5-9a37-eaafcdf10759.png#clientId=u8cb24b9e-87a2-4&from=paste&id=u9f0550bc&margin=%5Bobject%20Object%5D&name=image.png&originHeight=918&originWidth=2706&originalType=url%E2%88%B6=1&size=345543&status=done&style=none&taskId=u9cc30fbe-d4ab-44f6-8198-76602d44c53" alt="image.png"></p>
+<h3 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h3><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628666594178-ff8de73b-02f3-4b35-b395-84a9e2b2a861.png#clientId=u8cb24b9e-87a2-4&from=paste&id=uaed01600&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1004&originWidth=2046&originalType=url%E2%88%B6=1&size=231367&status=done&style=none&taskId=u48d2730e-2efc-4d73-8349-f26a24ccebb" alt="image.png"></p>
+<h3 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h3><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628666608408-34709c1b-4b01-4631-bd06-315f7507bba9.png#clientId=u8cb24b9e-87a2-4&from=paste&id=A585o&margin=%5Bobject%20Object%5D&name=image.png&originHeight=700&originWidth=2218&originalType=url%E2%88%B6=1&size=252341&status=done&style=none&taskId=uf8c6a425-30df-4904-b48d-d9a7baa5196" alt="image.png"><br>​</p>
+<p>​</p>
+<h2 id="AST"><a href="#AST" class="headerlink" title="AST"></a>AST</h2><h3 id="公共属性"><a href="#公共属性" class="headerlink" title="公共属性"></a>公共属性</h3><p>每种 AST 都有自己的属性，但是它们也有一些公共属性：</p>
+<ul>
+<li>type： AST 节点的类型</li>
+<li>start、end、loc：start 和 end 代表该节点对应的源码字符串的开始和结束下标，不区分行列。而 loc 属性是一个对象，有 line 和 column 属性分别记录开始和结束行列号。</li>
+<li>leadingComments、innerComments、trailingComments： 表示开始的注释、中间的注释、结尾的注释，因为每个 AST 节点中都可能存在注释，而且可能在开始、中间、结束这三种位置，通过这三个属性来记录和 Comment 的关联。</li>
+<li>extra：记录一些额外的信息，用于处理一些特殊情况。比如 StringLiteral 修改 value 只是值的修改，而修改 extra.raw 则可以连同单双引号一起修改。</li>
+</ul>
+<p>​</p>
+<h3 id="常见节点"><a href="#常见节点" class="headerlink" title="常见节点"></a>常见节点</h3><h4 id="Literal"><a href="#Literal" class="headerlink" title="Literal"></a>Literal</h4><p>字面量<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628666969909-099fad6e-636f-4d11-b3d7-b4545cf6e65f.png#clientId=u8cb24b9e-87a2-4&from=paste&id=dj0bF&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1432&originWidth=1770&originalType=url%E2%88%B6=1&size=485958&status=done&style=none&taskId=ud468ae44-b2d6-49b8-b8b1-b41ee9e9cf8" alt="image.png"></p>
+<h4 id="Identifier"><a href="#Identifier" class="headerlink" title="Identifier"></a>Identifier</h4><p>标识符（变量名、变量的引用、属性名、参数名）<br>JS 中的标识符只能包含字母或数字或下划线（“_”）或美元符号（“$”），且不能以数字开头<br>​</p>
+<h4 id="Statement"><a href="#Statement" class="headerlink" title="Statement"></a>Statement</h4><p>语句，语句是代码执行的最小单位，可以说，代码是由语句（Statement）构成的，可以单独执行<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628667036162-c4daa9e9-ec9c-45e6-a365-46024e9292e2.png#clientId=u8cb24b9e-87a2-4&from=paste&id=HMNzX&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1102&originWidth=2238&originalType=url%E2%88%B6=1&size=777328&status=done&style=none&taskId=u145da9f0-6eda-412b-b6ee-e0fa0d7e0de" alt="image.png"></p>
+<h4 id="Declaration"><a href="#Declaration" class="headerlink" title="Declaration"></a>Declaration</h4><p>声明语句是一种特殊的语句，它执行的逻辑是在作用域内声明一个变量、函数、class、import、export 等<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628667088592-8085c018-e805-4b6d-8514-69dbbccc7de5.png#clientId=u8cb24b9e-87a2-4&from=paste&id=iafv8&margin=%5Bobject%20Object%5D&name=image.png&originHeight=960&originWidth=1664&originalType=url%E2%88%B6=1&size=512633&status=done&style=none&taskId=ud2442ed8-3269-42d7-aad8-c82e144c794" alt="image.png"></p>
+<h4 id="Expression"><a href="#Expression" class="headerlink" title="Expression"></a>Expression</h4><p>expression 是表达式，特点是执行完以后有返回值，这是和语句 (statement) 的区别<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628667180025-6a8e7097-5c63-48c5-b9e2-c595a7ea60b5.png#clientId=u8cb24b9e-87a2-4&from=paste&id=FBG7P&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1372&originWidth=2104&originalType=url%E2%88%B6=1&size=796528&status=done&style=none&taskId=u4a9b71db-7ed8-4873-b864-e4093ff4472" alt="image.png"></p>
+<p>有的表达式可以单独执行，符合语句的特点，所以也是语句，比如赋值表达式、数组表达式等，但有的表达式不能单独执行，需要和其他类型的节点组合在一起构成语句。比如匿名函数表达式和匿名 class 表达式单独执行会报错<br>表达式语句解析成 AST 的时候会包裹一层 ExpressionStatement 节点，代表这个表达式是被当成语句执行的<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628667287059-725f3ebb-99c8-470c-8236-d3c148f33948.png#clientId=u8cb24b9e-87a2-4&from=paste&id=shUiY&margin=%5Bobject%20Object%5D&name=image.png&originHeight=578&originWidth=1610&originalType=url%E2%88%B6=1&size=161710&status=done&style=none&taskId=u96869206-5234-402f-bb24-c7cc7e96dbb" alt="image.png"></p>
+<h4 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h4><p>class 的语法也有专门的 AST 节点来表示。<br>整个 class 的内容是 ClassBody，属性是 ClassProperty，方法是 ClassMethod（通过 kind 属性来区分是 constructor 还是 method）。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628667318072-afedb11a-ebb9-4f2a-9c86-4837f7b552fc.png#clientId=u8cb24b9e-87a2-4&from=paste&id=YH4aG&margin=%5Bobject%20Object%5D&name=image.png&originHeight=982&originWidth=2462&originalType=url%E2%88%B6=1&size=340642&status=done&style=none&taskId=u00802e37-8b8b-4536-a243-6f15668d120" alt="image.png"></p>
+<h4 id="Modules"><a href="#Modules" class="headerlink" title="Modules"></a>Modules</h4><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628668040282-1b065c19-fdc1-4d18-bf86-52ec7616ca0e.png#clientId=uc1cb803f-8f0c-4&from=paste&id=C8xiw&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1006&originWidth=2352&originalType=url%E2%88%B6=1&size=387833&status=done&style=none&taskId=u2eba2896-ec0e-4708-b678-877c0aaad01" alt="image.png"><br>这 3 种语法都对应 ImportDeclaration 节点，但是 specifiers 属性不同，分别对应 ImportSpicifier、ImportDefaultSpecifier、ImportNamespaceSpcifier。可以直观的看出整体结构相同，只是 specifier 部分不同，所以 import 语法的 AST 的结构是 ImportDeclaration 包含着各种 import specifier。</p>
+<h4 id="Export"><a href="#Export" class="headerlink" title="Export"></a>Export</h4><p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628668077422-1e181298-63bd-4ca7-ad31-6212fc17f623.png#clientId=uc1cb803f-8f0c-4&from=paste&id=Gwv3r&margin=%5Bobject%20Object%5D&name=image.png&originHeight=932&originWidth=2328&originalType=url%E2%88%B6=1&size=297737&status=done&style=none&taskId=ufb0888a1-157d-4fd1-b46a-3c566112a95" alt="image.png">其中 ExportNamedDeclaration 才有 specifiers 属性，其余两种都没有这部分（也比较好理解，export 不像 import 那样结构类似，这三种 export 语法结构是不一样的，所以不是都包含 specifier）。<br>​</p>
+<h4 id="Program-amp-Directive"><a href="#Program-amp-Directive" class="headerlink" title="Program &amp; Directive"></a>Program &amp; Directive</h4><p>program 是代表整个程序的节点，它有 body 属性代表程序体，存放 statement 数组，就是具体执行的语句的集合。还有 directives 属性，存放 Directive 节点，比如”use strict” 这种指令会使用 Directive 节点表示。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628668193720-929b5b8c-cddf-49a6-9a87-0ed2587bc151.png#clientId=uc1cb803f-8f0c-4&from=paste&id=h9aw4&margin=%5Bobject%20Object%5D&name=image.png&originHeight=800&originWidth=2306&originalType=url%E2%88%B6=1&size=249328&status=done&style=none&taskId=u228dd71f-eb42-4600-899b-b1f0f6347d0" alt="image.png"></p>
+<p>Program 是包裹具体执行语句的节点，而 Directive 则是代码中的指令部分。<br>​</p>
+<h4 id="File-amp-Comment"><a href="#File-amp-Comment" class="headerlink" title="File &amp; Comment"></a>File &amp; Comment</h4><p>babel 的 AST 最外层节点是 File，它有 program、comments、tokens 等属性，分别存放 Program 程序体、注释、token 等，是最外层节点。<br>注释分为块注释和行内注释，对应 CommentBlock 和 CommentLine 节点。<br>​</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628668226796-a5001477-26e8-4414-8277-96b55a783572.png#clientId=uc1cb803f-8f0c-4&from=paste&id=BbHv1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=472&originWidth=1532&originalType=url%E2%88%B6=1&size=122220&status=done&style=none&taskId=u372f6f78-5bad-41ae-8d89-496f388df50" alt="image.png"></p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p><a target="_blank" rel="noopener" href="https://github.com/babel/babel/blob/main/packages/babel-parser/ast/spec.md">https://github.com/babel/babel/blob/main/packages/babel-parser/ast/spec.md</a></p>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><p>编译流程中暴露 API</p>
+<ul>
+<li>parse 阶段有@babel/parser，功能是把源码转成 AST</li>
+<li>transform 阶段有 @babel/traverse，可以遍历 AST，并调用 visitor 函数修改 AST，修改 AST 自然涉及到 AST 的判断、创建、修改等，这时候就需要 @babel/types 了，当需要批量创建 AST 的时候可以使用 @babel/template 来简化 AST 创建逻辑。</li>
+<li>generate 阶段会把 AST 打印为目标代码字符串，同时生成 sourcemap，需要 @babel/generate 包</li>
+<li>中途遇到错误想打印代码位置的时候，使用 @babel/code-frame 包</li>
+<li>babel 的整体功能通过 @babel/core 提供，基于上面的包完成 babel 整体的编译流程，并实现插件功能。</li>
+</ul>
+<p>我们主要学习的就是 @babel/parser，@babel/traverse，@babel/generator，@babel/types，@babel/template 这五个包的 api 的使用</p>
+<h3 id="babel-parser"><a href="#babel-parser" class="headerlink" title="@babel/parser"></a>@babel/parser</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">parse</span>(<span class="params">input: string, options?: ParserOptions</span>): <span class="title class_">File</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">parseExpression</span>(<span class="params">input: string, options?: ParserOptions</span>): <span class="title class_">Expression</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>(<span class="string">&quot;@babel/parser&quot;</span>).<span class="title function_">parse</span>(<span class="string">&quot;code&quot;</span>, &#123; <span class="attr">sourceType</span>: <span class="string">&quot;module&quot;</span>, <span class="attr">plugins</span>: [ <span class="string">&quot;jsx&quot;</span>, <span class="string">&quot;typescript&quot;</span> ] &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="babel-traverse"><a href="#babel-traverse" class="headerlink" title="@babel/traverse"></a>@babel/traverse</h3><p>parse 出的 AST 由 @babel/traverse 来遍历和修改</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">traverse</span>(<span class="params">parent, opts</span>)</span><br><span class="line"></span><br><span class="line"><span class="title function_">traverse</span>(ast, &#123;</span><br><span class="line"> <span class="title class_">FunctionDeclaration</span>(path, state) &#123;&#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="title function_">traverse</span>(ast, &#123;</span><br><span class="line">  <span class="title class_">Declaration</span>: &#123;</span><br><span class="line">   <span class="title function_">exit</span>(<span class="params">path, state</span>) &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>常用的就前面两个参数，parent 指定要遍历的 AST 节点，opts 指定 visitor 函数。babel 会在遍历 parent 对应的 AST 时调用相应的 visitor 函数。</p>
+<h4 id="path"><a href="#path" class="headerlink" title="path"></a>path</h4><h4 id="node-链、block-链、scope-链"><a href="#node-链、block-链、scope-链" class="headerlink" title="node 链、block 链、scope 链"></a>node 链、block 链、scope 链</h4><p>从某一个节点出发有 3 条链，path 和 path.parent 串联起来的 AST node 链，path.scope 和 path.scope.parent 串联起来的作用域 scope 链，path.scope.block 和 path.scope.parentBlock 串联起来的块 AST block 链。</p>
+<h4 id="visitor"><a href="#visitor" class="headerlink" title="visitor"></a>visitor</h4><p>visitor 对象的 value 是对象或者函数：</p>
+<ul>
+<li>如果 value 为函数，那么就相当于是 enter 时调用的函数。</li>
+<li>如果 value 为对象，则可以明确指定 enter 或者 exit 时的处理函数。</li>
+</ul>
+<p>函数会接收两个参数 path 和 state。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">visitor</span>: &#123;</span><br><span class="line">  <span class="title class_">Identifier</span> (path, state) &#123;&#125;,</span><br><span class="line">  <span class="title class_">StringLiteral</span>: &#123;</span><br><span class="line">    enter (path, state) &#123;&#125;,</span><br><span class="line">    exit (path, state) &#123;&#125;</span><br><span class="line">    <span class="comment">// enter 时调用是在遍历当前节点的子节点前调用，exit 时调用是遍历完当前节点的子节点后调用。</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628671912176-52ef919b-7010-4c90-afde-77e9213136cf.png#clientId=uc1cb803f-8f0c-4&from=paste&id=ub522ea47&margin=%5Bobject%20Object%5D&name=image.png&originHeight=680&originWidth=1308&originalType=url%E2%88%B6=1&size=129031&status=done&style=none&taskId=u40d811f4-c0d6-4bd3-b781-0e9ba85f4a5" alt="image.png"></p>
+<h4 id="state"><a href="#state" class="headerlink" title="state"></a>state</h4><p>state 是遍历过程中 AST 节点之间传递数据的方式，插件的 visitor 中，第一个参数是 path，第二个参数就是 state。插件可以从 state 中拿到 opts，也就是插件的配置项，也可以拿到 file 对象，file 中有一些文件级别的信息，这个也可以从 path.hub.file 中拿。<br>可以在遍历的过程中在 state 中存一些状态信息，用于后续的 AST 处理。不是遍历过程中的数据，可以通过 file.set、file.get 来保存。</p>
+<h3 id="babel-types"><a href="#babel-types" class="headerlink" title="@babel/types"></a>@babel/types</h3><p>遍历 AST 的过程中需要创建一些 AST 和判断 AST 的类型，这时候就需要 @babel/types 包。</p>
+<h3 id="babel-template"><a href="#babel-template" class="headerlink" title="@babel/template"></a>@babel/template</h3><p>使用 @babel/template 包来批量创建 AST</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ast = <span class="title function_">template</span>(code, [opts])(args);</span><br><span class="line"><span class="keyword">const</span> ast = template.<span class="title function_">ast</span>(code, [opts]);</span><br><span class="line"><span class="keyword">const</span> ast = template.<span class="title function_">program</span>(code, [opts]);</span><br></pre></td></tr></table></figure>
+
+<h3 id="babel-generator"><a href="#babel-generator" class="headerlink" title="@babel/generator"></a>@babel/generator</h3><p>AST 转换完之后就要打印成目标代码字符串，通过 @babel/generator 包的 generate api</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> (<span class="params">ast: <span class="built_in">Object</span>, opts: <span class="built_in">Object</span>, code: string</span>): &#123;code, map&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第一个参数是要打印的 AST<br>第二个参数是 options，指定打印的一些细节，比如通过 comments 指定是否包含注释，通过 minified 指定是否包含空白字符<br>第三个参数当多个文件合并打印的时候需要用到</p>
+<h3 id="babel-core"><a href="#babel-core" class="headerlink" title="@babel/core"></a>@babel/core</h3><p>前面的包是完成某一部分的功能的，而 @babel/core 包则是基于它们完成整个编译流程，从源码到目标代码，生成 sourcemap。<br>​</p>
+<p>​</p>
+<h2 id="sourcemap"><a href="#sourcemap" class="headerlink" title="sourcemap"></a>sourcemap</h2><p>babel 对源码进行了修改，生成的目标代码可能改动很大，如果直接调试目标代码，可能很难定位到源码。所以需要一种自动关联源码的方式，就是 sourcemap。<br>我们平时用 sourcemap 主要用两个目的：<br>​</p>
+<h5 id="调试代码时定位到源码"><a href="#调试代码时定位到源码" class="headerlink" title="调试代码时定位到源码"></a>调试代码时定位到源码</h5><blockquote>
+<p>//# sourceMappingURL=<a target="_blank" rel="noopener" href="http://example.com/path/to/your/sourcemap.map">http://example.com/path/to/your/sourcemap.map</a></p>
+</blockquote>
+<p>可以通过 url 的方式或者转成 base64 内联的方式来关联 sourcemap。调试工具（浏览器、vscode 等会自动解析 sourcemap，关联到源码。这样打断点、错误堆栈等都会对应到相应源码。</p>
+<h5 id="线上报错定位到源码"><a href="#线上报错定位到源码" class="headerlink" title="线上报错定位到源码"></a>线上报错定位到源码</h5><p>开发时会使用 sourcemap 来调试，但是生产可不会，要是把 sourcemap 传到生产算是大事故了。但是线上报错的时候确实也需要定位到源码，这种情况一般都是单独上传 sourcemap 到错误收集平台。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1628675883412-cd418d85-b3fa-4cfa-81a3-3fac6a834450.png#clientId=uc1cb803f-8f0c-4&from=paste&id=u55b690b1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1102&originWidth=2498&originalType=url%E2%88%B6=1&size=384065&status=done&style=none&taskId=ue08a72f9-f4c1-4884-8bfd-34110a5e649" alt="image.png"></p>
+<p>其实我们在 parse 的时候就在 AST 节点中保存了 loc 属性，这就是源码中的行列号，在后面 transform 的过程中，并不会去修改它，所以转换完以后节点中仍然保留有源码中的行列号信息，在 generate 打印成目标代码的时候会计算出新的行列号，这样两者关联就可以生成 sourcemap。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mappings</span>: <span class="string">&quot;AAAAA,BBBBB;;;;CCCCC,DDDDD&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>每一个分号 ; 表示一行，多个空行就是多个 ;，mapping 通过 , 分割。<br>mapping 有五位：<br>第一位是目标代码中的列数 第二位是源码所在的文件名 第三位是源码对应的行数 第四位是源码对应的列数 第五位是源码对应的 names，不一定有<br>每一位是通过 VLQ 编码的，一个字符就能表示行列数.<br><img src="https://cdn.nlark.com/yuque/0/2021/png/106384/1630483053616-68e84289-a8e0-4f84-8dbb-c3c98c62e791.png#clientId=u05b5077a-e81d-4&from=paste&id=u73df997c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=938&originWidth=842&originalType=url%E2%88%B6=1&size=143028&status=done&style=none&taskId=u58bda3a6-cb2c-48c1-8125-5a4ad704c43" alt="image.png"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/user/2788017216685118/books?type=wrote">https://juejin.cn/user/2788017216685118/books?type=wrote</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/24/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="next" title="操作系统">
+      操作系统 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#babel-%E7%9A%84%E7%94%A8%E9%80%94"><span class="nav-number">1.</span> <span class="nav-text">babel 的用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#babel-%E7%9A%84%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">babel 的编译流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#parse"><span class="nav-number">2.1.</span> <span class="nav-text">parse</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transform"><span class="nav-number">2.2.</span> <span class="nav-text">transform</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generate"><span class="nav-number">2.3.</span> <span class="nav-text">generate</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AST"><span class="nav-number">3.</span> <span class="nav-text">AST</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E5%85%B1%E5%B1%9E%E6%80%A7"><span class="nav-number">3.1.</span> <span class="nav-text">公共属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E8%8A%82%E7%82%B9"><span class="nav-number">3.2.</span> <span class="nav-text">常见节点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Literal"><span class="nav-number">3.2.1.</span> <span class="nav-text">Literal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Identifier"><span class="nav-number">3.2.2.</span> <span class="nav-text">Identifier</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Statement"><span class="nav-number">3.2.3.</span> <span class="nav-text">Statement</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Declaration"><span class="nav-number">3.2.4.</span> <span class="nav-text">Declaration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Expression"><span class="nav-number">3.2.5.</span> <span class="nav-text">Expression</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Class"><span class="nav-number">3.2.6.</span> <span class="nav-text">Class</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Modules"><span class="nav-number">3.2.7.</span> <span class="nav-text">Modules</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Export"><span class="nav-number">3.2.8.</span> <span class="nav-text">Export</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Program-amp-Directive"><span class="nav-number">3.2.9.</span> <span class="nav-text">Program &amp; Directive</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#File-amp-Comment"><span class="nav-number">3.2.10.</span> <span class="nav-text">File &amp; Comment</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">3.2.11.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API"><span class="nav-number">4.</span> <span class="nav-text">API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#babel-parser"><span class="nav-number">4.1.</span> <span class="nav-text">@babel&#x2F;parser</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#babel-traverse"><span class="nav-number">4.2.</span> <span class="nav-text">@babel&#x2F;traverse</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#path"><span class="nav-number">4.2.1.</span> <span class="nav-text">path</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#node-%E9%93%BE%E3%80%81block-%E9%93%BE%E3%80%81scope-%E9%93%BE"><span class="nav-number">4.2.2.</span> <span class="nav-text">node 链、block 链、scope 链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#visitor"><span class="nav-number">4.2.3.</span> <span class="nav-text">visitor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#state"><span class="nav-number">4.2.4.</span> <span class="nav-text">state</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#babel-types"><span class="nav-number">4.3.</span> <span class="nav-text">@babel&#x2F;types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#babel-template"><span class="nav-number">4.4.</span> <span class="nav-text">@babel&#x2F;template</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#babel-generator"><span class="nav-number">4.5.</span> <span class="nav-text">@babel&#x2F;generator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#babel-core"><span class="nav-number">4.6.</span> <span class="nav-text">@babel&#x2F;core</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sourcemap"><span class="nav-number">5.</span> <span class="nav-text">sourcemap</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E4%BB%A3%E7%A0%81%E6%97%B6%E5%AE%9A%E4%BD%8D%E5%88%B0%E6%BA%90%E7%A0%81"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">调试代码时定位到源码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%BF%E4%B8%8A%E6%8A%A5%E9%94%99%E5%AE%9A%E4%BD%8D%E5%88%B0%E6%BA%90%E7%A0%81"><span class="nav-number">5.0.0.2.</span> <span class="nav-text">线上报错定位到源码</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CatcherInSky"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">CatcherInSky</p>
+  <div class="site-description" itemprop="description">CatcherInSky的前端知识库</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CatcherInSky" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CatcherInSky" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangchunxiang98@outlook.com" title="E-Mail → mailto:zhangchunxiang98@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
