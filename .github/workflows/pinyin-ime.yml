@@ -1,15 +1,20 @@
-name: Build pinyin-ime and publish master/pinyin-ime
+name: Build pinyin-ime and deploy Pages
 
 on:
   repository_dispatch:
     types: [pinyin-ime]
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
-    name: Build /pinyin-ime then update master
+    name: Build /pinyin-ime then deploy Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     env:
       TZ: Asia/Shanghai
@@ -31,6 +36,9 @@ jobs:
           npm run clean
           npm run build
 
+      - name: Ensure .nojekyll under public/pinyin-ime
+        run: touch public/pinyin-ime/.nojekyll
+
       - name: Verify generated pinyin-ime files
         run: |
           echo "== public exists? =="
@@ -38,6 +46,7 @@ jobs:
           echo "== public/pinyin-ime exists? =="
           ls -la public/pinyin-ime
           test -f public/pinyin-ime/index.html
+          test -f public/pinyin-ime/.nojekyll
 
       - name: Sync pinyin-ime to master
         uses: peaceiris/actions-gh-pages@v4
