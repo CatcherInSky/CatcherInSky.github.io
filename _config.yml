@@ -13,7 +13,8 @@ timezone:
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://CatcherInSky.github.io
+url: https://catcherinsky.github.io
+root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -28,9 +29,11 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
-skip_render: 
-   - README.md
-   - pinyin-ime/**
+skip_render:
+  - README.md
+  # Keep pinyin-ime as static assets under source/pinyin-ime
+  - pinyin-ime/**
+  - pinyin-ime/**/*
   #  - .github/workflows/main.yml
 
 # Writing
@@ -94,7 +97,7 @@ pagination_dir: page
 # Include / Exclude file(s)
 ## include:/exclude: options only apply to the 'source/' folder
 include:
-  - "pinyin-ime/.nojekyll"
+  - pinyin-ime/.nojekyll
 exclude:
 ignore:
 
