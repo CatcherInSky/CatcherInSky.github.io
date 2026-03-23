@@ -36,6 +36,9 @@ jobs:
           npm run clean
           npm run build
 
+      - name: Ensure .nojekyll under public/pinyin-ime
+        run: touch public/pinyin-ime/.nojekyll
+
       - name: Verify generated pinyin-ime files
         run: |
           echo "== public exists? =="
@@ -43,6 +46,7 @@ jobs:
           echo "== public/pinyin-ime exists? =="
           ls -la public/pinyin-ime
           test -f public/pinyin-ime/index.html
+          test -f public/pinyin-ime/.nojekyll
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
