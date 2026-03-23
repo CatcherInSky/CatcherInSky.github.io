@@ -1,15 +1,20 @@
-name: Build pinyin-ime and sync to master
+name: Build pinyin-ime and deploy Pages
 
 on:
   repository_dispatch:
     types: [pinyin-ime]
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
-    name: Build /pinyin-ime then sync master
+    name: Build /pinyin-ime then deploy Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     env:
       TZ: Asia/Shanghai
@@ -31,23 +36,15 @@ jobs:
           npm run clean
           npm run build
 
-      - name: Sync public to master branch
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: master
-          publish_dir: ./public
-          keep_files: true
-          force_orphan: false
-          exclude_assets: ".github"
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
-      - name: Trigger static Pages deployment
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          curl -f -sS -X POST \
-            -H "Authorization: Bearer ${GH_TOKEN}" \
-            -H "Accept: application/vnd.github+json" \
-            https://api.github.com/repos/CatcherInSky/CatcherInSky.github.io/dispatches \
-            -d '{"event_type":"static-deploy"}'
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
