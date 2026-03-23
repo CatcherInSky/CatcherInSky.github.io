@@ -2,7 +2,10 @@
 name: Deploy To Github Pages 
 
 # 当有 push 到仓库和外部触发的时候就运行 
-on: repository_dispatch
+on: 
+  repository_dispatch:
+    types: [yuque]
+
 
 # YUQUE_TOKEN 
 # Github_SSH_PRIVATE_KEY 
