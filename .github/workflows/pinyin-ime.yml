@@ -1,20 +1,15 @@
-name: Build pinyin-ime and deploy Pages
+name: Build pinyin-ime and publish master/pinyin-ime
 
 on:
   repository_dispatch:
     types: [pinyin-ime]
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 jobs:
   deploy:
-    name: Build /pinyin-ime then deploy Pages
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    name: Build /pinyin-ime then update master
     runs-on: ubuntu-latest
     env:
       TZ: Asia/Shanghai
@@ -44,15 +39,14 @@ jobs:
           ls -la public/pinyin-ime
           test -f public/pinyin-ime/index.html
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+      - name: Sync pinyin-ime to master
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: ./public
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: master
+          publish_dir: ./public/pinyin-ime
+          destination_dir: pinyin-ime
+          # Only replace the `pinyin-ime/` subtree; do not touch other branch files.
+          force_orphan: false
+          exclude_assets: ".github"
 
