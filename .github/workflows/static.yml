@@ -34,7 +34,14 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: "."
+          path: "./"
+
+      - name: Verify checkout contains pinyin-ime
+        run: |
+          echo "== repo root pinyin-ime check =="
+          ls -la
+          ls -la pinyin-ime
+          test -f pinyin-ime/index.html
 
       - name: Deploy to GitHub Pages
         id: deployment
