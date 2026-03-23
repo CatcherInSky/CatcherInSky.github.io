@@ -36,8 +36,10 @@ jobs:
           npm run clean
           npm run build
 
-      - name: Ensure .nojekyll under public/pinyin-ime
-        run: touch public/pinyin-ime/.nojekyll
+      - name: Ensure .nojekyll under public and public/pinyin-ime
+        run: |
+          touch public/.nojekyll
+          touch public/pinyin-ime/.nojekyll
 
       - name: Verify generated pinyin-ime files
         run: |
@@ -46,6 +48,7 @@ jobs:
           echo "== public/pinyin-ime exists? =="
           ls -la public/pinyin-ime
           test -f public/pinyin-ime/index.html
+          test -f public/.nojekyll
           test -f public/pinyin-ime/.nojekyll
           echo "== ensure deploy root still contains pinyin-ime =="
           test -d public/pinyin-ime
@@ -56,9 +59,22 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
+          name: github-pages-pinyin-ime
           path: ./public
+
+      - name: Upload debug artifact for pinyin-ime
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-public-pinyin-ime
+          path: |
+            public/pinyin-ime
+            public/index.html
+          if-no-files-found: error
+          include-hidden-files: true
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-pinyin-ime
 
