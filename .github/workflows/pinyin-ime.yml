@@ -42,11 +42,11 @@ jobs:
           # touch public/.nojekyll
           touch public/pinyin-ime/.nojekyll
 
-      # - name: Create alias route /pinyinime for A/B verification
-      #   run: |
-          # rm -rf public/pinyinime
-          # cp -R public/pinyin-ime public/pinyinime
-          # touch public/pinyinime/.nojekyll
+      - name: Create alias route /pinyinime for A/B verification
+        run: |
+          rm -rf public/pinyinime
+          cp -R public/pinyin-ime public/pinyinime
+          touch public/pinyinime/.nojekyll
 
       - name: Verify generated pinyin-ime files
         run: |
@@ -57,10 +57,10 @@ jobs:
           test -f public/pinyin-ime/index.html
           # test -f public/.nojekyll
           test -f public/pinyin-ime/.nojekyll
-          # echo "== public/pinyinime exists? =="
-          # ls -la public/pinyinime
-          # test -f public/pinyinime/index.html
-          # test -f public/pinyinime/.nojekyll
+          echo "== public/pinyinime exists? =="
+          ls -la public/pinyinime
+          test -f public/pinyinime/index.html
+          test -f public/pinyinime/.nojekyll
           echo "== ensure deploy root still contains pinyin-ime =="
 
       - name: Setup Pages
