@@ -1,0 +1,42 @@
+name: Deploy Pinyin-Ime Public To Pages
+
+on:
+  repository_dispatch:
+    types: [pinyin-ime]
+
+jobs:
+  deploy:
+    name: Deploy /pinyin-ime to GitHub Pages
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai
+    steps:
+      - name: Checkout Repository source branch
+        uses: actions/checkout@v2
+        with:
+          ref: source
+
+      - name: Setup Node.js 12.x
+        uses: actions/setup-node@master
+        with:
+          node-version: "12.x"
+
+      - name: Setup Github SSH_PRIVATE_KEY
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git config --global user.name 'CatcherInSky'
+          git config --global user.email '1530775669@qq.com'
+
+      - name: Setup Hexo Dependencies and Generate Public Files
+        run: |
+          npm install hexo-cli -g
+          npm install
+          npm run clean
+          npm run build
+          npm run deploy
+
