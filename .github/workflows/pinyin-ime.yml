@@ -41,3 +41,13 @@ jobs:
           force_orphan: false
           exclude_assets: ".github"
 
+      - name: Trigger static Pages deployment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -f -sS -X POST \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/CatcherInSky/CatcherInSky.github.io/dispatches \
+            -d '{"event_type":"static-deploy"}'
+
