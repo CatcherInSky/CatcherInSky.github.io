@@ -47,6 +47,8 @@ jobs:
           ls -la public/pinyin-ime
           test -f public/pinyin-ime/index.html
           test -f public/pinyin-ime/.nojekyll
+          echo "== ensure deploy root still contains pinyin-ime =="
+          test -d public/pinyin-ime
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
