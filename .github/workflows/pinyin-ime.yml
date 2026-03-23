@@ -36,6 +36,14 @@ jobs:
           npm run clean
           npm run build
 
+      - name: Verify generated pinyin-ime files
+        run: |
+          echo "== public exists? =="
+          ls -la public
+          echo "== public/pinyin-ime exists? =="
+          ls -la public/pinyin-ime
+          test -f public/pinyin-ime/index.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
