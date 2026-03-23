@@ -5,7 +5,7 @@ on:
     types: [pinyin-ime]
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -48,14 +48,15 @@ jobs:
           test -f public/pinyin-ime/index.html
           test -f public/pinyin-ime/.nojekyll
 
-      - name: Sync pinyin-ime to master
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: master
-          publish_dir: ./public/pinyin-ime
-          destination_dir: pinyin-ime
-          # Only replace the `pinyin-ime/` subtree; do not touch other branch files.
-          force_orphan: false
-          exclude_assets: ".github"
+          path: ./public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
