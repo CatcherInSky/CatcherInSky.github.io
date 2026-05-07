@@ -34,11 +34,11 @@ echo ">>> 初始化服务器环境..."
 $SSHPASS ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_TARGET" bash <<'SETUP'
   set -e
 
-  # 安装 Docker
+  # 安装 Docker（使用阿里云镜像，适配国内服务器）
   if ! command -v docker &>/dev/null; then
     echo "--- 安装 Docker..."
-    curl -fsSL https://get.docker.com | sh
-    systemctl enable docker
+    curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+    systemctl enable docker || true
     systemctl start docker
   else
     echo "--- Docker 已安装: $(docker --version)"
