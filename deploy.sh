@@ -9,8 +9,11 @@ if [ ! -f "$ENV_FILE" ]; then
   exit 1
 fi
 
+# set -a 让 source 的变量自动 export，envsubst 才能读到
+set -a
 # shellcheck disable=SC1090
 source "$ENV_FILE"
+set +a
 
 # 检查必填变量
 for var in SERVER_USER SERVER_IP SSH_PASS DOMAIN DEPLOY_PATH REPO_URL; do
