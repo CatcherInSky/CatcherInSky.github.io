@@ -39,8 +39,6 @@ $SSHPASS ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_TARGET" bash <<'SE
   if ! command -v docker &>/dev/null; then
     echo "--- 安装 Docker..."
     curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
-    systemctl enable docker || true
-    systemctl start docker
   else
     echo "--- Docker 已安装: $(docker --version)"
   fi
@@ -80,9 +78,9 @@ $SSHPASS ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_TARGET" bash <<EOF
   fi
 
   echo "--- 启动容器..."
-  docker compose up -d --pull always
+  sudo docker compose up -d --pull always
   echo "--- 容器状态:"
-  docker compose ps
+  sudo docker compose ps
 EOF
 
 echo ""
