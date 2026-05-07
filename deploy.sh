@@ -43,6 +43,21 @@ $SSHPASS ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_TARGET" bash <<'SE
     echo "--- Docker 已安装: $(docker --version)"
   fi
 
+  # 配置 Docker 国内镜像源
+  if [ ! -f /etc/docker/daemon.json ]; then
+    echo "--- 配置 Docker 镜像源..."
+    sudo tee /etc/docker/daemon.json > /dev/null <<'JSON'
+{
+  "registry-mirrors": [
+    "https://docker.m.daocloud.io",
+    "https://dockerpull.org",
+    "https://hub-mirror.c.163.com"
+  ]
+}
+JSON
+    sudo systemctl restart docker
+  fi
+
   # 安装 git（通常已有，以防万一）
   if ! command -v git &>/dev/null; then
     echo "--- 安装 git..."
