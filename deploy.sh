@@ -26,9 +26,33 @@ SSHPASS="sshpass -p $SSH_PASS"
 
 echo ">>> 检查本地依赖 sshpass..."
 if ! command -v sshpass &>/dev/null; then
-  echo "错误: 未安装 sshpass，请执行: sudo apt install sshpass"
-  exit 1
+  echo "--- 未安装 sshpass，正在安装..."
+  sudo apt-get install -y sshpass
 fi
+
+echo ">>> 初始化服务器环境..."
+$SSHPASS ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_TARGET" bash <<'SETUP'
+  set -e
+
+  # 安装 Docker
+  if ! command -v docker &>/dev/null; then
+    echo "--- 安装 Docker..."
+    curl -fsSL https://get.docker.com | sh
+    systemctl enable docker
+    systemctl start docker
+  else
+    echo "--- Docker 已安装: $(docker --version)"
+  fi
+
+  # 安装 git（通常已有，以防万一）
+  if ! command -v git &>/dev/null; then
+    echo "--- 安装 git..."
+    apt-get install -y git 2>/dev/null || yum install -y git
+  fi
+SETUP
+
+echo ">>> 创建部署目录..."
+$SSHPASS ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_TARGET" "mkdir -p $DEPLOY_PATH"
 
 echo ">>> 生成 nginx.conf..."
 envsubst '${DOMAIN}' < "$SCRIPT_DIR/nginx.conf.template" > "$SCRIPT_DIR/nginx.conf"
