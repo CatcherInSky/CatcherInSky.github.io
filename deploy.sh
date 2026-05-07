@@ -33,6 +33,7 @@ fi
 echo ">>> 初始化服务器环境..."
 $SSHPASS ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_TARGET" bash <<'SETUP'
   set -e
+  echo "--- 运行环境: $(whoami)@$(hostname)"
 
   # 安装 Docker（使用阿里云镜像，适配国内服务器）
   if ! command -v docker &>/dev/null; then
