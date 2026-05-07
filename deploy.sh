@@ -16,7 +16,7 @@ source "$ENV_FILE"
 set +a
 
 # 检查必填变量
-for var in SERVER_USER SERVER_IP SSH_PASS DOMAIN DEPLOY_PATH REPO_URL; do
+for var in SERVER_USER SERVER_IP SSH_PASS DOMAIN CERTBOT_EMAIL DEPLOY_PATH REPO_URL; do
   if [ -z "${!var}" ]; then
     echo "错误: .env 中 $var 未填写"
     exit 1
@@ -71,17 +71,19 @@ SETUP
 echo ">>> 创建部署目录..."
 $SSHPASS ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_TARGET" "mkdir -p $DEPLOY_PATH"
 
-echo ">>> 生成 nginx.conf..."
-envsubst '${DOMAIN}' < "$SCRIPT_DIR/nginx.conf.template" > "$SCRIPT_DIR/nginx.conf"
+echo ">>> 生成 nginx 配置..."
+envsubst '${DOMAIN}' < "$SCRIPT_DIR/nginx.conf.template" > "$SCRIPT_DIR/nginx-https.conf"
+envsubst '${DOMAIN}' < "$SCRIPT_DIR/nginx-init.conf.template" > "$SCRIPT_DIR/nginx-init.conf"
 
 echo ">>> 同步配置文件到服务器..."
-$SSHPASS rsync -avz --delete \
+$SSHPASS rsync -avz \
   -e "ssh -p $SSH_PORT -o StrictHostKeyChecking=no" \
   "$SCRIPT_DIR/docker-compose.yml" \
-  "$SCRIPT_DIR/nginx.conf" \
+  "$SCRIPT_DIR/nginx-https.conf" \
+  "$SCRIPT_DIR/nginx-init.conf" \
   "$SSH_TARGET:$DEPLOY_PATH/"
 
-echo ">>> 在服务器上拉取博客内容并启动容器..."
+echo ">>> 在服务器上拉取博客内容..."
 $SSHPASS ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_TARGET" bash <<EOF
   set -e
   cd $DEPLOY_PATH
@@ -95,12 +97,36 @@ $SSHPASS ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_TARGET" bash <<EOF
     git clone --depth=1 --branch master $REPO_URL dist
   fi
 
-  echo "--- 启动/重启容器..."
-  sudo docker compose up -d --pull always
-  sudo docker compose restart
+  mkdir -p certbot/www certbot/conf
+
+  if [ ! -d "certbot/conf/live/$DOMAIN" ]; then
+    echo "--- 首次申请 HTTPS 证书，先以 HTTP 模式启动..."
+    cp nginx-init.conf nginx.conf
+    sudo docker compose up -d --pull always
+    sleep 3
+
+    echo "--- 申请 Let's Encrypt 证书..."
+    sudo docker compose run --rm certbot certonly \
+      --webroot -w /var/www/certbot \
+      --email $CERTBOT_EMAIL \
+      --agree-tos \
+      --no-eff-email \
+      -d $DOMAIN
+
+    echo "--- 证书申请成功，切换到 HTTPS..."
+    cp nginx-https.conf nginx.conf
+    sudo docker compose restart blog
+  else
+    echo "--- 证书已存在，续期检查..."
+    cp nginx-https.conf nginx.conf
+    sudo docker compose up -d --pull always
+    sudo docker compose run --rm certbot renew --quiet
+    sudo docker compose restart blog
+  fi
+
   echo "--- 容器状态:"
   sudo docker compose ps
 EOF
 
 echo ""
-echo "部署完成，访问 http://$DOMAIN"
+echo "部署完成，访问 https://$DOMAIN"

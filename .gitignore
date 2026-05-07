@@ -1,3 +1,5 @@
 .env
 nginx.conf
+nginx-https.conf
+nginx-init.conf
 node_modules/
