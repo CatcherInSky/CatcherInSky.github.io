@@ -95,8 +95,9 @@ $SSHPASS ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_TARGET" bash <<EOF
     git clone --depth=1 --branch master $REPO_URL dist
   fi
 
-  echo "--- 启动容器..."
+  echo "--- 启动/重启容器..."
   sudo docker compose up -d --pull always
+  sudo docker compose restart
   echo "--- 容器状态:"
   sudo docker compose ps
 EOF
