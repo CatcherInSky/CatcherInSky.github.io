@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Knowlegde Bases of CatcherInSky" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Expressexpress构造的是Http.createServer的回调函数express是一个基于NodeJS的框架，先来看下如果不使用框架要创建一个最简单的web应用应该是怎么样 12345const http = require(&apos;http&apos;);const server = http.createServer(function(req, res)&amp;#123;    res.end(&apos;he">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:url" content="http://yoursite.com/2019/08/11/express/index.html">
+<meta property="og:site_name" content="Knowlegde Bases of CatcherInSky">
+<meta property="og:description" content="Expressexpress构造的是Http.createServer的回调函数express是一个基于NodeJS的框架，先来看下如果不使用框架要创建一个最简单的web应用应该是怎么样 12345const http = require(&apos;http&apos;);const server = http.createServer(function(req, res)&amp;#123;    res.end(&apos;he">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-df324fff2a6e6ae252bc89b40aa13b1d_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-5b5b41971e5c894405df35e55d2fe39f_hd.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-038ac07a7c23b2184a1a2f552cfbf8d6_hd.jpg">
+<meta property="og:image" content="https://img-blog.csdn.net/20180710000737469?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BweDIwMTc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:updated_time" content="2019-08-11T03:45:32.427Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Knowlegde Bases of CatcherInSky">
+<meta name="twitter:description" content="Expressexpress构造的是Http.createServer的回调函数express是一个基于NodeJS的框架，先来看下如果不使用框架要创建一个最简单的web应用应该是怎么样 12345const http = require(&apos;http&apos;);const server = http.createServer(function(req, res)&amp;#123;    res.end(&apos;he">
+<meta name="twitter:image" content="https://pic2.zhimg.com/80/v2-df324fff2a6e6ae252bc89b40aa13b1d_hd.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/11/express/">
+
+
+
+
+
+  <title> | Knowlegde Bases of CatcherInSky</title>
+  
+
+
+
+
+
+
+
+
+
+  <style>.github-corner:hover
+  .octo-arm{animation:octocat-wave 560ms ease-in-out}
+  @keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}
+  @media (max-width:500px){.github-corner:hover .octo-arm{animation:none}
+  .github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband">
+    <a href="https://github.com/catcherinsky" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+    </div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Knowlegde Bases of CatcherInSky</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">CatcherInSky的前端知识库</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/11/express/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CatcherInSky">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Knowlegde Bases of CatcherInSky">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-11T11:22:35+08:00">
+                2019-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Express"><a href="#Express" class="headerlink" title="Express"></a>Express</h1><h2 id="express构造的是Http-createServer的回调函数"><a href="#express构造的是Http-createServer的回调函数" class="headerlink" title="express构造的是Http.createServer的回调函数"></a>express构造的是Http.createServer的回调函数</h2><p>express是一个基于NodeJS的框架，先来看下如果不使用框架要创建一个最简单的web应用应该是怎么样</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="keyword">const</span> server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>)</span>&#123;</span><br><span class="line">    res.end(<span class="string">'hello word!'</span>)</span><br><span class="line">&#125;);</span><br><span class="line">server.listen(<span class="number">8000</span>);</span><br></pre></td></tr></table></figure>
+<p>实际上express是一个函数，运行后可以构造出上面代码中http.createServer的回调函数，express做的一切文章都是在这个回调函数上。来看下express3.x的源码express.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//========== 你的应用 app.js ==================</span></span><br><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>)</span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/'</span>, (req, res) =&gt; res.send(<span class="string">'Hello World!'</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.createServer(app)</span><br><span class="line">server.listen(<span class="number">8000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//========== express.js =============</span></span><br><span class="line"><span class="keyword">var</span> connect = <span class="built_in">require</span>(<span class="string">'connect'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createApplication</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> app = connect();</span><br><span class="line">  utils.merge(app, proto);</span><br><span class="line">  app.request = &#123; <span class="attr">__proto__</span>: req &#125;;</span><br><span class="line">  app.response = &#123; <span class="attr">__proto__</span>: res &#125;;</span><br><span class="line">  app.init();</span><br><span class="line">  <span class="keyword">return</span> app;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = createApplication;</span><br><span class="line"></span><br><span class="line"><span class="comment">//=========== express依赖的connect.js==============</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createServer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">app</span>(<span class="params">req, res, next</span>)</span>&#123; app.handle(req, res, next); &#125;</span><br><span class="line">  <span class="comment">// ... 省略</span></span><br><span class="line">  <span class="keyword">return</span> app;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = createServer;</span><br></pre></td></tr></table></figure>
+<p>connect.js的具体内容先不关心，后面会重点介绍。可以看出connect是一个函数，运行返回一个app，app是一个形如function(req, res , next){ … } 的函数。express的createApplication返回即是此app，用于http.createServer的回调。并在这个函数上混入的许多能力，如req、res的处理、模板引擎、静态文件服务、router的能力。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-df324fff2a6e6ae252bc89b40aa13b1d_hd.jpg" alt="img"></p>
+<p>用比较简单的伪代码表示如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line"><span class="comment">// nodejs启动时，app函数内部被express增加了能力，如中间件的调用 </span></span><br><span class="line">app.use(middleware)； <span class="comment">// 中间件 </span></span><br><span class="line">app.use(router)； <span class="comment">// 路由 </span></span><br><span class="line">app.engine(<span class="string">'ejs'</span>); <span class="comment">// 模板引擎 </span></span><br><span class="line">app.statifc(<span class="string">'public'</span>) <span class="comment">// 静态文件服务 </span></span><br><span class="line"><span class="comment">// ... 还有代理以及其他许多属性与方法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.createServer(</span><br><span class="line">      <span class="function"><span class="keyword">function</span> <span class="title">app</span>(<span class="params">req, res</span>)</span>&#123;  <span class="comment">// 此app函数即为express所构造</span></span><br><span class="line">           <span class="comment">// http请求时，req， res被混入许多属性与方法，做了很多处理</span></span><br><span class="line">           <span class="comment">// 串行匹配运行按顺序注册的各注册的中间件如：</span></span><br><span class="line">           <span class="comment">// 1、日志、cookie、bodyparser等开发者自己注册的中间件</span></span><br><span class="line">           <span class="comment">// 2、router中间件</span></span><br><span class="line">           <span class="comment">// 3、静态文件服务</span></span><br><span class="line">           <span class="comment">// 4、模板引擎处理</span></span><br><span class="line">           <span class="comment">// 经过匹配的中间件处理后输出返回</span></span><br><span class="line">      &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">8000</span>);</span><br></pre></td></tr></table></figure>
+<p>上面的1、2、3、4顺序即为开发者注册时的顺序（故我们平时在开发时express注册中间件时是有先后顺序的）。express最主管理与运行中间件的能力，接下来深入内部看看connect这个中间件机制是怎么实现的。</p>
+<h2 id="最为核心的中间件框架"><a href="#最为核心的中间件框架" class="headerlink" title="最为核心的中间件框架"></a>最为核心的中间件框架</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//connect.js 的简要内容</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createServer</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// app是用于http.createServer的回调函数</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">app</span>(<span class="params">req, res, next</span>)</span>&#123;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 运行时调用handle函数</span></span><br><span class="line">        app.handle(req, res, next);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    mixin(app, proto, <span class="literal">false</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 初始化一个stack数组</span></span><br><span class="line">    app.stack = []; </span><br><span class="line">    <span class="keyword">return</span> app;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// use调用时往app的stack数组中push一个对象（中间件），标识path与回调函数</span></span><br><span class="line">proto.use = <span class="function"><span class="keyword">function</span>(<span class="params">route, fn</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> path = route, </span><br><span class="line">    handle = fn;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//...  省略其他</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">this</span>.stack.push(&#123;</span><br><span class="line">        route: path,</span><br><span class="line">        handle</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// handle方法，串行取出stack数组中的中间件，逐个运行</span></span><br><span class="line">proto.handle = <span class="function"><span class="keyword">function</span>(<span class="params">req, res, out</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">var</span> stack = <span class="keyword">this</span>.stack;</span><br><span class="line">    <span class="keyword">var</span> done = out || finalhandler(req, res, &#123; <span class="attr">onerror</span>: logerror &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历stack，逐个取出中间件运行</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">next</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> layer = stack[index++];</span><br><span class="line">        <span class="comment">// 遍历完成为止</span></span><br><span class="line">        <span class="keyword">if</span>(layer === <span class="literal">undefined</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> done();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> route = pathFormat(layer.route);</span><br><span class="line">        <span class="keyword">var</span> pathname = pathFormat(urlParser(req.url).pathname || <span class="string">'/'</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 匹配中间件，不匹配的不运行</span></span><br><span class="line">        <span class="keyword">if</span>(route !== <span class="string">''</span> &amp;&amp; pathname !== route)&#123;</span><br><span class="line">            next(err);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用中间件</span></span><br><span class="line">        call(layer.handle, err, req, res, next);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    next();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>不难看出，app.use中间件时，只是把它放入一个数组中。当http请求时，app会从数组中逐个取出，进行匹配过滤，逐个运行。遍历完成后，运行finalhandler，结束一个http请求。可以从http请求的角度思考，一次请求它经历经历了多少东西。express的这个中间件架构就是负责管理与调用这些注册的中间件。<strong>中间件顺序执行，通过next来继续下一个，一旦没有继续next，则流程结束。</strong></p>
+<p>接下来提一下异步编程的串行控制，加强理解；</p>
+<h2 id="异步串行流程控制"><a href="#异步串行流程控制" class="headerlink" title="异步串行流程控制"></a>异步串行流程控制</h2><p>为了用串行化流程控制让几个异步任务按顺序执行，需要先把这些任务按预期的执行顺序放 到一个数组中。如图，所示，这个数组将起到队列的作用:完成一个任务后按顺序从数组中取 出下一个</p>
+<p><img src="https://pic4.zhimg.com/80/v2-5b5b41971e5c894405df35e55d2fe39f_hd.jpg" alt="img"></p>
+<p>数组中的每个任务都是一个函数。任务完成后应该调用一个处理器函数，告诉它错误状态和 结果。如果有错误，处理器函数会终止执行;如果没有错误，处理器就从队列中取出下一个任务 执行它</p>
+<p>下面是一个简单实现方案：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数组</span></span><br><span class="line"><span class="keyword">var</span> tasks = [</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        next();</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        next()</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">C</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        next()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">next</span>(<span class="params">err, result</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(err) <span class="keyword">throw</span> err;</span><br><span class="line">    <span class="keyword">var</span> currentTask = tasks.shift();</span><br><span class="line">    <span class="keyword">if</span>(currentTask) currentTask(result)</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 首次主动调用</span></span><br><span class="line">next();</span><br></pre></td></tr></table></figure>
+<p>异步串行控制方案除了上面的这种以外，还可以用es6的promise的then链、async/await、yeild、社区工具等；</p>
+<p>可以看到代码确实谈不上高级😂，串行导致的性能谈不上优秀，但是得益于此它足够简单易用。到此可以发现express的中间件架构就是一个中间件的的管理与数组遍历运行，这个方案就让社区形形色色各种各样的中间件很好的添加express能力，这点很简单也很重要，因为后续的路由、静态文件服务、代理等都是中间件，都在这个框架内运行。</p>
+<h2 id="Router是一个内置在app函数上的中间件"><a href="#Router是一个内置在app函数上的中间件" class="headerlink" title="Router是一个内置在app函数上的中间件"></a>Router是一个内置在app函数上的中间件</h2><p>来看下简化后的router.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//express创建时运行</span></span><br><span class="line">app.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// ... 省略其它代码</span></span><br><span class="line">    <span class="keyword">this</span>._router = <span class="keyword">new</span> Router();</span><br><span class="line">    <span class="keyword">this</span>.usedRouter = <span class="literal">false</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// app调用router时初始化router中间件</span></span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(<span class="keyword">this</span>, <span class="string">'router'</span>, &#123;</span><br><span class="line">        configurable : <span class="literal">true</span>,</span><br><span class="line">        enumerable : <span class="literal">true</span>,</span><br><span class="line">        <span class="keyword">get</span>: function () &#123;</span><br><span class="line">            <span class="keyword">this</span>.usedRouter = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>._router.middlewareInit.bind(<span class="keyword">this</span>._router);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// methods是一个数组，['get','post','put','delete',...]</span></span><br><span class="line">methods.forEach(<span class="function"><span class="params">method</span> =&gt;</span> &#123;</span><br><span class="line">    app[method] = <span class="function"><span class="keyword">function</span> (<span class="params">path</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 如果首次调用则放入路由中间价</span></span><br><span class="line">        <span class="keyword">if</span>(!<span class="keyword">this</span>.usedRouter)&#123;</span><br><span class="line">            <span class="keyword">this</span>.use(<span class="keyword">this</span>.router);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 加入stack</span></span><br><span class="line">        <span class="keyword">this</span>._router.addRoute(method, path, <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>上面的usedRouter是个开关，未开启则不加入router中间件，因为应用理论上也是可能不用到router的。当app[method] 如app.get(‘/user’, fn)调用后，则触发this.use(this.router) 使用router中间件，同时把usedRouter设置为true。之后往router对象中加入fn回调函数。</p>
+<p>router实际上也是一个异步串行流程控制，简化版的代码如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">Router.prototype.addRoute = <span class="function"><span class="keyword">function</span>(<span class="params">method, path, handles</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> layer = &#123;</span><br><span class="line">      path,</span><br><span class="line">      handles</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.map[method] = <span class="keyword">this</span>.map[method] || [];</span><br><span class="line">    <span class="keyword">this</span>.map[method].push(layer);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Router.prototype.middlewareInit = <span class="function"><span class="keyword">function</span>(<span class="params">req, res, out</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> method = req.method.toLowerCase() || <span class="string">'get'</span>;</span><br><span class="line">    <span class="keyword">let</span> stack = <span class="keyword">this</span>.map[method];</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">next</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> layer = stack[index++];</span><br><span class="line">        <span class="keyword">let</span> hasError = <span class="built_in">Boolean</span>(err);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果没有了则结束中间件，走下一个中间件</span></span><br><span class="line">        <span class="keyword">if</span>(!layer)&#123;</span><br><span class="line">            <span class="keyword">return</span> hasError ? out(err) : out();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> route = utils.pathFormat(layer.path);</span><br><span class="line">        <span class="keyword">let</span> pathname = utils.pathFormat(urlParser(req.url).pathname || <span class="string">'/'</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 进行过滤</span></span><br><span class="line">        <span class="keyword">if</span>(route!== <span class="string">''</span> &amp;&amp; route !== pathname)&#123;</span><br><span class="line">            <span class="keyword">return</span> next(err);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        executeHandles(layer.handles, err, req, res, next);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    next();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>router跟connect非常类似，上述理解了connect，router就很清晰了。一图以蔽之：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-038ac07a7c23b2184a1a2f552cfbf8d6_hd.jpg" alt="img"></p>
+<p>实际上router还有细分，某个router还是可以继续做类似的串行流程控制；与中间件相同，每个router一旦停止了next，流程就结束了。</p>
+<p>request经过router可以请求一个数据，或者一个网页；网页的话是怎么返回的呢，接下来看下view的render；</p>
+<h2 id="视图-模板引擎"><a href="#视图-模板引擎" class="headerlink" title="视图-模板引擎"></a>视图-模板引擎</h2><p>模板引擎是根据对模板结合data进行运行处理，生产real html；这跟React、Vue、模板引擎是类似的。模板引擎不是express 实现的，实际上express仅仅只是做了调用；这里有个通用的支持各种模板引擎的模块<a href="https://github.com/tj/consolidate.js" target="_blank" rel="noopener">consolidate.js</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cons = <span class="built_in">require</span>(<span class="string">'consolidate'</span>)</span><br><span class="line">  , name = <span class="string">'swig'</span>;</span><br><span class="line"></span><br><span class="line">cons[name](<span class="string">'views/page.html'</span>, &#123; <span class="attr">user</span>: <span class="string">'tobi'</span> &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err, html</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line">  <span class="built_in">console</span>.log(html);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>express要做的只是配置与调用；</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// express设置属性</span></span><br><span class="line">app.set = <span class="function"><span class="keyword">function</span>(<span class="params">key, value</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.settings.hasOwnProperty(key))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.settings[key];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.settings[key] = value;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">app.engine = <span class="function"><span class="keyword">function</span>(<span class="params">engine</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.settings[<span class="string">'engine'</span>] = engine;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>通过这两个函数设置views视图所在的路径、模板引擎类型，之后express就可以结合router提供的render page，data，render callback的数据进行视图渲染</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">app.render = <span class="function"><span class="keyword">function</span> (<span class="params">name, options, fn</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> cacheTemplate = <span class="keyword">this</span>.cache[name];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> view = cacheTemplate || <span class="keyword">new</span> View(name, &#123;</span><br><span class="line">        root: process.cwd(),</span><br><span class="line">        viewPath: <span class="keyword">this</span>.settings[<span class="string">'views'</span>],</span><br><span class="line">        engine: <span class="keyword">this</span>.settings[<span class="string">'engine'</span>]</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!cacheTemplate &amp;&amp; <span class="keyword">this</span>.settings[<span class="string">'view cache'</span>])&#123;</span><br><span class="line">        <span class="keyword">this</span>.cache[name] = view;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    view.render(options, fn);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// View.js 简化</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">View</span>(<span class="params">page, config</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'view 初始化'</span>);</span><br><span class="line">    <span class="keyword">this</span>.engine = config.engine || <span class="string">'ejs'</span>;</span><br><span class="line">    <span class="keyword">this</span>.templatePath = path.join(config.root, config.viewPath, page);</span><br><span class="line">    <span class="keyword">this</span>.lookup();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//检测模板是否存在</span></span><br><span class="line">View.prototype.lookup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!fs.existsSync(<span class="keyword">this</span>.templatePath))&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'模板没有找到'</span>);</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'模板没有找到'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">View.prototype.render = <span class="function"><span class="keyword">function</span> (<span class="params">options, fn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> templatePath= <span class="keyword">this</span>.templatePath;</span><br><span class="line">    <span class="comment">// 调用模板引擎完成渲染</span></span><br><span class="line">    <span class="keyword">return</span> cons[<span class="keyword">this</span>.engine](templatePath, options, fn);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>为了性能考虑还做了cache；关于模板引擎，实际上很简单，读者可以自定一个模板引擎规则。</p>
+<h2 id="静态文件服务"><a href="#静态文件服务" class="headerlink" title="静态文件服务"></a>静态文件服务</h2><p>静态文件服务也是一个中间件，express做的事情也仅仅是引用。require一个serve-static，内置在app函数上。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.static = <span class="function"><span class="keyword">function</span> (<span class="params">dir</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.use(serveStatic(process.cwd() + <span class="string">'/'</span> + dir), &#123;&#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>当调用app.static时就会把静态文件服务中间件放入stack中，这里与express调用方式稍有不同，因为笔者觉得这么写更好更简单。</p>
+<h2 id="简单实现："><a href="#简单实现：" class="headerlink" title="简单实现："></a>简单实现：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">/**仿照express实现中间件的功能  Created by haoxin on 2018/7/9.*/</span><br><span class="line">var http = require(&apos;http&apos;);</span><br><span class="line">  var express = () =&gt; &#123;</span><br><span class="line">  var funcs = []; // 待执行的函数数组</span><br><span class="line">  var app = (req, res) =&gt; &#123;</span><br><span class="line">      var i = 0;</span><br><span class="line">  var next = () =&gt; &#123;</span><br><span class="line">      var task = funcs[i++];  // 取出函数数组里的下一个函数</span><br><span class="line">      if (!task) &#123;    // 如果函数不存在,return</span><br><span class="line">          return;</span><br><span class="line">      &#125;</span><br><span class="line">      task(req, res, next);   // 否则,执行下一个函数</span><br><span class="line">  &#125;  </span><br><span class="line">  next();</span><br><span class="line">  &#125;</span><br><span class="line">  /**</span><br><span class="line">  * use方法就是把函数添加到函数数组中</span><br><span class="line">  * @param task</span><br><span class="line">  */</span><br><span class="line">    app.use = (task) =&gt; &#123;</span><br><span class="line">    funcs.push(task);</span><br><span class="line">    &#125;</span><br><span class="line">  return app;    // 返回实例</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">// 下面是测试case</span><br><span class="line">var app = express();</span><br><span class="line">http.createServer(app).listen(&apos;3000&apos;, () =&gt; &#123;</span><br><span class="line">    console.log(&apos;listening 3000....&apos;);</span><br><span class="line">&#125;);</span><br><span class="line">const middlewareA = (req, res, next) =&gt; &#123;</span><br><span class="line">    if(req.url!==&quot;/favicon.ico&quot;) &#123;  //防止重复请求</span><br><span class="line">        console.log(&apos;middlewareA before next()&apos;);</span><br><span class="line">        next();</span><br><span class="line">        console.log(&apos;middlewareA after next()&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    res.end();</span><br><span class="line">&#125;</span><br><span class="line">const middlewareB = (req, res, next) =&gt; &#123;</span><br><span class="line">    console.log(&apos;middlewareB before next()&apos;);</span><br><span class="line">    next();</span><br><span class="line">    console.log(&apos;middlewareB after next()&apos;);</span><br><span class="line">&#125;</span><br><span class="line">const middlewareC = (req, res, next) =&gt; &#123;</span><br><span class="line">    console.log(&apos;middlewareC before next()&apos;);</span><br><span class="line">    next();</span><br><span class="line">    console.log(&apos;middlewareC after next()&apos;);</span><br><span class="line">&#125;</span><br><span class="line">app.use(middlewareA);</span><br><span class="line">app.use(middlewareB);</span><br><span class="line">app.use(middlewareC);</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdn.net/20180710000737469?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BweDIwMTc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p><a href="https://blog.csdn.net/ppx2017/article/details/80967690" target="_blank" rel="noopener">https://blog.csdn.net/ppx2017/article/details/80967690</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/56947560" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/56947560</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    CatcherInSky
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/08/11/express/" title>http://yoursite.com/2019/08/11/express/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/11/interview_secure/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/19/LeetCode/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CatcherInSky">
+            
+              <p class="site-author-name" itemprop="name">CatcherInSky</p>
+              <p class="site-description motion-element" itemprop="description">CatcherInSky的前端知识库</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CatcherInSky" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhangchunxiang98@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Express"><span class="nav-number">1.</span> <span class="nav-text">Express</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#express构造的是Http-createServer的回调函数"><span class="nav-number">1.1.</span> <span class="nav-text">express构造的是Http.createServer的回调函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最为核心的中间件框架"><span class="nav-number">1.2.</span> <span class="nav-text">最为核心的中间件框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步串行流程控制"><span class="nav-number">1.3.</span> <span class="nav-text">异步串行流程控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Router是一个内置在app函数上的中间件"><span class="nav-number">1.4.</span> <span class="nav-text">Router是一个内置在app函数上的中间件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图-模板引擎"><span class="nav-number">1.5.</span> <span class="nav-text">视图-模板引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态文件服务"><span class="nav-number">1.6.</span> <span class="nav-text">静态文件服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单实现："><span class="nav-number">1.7.</span> <span class="nav-text">简单实现：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="beian"><a href="https://beian.miit.gov.cn" rel="noopener" target="_blank">粤ICP备2025479727号</a></div>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CatcherInSky</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
